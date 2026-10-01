@@ -1,0 +1,86 @@
+@layer base {
+    html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+        overflow-x: clip;
+        scroll-padding-top: 6rem;
+        color-scheme: light;
+    }
+
+    body {
+        overflow-x: clip;
+        background-color: var(--color-moonlight);
+        color: var(--color-night);
+        font-family: var(--font-sans);
+        font-size: 1.0625rem;
+        line-height: 1.6;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        text-wrap: balance;
+        overflow-wrap: break-word;
+        hyphens: manual;
+    }
+
+    p {
+        text-wrap: pretty;
+    }
+
+    ::selection {
+        background-color: var(--color-beam);
+        color: var(--color-night);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-beam);
+        outline-offset: 3px;
+        border-radius: 6px;
+    }
+
+    img,
+    svg,
+    canvas {
+        display: block;
+        max-width: 100%;
+    }
+
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: color-mix(in srgb, var(--color-night) 30%, transparent) transparent;
+    }
+
+    [data-tone='dark'] {
+        color-scheme: dark;
+        scrollbar-color: color-mix(in srgb, var(--color-moonlight) 30%, transparent) transparent;
+    }
+}
+
+/* Lenis smooth scroll (only active on fine pointers without reduced motion). */
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+    overflow: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}

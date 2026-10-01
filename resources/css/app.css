@@ -1,9 +1,65 @@
 @import 'tailwindcss';
+@import './tokens.css';
+@import './base.css';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+@source '../views';
+@source '../js';
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+/* Outlined display numerals (01 / 02 / 03). */
+@utility text-outline {
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1.5px currentColor;
+    paint-order: stroke fill;
+}
+
+/* Film grain for night regions: a nod to the cinema-poster brief. */
+@utility grain {
+    position: relative;
+    isolation: isolate;
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.07;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+}
+
+/* Perforated ticket edges: round holes punched on both sides. */
+@utility ticket-punch {
+    --punch: 11px;
+    --punch-y: 62%;
+    mask:
+        radial-gradient(circle var(--punch) at 0 var(--punch-y), transparent 98%, #000) left / 51% 100% no-repeat,
+        radial-gradient(circle var(--punch) at 100% var(--punch-y), transparent 98%, #000) right / 51% 100% no-repeat;
+}
+
+/* Postage stamp scalloped edge. */
+@utility stamp-edge {
+    padding: 7px;
+    mask:
+        linear-gradient(#000 0 0) content-box,
+        radial-gradient(circle 4px at 50% 50%, #0000 92%, #000) -6px -6px / 12px 12px round;
+}
+
+/* Semi-transparent tape strip (no image). */
+@utility tape {
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-moonlight) 55%, transparent),
+        color-mix(in srgb, var(--color-beam-glow) 38%, transparent)
+    );
+    box-shadow: 0 1px 2px rgb(6 17 33 / 0.12);
+    backdrop-filter: blur(1px);
+    clip-path: polygon(2% 0, 98% 4%, 100% 50%, 97% 100%, 3% 96%, 0 52%);
+}
+
+@utility press {
+    transition: transform 140ms var(--ease-snap);
+    &:active {
+        transform: scale(0.97);
+    }
 }

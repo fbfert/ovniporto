@@ -3,8 +3,13 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "build": "vite build && vite build --ssr",
+        "build:client": "vite build",
+        "typecheck": "tsc --noEmit",
+        "lint": "eslint resources/js && tsc --noEmit && prettier --check \"resources/js/**/*.{ts,tsx}\" \"resources/css/**/*.css\"",
+        "format": "prettier --write \"resources/js/**/*.{ts,tsx}\" \"resources/css/**/*.css\"",
+        "ssr": "node bootstrap/ssr/ssr.js"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
