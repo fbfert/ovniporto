@@ -74,10 +74,15 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                             type="button"
                             onClick={onClose}
                             aria-label={t.nav.closeMenu}
-                            className="press inline-flex size-11 items-center justify-center rounded-full border border-moonlight/30"
+                            className="inline-flex size-11 press items-center justify-center rounded-full border border-moonlight/30"
                         >
                             <svg viewBox="0 0 24 24" className="size-5" fill="none" aria-hidden>
-                                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                                <path
+                                    d="M6 6l12 12M18 6L6 18"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                />
                             </svg>
                         </button>
                     </div>

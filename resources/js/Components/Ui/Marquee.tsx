@@ -9,7 +9,13 @@ function Bunting() {
         <svg aria-hidden className="absolute inset-x-0 -top-[18px] h-7 w-full" preserveAspectRatio="none">
             <defs>
                 <pattern id={id} width="152" height="28" patternUnits="userSpaceOnUse">
-                    <path d="M0 3 Q76 9 152 3" stroke="var(--color-night)" strokeOpacity="0.55" strokeWidth="1.2" fill="none" />
+                    <path
+                        d="M0 3 Q76 9 152 3"
+                        stroke="var(--color-night)"
+                        strokeOpacity="0.55"
+                        strokeWidth="1.2"
+                        fill="none"
+                    />
                     {FLAG_COLORS.map((color, i) => (
                         <path key={i} d={`M${6 + i * 38} 4 L${32 + i * 38} 4.5 L${19 + i * 38} 26 Z`} fill={color} />
                     ))}
@@ -36,7 +42,15 @@ function Saucer() {
  * Endless strip, slightly tilted and wider than the screen so its ends never
  * show. Pauses on hover; becomes a static centered line with reduced motion.
  */
-export function Marquee({ items, speed = 'normal', tilt = -1.5 }: { items: readonly string[]; speed?: 'slow' | 'normal'; tilt?: number }) {
+export function Marquee({
+    items,
+    speed = 'normal',
+    tilt = -1.5,
+}: {
+    items: readonly string[];
+    speed?: 'slow' | 'normal';
+    tilt?: number;
+}) {
     const run = (
         <span className="flex shrink-0 items-center">
             {items.map((item) => (

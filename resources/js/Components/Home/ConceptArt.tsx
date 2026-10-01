@@ -14,7 +14,12 @@ export function RunwayConceptArt() {
         { x: 660, y: 362, r: 28 },
     ];
     return (
-        <svg viewBox="0 0 800 450" role="img" aria-label="Ilustração conceitual da pista de pouso de pedra à noite" className="h-full w-full">
+        <svg
+            viewBox="0 0 800 450"
+            role="img"
+            aria-label="Ilustração conceitual da pista de pouso de pedra à noite"
+            className="h-full w-full"
+        >
             <defs>
                 <radialGradient id="concept-sky" cx="50%" cy="0%" r="100%">
                     <stop offset="0%" stopColor="var(--color-night-blue)" />
@@ -37,7 +42,10 @@ export function RunwayConceptArt() {
                 />
             ))}
             <rect y="150" width="800" height="160" fill="url(#concept-haze)" />
-            <path d="M0 300 C140 270 260 296 400 290 C540 284 660 262 800 276 L800 450 L0 450 Z" fill="var(--color-night-blue)" />
+            <path
+                d="M0 300 C140 270 260 296 400 290 C540 284 660 262 800 276 L800 450 L0 450 Z"
+                fill="var(--color-night-blue)"
+            />
             <g transform="translate(110 296)">
                 <AraucariaShape height={150} seed={4} />
             </g>

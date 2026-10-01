@@ -10,7 +10,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property int $id
+ * @property SightingType $type
+ * @property SightingStatus $status
+ * @property string $description
+ * @property Carbon $observed_date
+ * @property string|null $place_label
+ * @property string $public_nickname
+ * @property float $lat
+ * @property float $lng
+ * @property Carbon $consent_given_at
+ * @property Carbon|null $published_at
+ * @property bool $is_demo
+ */
 class Sighting extends Model
 {
     /** @use HasFactory<SightingFactory> */

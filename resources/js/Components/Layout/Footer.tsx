@@ -24,7 +24,7 @@ export function Footer() {
                     </svg>
                 </div>
 
-                <Eyebrow tone="dark" className="text-center text-[clamp(2.2rem,1.4rem+3.6vw,4.4rem)]! rotate-[-3deg]!">
+                <Eyebrow tone="dark" className="rotate-[-3deg]! text-center text-[clamp(2.2rem,1.4rem+3.6vw,4.4rem)]!">
                     {t.brand.signoff}
                 </Eyebrow>
 
@@ -32,7 +32,9 @@ export function Footer() {
                     <div className="flex items-start gap-4">
                         <Seal size="md" className="size-20! shrink-0" />
                         <div>
-                            <p className="font-display text-xl font-extrabold tracking-[0.04em] uppercase">{t.brand.name}</p>
+                            <p className="font-display text-xl font-extrabold tracking-[0.04em] uppercase">
+                                {t.brand.name}
+                            </p>
                             <p className="mt-1 text-moonlight/75">{t.brand.tagline}</p>
                             <p className="mt-1 font-script text-xl text-beam-glow">{t.brand.city}</p>
                         </div>
@@ -44,7 +46,10 @@ export function Footer() {
                         <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-1 md:grid-cols-1">
                             {allLinks.map((link) => (
                                 <li key={link.href}>
-                                    <Link href={link.href} className="inline-flex min-h-9 items-center text-moonlight/85 hover:text-beam-glow">
+                                    <Link
+                                        href={link.href}
+                                        className="inline-flex min-h-9 items-center text-moonlight/85 hover:text-beam-glow"
+                                    >
                                         {link.label}
                                     </Link>
                                 </li>
@@ -58,7 +63,10 @@ export function Footer() {
                         <ul className="mt-4 space-y-1">
                             <li>
                                 {whatsapp ? (
-                                    <a href={whatsapp} className="inline-flex min-h-9 items-center hover:text-beam-glow">
+                                    <a
+                                        href={whatsapp}
+                                        className="inline-flex min-h-9 items-center hover:text-beam-glow"
+                                    >
                                         WhatsApp
                                     </a>
                                 ) : (
@@ -69,7 +77,10 @@ export function Footer() {
                             </li>
                             <li>
                                 {instagram ? (
-                                    <a href={instagram} className="inline-flex min-h-9 items-center hover:text-beam-glow">
+                                    <a
+                                        href={instagram}
+                                        className="inline-flex min-h-9 items-center hover:text-beam-glow"
+                                    >
                                         Instagram
                                     </a>
                                 ) : (
@@ -79,7 +90,10 @@ export function Footer() {
                                 )}
                             </li>
                             <li>
-                                <a href={`mailto:${email}`} className="inline-flex min-h-9 items-center break-all hover:text-beam-glow">
+                                <a
+                                    href={`mailto:${email}`}
+                                    className="inline-flex min-h-9 items-center break-all hover:text-beam-glow"
+                                >
                                     {email}
                                 </a>
                             </li>
@@ -90,7 +104,12 @@ export function Footer() {
                 <div className="mt-14 flex flex-col gap-4 border-t border-moonlight/12 pt-6 text-sm text-moonlight/70 md:flex-row md:items-center md:justify-between">
                     <p>
                         {t.brand.location} ·{' '}
-                        <a href={MAP_URL} target="_blank" rel="noopener noreferrer" className="underline decoration-moonlight/40 underline-offset-4 hover:text-beam-glow">
+                        <a
+                            href={MAP_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline decoration-moonlight/40 underline-offset-4 hover:text-beam-glow"
+                        >
                             {t.footer.map}
                         </a>
                     </p>
@@ -103,7 +122,12 @@ export function Footer() {
                         </Link>
                         <span>
                             {t.footer.madeBy}{' '}
-                            <a href="https://xiax.com.br" target="_blank" rel="noopener noreferrer" className="font-semibold text-moonlight hover:text-beam-glow">
+                            <a
+                                href="https://xiax.com.br"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-semibold text-moonlight hover:text-beam-glow"
+                            >
                                 Xiax
                             </a>
                         </span>

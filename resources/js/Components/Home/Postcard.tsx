@@ -10,7 +10,11 @@ import type { SharedProps } from '@/types';
 function Postmark() {
     const id = `postmark-${useId().replace(/:/g, '')}`;
     return (
-        <svg aria-hidden viewBox="0 0 120 120" className="absolute -top-4 right-16 w-28 -rotate-12 text-horizon opacity-80 mix-blend-multiply sm:right-24">
+        <svg
+            aria-hidden
+            viewBox="0 0 120 120"
+            className="absolute -top-4 right-16 w-28 -rotate-12 text-horizon opacity-80 mix-blend-multiply sm:right-24"
+        >
             <defs>
                 <path id={id} d="M 60 60 m -40 0 a 40 40 0 1 1 80 0 a 40 40 0 1 1 -80 0" />
             </defs>
@@ -19,11 +23,25 @@ function Postmark() {
             <text fill="currentColor" fontFamily="var(--font-display)" fontWeight="800" fontSize="11" letterSpacing="3">
                 <textPath href={`#${id}`}>LAGES · SC · LAGES · SC ·</textPath>
             </text>
-            <text x="60" y="64" textAnchor="middle" fill="currentColor" fontFamily="var(--font-script)" fontSize="16" fontWeight="600">
+            <text
+                x="60"
+                y="64"
+                textAnchor="middle"
+                fill="currentColor"
+                fontFamily="var(--font-script)"
+                fontSize="16"
+                fontWeight="600"
+            >
                 2028
             </text>
             {[0, 1, 2, 3].map((i) => (
-                <path key={i} d={`M118 ${44 + i * 10} C 140 ${40 + i * 10} 160 ${48 + i * 10} 190 ${44 + i * 10}`} stroke="currentColor" strokeWidth="2" fill="none" />
+                <path
+                    key={i}
+                    d={`M118 ${44 + i * 10} C 140 ${40 + i * 10} 160 ${48 + i * 10} 190 ${44 + i * 10}`}
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="none"
+                />
             ))}
         </svg>
     );
@@ -52,10 +70,12 @@ export function Postcard() {
                         <div className="w-24 shrink-0 -rotate-6 sm:w-32">
                             <SealArt title="Selo OVNIPORTO no postal" />
                         </div>
-                        <p className="font-script text-[1.45rem] leading-snug text-night/85">{t.community.postcardMessage}</p>
+                        <p className="font-script text-[1.45rem] leading-snug text-night/85">
+                            {t.community.postcardMessage}
+                        </p>
                     </div>
                     <div className="relative border-night/15 sm:border-l-2 sm:border-dashed sm:pl-6">
-                        <div className="stamp-edge ml-auto flex size-24 items-center justify-center bg-car">
+                        <div className="ml-auto flex size-24 items-center justify-center bg-car stamp-edge">
                             <div className="flex h-full w-full items-center justify-center bg-night-blue">
                                 <svg viewBox="-120 -60 240 100" className="w-16" aria-hidden>
                                     <SaucerShape />

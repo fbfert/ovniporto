@@ -16,7 +16,7 @@ export function Eyebrow({
 }) {
     return (
         <Tag
-            className={`font-script text-[clamp(1.5rem,1.2rem+1.2vw,2.1rem)] leading-none font-semibold -rotate-2 ${
+            className={`-rotate-2 font-script text-[clamp(1.5rem,1.2rem+1.2vw,2.1rem)] leading-none font-semibold ${
                 tone === 'dark' ? 'text-beam-glow' : 'text-horizon'
             } ${className}`}
         >
@@ -65,10 +65,19 @@ const badgeTones: Record<BadgeTone, string> = {
     beam: 'bg-beam/15 text-night ring-beam/50 [[data-tone=dark]_&]:text-beam-glow',
     car: 'bg-car text-night ring-night/10',
     horizon: 'bg-horizon text-moonlight ring-moonlight/20',
-    neutral: 'bg-night/6 text-night/75 ring-night/15 [[data-tone=dark]_&]:bg-moonlight/10 [[data-tone=dark]_&]:text-moonlight/80 [[data-tone=dark]_&]:ring-moonlight/20',
+    neutral:
+        'bg-night/6 text-night/75 ring-night/15 [[data-tone=dark]_&]:bg-moonlight/10 [[data-tone=dark]_&]:text-moonlight/80 [[data-tone=dark]_&]:ring-moonlight/20',
 };
 
-export function Badge({ children, tone = 'neutral', className = '' }: { children: ReactNode; tone?: BadgeTone; className?: string }) {
+export function Badge({
+    children,
+    tone = 'neutral',
+    className = '',
+}: {
+    children: ReactNode;
+    tone?: BadgeTone;
+    className?: string;
+}) {
     return (
         <span
             className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.72rem] leading-none font-semibold ring-1 ring-inset ${badgeTones[tone]} ${className}`}

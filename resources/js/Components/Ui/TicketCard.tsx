@@ -26,7 +26,7 @@ export function TicketCard({
 }) {
     const card = (
         <article
-            className={`group/ticket ticket-punch relative flex h-full flex-col bg-night-blue text-moonlight transition-transform duration-300 ease-snap [--punch-y:66%] [@media(hover:hover)]:hover:-translate-y-1.5 ${className}`}
+            className={`group/ticket relative flex h-full flex-col bg-night-blue text-moonlight transition-transform duration-300 ease-snap ticket-punch [--punch-y:66%] [@media(hover:hover)]:hover:-translate-y-1.5 ${className}`}
             style={{ borderRadius: '18px' }}
         >
             <div className="relative aspect-[4/3] overflow-hidden rounded-t-[18px]">

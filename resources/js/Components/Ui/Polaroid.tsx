@@ -38,10 +38,10 @@ export function Polaroid({
             className={`relative bg-moonlight p-3 pb-0 text-night shadow-polaroid ${className}`}
         >
             {tape === 'top' && (
-                <span aria-hidden className="tape absolute -top-3 left-1/2 z-10 h-7 w-24 -translate-x-1/2 -rotate-3" />
+                <span aria-hidden className="absolute -top-3 left-1/2 z-10 h-7 w-24 -translate-x-1/2 -rotate-3 tape" />
             )}
             {tape === 'corner' && (
-                <span aria-hidden className="tape absolute -top-2 -right-5 z-10 h-6 w-20 rotate-[38deg]" />
+                <span aria-hidden className="absolute -top-2 -right-5 z-10 h-6 w-20 rotate-[38deg] tape" />
             )}
             <div className={`relative overflow-hidden bg-night ${imageClassName}`}>
                 {src ? (
@@ -49,7 +49,10 @@ export function Polaroid({
                 ) : (
                     art
                 )}
-                <span aria-hidden className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgb(6_17_33/0.25)]" />
+                <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgb(6_17_33/0.25)]"
+                />
             </div>
             <figcaption className="flex min-h-16 items-center justify-center px-1 py-3 text-center font-script text-[1.35rem] leading-tight">
                 {caption}
@@ -80,7 +83,9 @@ export function NightSkyArt({ label, seed = 1 }: { label?: string; seed?: number
             ))}
             <span className="absolute inset-x-0 bottom-0 h-1/4 bg-[linear-gradient(to_top,rgb(73_67_131/0.5),transparent)]" />
             {label && (
-                <span className="absolute bottom-3 left-3 font-script text-2xl leading-none text-moonlight/90">{label}</span>
+                <span className="absolute bottom-3 left-3 font-script text-2xl leading-none text-moonlight/90">
+                    {label}
+                </span>
             )}
         </div>
     );

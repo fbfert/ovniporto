@@ -2,7 +2,17 @@ import { Link } from '@inertiajs/react';
 import type { ReactNode } from 'react';
 
 /** Short fact, like a field on a boarding pass: tiny tracked label above a value. */
-export function InfoCard({ label, value, href, extra }: { label: string; value: ReactNode; href?: string; extra?: ReactNode }) {
+export function InfoCard({
+    label,
+    value,
+    href,
+    extra,
+}: {
+    label: string;
+    value: ReactNode;
+    href?: string;
+    extra?: ReactNode;
+}) {
     const inner = (
         <>
             <dt className="text-[0.7rem] font-semibold tracking-[0.12em] text-night/60 uppercase">{label}</dt>

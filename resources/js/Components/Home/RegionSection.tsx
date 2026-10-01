@@ -34,10 +34,19 @@ export function RegionSection({ partners, contactEmail }: { partners: PartnerCar
                                 className="group flex items-center gap-4 rounded-[22px] bg-moonlight p-3 ring-1 ring-night/10 transition-shadow duration-300 ease-snap hover:shadow-lift"
                             >
                                 <div className="size-24 shrink-0 overflow-hidden rounded-2xl bg-night-blue">
-                                    {partner.cover && <img src={partner.cover} alt="" loading="lazy" className="h-full w-full object-cover" />}
+                                    {partner.cover && (
+                                        <img
+                                            src={partner.cover}
+                                            alt=""
+                                            loading="lazy"
+                                            className="h-full w-full object-cover"
+                                        />
+                                    )}
                                 </div>
                                 <div className="min-w-0">
-                                    <p className="truncate font-display text-base font-bold tracking-[0.03em] uppercase">{partner.name}</p>
+                                    <p className="truncate font-display text-base font-bold tracking-[0.03em] uppercase">
+                                        {partner.name}
+                                    </p>
                                     <p className="mt-1 text-sm text-night/70">
                                         {t.region.types[partner.type] ?? partner.type} · {partner.city}
                                     </p>
@@ -54,7 +63,12 @@ export function RegionSection({ partners, contactEmail }: { partners: PartnerCar
             ) : (
                 <Reveal className="mt-12">
                     <div className="relative overflow-hidden rounded-[26px] bg-moonlight px-6 py-12 ring-1 ring-night/10 sm:px-12">
-                        <svg aria-hidden viewBox="0 0 600 200" className="absolute right-0 bottom-0 h-full w-auto text-night/[0.07]" preserveAspectRatio="xMaxYMax meet">
+                        <svg
+                            aria-hidden
+                            viewBox="0 0 600 200"
+                            className="absolute right-0 bottom-0 h-full w-auto text-night/[0.07]"
+                            preserveAspectRatio="xMaxYMax meet"
+                        >
                             <g transform="translate(420 200)">
                                 <AraucariaShape height={190} seed={5} fill="currentColor" />
                             </g>

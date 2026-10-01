@@ -16,7 +16,11 @@ export default function Error({ status }: { status: number }) {
             <Head title={`${status}`} />
             <main>
                 <NightBanner tall>
-                    <svg aria-hidden viewBox="-90 -80 180 90" className="mx-auto w-40 -rotate-[24deg] animate-hover-bob motion-reduce:animate-none">
+                    <svg
+                        aria-hidden
+                        viewBox="-90 -80 180 90"
+                        className="mx-auto w-40 -rotate-[24deg] animate-hover-bob motion-reduce:animate-none"
+                    >
                         <YellowCarShape headlights />
                     </svg>
                     <Eyebrow tone="dark" className="mt-8">

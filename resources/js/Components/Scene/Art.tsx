@@ -27,11 +27,24 @@ export function YellowCarShape({ headlights = false }: { headlights?: boolean })
                 fill={C.car}
             />
             {/* roof shine */}
-            <path d="M-20 -58 C-8 -62 10 -62 22 -58" stroke={C.moonlight} strokeOpacity={0.55} strokeWidth={2.5} fill="none" strokeLinecap="round" />
+            <path
+                d="M-20 -58 C-8 -62 10 -62 22 -58"
+                stroke={C.moonlight}
+                strokeOpacity={0.55}
+                strokeWidth={2.5}
+                fill="none"
+                strokeLinecap="round"
+            />
             {/* windows */}
             <path d="M-34 -38 C-26 -52 -12 -57 2 -57 L2 -38 Z" fill={C.nightBlue} />
             <path d="M8 -57 C24 -56 36 -50 43 -38 L8 -38 Z" fill={C.nightBlue} />
-            <path d="M-30 -42 L-22 -52" stroke={C.beamGlow} strokeOpacity={0.35} strokeWidth={2} strokeLinecap="round" />
+            <path
+                d="M-30 -42 L-22 -52"
+                stroke={C.beamGlow}
+                strokeOpacity={0.35}
+                strokeWidth={2}
+                strokeLinecap="round"
+            />
             {/* door line, handle, running board */}
             <path d="M5 -38 L5 -16" stroke={C.night} strokeOpacity={0.35} strokeWidth={1.5} />
             <rect x={14} y={-33} width={8} height={2.4} rx={1.2} fill={C.night} opacity={0.5} />
@@ -58,7 +71,14 @@ export function SaucerShape({ lightsClassName = '' }: { lightsClassName?: string
         <g>
             <ellipse cx={0} cy={16} rx={46} ry={9} fill={C.beam} opacity={0.55} />
             <path d="M-50 -6 C-46 -52 46 -52 50 -6 Z" fill={C.beamGlow} opacity={0.9} />
-            <path d="M-36 -14 C-30 -40 4 -46 14 -40" stroke={C.moonlight} strokeOpacity={0.8} strokeWidth={3} fill="none" strokeLinecap="round" />
+            <path
+                d="M-36 -14 C-30 -40 4 -46 14 -40"
+                stroke={C.moonlight}
+                strokeOpacity={0.8}
+                strokeWidth={3}
+                fill="none"
+                strokeLinecap="round"
+            />
             <ellipse cx={0} cy={0} rx={110} ry={22} fill={C.nightBlue} />
             <ellipse cx={0} cy={-4} rx={110} ry={16} fill={C.moonlight} opacity={0.92} />
             <ellipse cx={0} cy={-6} rx={78} ry={9} fill={C.moonlight} />
@@ -110,7 +130,10 @@ export function AraucariaShape({ height, fill = C.night, seed = 1 }: { height: n
 
     return (
         <g>
-            <path d={`M-${h * 0.016} 0 L-${h * 0.009} ${-h * 0.97} L${h * 0.009} ${-h * 0.97} L${h * 0.016} 0 Z`} fill={fill} />
+            <path
+                d={`M-${h * 0.016} 0 L-${h * 0.009} ${-h * 0.97} L${h * 0.009} ${-h * 0.97} L${h * 0.016} 0 Z`}
+                fill={fill}
+            />
             <path d={branches.join(' ')} stroke={fill} strokeWidth={stroke} fill="none" strokeLinecap="round" />
             {tufts.map((t, i) => (
                 <ellipse key={i} cx={t.x} cy={t.y} rx={t.rx} ry={t.ry} fill={fill} />

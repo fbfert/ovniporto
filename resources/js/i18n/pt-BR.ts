@@ -108,7 +108,8 @@ export const t = {
         instagram: 'Instagram',
         linkSoon: 'link em breve',
         waitlistTitle: 'Avise-me da campanha',
-        waitlistLead: 'A arrecadação para a pista só abre quando o orçamento estiver pronto. Deixe o e-mail e a torre avisa.',
+        waitlistLead:
+            'A arrecadação para a pista só abre quando o orçamento estiver pronto. Deixe o e-mail e a torre avisa.',
         emailLabel: 'Seu e-mail',
         emailPlaceholder: 'voce@exemplo.com',
         consent: 'Quero receber um e-mail quando a campanha abrir. Posso sair quando quiser.',

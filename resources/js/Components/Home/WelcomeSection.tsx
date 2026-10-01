@@ -17,7 +17,9 @@ export function WelcomeSection({ intro, sightingsCount }: { intro: string; sight
                 <Display as="h1" id="boas-vindas" className="mt-3 -mr-[0.04em]">
                     {t.brand.name}
                 </Display>
-                <p className="mt-4 text-[clamp(1.05rem,0.95rem+0.5vw,1.35rem)] font-semibold text-horizon">{t.brand.tagline}</p>
+                <p className="mt-4 text-[clamp(1.05rem,0.95rem+0.5vw,1.35rem)] font-semibold text-horizon">
+                    {t.brand.tagline}
+                </p>
                 <p className="mx-auto mt-8 max-w-[62ch] text-[1.075rem] leading-relaxed text-night/80">{intro}</p>
             </Reveal>
 

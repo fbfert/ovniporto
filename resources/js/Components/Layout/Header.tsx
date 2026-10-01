@@ -100,7 +100,7 @@ export function Header() {
                             aria-controls="mobile-menu"
                             aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}
                             onClick={() => setMenuOpen(true)}
-                            className="press inline-flex size-11 items-center justify-center rounded-full lg:hidden"
+                            className="inline-flex size-11 press items-center justify-center rounded-full lg:hidden"
                             id="menu-trigger"
                         >
                             <svg viewBox="0 0 24 24" className="size-6" fill="none" aria-hidden>

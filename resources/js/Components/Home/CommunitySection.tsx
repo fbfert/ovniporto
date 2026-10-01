@@ -43,14 +43,18 @@ export function CommunitySection({ whatsapp, instagram }: { whatsapp: string; in
             <div className="mt-14 grid gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20">
                 <Reveal>
                     <div className="rounded-[26px] bg-night-blue/70 p-6 ring-1 ring-moonlight/10 sm:p-8">
-                        <h3 className="font-display text-xl font-bold tracking-[0.03em] uppercase">{t.community.waitlistTitle}</h3>
+                        <h3 className="font-display text-xl font-bold tracking-[0.03em] uppercase">
+                            {t.community.waitlistTitle}
+                        </h3>
                         <p className="mt-2 mb-6 max-w-[46ch] text-moonlight/75">{t.community.waitlistLead}</p>
                         <WaitlistForm />
                     </div>
                 </Reveal>
 
                 <Reveal>
-                    <h3 className="font-display text-xl font-bold tracking-[0.03em] uppercase">{t.community.postcardTitle}</h3>
+                    <h3 className="font-display text-xl font-bold tracking-[0.03em] uppercase">
+                        {t.community.postcardTitle}
+                    </h3>
                     <p className="mt-2 mb-10 text-moonlight/75">{t.community.postcardLead}</p>
                     <Postcard />
                 </Reveal>

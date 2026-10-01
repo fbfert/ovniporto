@@ -67,7 +67,13 @@ function Kit({ tone }: { tone: 'light' | 'dark' }) {
             </Row>
             <Row title="Campos">
                 <TextField tone={tone} label="E-mail" placeholder="voce@exemplo.com" className="w-72" />
-                <TextField tone={tone} label="Com erro" defaultValue="abc" error="Esse e-mail não parece certo." className="w-72" />
+                <TextField
+                    tone={tone}
+                    label="Com erro"
+                    defaultValue="abc"
+                    error="Esse e-mail não parece certo."
+                    className="w-72"
+                />
                 <CheckboxField tone={tone} label="Autorizo publicar este relato." />
             </Row>
         </>
@@ -83,7 +89,10 @@ export default function Styleguide() {
                 <Row title="Cores">
                     {swatches.map((name) => (
                         <div key={name} className="w-28">
-                            <div className="h-16 rounded-xl ring-1 ring-night/10" style={{ background: `var(--color-${name})` }} />
+                            <div
+                                className="h-16 rounded-xl ring-1 ring-night/10"
+                                style={{ background: `var(--color-${name})` }}
+                            />
                             <p className="mt-2 text-sm font-semibold">{name}</p>
                         </div>
                     ))}
@@ -97,7 +106,11 @@ export default function Styleguide() {
                 </Row>
                 <Row title="Polaroids">
                     <div className="w-56">
-                        <Polaroid rotate={-4} art={<NightSkyArt label="Luz" seed={2} />} caption="Luz · Lages · 12 set" />
+                        <Polaroid
+                            rotate={-4}
+                            art={<NightSkyArt label="Luz" seed={2} />}
+                            caption="Luz · Lages · 12 set"
+                        />
                     </div>
                     <div className="w-56">
                         <Polaroid rotate={3} tape="corner" art={<NightSkyArt seed={5} />} caption="Seu relato aqui" />

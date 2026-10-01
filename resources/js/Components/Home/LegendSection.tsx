@@ -8,7 +8,12 @@ import { t } from '@/i18n/pt-BR';
 
 function CarPortrait() {
     return (
-        <svg viewBox="0 0 400 300" role="img" aria-label="Ilustração provisória do carro amarelo da lenda" className="h-full w-full">
+        <svg
+            viewBox="0 0 400 300"
+            role="img"
+            aria-label="Ilustração provisória do carro amarelo da lenda"
+            className="h-full w-full"
+        >
             <rect width="400" height="300" fill="var(--color-night-blue)" />
             <path d="M150 0 L250 0 L320 300 L80 300 Z" fill="var(--color-beam)" opacity="0.16" />
             <path d="M185 0 L215 0 L250 300 L150 300 Z" fill="var(--color-beam-glow)" opacity="0.14" />

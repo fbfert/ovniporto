@@ -40,7 +40,12 @@ export function SouvenirsSection({ lead, products }: { lead: string; products: P
                             meta={product.madeToOrder ? t.store.madeToOrder(product.productionDays) : t.store.ready}
                             art={
                                 product.image ? (
-                                    <img src={product.image} alt={product.imageAlt ?? product.name} loading="lazy" className="h-full w-full object-cover" />
+                                    <img
+                                        src={product.image}
+                                        alt={product.imageAlt ?? product.name}
+                                        loading="lazy"
+                                        className="h-full w-full object-cover"
+                                    />
                                 ) : (
                                     <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_50%_40%,rgb(84_201_51/0.22),transparent_60%)]">
                                         <div className="w-[52%] -rotate-6 drop-shadow-[0_14px_20px_rgb(6_17_33/0.6)] transition-transform duration-500 ease-snap [@media(hover:hover)]:group-hover/ticket:rotate-0">
@@ -55,8 +60,12 @@ export function SouvenirsSection({ lead, products }: { lead: string; products: P
                 {Array.from({ length: stubs }, (_, i) => (
                     <RevealItem as="li" key={`stub-${i}`} className={i > 0 ? 'hidden lg:block' : ''}>
                         <div className="flex h-full min-h-72 flex-col items-center justify-center gap-2 rounded-[18px] border-2 border-dashed border-moonlight/20 p-8 text-center">
-                            <p className="font-script text-2xl text-beam-glow">{products.length === 0 ? t.store.empty : 'Próxima lembrança em produção'}</p>
-                            <p className="text-sm text-moonlight/60">Camiseta, caneca e Kit Abdução, feitos sob pedido.</p>
+                            <p className="font-script text-2xl text-beam-glow">
+                                {products.length === 0 ? t.store.empty : 'Próxima lembrança em produção'}
+                            </p>
+                            <p className="text-sm text-moonlight/60">
+                                Camiseta, caneca e Kit Abdução, feitos sob pedido.
+                            </p>
                         </div>
                     </RevealItem>
                 ))}

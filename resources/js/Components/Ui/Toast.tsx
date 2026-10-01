@@ -43,16 +43,24 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                             transition={{ duration: duration.ui + 0.08, ease: ease.snap }}
                             className="pointer-events-auto flex items-center gap-3 rounded-full bg-night-blue py-2 pr-2 pl-5 text-moonlight shadow-[0_18px_40px_-16px_rgb(6_17_33/0.8)] ring-1 ring-beam/40"
                         >
-                            <span aria-hidden className="size-2 rounded-full bg-beam shadow-[0_0_10px_var(--color-beam)]" />
+                            <span
+                                aria-hidden
+                                className="size-2 rounded-full bg-beam shadow-[0_0_10px_var(--color-beam)]"
+                            />
                             <span className="text-[0.95rem] font-medium">{toast.message}</span>
                             <button
                                 type="button"
                                 onClick={() => setToast(null)}
                                 aria-label={t.toast.close}
-                                className="press inline-flex size-9 items-center justify-center rounded-full hover:bg-moonlight/10"
+                                className="inline-flex size-9 press items-center justify-center rounded-full hover:bg-moonlight/10"
                             >
                                 <svg viewBox="0 0 24 24" className="size-4" fill="none" aria-hidden>
-                                    <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                                    <path
+                                        d="M6 6l12 12M18 6L6 18"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                    />
                                 </svg>
                             </button>
                         </motion.div>

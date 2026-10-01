@@ -18,7 +18,10 @@ interface CommonProps {
 }
 
 type AsLink = CommonProps & { href: string; external?: boolean; type?: never; onClick?: () => void };
-type AsButton = CommonProps & { href?: undefined } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'>;
+type AsButton = CommonProps & { href?: undefined } & Omit<
+        ButtonHTMLAttributes<HTMLButtonElement>,
+        'className' | 'children'
+    >;
 
 export type ButtonProps = AsLink | AsButton;
 
@@ -118,7 +121,13 @@ export function Button(props: ButtonProps) {
     /* eslint-enable @typescript-eslint/no-unused-vars */
 
     return (
-        <button type="button" {...rest} className={classes} aria-busy={loading || undefined} disabled={rest.disabled || loading}>
+        <button
+            type="button"
+            {...rest}
+            className={classes}
+            aria-busy={loading || undefined}
+            disabled={rest.disabled || loading}
+        >
             <Content {...props} />
         </button>
     );

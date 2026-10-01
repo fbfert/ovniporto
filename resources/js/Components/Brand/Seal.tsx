@@ -13,7 +13,13 @@ const sizes: Record<Size, string> = {
  * Provisional seal (the printed sticker), drawn in code until the real artwork
  * lands in public/brand/seal.svg. Text sits on circular paths in the brand fonts.
  */
-export function SealArt({ title = 'Selo OVNIPORTO · Lages SC', simplified = false }: { title?: string; simplified?: boolean }) {
+export function SealArt({
+    title = 'Selo OVNIPORTO · Lages SC',
+    simplified = false,
+}: {
+    title?: string;
+    simplified?: boolean;
+}) {
     const uid = useId().replace(/:/g, '');
     const top = `seal-top-${uid}`;
     const bottom = `seal-bottom-${uid}`;
@@ -40,7 +46,14 @@ export function SealArt({ title = 'Selo OVNIPORTO · Lages SC', simplified = fal
             </defs>
             <circle cx="120" cy="120" r="119" fill="var(--color-night)" />
             <circle cx="120" cy="120" r="113" fill="none" stroke="var(--color-beam)" strokeWidth="3.5" />
-            <circle cx="120" cy="120" r="66" fill={`url(#${sky})`} stroke="var(--color-moonlight)" strokeOpacity="0.25" />
+            <circle
+                cx="120"
+                cy="120"
+                r="66"
+                fill={`url(#${sky})`}
+                stroke="var(--color-moonlight)"
+                strokeOpacity="0.25"
+            />
 
             {!simplified && (
                 <>
@@ -71,32 +84,40 @@ export function SealArt({ title = 'Selo OVNIPORTO · Lages SC', simplified = fal
             )}
 
             <g clipPath={`url(#${clip})`}>
-            {/* tiny stars */}
-            {[
-                [88, 82, 1.2],
-                [150, 76, 1],
-                [160, 100, 1.4],
-                [80, 108, 0.9],
-                [128, 68, 0.8],
-            ].map(([x, y, r]) => (
-                <circle key={`${x}-${y}`} cx={x} cy={y} r={r} fill="var(--color-moonlight)" opacity="0.8" />
-            ))}
+                {/* tiny stars */}
+                {[
+                    [88, 82, 1.2],
+                    [150, 76, 1],
+                    [160, 100, 1.4],
+                    [80, 108, 0.9],
+                    [128, 68, 0.8],
+                ].map(([x, y, r]) => (
+                    <circle key={`${x}-${y}`} cx={x} cy={y} r={r} fill="var(--color-moonlight)" opacity="0.8" />
+                ))}
 
-            {/* beam from saucer to car */}
-            <path d="M110 100 L130 100 L146 156 L94 156 Z" fill={`url(#${beam})`} />
-            <g transform="translate(120 96) scale(0.24)">
-                <SaucerShape />
-            </g>
-            <path d="M58 158 C90 152 150 152 182 158 L182 186 L58 186 Z" fill="var(--color-night)" />
-            <g transform="translate(120 160) scale(0.24)">
-                <YellowCarShape />
-            </g>
+                {/* beam from saucer to car */}
+                <path d="M110 100 L130 100 L146 156 L94 156 Z" fill={`url(#${beam})`} />
+                <g transform="translate(120 96) scale(0.24)">
+                    <SaucerShape />
+                </g>
+                <path d="M58 158 C90 152 150 152 182 158 L182 186 L58 186 Z" fill="var(--color-night)" />
+                <g transform="translate(120 160) scale(0.24)">
+                    <YellowCarShape />
+                </g>
             </g>
         </svg>
     );
 }
 
-export function Seal({ size = 'md', glow = false, className = '' }: { size?: Size; glow?: boolean; className?: string }) {
+export function Seal({
+    size = 'md',
+    glow = false,
+    className = '',
+}: {
+    size?: Size;
+    glow?: boolean;
+    className?: string;
+}) {
     return (
         <span className={`relative inline-block ${sizes[size]} ${className}`}>
             {glow && (

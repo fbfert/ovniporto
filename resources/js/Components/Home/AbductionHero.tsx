@@ -150,8 +150,22 @@ function Scene({ p }: { p: MotionValue<number> }) {
 
             {/* the car and its shadow */}
             <g transform={`translate(${CAR.x} ${CAR.y})`}>
-                <motion.ellipse cx={0} cy={2} rx={150} ry={14} fill="var(--color-beam)" style={{ opacity: groundGlow }} />
-                <motion.ellipse cx={0} cy={1} rx={66} ry={6} fill="#000" style={{ scaleX: shadowScale, opacity: shadowOpacity }} />
+                <motion.ellipse
+                    cx={0}
+                    cy={2}
+                    rx={150}
+                    ry={14}
+                    fill="var(--color-beam)"
+                    style={{ opacity: groundGlow }}
+                />
+                <motion.ellipse
+                    cx={0}
+                    cy={1}
+                    rx={66}
+                    ry={6}
+                    fill="#000"
+                    style={{ scaleX: shadowScale, opacity: shadowOpacity }}
+                />
                 <motion.g style={{ y: carY, scale: carScale, rotate: carRotate, opacity: carOpacity }}>
                     <YellowCarShape />
                 </motion.g>
@@ -160,7 +174,11 @@ function Scene({ p }: { p: MotionValue<number> }) {
             {/* the saucer */}
             <g transform={`translate(${CAR.x} 0)`}>
                 <motion.g style={{ x: ufoX, y: ufoY, scale: ufoScale }}>
-                    <motion.circle r={120} fill={`url(#${halo})`} style={{ opacity: flashOpacity, scale: flashScale }} />
+                    <motion.circle
+                        r={120}
+                        fill={`url(#${halo})`}
+                        style={{ opacity: flashOpacity, scale: flashScale }}
+                    />
                     <g className="animate-hover-bob">
                         <SaucerShape lightsClassName="animate-blink" />
                     </g>
@@ -211,8 +229,19 @@ function Overlay({ p }: { p: MotionValue<number> }) {
                 className="absolute inset-x-0 bottom-[max(1.25rem,env(safe-area-inset-bottom))] flex animate-fade-up flex-col items-center gap-1 text-moonlight/85 [animation-delay:800ms]"
             >
                 <span className="font-script text-xl">{t.hero.scroll}</span>
-                <svg aria-hidden viewBox="0 0 24 24" className="size-5 animate-nudge motion-reduce:animate-none" fill="none">
-                    <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                    aria-hidden
+                    viewBox="0 0 24 24"
+                    className="size-5 animate-nudge motion-reduce:animate-none"
+                    fill="none"
+                >
+                    <path
+                        d="M6 9l6 6 6-6"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
                 </svg>
             </motion.div>
         </>

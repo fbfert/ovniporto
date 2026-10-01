@@ -12,7 +12,12 @@ export function NightBanner({ children, tall = false }: { children: ReactNode; t
             <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_0%,var(--color-night-blue)_0%,var(--color-night)_62%)]" />
             <Starfield className="absolute inset-0" density="medium" />
             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_bottom,transparent,rgb(73_67_131/0.38))]" />
-            <svg aria-hidden viewBox="0 600 1600 400" preserveAspectRatio="xMidYMax slice" className="absolute inset-x-0 bottom-0 h-[38%] w-full">
+            <svg
+                aria-hidden
+                viewBox="0 600 1600 400"
+                preserveAspectRatio="xMidYMax slice"
+                className="absolute inset-x-0 bottom-0 h-[38%] w-full"
+            >
                 <path d={SERRA.far} fill="var(--color-night-blue)" />
                 <path d={SERRA.near} fill="var(--color-night)" />
                 {ARAUCARIAS.near.map((tree) => (
@@ -21,7 +26,9 @@ export function NightBanner({ children, tall = false }: { children: ReactNode; t
                     </g>
                 ))}
             </svg>
-            <div className="relative z-[2] mx-auto w-full max-w-4xl px-5 pt-32 pb-40 text-center sm:px-8">{children}</div>
+            <div className="relative z-[2] mx-auto w-full max-w-4xl px-5 pt-32 pb-40 text-center sm:px-8">
+                {children}
+            </div>
         </section>
     );
 }
