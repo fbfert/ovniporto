@@ -1,5 +1,5 @@
-import { f as t, p as Button } from "./Typography-BT6DGpEB.js";
-import { n as TextField, t as CheckboxField } from "./Fields-CIxo4ubh.js";
+import { f as t, p as Button } from "./Typography-DJJfLd3V.js";
+import { n as TextField, t as CheckboxField } from "./Fields-bg2ugmuT.js";
 import { useForm } from "@inertiajs/react";
 import { jsx, jsxs } from "react/jsx-runtime";
 //#region resources/js/Components/Home/WaitlistForm.tsx

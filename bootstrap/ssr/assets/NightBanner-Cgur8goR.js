@@ -1,4 +1,4 @@
-import { a as ARAUCARIAS, i as Starfield, o as AraucariaShape, s as SERRA } from "./Typography-BT6DGpEB.js";
+import { a as ARAUCARIAS, i as Starfield, o as AraucariaShape, s as SERRA } from "./Typography-DJJfLd3V.js";
 import { jsx, jsxs } from "react/jsx-runtime";
 //#region resources/js/Components/Scene/NightBanner.tsx
 /** Short night cover used by inner pages: sky, stars and the serra skyline at the bottom. */

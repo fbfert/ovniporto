@@ -762,7 +762,7 @@ function Starfield({ density = "medium", parallax = false, className = "" }) {
 /** Handwritten overline in Caveat, tilted like it was scribbled on the poster. */
 function Eyebrow({ children, tone = "light", className = "", as: Tag = "p" }) {
 	return /* @__PURE__ */ jsx(Tag, {
-		className: `font-script text-[clamp(1.5rem,1.2rem+1.2vw,2.1rem)] leading-none font-semibold -rotate-2 ${tone === "dark" ? "text-beam-glow" : "text-horizon"} ${className}`,
+		className: `-rotate-2 font-script text-[clamp(1.5rem,1.2rem+1.2vw,2.1rem)] leading-none font-semibold ${tone === "dark" ? "text-beam-glow" : "text-horizon"} ${className}`,
 		children
 	});
 }

@@ -38,3 +38,5 @@ Repositório novo. Stack fixada pelo CLAUDE.md (Laravel + Inertia + React/TS + S
 ## Migration Plan
 
 Primeira entrega; não há o que migrar. `make up` sobe os containers; `php artisan migrate --seed` popula os textos e espaços.
+
+11. **PHP 8.4 (não 8.3).** O `composer.lock` do Laravel 13 exige Symfony 8.1 e Pest 5, que pedem PHP >= 8.4.1. A imagem Docker usa `ARG PHP_VERSION=8.4`.

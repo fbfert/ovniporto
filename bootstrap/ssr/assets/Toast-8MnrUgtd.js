@@ -1,4 +1,4 @@
-import { c as SaucerShape, f as t, i as Starfield, l as YellowCarShape } from "./Typography-BT6DGpEB.js";
+import { c as SaucerShape, f as t, i as Starfield, l as YellowCarShape } from "./Typography-DJJfLd3V.js";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { createContext, useCallback, useContext, useEffect, useId, useRef, useState } from "react";
 import * as fm from "framer-motion";
@@ -390,7 +390,7 @@ function ToastProvider({ children }) {
 						type: "button",
 						onClick: () => setToast(null),
 						"aria-label": t.toast.close,
-						className: "press inline-flex size-9 items-center justify-center rounded-full hover:bg-moonlight/10",
+						className: "inline-flex size-9 press items-center justify-center rounded-full hover:bg-moonlight/10",
 						children: /* @__PURE__ */ jsx("svg", {
 							viewBox: "0 0 24 24",
 							className: "size-4",

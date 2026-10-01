@@ -4,11 +4,11 @@ import { renderToString } from "react-dom/server";
 import { jsx } from "react/jsx-runtime";
 //#region resources/js/lib/pages.ts
 var pages = /* #__PURE__ */ Object.assign({
-	"../Pages/ComingSoon.tsx": () => import("./assets/ComingSoon-9sJrvLxc.js"),
-	"../Pages/Dev/Styleguide.tsx": () => import("./assets/Styleguide-CA2FRMVJ.js"),
-	"../Pages/Errors/Error.tsx": () => import("./assets/Error-BZdaGDuY.js"),
-	"../Pages/Home.tsx": () => import("./assets/Home-BsYGtm1F.js"),
-	"../Pages/Waitlist/Confirmed.tsx": () => import("./assets/Confirmed-DS6azAWU.js")
+	"../Pages/ComingSoon.tsx": () => import("./assets/ComingSoon-DSoPPdBT.js"),
+	"../Pages/Dev/Styleguide.tsx": () => import("./assets/Styleguide-CkDVJ3zV.js"),
+	"../Pages/Errors/Error.tsx": () => import("./assets/Error-D_uFd3-i.js"),
+	"../Pages/Home.tsx": () => import("./assets/Home-Bihemd0E.js"),
+	"../Pages/Waitlist/Confirmed.tsx": () => import("./assets/Confirmed-Bt7VLVdX.js")
 });
 async function resolvePage(name) {
 	const loader = pages[`../Pages/${name}.tsx`];

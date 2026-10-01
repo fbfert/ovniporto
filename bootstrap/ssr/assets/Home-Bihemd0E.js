@@ -1,8 +1,8 @@
-import { a as ease, c as motion, d as Seal, f as SealArt, i as duration, l as react_exports, n as useToast, o as easeFn, r as STAGGER, s as spring, u as Section } from "./Toast-DbyDChDd.js";
-import { a as ARAUCARIAS, c as SaucerShape, d as shortDate, f as t, i as Starfield, l as YellowCarShape, n as Display, o as AraucariaShape, p as Button, r as Eyebrow, s as SERRA, t as Badge, u as money } from "./Typography-BT6DGpEB.js";
-import { t as WaitlistForm } from "./WaitlistForm-BgqhhoUs.js";
-import { n as SeoHead, t as PublicLayout } from "./PublicLayout-BFbm0IB7.js";
-import { a as InfoCard, i as Marquee, n as NightSkyArt, r as Polaroid, t as TicketCard } from "./TicketCard-Vqwu0LJq.js";
+import { a as ease, c as motion, d as Seal, f as SealArt, i as duration, l as react_exports, n as useToast, o as easeFn, r as STAGGER, s as spring, u as Section } from "./Toast-8MnrUgtd.js";
+import { a as ARAUCARIAS, c as SaucerShape, d as shortDate, f as t, i as Starfield, l as YellowCarShape, n as Display, o as AraucariaShape, p as Button, r as Eyebrow, s as SERRA, t as Badge, u as money } from "./Typography-DJJfLd3V.js";
+import { t as WaitlistForm } from "./WaitlistForm-BYzSvytF.js";
+import { n as SeoHead, t as PublicLayout } from "./PublicLayout-BBlC9rsF.js";
+import { a as InfoCard, i as Marquee, n as NightSkyArt, r as Polaroid, t as TicketCard } from "./TicketCard-DyORFsgv.js";
 import { Link, usePage } from "@inertiajs/react";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useEffect, useId, useRef, useSyncExternalStore } from "react";
@@ -556,7 +556,7 @@ function Postcard() {
 				className: "relative border-night/15 sm:border-l-2 sm:border-dashed sm:pl-6",
 				children: [
 					/* @__PURE__ */ jsx("div", {
-						className: "stamp-edge ml-auto flex size-24 items-center justify-center bg-car",
+						className: "ml-auto flex size-24 items-center justify-center bg-car stamp-edge",
 						children: /* @__PURE__ */ jsx("div", {
 							className: "flex h-full w-full items-center justify-center bg-night-blue",
 							children: /* @__PURE__ */ jsx("svg", {
@@ -1106,7 +1106,7 @@ function PlaceSection({ lead, spaces }) {
 				tabIndex: 0,
 				role: "region",
 				"aria-label": t.place.spacesLabel,
-				className: "-mx-5 mt-4 overflow-x-auto overscroll-x-contain px-5 pb-6 [mask-image:linear-gradient(to_right,transparent,#000_1.25rem,#000_calc(100%-3rem),transparent)] [scrollbar-width:none] sm:-mx-8 sm:px-8",
+				className: "-mx-5 mt-4 [scrollbar-width:none] overflow-x-auto overscroll-x-contain [mask-image:linear-gradient(to_right,transparent,#000_1.25rem,#000_calc(100%-3rem),transparent)] px-5 pb-6 sm:-mx-8 sm:px-8",
 				children: /* @__PURE__ */ jsx("ol", {
 					className: "flex snap-x snap-mandatory gap-4",
 					children: spaces.map((space, i) => /* @__PURE__ */ jsxs("li", {

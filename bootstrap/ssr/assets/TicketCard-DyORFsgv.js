@@ -1,4 +1,4 @@
-import { c as motion, s as spring } from "./Toast-DbyDChDd.js";
+import { c as motion, s as spring } from "./Toast-8MnrUgtd.js";
 import { Link } from "@inertiajs/react";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useId } from "react";
@@ -158,11 +158,11 @@ function Polaroid({ src, alt = "", art, caption, rotate = -3, tape = "top", href
 		children: [
 			tape === "top" && /* @__PURE__ */ jsx("span", {
 				"aria-hidden": true,
-				className: "tape absolute -top-3 left-1/2 z-10 h-7 w-24 -translate-x-1/2 -rotate-3"
+				className: "absolute -top-3 left-1/2 z-10 h-7 w-24 -translate-x-1/2 -rotate-3 tape"
 			}),
 			tape === "corner" && /* @__PURE__ */ jsx("span", {
 				"aria-hidden": true,
-				className: "tape absolute -top-2 -right-5 z-10 h-6 w-20 rotate-[38deg]"
+				className: "absolute -top-2 -right-5 z-10 h-6 w-20 rotate-[38deg] tape"
 			}),
 			/* @__PURE__ */ jsxs("div", {
 				className: `relative overflow-hidden bg-night ${imageClassName}`,
@@ -228,7 +228,7 @@ function NightSkyArt({ label, seed = 1 }) {
 */
 function TicketCard({ href, art, label, title, meta, price, comparePrice, className = "" }) {
 	const card = /* @__PURE__ */ jsxs("article", {
-		className: `group/ticket ticket-punch relative flex h-full flex-col bg-night-blue text-moonlight transition-transform duration-300 ease-snap [--punch-y:66%] [@media(hover:hover)]:hover:-translate-y-1.5 ${className}`,
+		className: `group/ticket relative flex h-full flex-col bg-night-blue text-moonlight transition-transform duration-300 ease-snap ticket-punch [--punch-y:66%] [@media(hover:hover)]:hover:-translate-y-1.5 ${className}`,
 		style: { borderRadius: "18px" },
 		children: [
 			/* @__PURE__ */ jsxs("div", {
