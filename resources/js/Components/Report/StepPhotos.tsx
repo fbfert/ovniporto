@@ -2,7 +2,7 @@ import { useId, useState } from 'react';
 import { CameraIcon, CloseIcon } from '@/Components/Icons';
 import { t } from '@/i18n/pt-BR';
 import { browserPipeline, discardPhoto, preparePhoto, UnreadablePhotoError, type PhotoPipeline } from '@/lib/photos';
-import type { DraftUpdate, ReportDraft } from './draft';
+import { isKept, type DraftUpdate, type ReportDraft } from './draft';
 
 const copy = t.report.photos;
 
@@ -59,7 +59,8 @@ export function StepPhotos({
 
     const remove = (id: string) => {
         update((current) => ({ photos: current.photos.filter((photo) => photo.id !== id) }));
-        void discardPhoto(id);
+        // A photo already in the report is only dropped on resend; uploads are discarded now.
+        if (!isKept(id)) void discardPhoto(id);
     };
 
     return (

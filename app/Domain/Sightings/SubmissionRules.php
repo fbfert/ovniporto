@@ -47,7 +47,7 @@ final class SubmissionRules
             throw new InvalidSubmission('point', 'O ponto precisa estar a até 300 km de Lages.');
         }
 
-        if (count($submission->uploadIds) > self::MAX_PHOTOS) {
+        if ($submission->photoCount() > self::MAX_PHOTOS) {
             throw new InvalidSubmission('photos', 'Envie no máximo 3 fotos.');
         }
     }

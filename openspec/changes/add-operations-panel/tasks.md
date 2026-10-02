@@ -2,17 +2,17 @@
 
 ## 1. Acesso, dashboard e auditoria
 
-- [ ] 1.1 Criar layout do painel e gates por área e papel, verificado por testes de feature (moderator não acessa pedidos; store não acessa relatos; member recebe 403)
-- [ ] 1.2 Criar `audit_logs` e decorador de auditoria dos UseCases do painel, verificado por teste que executa cada ação e confere o registro
+- [x] 1.1 Criar layout do painel e gates por área e papel, verificado por testes de feature (moderator não acessa pedidos; store não acessa relatos; member recebe 403)
+- [x] 1.2 Criar `audit_logs` e decorador de auditoria dos UseCases do painel, verificado por teste que executa cada ação e confere o registro
 - [ ] 1.3 Implementar dashboard com contagens, metas, gráfico de 12 semanas e "Precisa de você", verificado por teste de feature com dados fabricados nos limites (48 h, 2 dias, 7 dias)
 - [ ] 1.4 Implementar `/painel/membros` (papel só por admin, bloqueio com motivo, exclusão) e `/painel/auditoria`, verificado por testes de feature de autorização e de bloqueio impedindo relato
 
 ## 2. Moderação de relatos
 
-- [ ] 2.1 Implementar fila com abas e cidade aproximada via porta `Geocoder` cacheada, verificado por teste de feature e teste de unidade do cache
-- [ ] 2.2 Implementar aprovar, pedir ajuste, rejeitar e despublicar com e-mails e invalidação de cache, verificado por testes: aprovar publica e envia e-mail; rejeitar exige motivo; ajuste some do público
-- [ ] 2.3 Implementar edição pelo autor em `/relatar/{id}/editar` reaproveitando o assistente, verificado por teste de feature (reenvio volta a `pending`; outro membro recebe 403)
-- [ ] 2.4 Implementar atalhos de teclado e checklist, verificado por teste de componente dos atalhos
+- [x] 2.1 Implementar fila com abas e cidade aproximada via porta `Geocoder` cacheada, verificado por teste de feature e teste de unidade do cache
+- [x] 2.2 Implementar aprovar, pedir ajuste, rejeitar e despublicar com e-mails e invalidação de cache, verificado por testes: aprovar publica e envia e-mail; rejeitar exige motivo; ajuste some do público
+- [x] 2.3 Implementar edição pelo autor em `/relatar/{id}/editar` reaproveitando o assistente, verificado por teste de feature (reenvio volta a `pending`; outro membro recebe 403)
+- [x] 2.4 Implementar atalhos de teclado e checklist, verificado por teste de componente dos atalhos
 
 ## 3. Loja
 

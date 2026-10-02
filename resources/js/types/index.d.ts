@@ -69,6 +69,8 @@ export interface SharedProps {
     community: CommunityLinks;
     currentUrl: string;
     flash: { toast: string | null };
+    /** Panel areas the signed-in role may open; only on /painel pages. */
+    panelAreas: string[] | null;
     errors: Record<string, string>;
     [key: string]: unknown;
 }

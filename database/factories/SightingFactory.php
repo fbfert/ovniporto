@@ -36,4 +36,14 @@ class SightingFactory extends Factory
             'published_at' => now()->subHour(),
         ]);
     }
+
+    public function changesRequested(string $note = 'Tire o rosto da foto, por favor.'): static
+    {
+        return $this->state(fn () => ['status' => SightingStatus::ChangesRequested, 'moderation_note' => $note]);
+    }
+
+    public function rejected(): static
+    {
+        return $this->state(fn () => ['status' => SightingStatus::Rejected, 'moderation_note' => 'Conteúdo ofensivo']);
+    }
 }

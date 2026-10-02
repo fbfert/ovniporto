@@ -10,7 +10,10 @@ use DateTimeImmutable;
 /** A report as the member sends it from the 4-step wizard. */
 final readonly class SightingSubmission
 {
-    /** @param list<string> $uploadIds photos already uploaded to the temporary area, in display order */
+    /**
+     * @param  list<string>  $uploadIds  photos already uploaded to the temporary area, in display order
+     * @param  list<int>  $keptPhotoIds  when resending after an adjustment: photos of the report that stay
+     */
     public function __construct(
         public SightingType $type,
         public string $description,
@@ -23,5 +26,11 @@ final readonly class SightingSubmission
         public string $nickname,
         public bool $consent,
         public array $uploadIds,
+        public array $keptPhotoIds = [],
     ) {}
+
+    public function photoCount(): int
+    {
+        return count(array_unique($this->uploadIds)) + count(array_unique($this->keptPhotoIds));
+    }
 }

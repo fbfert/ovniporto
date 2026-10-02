@@ -1,7 +1,9 @@
+import { usePage } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'motion/react';
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { t } from '@/i18n/pt-BR';
 import { duration, ease } from '@/lib/motion';
+import type { SharedProps } from '@/types';
 
 interface ToastState {
     id: number;
@@ -69,4 +71,14 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             </div>
         </ToastContext.Provider>
     );
+}
+
+/** Shows the server's flash message (`->with('toast', ...)`) after each visit. */
+export function FlashToasts() {
+    const { flash } = usePage<SharedProps>().props;
+    const show = useToast();
+    useEffect(() => {
+        if (flash?.toast) show(flash.toast);
+    }, [flash, show]);
+    return null;
 }

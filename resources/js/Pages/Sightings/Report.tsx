@@ -4,7 +4,17 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Seal } from '@/Components/Brand/Seal';
 import { CloseIcon } from '@/Components/Icons';
 import { SeoHead } from '@/Components/Layout/SeoHead';
-import { emptyDraft, type DraftUpdate, type ReportDraft, type Step } from '@/Components/Report/draft';
+import {
+    draftFromSighting,
+    emptyDraft,
+    isKept,
+    keptId,
+    withFreshThumbs,
+    type DraftUpdate,
+    type EditingSighting,
+    type ReportDraft,
+    type Step,
+} from '@/Components/Report/draft';
 import { StepPhotos } from '@/Components/Report/StepPhotos';
 import { StepReview } from '@/Components/Report/StepReview';
 import { StepWhat } from '@/Components/Report/StepWhat';
@@ -40,6 +50,8 @@ const FIELD_STEP: Record<string, Step> = {
     gaze: 3,
     nickname: 4,
     consent: 4,
+    keptPhotos: 2,
+    status: 4,
 };
 
 interface Props {
@@ -47,6 +59,8 @@ interface Props {
     today: string;
     lages: { lat: number; lng: number };
     limits: { descriptionMin: number; descriptionMax: number; maxPhotos: number; maxPhotoMb: number };
+    /** Present when the author fixes a report the tower sent back. */
+    editing?: EditingSighting;
 }
 
 function validate(step: Step, draft: ReportDraft, limits: Props['limits']): Record<string, string> {
@@ -70,13 +84,17 @@ function validate(step: Step, draft: ReportDraft, limits: Props['limits']): Reco
     return errors;
 }
 
-export default function Report({ nickname, today, lages, limits }: Props) {
+export default function Report({ nickname, today, lages, limits, editing }: Props) {
     const {
-        state: draft,
+        state: stored,
         setState,
         wasRestored,
         clear,
-    } = useDraft<ReportDraft>(DRAFT_KEY, emptyDraft(today, nickname));
+    } = useDraft<ReportDraft>(
+        editing ? `${DRAFT_KEY}:${editing.id}` : DRAFT_KEY,
+        editing ? draftFromSighting(editing) : emptyDraft(today, nickname),
+    );
+    const draft = editing ? withFreshThumbs(stored, editing) : stored;
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [direction, setDirection] = useState(1);
     const [sending, setSending] = useState(false);
@@ -115,9 +133,9 @@ export default function Report({ nickname, today, lages, limits }: Props) {
 
     const send = () => {
         setSending(true);
-        router.post(
-            '/relatar',
-            {
+        router.visit(editing ? `/relatar/${editing.id}` : '/relatar', {
+            method: editing ? 'put' : 'post',
+            data: {
                 type: draft.type,
                 description: draft.description.trim(),
                 observedDate: draft.observedDate,
@@ -128,22 +146,21 @@ export default function Report({ nickname, today, lages, limits }: Props) {
                 gaze: draft.gaze,
                 nickname: draft.nickname.trim(),
                 consent: draft.consent,
-                photos: draft.photos.map((photo) => photo.id),
+                photos: draft.photos.filter((photo) => !isKept(photo.id)).map((photo) => photo.id),
+                keptPhotos: draft.photos.filter((photo) => isKept(photo.id)).map((photo) => keptId(photo.id)),
             },
-            {
-                onSuccess: () => clear(),
-                onError: (serverErrors) => {
-                    const fields = Object.keys(serverErrors);
-                    const step = Math.min(...fields.map((field) => FIELD_STEP[field] ?? 4)) as Step;
-                    setErrors(serverErrors);
-                    if (step !== draft.step) {
-                        setDirection(-1);
-                        update({ step });
-                    }
-                },
-                onFinish: () => setSending(false),
+            onSuccess: () => clear(),
+            onError: (serverErrors) => {
+                const fields = Object.keys(serverErrors);
+                const step = Math.min(...fields.map((field) => FIELD_STEP[field] ?? 4)) as Step;
+                setErrors(serverErrors);
+                if (step !== draft.step) {
+                    setDirection(-1);
+                    update({ step });
+                }
             },
-        );
+            onFinish: () => setSending(false),
+        });
     };
 
     const restart = () => {
@@ -161,7 +178,7 @@ export default function Report({ nickname, today, lages, limits }: Props) {
 
     return (
         <div data-tone="dark" className="relative min-h-svh bg-night text-moonlight">
-            <SeoHead title={copy.title} />
+            <SeoHead title={editing ? copy.editingTitle : copy.title} />
             <Starfield className="fixed inset-0 opacity-60" density="low" />
 
             <header className="sticky top-0 z-20 bg-night/90 px-5 pt-4 pb-3 backdrop-blur-[10px]">
@@ -189,6 +206,22 @@ export default function Report({ nickname, today, lages, limits }: Props) {
             </header>
 
             <main className="relative z-10 mx-auto max-w-2xl px-5 pt-6 pb-36">
+                {editing && draft.step === 1 && (
+                    <aside className="mb-6 rounded-[22px] bg-car px-5 py-4 text-night">
+                        <p className="font-display text-sm font-extrabold tracking-[0.06em] uppercase">
+                            {copy.editingNote}
+                        </p>
+                        {editing.moderationNote && (
+                            <p className="mt-1 text-[1.05rem] font-semibold">{editing.moderationNote}</p>
+                        )}
+                        <p className="mt-2 text-sm">{copy.editingLead}</p>
+                    </aside>
+                )}
+                {errors.status && (
+                    <p role="alert" className="mb-6 rounded-2xl bg-car px-4 py-3 font-semibold text-night">
+                        {errors.status}
+                    </p>
+                )}
                 {wasRestored && draft.step === 1 && (
                     <p className="mb-6 flex flex-wrap items-center gap-3 rounded-2xl bg-night-blue/80 px-4 py-3 text-sm">
                         {copy.draftRestored}
@@ -268,7 +301,7 @@ export default function Report({ nickname, today, lages, limits }: Props) {
                         </Button>
                     )}
                     <Button size="lg" className="ml-auto h-14 flex-1 sm:flex-none" onClick={next} loading={sending}>
-                        {draft.step === 4 ? copy.send : copy.next}
+                        {draft.step === 4 ? (editing ? copy.resend : copy.send) : copy.next}
                     </Button>
                 </div>
             </footer>

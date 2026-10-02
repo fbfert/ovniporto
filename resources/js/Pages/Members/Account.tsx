@@ -76,9 +76,16 @@ function SightingsTab({ sightings }: { sightings: OwnSighting[] }) {
                                 </p>
                             )}
                         </div>
-                        <Button variant="secondary" size="sm" onClick={() => setDeleting(sighting)}>
-                            {copy.deleteSighting}
-                        </Button>
+                        <div className="flex flex-wrap gap-2">
+                            {sighting.status === 'changes_requested' && (
+                                <Button href={`/relatar/${sighting.id}/editar`} size="sm">
+                                    {copy.editSighting}
+                                </Button>
+                            )}
+                            <Button variant="secondary" size="sm" onClick={() => setDeleting(sighting)}>
+                                {copy.deleteSighting}
+                            </Button>
+                        </div>
                     </li>
                 ))}
             </ul>

@@ -11,6 +11,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Members\AccountController;
 use App\Http\Controllers\Members\GoogleAuthController;
 use App\Http\Controllers\Members\WelcomeController;
+use App\Http\Controllers\Panel\AuditController;
+use App\Http\Controllers\Panel\PanelHomeController;
+use App\Http\Controllers\Panel\PanelUpcomingController;
+use App\Http\Controllers\Panel\SightingModerationController;
 use App\Http\Controllers\Place\ConstructionDiaryController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Place\SupportController;
@@ -69,9 +73,38 @@ Route::middleware('auth')->group(function () {
         Route::get('/relatar', [ReportController::class, 'create'])->name('report');
         Route::post('/relatar', [ReportController::class, 'store'])->middleware('throttle:5,1')->name('report.store');
         Route::get('/relatar/enviado', [ReportController::class, 'sent'])->name('report.sent');
+        Route::get('/relatar/{sighting}/editar', [ReportController::class, 'edit'])->whereNumber('sighting')->name('report.edit');
+        Route::put('/relatar/{sighting}', [ReportController::class, 'update'])
+            ->whereNumber('sighting')
+            ->middleware('throttle:5,1')
+            ->name('report.update');
         Route::post('/relatar/fotos', [ReportController::class, 'upload'])->middleware('throttle:20,1')->name('report.photos.store');
         Route::delete('/relatar/fotos/{upload}', [ReportController::class, 'discard'])->whereUuid('upload')->name('report.photos.destroy');
     });
+});
+
+// Operations panel: every area is checked on the server by role (App\Domain\Panel\PanelArea).
+Route::middleware(['auth', 'profile.complete', 'panel:inicio'])->prefix('painel')->name('panel')->group(function () {
+    Route::get('/', PanelHomeController::class);
+
+    Route::middleware('panel:relatos')->prefix('relatos')->name('.sightings')->group(function () {
+        Route::get('/', [SightingModerationController::class, 'index']);
+        Route::get('/{sighting}', [SightingModerationController::class, 'show'])->whereNumber('sighting')->name('.show');
+        Route::post('/{sighting}/aprovar', [SightingModerationController::class, 'approve'])->whereNumber('sighting')->name('.approve');
+        Route::post('/{sighting}/ajuste', [SightingModerationController::class, 'requestChanges'])->whereNumber('sighting')->name('.changes');
+        Route::post('/{sighting}/rejeitar', [SightingModerationController::class, 'reject'])->whereNumber('sighting')->name('.reject');
+        Route::post('/{sighting}/despublicar', [SightingModerationController::class, 'unpublish'])->whereNumber('sighting')->name('.unpublish');
+    });
+
+    Route::get('/auditoria', AuditController::class)->middleware('panel:auditoria')->name('.audit');
+
+    // Areas whose tools arrive with later changes; the role check already applies.
+    foreach (['membros', 'pedidos', 'produtos', 'conteudo'] as $area) {
+        Route::get($area, PanelUpcomingController::class)
+            ->middleware("panel:{$area}")
+            ->defaults('area', $area)
+            ->name(".{$area}");
+    }
 });
 
 // Livro de avistamentos: only approved reports are public.

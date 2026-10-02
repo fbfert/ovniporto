@@ -3,7 +3,9 @@
 namespace App\Infrastructure\Persistence\Eloquent;
 
 use App\Domain\Sightings\Contracts\MemberSightingRepository;
+use App\Infrastructure\Sightings\SightingPhotoUrls;
 use App\Models\Sighting;
+use App\Models\SightingPhoto;
 use Illuminate\Support\Facades\Storage;
 
 final class EloquentMemberSightingRepository implements MemberSightingRepository
@@ -44,6 +46,33 @@ final class EloquentMemberSightingRepository implements MemberSightingRepository
     public function deleteAllOf(int $memberId): void
     {
         Sighting::query()->where('member_id', $memberId)->get()->each(fn (Sighting $s) => $this->erase($s));
+    }
+
+    public function draftOf(int $memberId, int $sightingId): ?array
+    {
+        $sighting = Sighting::query()->with('photos')->where('member_id', $memberId)->find($sightingId);
+        if ($sighting === null) {
+            return null;
+        }
+
+        return [
+            'id' => $sighting->id,
+            'status' => $sighting->status->value,
+            'type' => $sighting->type->value,
+            'description' => $sighting->description,
+            'observedDate' => $sighting->observed_date->toDateString(),
+            'timeRange' => $sighting->observed_time_kind === 'range' ? $sighting->observed_time_range : null,
+            'exactTime' => $sighting->observed_time_kind === 'exact' ? substr((string) $sighting->observed_time, 0, 5) : null,
+            'lat' => round($sighting->lat, 6),
+            'lng' => round($sighting->lng, 6),
+            'gaze' => $sighting->gaze_direction,
+            'nickname' => $sighting->public_nickname,
+            'moderationNote' => $sighting->moderation_note,
+            'photos' => $sighting->photos
+                ->map(fn (SightingPhoto $photo) => ['id' => $photo->id, 'thumb' => SightingPhotoUrls::signed($photo, 400)])
+                ->values()
+                ->all(),
+        ];
     }
 
     private function erase(Sighting $sighting): void

@@ -31,6 +31,8 @@ class SubmitSightingRequest extends FormRequest
             'consent' => ['accepted'],
             'photos' => ['array', 'max:'.SubmissionRules::MAX_PHOTOS],
             'photos.*' => ['string', 'uuid'],
+            'keptPhotos' => ['array', 'max:'.SubmissionRules::MAX_PHOTOS],
+            'keptPhotos.*' => ['integer'],
         ];
     }
 
@@ -62,6 +64,7 @@ class SubmitSightingRequest extends FormRequest
             nickname: Nickname::normalize($this->string('nickname')->toString()),
             consent: $this->boolean('consent'),
             uploadIds: array_values(array_map('strval', (array) $this->input('photos', []))),
+            keptPhotoIds: array_values(array_map('intval', (array) $this->input('keptPhotos', []))),
         );
     }
 }

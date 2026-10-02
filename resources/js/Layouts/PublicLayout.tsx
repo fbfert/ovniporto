@@ -1,20 +1,9 @@
-import { usePage } from '@inertiajs/react';
-import { useEffect, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Footer } from '@/Components/Layout/Footer';
 import { Header } from '@/Components/Layout/Header';
 import { SmoothScroll } from '@/Components/Layout/SmoothScroll';
-import { ToastProvider, useToast } from '@/Components/Ui/Toast';
+import { FlashToasts, ToastProvider } from '@/Components/Ui/Toast';
 import { t } from '@/i18n/pt-BR';
-import type { SharedProps } from '@/types';
-
-function FlashToasts() {
-    const { flash } = usePage<SharedProps>().props;
-    const show = useToast();
-    useEffect(() => {
-        if (flash?.toast) show(flash.toast);
-    }, [flash, show]);
-    return null;
-}
 
 export function PublicLayout({ children }: { children: ReactNode }) {
     return (

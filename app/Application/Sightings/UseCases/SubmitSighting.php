@@ -7,6 +7,7 @@ use App\Domain\Sightings\Contracts\SightingWriteRepository;
 use App\Domain\Sightings\Data\SightingSubmission;
 use App\Domain\Sightings\InvalidSubmission;
 use App\Domain\Sightings\SubmissionRules;
+use App\Jobs\LocateSighting;
 use App\Jobs\ProcessSightingPhoto;
 use DateTimeImmutable;
 
@@ -40,6 +41,7 @@ final readonly class SubmitSighting
         foreach ($created['photoIds'] as $photoId) {
             ProcessSightingPhoto::dispatch($photoId);
         }
+        LocateSighting::dispatch($created['sightingId']);
         $this->notifier->submitted($created['sightingId']);
 
         return $created['sightingId'];

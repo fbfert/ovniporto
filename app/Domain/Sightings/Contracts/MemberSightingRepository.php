@@ -17,4 +17,11 @@ interface MemberSightingRepository
 
     /** Deletes every report of the member, with their photo files. */
     public function deleteAllOf(int $memberId): void;
+
+    /**
+     * The member's report as the wizard needs it to edit, photos by signed URL.
+     *
+     * @return array{id: int, status: string, type: string, description: string, observedDate: string, timeRange: ?string, exactTime: ?string, lat: float, lng: float, gaze: ?string, nickname: string, moderationNote: ?string, photos: list<array{id: int, thumb: ?string}>}|null
+     */
+    public function draftOf(int $memberId, int $sightingId): ?array;
 }

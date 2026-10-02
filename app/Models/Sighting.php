@@ -21,10 +21,14 @@ use Illuminate\Support\Carbon;
  * @property string $description
  * @property Carbon $observed_date
  * @property string|null $place_label
+ * @property string|null $approx_city
  * @property string $public_nickname
  * @property float $lat
  * @property float $lng
  * @property Carbon $consent_given_at
+ * @property Carbon|null $submitted_at
+ * @property Carbon|null $moderated_at
+ * @property int|null $moderated_by
  * @property Carbon|null $published_at
  * @property bool $is_demo
  * @property int|null $member_id
@@ -50,6 +54,7 @@ class Sighting extends Model
             'status' => SightingStatus::class,
             'observed_date' => 'date',
             'consent_given_at' => 'datetime',
+            'submitted_at' => 'datetime',
             'moderated_at' => 'datetime',
             'published_at' => 'datetime',
             'lat' => 'float',

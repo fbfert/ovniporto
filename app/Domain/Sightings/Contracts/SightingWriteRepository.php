@@ -3,6 +3,7 @@
 namespace App\Domain\Sightings\Contracts;
 
 use App\Domain\Sightings\Data\SightingSubmission;
+use App\Domain\Sightings\SightingStatus;
 use DateTimeInterface;
 
 interface SightingWriteRepository
@@ -34,4 +35,23 @@ interface SightingWriteRepository
     public function markPhotoProcessed(int $photoId, string $basePath, int $width, int $height, array $variantWidths): void;
 
     public function deletePhoto(int $photoId): void;
+
+    /** @return array{status: SightingStatus, photoIds: list<int>}|null the member's own report */
+    public function findOwned(int $memberId, int $sightingId): ?array;
+
+    /**
+     * Replaces the content of a report sent back for adjustment and puts it in
+     * "pending" again: the kept photos stay (in that order, before the new
+     * ones), the others are removed and returned so their files can go too.
+     *
+     * @param  list<int>  $keptPhotoIds
+     * @param  list<string>  $newPhotoPaths
+     * @return array{photoIds: list<int>, removed: list<array{path: string, variants: list<int>}>}
+     */
+    public function resubmit(int $sightingId, SightingSubmission $submission, array $keptPhotoIds, array $newPhotoPaths, DateTimeInterface $now): array;
+
+    /** @return array{lat: float, lng: float}|null */
+    public function pointOf(int $sightingId): ?array;
+
+    public function setApproxCity(int $sightingId, ?string $city): void;
 }
