@@ -10,8 +10,17 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property string $slug
  * @property string $type
+ * @property string|null $short_description
  * @property string $city
+ * @property string|null $address
+ * @property string|null $lat decimal, as returned by the driver
+ * @property string|null $lng decimal, as returned by the driver
+ * @property string|null $phone
+ * @property string|null $whatsapp
+ * @property string|null $instagram
+ * @property string|null $website
  * @property string|null $cover_path
+ * @property list<array{path: string, alt?: string}>|null $gallery
  * @property bool $is_featured
  * @property bool $is_demo
  * @property Carbon|null $consent_given_at

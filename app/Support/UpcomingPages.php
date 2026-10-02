@@ -31,12 +31,5 @@ final class UpcomingPages
             'phase' => 'Fase 4 · Loja',
             'change' => 'add-store-catalog',
         ],
-        'regiao' => [
-            'title' => 'Conheça a região',
-            'eyebrow' => 'Fique mais um dia',
-            'description' => 'Pousadas, trilhas, vinhos e gente da serra em volta do OVNIPORTO, só com quem autorizou aparecer.',
-            'phase' => 'Fase 2 · Páginas públicas',
-            'change' => 'add-region-partners',
-        ],
     ];
 }

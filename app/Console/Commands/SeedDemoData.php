@@ -60,7 +60,10 @@ class SeedDemoData extends Command
         }
 
         foreach (['Pousada [EXEMPLO]' => 'inn', 'Trilha [EXEMPLO]' => 'attraction', 'Vinícola [EXEMPLO]' => 'producer'] as $name => $type) {
+            [$lat, $lng] = $this->pointWithinKm(30, strlen($name) * 13);
             RegionPartner::query()->create([
+                'lat' => $lat,
+                'lng' => $lng,
                 'name' => $name,
                 'slug' => str($name)->slug()->toString(),
                 'type' => $type,

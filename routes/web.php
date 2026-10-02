@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Place\ConstructionDiaryController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Place\SupportController;
+use App\Http\Controllers\Region\RegionController;
 use App\Http\Controllers\UpcomingPageController;
 use App\Http\Controllers\WaitlistController;
 use App\Support\UpcomingPages;
@@ -24,6 +25,8 @@ Route::get('/termos', LegalPageController::class)->defaults('kind', 'terms')->na
 
 Route::get('/o-lugar', PlaceController::class)->name('place');
 Route::get('/apoie', SupportController::class)->name('support');
+Route::get('/regiao', [RegionController::class, 'index'])->name('region');
+Route::get('/regiao/{slug}', [RegionController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('region.partner');
 Route::get('/obra', [ConstructionDiaryController::class, 'index'])->name('diary');
 Route::get('/obra.rss', [ConstructionDiaryController::class, 'feed'])->name('diary.feed');
 Route::get('/obra/{slug}', [ConstructionDiaryController::class, 'show'])

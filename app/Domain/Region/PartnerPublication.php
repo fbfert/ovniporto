@@ -18,4 +18,12 @@ final class PartnerPublication
             && $publishedAt !== null
             && $publishedAt <= $now;
     }
+
+    /** Publishing is refused outright without consent, whatever the caller (panel, import, seed). */
+    public static function assertCanBePublished(string $slug, ?DateTimeInterface $consentGivenAt): void
+    {
+        if ($consentGivenAt === null) {
+            throw PartnerWithoutConsent::forPartner($slug);
+        }
+    }
 }
