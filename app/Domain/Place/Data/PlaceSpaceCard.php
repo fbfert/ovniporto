@@ -12,9 +12,11 @@ final readonly class PlaceSpaceCard
         public string $status,
         public ?string $concept = null,
         public ?string $description = null,
+        /** Set when the concept art was uploaded in the panel (not one of the bundled illustrations). */
+        public ?string $conceptUrl = null,
     ) {}
 
-    /** @return array{slug: string, name: string, role: string, phase: int, status: string, concept: ?string, description: ?string} */
+    /** @return array{slug: string, name: string, role: string, phase: int, status: string, concept: ?string, description: ?string, conceptUrl: ?string} */
     public function toArray(): array
     {
         return [
@@ -25,6 +27,7 @@ final readonly class PlaceSpaceCard
             'status' => $this->status,
             'concept' => $this->concept,
             'description' => $this->description,
+            'conceptUrl' => $this->conceptUrl,
         ];
     }
 }

@@ -35,4 +35,21 @@ final readonly class CachedGeocoder implements Geocoder
 
         return $city;
     }
+
+    /** Addresses are looked up once a day at most; the operator confirms the point on the map anyway. */
+    public function locate(string $address): ?array
+    {
+        $key = 'geocoder:address:'.sha1(mb_strtolower(trim($address)));
+        $cached = $this->cache->get($key);
+        if (is_array($cached) && isset($cached['lat'], $cached['lng'])) {
+            return ['lat' => (float) $cached['lat'], 'lng' => (float) $cached['lng']];
+        }
+
+        $point = $this->inner->locate($address);
+        if ($point !== null) {
+            $this->cache->put($key, $point, self::MISS_TTL_SECONDS);
+        }
+
+        return $point;
+    }
 }

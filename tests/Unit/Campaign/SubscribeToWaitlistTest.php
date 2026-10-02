@@ -24,6 +24,16 @@ function fakeWaitlist(): WaitlistRepository
         {
             return in_array($id, $this->rows, true);
         }
+
+        public function subscribers(): array
+        {
+            return [];
+        }
+
+        public function remove(int $id): ?string
+        {
+            return null;
+        }
     };
 }
 

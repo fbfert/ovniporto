@@ -197,6 +197,11 @@ it('stores the approximate city found by the geocoder', function () {
         {
             return 'Lages, SC';
         }
+
+        public function locate(string $address): ?array
+        {
+            return null;
+        }
     });
 
     LocateSighting::dispatchSync($sighting->id);

@@ -24,7 +24,7 @@
 
 ## 4. Conteúdo e campanha
 
-- [ ] 4.1 Implementar `/painel/configuracoes` (links, metas, percentual, blocos markdown com prévia, FAQ, regras), verificado por teste de feature só-admin
-- [ ] 4.2 Implementar `/painel/lugar` e `/painel/obra` com whitelist de domínio do 3D e agendamento, verificado por testes (domínio fora da lista recusado; post futuro invisível)
-- [ ] 4.3 Implementar `/painel/regiao` com geocodificação e consentimento obrigatório, verificado por teste de que parceiro sem consentimento não publica
-- [ ] 4.4 Implementar `/painel/campanha` com aviso fixo, apoiadores (CSV) e patrocinadores, e `/painel/avise-me` com exportação e remoção, verificado por testes de autorização e de importação CSV
+- [x] 4.1 Implementar `/painel/configuracoes` (links, metas, percentual, blocos markdown com prévia, FAQ, regras), verificado por teste de feature só-admin
+- [x] 4.2 Implementar `/painel/lugar` e `/painel/obra` com whitelist de domínio do 3D e agendamento, verificado por testes (domínio fora da lista recusado; post futuro invisível)
+- [x] 4.3 Implementar `/painel/regiao` com geocodificação e consentimento obrigatório, verificado por teste de que parceiro sem consentimento não publica
+- [x] 4.4 Implementar `/painel/campanha` com aviso fixo, apoiadores (CSV) e patrocinadores, e `/painel/avise-me` com exportação e remoção, verificado por testes de autorização e de importação CSV

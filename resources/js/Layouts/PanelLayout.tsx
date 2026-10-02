@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import type { ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import { Seal } from '@/Components/Brand/Seal';
 import { FlashToasts, ToastProvider } from '@/Components/Ui/Toast';
 import { t } from '@/i18n/pt-BR';
@@ -9,10 +9,14 @@ const copy = t.panel;
 
 const hrefOf = (area: string) => (area === 'inicio' ? '/painel' : `/painel/${area}`);
 
+/** Content screens live at their own paths but belong to the "conteudo" area. */
+const CONTENT_PATHS = ['configuracoes', 'lugar', 'obra', 'regiao', 'campanha', 'avise-me'];
+
 /** Which area the current URL belongs to: "/painel/relatos/12" → "relatos". */
 function activeArea(url: string): string {
     const segment = url.split('?')[0]?.split('/')[2];
-    return segment && segment.length > 0 ? segment : 'inicio';
+    if (!segment) return 'inicio';
+    return CONTENT_PATHS.includes(segment) ? 'conteudo' : segment;
 }
 
 /**
@@ -24,6 +28,12 @@ export function PanelLayout({ children }: { children: ReactNode }) {
     const page = usePage<SharedProps>();
     const { panelAreas } = page.props;
     const current = activeArea(page.url);
+    const navRef = useRef<HTMLElement>(null);
+
+    // On a phone the menu scrolls sideways: keep the current area in view.
+    useEffect(() => {
+        navRef.current?.querySelector('[aria-current="page"]')?.scrollIntoView({ block: 'nearest', inline: 'center' });
+    }, [current]);
 
     return (
         <ToastProvider>
@@ -46,7 +56,11 @@ export function PanelLayout({ children }: { children: ReactNode }) {
                         {copy.backToSite}
                     </a>
                 </div>
-                <nav aria-label={copy.menuLabel} className="mx-auto max-w-6xl overflow-x-auto px-4 pt-3 pb-3 sm:px-6">
+                <nav
+                    ref={navRef}
+                    aria-label={copy.menuLabel}
+                    className="mx-auto max-w-6xl overflow-x-auto px-4 pt-3 pb-3 sm:px-6"
+                >
                     <ul className="flex w-max gap-1.5">
                         {(panelAreas ?? []).map((area) => (
                             <li key={area}>

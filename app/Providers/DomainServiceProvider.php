@@ -4,21 +4,29 @@ namespace App\Providers;
 
 use App\Application\Members\UseCases\BuildMemberExport;
 use App\Application\Members\UseCases\DeleteAccount;
+use App\Application\Place\UseCases\ManagePlace;
 use App\Domain\Audit\Contracts\Auditor;
+use App\Domain\Campaign\Contracts\CampaignAdminRepository;
 use App\Domain\Campaign\Contracts\CampaignRepository;
 use App\Domain\Campaign\Contracts\WaitlistNotifier;
 use App\Domain\Campaign\Contracts\WaitlistRepository;
 use App\Domain\Catalog\Contracts\ProductReadRepository;
+use App\Domain\Content\Contracts\ContentAdminRepository;
 use App\Domain\Content\Contracts\ContentBlockRepository;
 use App\Domain\Content\Contracts\EditorialListRepository;
+use App\Domain\Content\Contracts\ImageLibrary;
 use App\Domain\Content\Contracts\MarkdownRenderer;
 use App\Domain\Map\Contracts\Geocoder;
 use App\Domain\Members\Contracts\IdentityProvider;
 use App\Domain\Members\Contracts\MemberAdminRepository;
 use App\Domain\Members\Contracts\MemberRepository;
 use App\Domain\Place\Contracts\ConstructionPostRepository;
+use App\Domain\Place\Contracts\DiaryAdminRepository;
+use App\Domain\Place\Contracts\PlaceAdminRepository;
 use App\Domain\Place\Contracts\PlaceSpaceRepository;
 use App\Domain\Place\Contracts\SitePhotoRepository;
+use App\Domain\Region\Contracts\ConsentProofStorage;
+use App\Domain\Region\Contracts\RegionAdminRepository;
 use App\Domain\Region\Contracts\RegionPartnerRepository;
 use App\Domain\Sightings\Contracts\ImageProcessor;
 use App\Domain\Sightings\Contracts\MemberSightingRepository;
@@ -34,26 +42,33 @@ use App\Infrastructure\Geo\NominatimGeocoder;
 use App\Infrastructure\Identity\GoogleIdentityProvider;
 use App\Infrastructure\Images\GdImageProcessor;
 use App\Infrastructure\Images\PrivatePhotoStorage;
+use App\Infrastructure\Images\PublicImageLibrary;
 use App\Infrastructure\Mail\MailSightingNotifier;
 use App\Infrastructure\Mail\MailWaitlistNotifier;
 use App\Infrastructure\Members\SightingsContentEraser;
 use App\Infrastructure\Members\SightingsDataSource;
 use App\Infrastructure\Members\WaitlistDataSource;
+use App\Infrastructure\Persistence\Eloquent\EloquentCampaignAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentCampaignRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentConstructionPostRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentContentAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentContentBlockRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentDiaryAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentEditorialListRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentMemberAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentMemberRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentMemberSightingRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentModerationRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentPlaceAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentPlaceSpaceRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentProductReadRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentRegionAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentRegionPartnerRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentSightingReadRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentSightingWriteRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentSitePhotoRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentWaitlistRepository;
+use App\Infrastructure\Region\PrivateConsentProofStorage;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Support\ServiceProvider;
 
@@ -88,6 +103,13 @@ class DomainServiceProvider extends ServiceProvider
         SightingNotifier::class => MailSightingNotifier::class,
         ModerationRepository::class => EloquentModerationRepository::class,
         Auditor::class => DatabaseAuditor::class,
+        ImageLibrary::class => PublicImageLibrary::class,
+        ContentAdminRepository::class => EloquentContentAdminRepository::class,
+        CampaignAdminRepository::class => EloquentCampaignAdminRepository::class,
+        PlaceAdminRepository::class => EloquentPlaceAdminRepository::class,
+        DiaryAdminRepository::class => EloquentDiaryAdminRepository::class,
+        RegionAdminRepository::class => EloquentRegionAdminRepository::class,
+        ConsentProofStorage::class => PrivateConsentProofStorage::class,
         ProductReadRepository::class => EloquentProductReadRepository::class,
         PlaceSpaceRepository::class => EloquentPlaceSpaceRepository::class,
         SitePhotoRepository::class => EloquentSitePhotoRepository::class,
@@ -106,6 +128,7 @@ class DomainServiceProvider extends ServiceProvider
         $this->app->when(DeleteAccount::class)->needs('$erasers')->giveTagged('member.erasers');
         $this->app->when(BuildMemberExport::class)->needs('$sources')->giveTagged('member.data-sources');
 
+        $this->app->when(ManagePlace::class)->needs('$embedHosts')->give(fn () => (array) config('ovniporto.embed_hosts'));
         $this->app->bind(Geocoder::class, fn () => new CachedGeocoder(new NominatimGeocoder, $this->app->make(Cache::class)));
     }
 }

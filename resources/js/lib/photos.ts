@@ -1,3 +1,5 @@
+import { xsrfToken } from './http';
+
 /**
  * First metadata layer, in the browser. EXIF is read in memory only to
  * *suggest* place and time; the file that leaves the device is a fresh JPEG
@@ -71,11 +73,6 @@ export async function thumbnail(blob: Blob, size = 160): Promise<string> {
         reader.onload = () => resolve(String(reader.result));
         reader.readAsDataURL(small);
     });
-}
-
-function xsrfToken(): string {
-    const match = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/);
-    return match ? decodeURIComponent(match[1] ?? '') : '';
 }
 
 /** Sends the clean blob to the private temporary area; returns its upload id. */

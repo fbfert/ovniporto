@@ -30,6 +30,8 @@ export interface PlaceSpace {
     status: 'planning' | 'building' | 'open';
     concept: string | null;
     description: string | null;
+    /** Concept art uploaded in the panel (not a bundled illustration). */
+    conceptUrl: string | null;
 }
 
 export interface PartnerCard {

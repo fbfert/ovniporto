@@ -19,6 +19,11 @@ function countingGeocoder(?string $answer): Geocoder
 
             return $this->answer;
         }
+
+        public function locate(string $address): ?array
+        {
+            return null;
+        }
     };
 }
 

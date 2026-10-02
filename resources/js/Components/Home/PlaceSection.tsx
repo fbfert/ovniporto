@@ -1,6 +1,6 @@
 import { Button } from '@/Components/Ui/Button';
+import { SpaceConcept } from '@/Components/Place/SpaceConcept';
 import { ConceptImage } from '@/Components/Ui/ConceptImage';
-import { hasConcept } from '@/Components/Ui/Picture';
 import { Reveal, RevealItem } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
 import { Badge, Display, Eyebrow } from '@/Components/Ui/Typography';
@@ -79,17 +79,12 @@ export function PlaceSection({ lead, spaces }: { lead: string; spaces: PlaceSpac
                                 space.phase === 1 ? 'bg-beam/10 ring-beam/50' : 'bg-night/[0.03] ring-night/12'
                             }`}
                         >
-                            {hasConcept(space.concept) ? (
-                                <ConceptImage
-                                    slug={space.concept}
-                                    sizes="18rem"
-                                    className="-mx-6 mb-5 aspect-[4/3] bg-night"
-                                />
-                            ) : (
-                                <div className="-mx-6 mb-5 flex aspect-[4/3] items-center justify-center border-b-2 border-dashed border-night/15 bg-night/[0.03]">
-                                    <p className="font-script text-xl text-horizon">{t.place.conceptPending}</p>
-                                </div>
-                            )}
+                            <SpaceConcept
+                                space={space}
+                                sizes="18rem"
+                                className="-mx-6 mb-5 aspect-[4/3] bg-night"
+                                pendingClassName="-mx-6 mb-5 aspect-[4/3]"
+                            />
                             <Display
                                 as="span"
                                 outlined

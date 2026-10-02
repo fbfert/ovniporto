@@ -12,9 +12,14 @@ use App\Http\Controllers\Members\AccountController;
 use App\Http\Controllers\Members\GoogleAuthController;
 use App\Http\Controllers\Members\WelcomeController;
 use App\Http\Controllers\Panel\AuditController;
+use App\Http\Controllers\Panel\CampaignAdminController;
+use App\Http\Controllers\Panel\ContentHubController;
 use App\Http\Controllers\Panel\MemberAdminController;
 use App\Http\Controllers\Panel\PanelHomeController;
 use App\Http\Controllers\Panel\PanelUpcomingController;
+use App\Http\Controllers\Panel\PlaceAdminController;
+use App\Http\Controllers\Panel\RegionAdminController;
+use App\Http\Controllers\Panel\SettingsController;
 use App\Http\Controllers\Panel\SightingModerationController;
 use App\Http\Controllers\Place\ConstructionDiaryController;
 use App\Http\Controllers\Place\PlaceController;
@@ -111,7 +116,74 @@ Route::middleware(['auth', 'profile.complete', 'panel:inicio'])->prefix('painel'
         Route::delete('/{member}', [MemberAdminController::class, 'destroy'])->whereNumber('member')->name('.destroy');
     });
 
-    foreach (['pedidos', 'produtos', 'conteudo'] as $area) {
+    // Content of the site and of the future place: admin only (PanelArea::Content).
+    Route::middleware('panel:conteudo')->group(function () {
+        Route::get('/conteudo', ContentHubController::class)->name('.content');
+        Route::post('/previa', [SettingsController::class, 'preview'])->name('.preview');
+
+        Route::prefix('configuracoes')->name('.settings')->group(function () {
+            Route::get('/', [SettingsController::class, 'show']);
+            Route::put('/links', [SettingsController::class, 'links'])->name('.links');
+            Route::put('/metas', [SettingsController::class, 'goals'])->name('.goals');
+            Route::put('/textos/{key}', [SettingsController::class, 'block'])->where('key', '[a-z_]+')->name('.block');
+            Route::post('/{list}', [SettingsController::class, 'saveItem'])->whereIn('list', ['faq', 'regras'])->name('.items.store');
+            Route::put('/{list}/{item}', [SettingsController::class, 'saveItem'])->whereIn('list', ['faq', 'regras'])->whereNumber('item')->name('.items.update');
+            Route::delete('/{list}/{item}', [SettingsController::class, 'deleteItem'])->whereIn('list', ['faq', 'regras'])->whereNumber('item')->name('.items.destroy');
+            Route::post('/{list}/{item}/mover', [SettingsController::class, 'moveItem'])->whereIn('list', ['faq', 'regras'])->whereNumber('item')->name('.items.move');
+        });
+
+        Route::prefix('lugar')->name('.place')->group(function () {
+            Route::get('/', [PlaceAdminController::class, 'show']);
+            Route::put('/espacos/{space}', [PlaceAdminController::class, 'updateSpace'])->whereNumber('space')->name('.spaces.update');
+            Route::post('/espacos/{space}/mover', [PlaceAdminController::class, 'moveSpace'])->whereNumber('space')->name('.spaces.move');
+            Route::post('/espacos/{space}/conceito', [PlaceAdminController::class, 'concept'])->whereNumber('space')->name('.spaces.concept');
+            Route::post('/fotos', [PlaceAdminController::class, 'addPhoto'])->name('.photos.store');
+            Route::put('/fotos/{photo}', [PlaceAdminController::class, 'updatePhoto'])->whereNumber('photo')->name('.photos.update');
+            Route::delete('/fotos/{photo}', [PlaceAdminController::class, 'deletePhoto'])->whereNumber('photo')->name('.photos.destroy');
+            Route::post('/fotos/{photo}/mover', [PlaceAdminController::class, 'movePhoto'])->whereNumber('photo')->name('.photos.move');
+            Route::put('/mapa-3d', [PlaceAdminController::class, 'map3d'])->name('.map3d');
+        });
+
+        Route::prefix('obra')->name('.diary')->group(function () {
+            Route::get('/', [PlaceAdminController::class, 'diary']);
+            Route::get('/novo', [PlaceAdminController::class, 'createPost'])->name('.create');
+            Route::post('/', [PlaceAdminController::class, 'storePost'])->name('.store');
+            Route::get('/{post}', [PlaceAdminController::class, 'editPost'])->whereNumber('post')->name('.edit');
+            Route::post('/{post}', [PlaceAdminController::class, 'updatePost'])->whereNumber('post')->name('.update');
+            Route::delete('/{post}', [PlaceAdminController::class, 'deletePost'])->whereNumber('post')->name('.destroy');
+        });
+
+        Route::prefix('regiao')->name('.region')->group(function () {
+            Route::get('/', [RegionAdminController::class, 'index']);
+            Route::get('/novo', [RegionAdminController::class, 'create'])->name('.create');
+            Route::post('/', [RegionAdminController::class, 'store'])->name('.store');
+            Route::post('/localizar', [RegionAdminController::class, 'locate'])->middleware('throttle:30,1')->name('.locate');
+            Route::get('/{partner}', [RegionAdminController::class, 'edit'])->whereNumber('partner')->name('.edit');
+            Route::post('/{partner}', [RegionAdminController::class, 'update'])->whereNumber('partner')->name('.update');
+            Route::post('/{partner}/publicar', [RegionAdminController::class, 'publish'])->whereNumber('partner')->name('.publish');
+            Route::post('/{partner}/despublicar', [RegionAdminController::class, 'unpublish'])->whereNumber('partner')->name('.unpublish');
+            Route::get('/{partner}/consentimento', [RegionAdminController::class, 'proof'])->whereNumber('partner')->name('.proof');
+            Route::delete('/{partner}', [RegionAdminController::class, 'destroy'])->whereNumber('partner')->name('.destroy');
+        });
+
+        Route::prefix('campanha')->name('.campaign')->group(function () {
+            Route::get('/', [CampaignAdminController::class, 'show']);
+            Route::put('/', [CampaignAdminController::class, 'update'])->name('.update');
+            Route::post('/apoiadores', [CampaignAdminController::class, 'addSupporter'])->name('.supporters.store');
+            Route::post('/apoiadores/importar', [CampaignAdminController::class, 'importSupporters'])->name('.supporters.import');
+            Route::delete('/apoiadores/{supporter}', [CampaignAdminController::class, 'deleteSupporter'])->whereNumber('supporter')->name('.supporters.destroy');
+            Route::post('/patrocinadores', [CampaignAdminController::class, 'addSponsor'])->name('.sponsors.store');
+            Route::delete('/patrocinadores/{sponsor}', [CampaignAdminController::class, 'deleteSponsor'])->whereNumber('sponsor')->name('.sponsors.destroy');
+        });
+
+        Route::prefix('avise-me')->name('.waitlist')->group(function () {
+            Route::get('/', [CampaignAdminController::class, 'waitlist']);
+            Route::get('/exportar', [CampaignAdminController::class, 'exportWaitlist'])->name('.export');
+            Route::delete('/{subscriber}', [CampaignAdminController::class, 'removeSubscriber'])->whereNumber('subscriber')->name('.destroy');
+        });
+    });
+
+    foreach (['pedidos', 'produtos'] as $area) {
         Route::get($area, PanelUpcomingController::class)
             ->middleware("panel:{$area}")
             ->defaults('area', $area)

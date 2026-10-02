@@ -24,6 +24,7 @@ use Illuminate\Support\Carbon;
  * @property bool $is_featured
  * @property bool $is_demo
  * @property Carbon|null $consent_given_at
+ * @property string|null $consent_proof_path
  * @property Carbon|null $published_at
  */
 class RegionPartner extends Model

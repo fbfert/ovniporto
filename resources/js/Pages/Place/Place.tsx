@@ -4,9 +4,10 @@ import { BeamIcon, CompassIcon, StampIcon } from '@/Components/Icons';
 import { SeoHead } from '@/Components/Layout/SeoHead';
 import { OVNIPORTO_COORDS, PlaceMap } from '@/Components/Place/PlaceMap';
 import { SitePhotos, type SitePhoto } from '@/Components/Place/SitePhotos';
+import { SpaceConcept } from '@/Components/Place/SpaceConcept';
 import { Button } from '@/Components/Ui/Button';
 import { ConceptImage } from '@/Components/Ui/ConceptImage';
-import { Picture, hasConcept } from '@/Components/Ui/Picture';
+import { Picture } from '@/Components/Ui/Picture';
 import { Reveal, RevealItem } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
 import { Badge, Display, Eyebrow } from '@/Components/Ui/Typography';
@@ -54,17 +55,12 @@ function PlaceCover() {
 function SpaceCard({ space, number }: { space: PlaceSpace; number: number }) {
     return (
         <article className="flex h-full flex-col overflow-hidden rounded-[22px] bg-moonlight ring-1 ring-night/12">
-            {hasConcept(space.concept) ? (
-                <ConceptImage
-                    slug={space.concept}
-                    sizes="(min-width: 768px) 22rem, 90vw"
-                    className="aspect-[16/10] bg-night"
-                />
-            ) : (
-                <div className="flex aspect-[16/10] items-center justify-center border-b-2 border-dashed border-night/15 bg-night/[0.03]">
-                    <p className="font-script text-xl text-horizon">{t.place.conceptPending}</p>
-                </div>
-            )}
+            <SpaceConcept
+                space={space}
+                sizes="(min-width: 768px) 22rem, 90vw"
+                className="aspect-[16/10] bg-night"
+                pendingClassName="aspect-[16/10]"
+            />
             <div className="flex flex-1 flex-col p-6">
                 <div className="flex items-baseline gap-3">
                     <Display as="span" outlined className="text-3xl leading-none text-horizon">
@@ -121,7 +117,15 @@ function PhaseTimeline({ spaces }: { spaces: PlaceSpace[] }) {
     );
 }
 
-export default function Place({ spaces, photos }: { spaces: PlaceSpace[]; photos: SitePhoto[] }) {
+export default function Place({
+    spaces,
+    photos,
+    map3d,
+}: {
+    spaces: PlaceSpace[];
+    photos: SitePhoto[];
+    map3d: string | null;
+}) {
     return (
         <>
             <SeoHead title={copy.title} description={copy.description} image="/concept/overview.jpg" />
@@ -171,7 +175,19 @@ export default function Place({ spaces, photos }: { spaces: PlaceSpace[]; photos
                     <h3 id="mapa-3d" className="font-display text-lg font-bold tracking-[0.04em] uppercase">
                         {copy.mapTitle}
                     </h3>
-                    <p className="mt-2 font-script text-2xl text-horizon">{copy.map3dPending}</p>
+                    {map3d ? (
+                        <iframe
+                            src={map3d}
+                            title={copy.mapTitle}
+                            loading="lazy"
+                            allow="fullscreen; xr-spatial-tracking"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            sandbox="allow-scripts allow-same-origin allow-popups"
+                            className="mt-6 aspect-[16/10] w-full rounded-[18px] bg-night"
+                        />
+                    ) : (
+                        <p className="mt-2 font-script text-2xl text-horizon">{copy.map3dPending}</p>
+                    )}
                 </section>
             </Section>
 

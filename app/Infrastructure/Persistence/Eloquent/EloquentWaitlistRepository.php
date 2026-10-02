@@ -29,4 +29,28 @@ final class EloquentWaitlistRepository implements WaitlistRepository
 
         return true;
     }
+
+    public function subscribers(): array
+    {
+        return NewsletterSubscriber::query()
+            ->latest('id')
+            ->get()
+            ->map(fn (NewsletterSubscriber $s) => [
+                'id' => $s->id,
+                'email' => $s->email,
+                'source' => $s->source,
+                'consentedAt' => $s->consented_at->toIso8601String(),
+                'confirmedAt' => $s->confirmed_at?->toIso8601String(),
+            ])
+            ->values()
+            ->all();
+    }
+
+    public function remove(int $id): ?string
+    {
+        $subscriber = NewsletterSubscriber::query()->find($id);
+        $subscriber?->delete();
+
+        return $subscriber?->email;
+    }
 }
