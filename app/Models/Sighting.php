@@ -25,6 +25,9 @@ use Illuminate\Support\Carbon;
  * @property Carbon $consent_given_at
  * @property Carbon|null $published_at
  * @property bool $is_demo
+ * @property int|null $member_id
+ * @property string|null $moderation_note
+ * @property Carbon $created_at
  */
 class Sighting extends Model
 {

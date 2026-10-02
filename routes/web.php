@@ -4,8 +4,12 @@ use App\Http\Controllers\Content\CommunityController;
 use App\Http\Controllers\Content\FaqController;
 use App\Http\Controllers\Content\LegalPageController;
 use App\Http\Controllers\Content\LegendController;
+use App\Http\Controllers\Dev\SignInAsController;
 use App\Http\Controllers\Dev\StyleguideController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Members\AccountController;
+use App\Http\Controllers\Members\GoogleAuthController;
+use App\Http\Controllers\Members\WelcomeController;
 use App\Http\Controllers\Place\ConstructionDiaryController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Place\SupportController;
@@ -33,6 +37,33 @@ Route::get('/obra/{slug}', [ConstructionDiaryController::class, 'show'])
     ->where('slug', '[a-z0-9-]+')
     ->name('diary.post');
 
+// Members: Google is the only way in.
+Route::middleware('guest')->group(function () {
+    Route::get('/entrar', [GoogleAuthController::class, 'show'])->name('login');
+    Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('auth.google');
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
+});
+Route::middleware('auth')->group(function () {
+    Route::post('/sair', [GoogleAuthController::class, 'logout'])->name('logout');
+    Route::get('/boas-vindas', [WelcomeController::class, 'show'])->name('welcome');
+    Route::post('/boas-vindas', [WelcomeController::class, 'store'])->name('welcome.store');
+    Route::get('/apelido-disponivel', [WelcomeController::class, 'nickname'])
+        ->middleware('throttle:60,1')
+        ->name('nickname.check');
+
+    Route::middleware('profile.complete')->group(function () {
+        Route::get('/conta', [AccountController::class, 'show'])->name('account');
+        Route::put('/conta/dados', [AccountController::class, 'update'])->name('account.update');
+        Route::delete('/conta/relatos/{sighting}', [AccountController::class, 'destroySighting'])
+            ->whereNumber('sighting')
+            ->name('account.sightings.destroy');
+        Route::post('/conta/exportar', [AccountController::class, 'export'])
+            ->middleware('throttle:3,60')
+            ->name('account.export');
+        Route::delete('/conta', [AccountController::class, 'destroy'])->name('account.destroy');
+    });
+});
+
 Route::post('/avise-me', [WaitlistController::class, 'store'])
     ->middleware('throttle:5,1')
     ->name('waitlist.store');
@@ -47,3 +78,4 @@ foreach (array_keys(UpcomingPages::PAGES) as $slug) {
 }
 
 Route::get('/dev/styleguide', StyleguideController::class)->name('dev.styleguide');
+Route::get('/dev/entrar-como/{member}', SignInAsController::class)->whereNumber('member')->name('dev.sign-in-as');

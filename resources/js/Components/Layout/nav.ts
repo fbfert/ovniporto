@@ -17,4 +17,5 @@ export const allLinks = [
     { href: '/faq', label: 'Perguntas frequentes' },
 ] as const;
 
-export const JOIN_HREF = '/comunidade';
+/** Full-page sign-in, for places where a modal would stack on another overlay (mobile menu). */
+export const JOIN_HREF = '/entrar';

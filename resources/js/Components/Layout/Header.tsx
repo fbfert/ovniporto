@@ -2,11 +2,13 @@ import { Link, usePage } from '@inertiajs/react';
 import { motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Seal } from '@/Components/Brand/Seal';
-import { Button } from '@/Components/Ui/Button';
+import { useAuthMember } from '@/Components/Members/auth';
+import { JoinButton } from '@/Components/Members/JoinButton';
+import { MemberMenu } from '@/Components/Members/MemberMenu';
 import { t } from '@/i18n/pt-BR';
 import { duration, ease } from '@/lib/motion';
 import { MobileMenu } from './MobileMenu';
-import { JOIN_HREF, primaryLinks } from './nav';
+import { primaryLinks } from './nav';
 
 /**
  * Floating pill. Inverts to night over dark bands (each band carries
@@ -19,6 +21,7 @@ export function Header() {
     const { scrollY } = useScroll();
     const lastY = useRef(0);
     const { url } = usePage();
+    const member = useAuthMember();
 
     useMotionValueEvent(scrollY, 'change', (y) => {
         const delta = y - lastY.current;
@@ -89,11 +92,13 @@ export function Header() {
                     </Link>
 
                     <div className="flex items-center justify-end gap-2">
-                        <span className="hidden lg:block">
-                            <Button href={JOIN_HREF} size="sm">
-                                {t.nav.join}
-                            </Button>
-                        </span>
+                        {member ? (
+                            <MemberMenu member={member} />
+                        ) : (
+                            <span className="hidden lg:block">
+                                <JoinButton size="sm" />
+                            </span>
+                        )}
                         <button
                             type="button"
                             aria-expanded={menuOpen}

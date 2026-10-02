@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Application\Members\UseCases\BuildMemberExport;
+use App\Application\Members\UseCases\DeleteAccount;
 use App\Domain\Campaign\Contracts\CampaignRepository;
 use App\Domain\Campaign\Contracts\WaitlistNotifier;
 use App\Domain\Campaign\Contracts\WaitlistRepository;
@@ -9,19 +11,26 @@ use App\Domain\Catalog\Contracts\ProductReadRepository;
 use App\Domain\Content\Contracts\ContentBlockRepository;
 use App\Domain\Content\Contracts\EditorialListRepository;
 use App\Domain\Content\Contracts\MarkdownRenderer;
+use App\Domain\Members\Contracts\IdentityProvider;
 use App\Domain\Members\Contracts\MemberRepository;
 use App\Domain\Place\Contracts\ConstructionPostRepository;
 use App\Domain\Place\Contracts\PlaceSpaceRepository;
 use App\Domain\Place\Contracts\SitePhotoRepository;
 use App\Domain\Region\Contracts\RegionPartnerRepository;
+use App\Domain\Sightings\Contracts\MemberSightingRepository;
 use App\Domain\Sightings\Contracts\SightingReadRepository;
 use App\Infrastructure\Content\CommonMarkRenderer;
+use App\Infrastructure\Identity\GoogleIdentityProvider;
 use App\Infrastructure\Mail\MailWaitlistNotifier;
+use App\Infrastructure\Members\SightingsContentEraser;
+use App\Infrastructure\Members\SightingsDataSource;
+use App\Infrastructure\Members\WaitlistDataSource;
 use App\Infrastructure\Persistence\Eloquent\EloquentCampaignRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentConstructionPostRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentContentBlockRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentEditorialListRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentMemberRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentMemberSightingRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentPlaceSpaceRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentProductReadRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentRegionPartnerRepository;
@@ -36,13 +45,24 @@ use Illuminate\Support\ServiceProvider;
  */
 class DomainServiceProvider extends ServiceProvider
 {
+    /**
+     * Modules that erase their part when a member deletes the account.
+     * Orders joins with add-checkout-payments (it anonymizes instead of deleting).
+     */
+    private const MEMBER_ERASERS = [SightingsContentEraser::class];
+
+    /** Modules that contribute a section to "Baixar meus dados". */
+    private const MEMBER_DATA_SOURCES = [SightingsDataSource::class, WaitlistDataSource::class];
+
     /** @var array<class-string, class-string> */
     public array $bindings = [
         ContentBlockRepository::class => EloquentContentBlockRepository::class,
         EditorialListRepository::class => EloquentEditorialListRepository::class,
         MarkdownRenderer::class => CommonMarkRenderer::class,
         MemberRepository::class => EloquentMemberRepository::class,
+        IdentityProvider::class => GoogleIdentityProvider::class,
         SightingReadRepository::class => EloquentSightingReadRepository::class,
+        MemberSightingRepository::class => EloquentMemberSightingRepository::class,
         ProductReadRepository::class => EloquentProductReadRepository::class,
         PlaceSpaceRepository::class => EloquentPlaceSpaceRepository::class,
         SitePhotoRepository::class => EloquentSitePhotoRepository::class,
@@ -52,4 +72,13 @@ class DomainServiceProvider extends ServiceProvider
         WaitlistRepository::class => EloquentWaitlistRepository::class,
         WaitlistNotifier::class => MailWaitlistNotifier::class,
     ];
+
+    public function register(): void
+    {
+        $this->app->tag(self::MEMBER_ERASERS, 'member.erasers');
+        $this->app->tag(self::MEMBER_DATA_SOURCES, 'member.data-sources');
+
+        $this->app->when(DeleteAccount::class)->needs('$erasers')->giveTagged('member.erasers');
+        $this->app->when(BuildMemberExport::class)->needs('$sources')->giveTagged('member.data-sources');
+    }
 }

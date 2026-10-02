@@ -4,6 +4,8 @@ import { Section } from '@/Components/Ui/Section';
 import { Badge, Display, Eyebrow } from '@/Components/Ui/Typography';
 import { t } from '@/i18n/pt-BR';
 import { useCommunityChannels, type CommunityChannel } from '@/Components/Layout/community';
+import { useAuthMember } from '@/Components/Members/auth';
+import { JoinButton } from '@/Components/Members/JoinButton';
 import { Postcard } from './Postcard';
 import { WaitlistForm } from './WaitlistForm';
 
@@ -26,6 +28,7 @@ function SocialButton({ channel }: { channel: CommunityChannel }) {
 
 /** Section 09. Join the vigil, ask to be told when the campaign opens, send a postcard. */
 export function CommunitySection() {
+    const member = useAuthMember();
     const social = useCommunityChannels().filter((channel) => channel.key !== 'email');
     return (
         <Section tone="dark" pattern="stars" wave labelledBy="comunidade" className="pb-10">
@@ -37,7 +40,11 @@ export function CommunitySection() {
                     </Display>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                    <Button href="/comunidade">{t.community.google}</Button>
+                    {member ? (
+                        <Button href="/conta">{t.members.account}</Button>
+                    ) : (
+                        <JoinButton label={t.community.google} />
+                    )}
                     {social.map((channel) => (
                         <SocialButton key={channel.key} channel={channel} />
                     ))}

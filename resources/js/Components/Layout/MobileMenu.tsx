@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useRef } from 'react';
 import { Starfield } from '@/Components/Scene/Starfield';
 import { Button } from '@/Components/Ui/Button';
+import { useAuthMember } from '@/Components/Members/auth';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { t } from '@/i18n/pt-BR';
 import { ease } from '@/lib/motion';
@@ -18,6 +19,7 @@ const ORIGIN = 'calc(100% - 2.6rem) 2.6rem';
  */
 export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
     const panelRef = useRef<HTMLDivElement>(null);
+    const member = useAuthMember();
     const social = useCommunityChannels().filter((channel) => channel.key !== 'email');
 
     useFocusTrap(panelRef, open, onClose, 'menu-trigger');
@@ -76,9 +78,15 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                         ))}
                     </ul>
                     <div className="relative mt-auto flex flex-col gap-3 px-6 pt-10 pb-[max(2rem,env(safe-area-inset-bottom))]">
-                        <Button href={JOIN_HREF} size="lg" onClick={onClose}>
-                            {t.nav.join}
-                        </Button>
+                        {member ? (
+                            <Button href={member.complete ? '/conta' : '/boas-vindas'} size="lg" onClick={onClose}>
+                                {member.complete ? t.members.account : t.members.finishProfile}
+                            </Button>
+                        ) : (
+                            <Button href={JOIN_HREF} size="lg" onClick={onClose}>
+                                {t.nav.join}
+                            </Button>
+                        )}
                         <ul className="flex justify-center gap-3">
                             {social.map((channel) => (
                                 <li key={channel.key}>

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Application\Content\UseCases\GetCommunityLinks;
+use App\Models\Member;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -23,9 +24,27 @@ class HandleInertiaRequests extends Middleware
             'appUrl' => rtrim((string) config('app.url'), '/'),
             'currentUrl' => $request->url(),
             'community' => fn () => app(GetCommunityLinks::class)->execute(),
+            // Only what the header needs about the signed-in member: never the real name or e-mail.
+            'auth' => fn () => ['member' => $this->member($request)],
             'flash' => [
                 'toast' => fn () => $request->session()->get('toast'),
             ],
+        ];
+    }
+
+    /** @return array{nickname: ?string, avatarUrl: ?string, canOpenPanel: bool, complete: bool}|null */
+    private function member(Request $request): ?array
+    {
+        $member = $request->user();
+        if (! $member instanceof Member) {
+            return null;
+        }
+
+        return [
+            'nickname' => $member->nickname,
+            'avatarUrl' => $member->avatar_url,
+            'canOpenPanel' => $member->role->canOpenPanel(),
+            'complete' => $member->hasCompleteProfile(),
         ];
     }
 }
