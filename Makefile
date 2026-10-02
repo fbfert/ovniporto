@@ -26,8 +26,10 @@ down: ## Stop and remove containers (named volumes are kept)
 sh: ## Open a shell in the app container
 	$(COMPOSE) exec $(APP) sh
 
-test: ## Run the Pest suite inside the app image
+test: ## Pest in the app image, then the Vitest component tests in the node build image
 	$(COMPOSE) run --rm --no-deps $(TEST_ENV) $(APP) php artisan test
+	docker build --target build -f docker/ssr/Dockerfile -t $(NODE_IMAGE) .
+	docker run --rm $(NODE_IMAGE) npm test
 
 lint: ## Pint + PHPStan in the app image, ESLint/tsc/Prettier in the node build image
 	$(COMPOSE) run --rm --no-deps $(APP) ./vendor/bin/pint --test

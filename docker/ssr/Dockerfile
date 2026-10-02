@@ -16,7 +16,7 @@ WORKDIR /app
 COPY package.json package-lock.json .npmrc ./
 RUN npm ci
 # Lint configs are included so `make lint` can run `npm run lint` in this stage.
-COPY vite.config.js tsconfig.json eslint.config.js .prettierrc ./
+COPY vite.config.js vitest.config.js tsconfig.json eslint.config.js .prettierrc .prettierignore ./
 COPY resources ./resources
 COPY public ./public
 RUN npm run build

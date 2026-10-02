@@ -15,7 +15,7 @@ export default function Error({ status }: { status: number }) {
         <>
             <Head title={`${status}`} />
             <main>
-                <NightBanner tall>
+                <NightBanner size="tall">
                     <svg
                         aria-hidden
                         viewBox="-90 -80 180 90"

@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             ContentBlockSeeder::class,
+            FaqSeeder::class,
+            CommunityRuleSeeder::class,
             PlaceSpaceSeeder::class,
             ProductSeeder::class,
         ]);

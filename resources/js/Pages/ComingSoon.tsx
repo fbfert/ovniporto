@@ -22,7 +22,7 @@ export default function ComingSoon({ slug, title, eyebrow, description, phase }:
             <SeoHead title={title} description={description} />
             <NightBanner>
                 <Eyebrow tone="dark">{eyebrow}</Eyebrow>
-                <Display as="h1" className="mt-4 text-[clamp(2.4rem,1rem+6vw,6rem)]!">
+                <Display as="h1" className="mt-4 text-[clamp(1.7rem,0.35rem+6.4vw,6rem)]! text-balance">
                     {title}
                 </Display>
                 <div className="mt-6 flex flex-wrap justify-center gap-2">

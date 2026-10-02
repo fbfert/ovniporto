@@ -2,12 +2,14 @@ import type { ReactNode } from 'react';
 import { ARAUCARIAS, AraucariaShape, SERRA } from '@/Components/Scene/Art';
 import { Starfield } from '@/Components/Scene/Starfield';
 
-/** Short night cover used by inner pages: sky, stars and the serra skyline at the bottom. */
-export function NightBanner({ children, tall = false }: { children: ReactNode; tall?: boolean }) {
+const heights = { short: 'min-h-[56svh]', default: 'min-h-[78svh]', tall: 'min-h-svh' } as const;
+
+/** Night cover used by inner pages: sky, stars and the serra skyline at the bottom. */
+export function NightBanner({ children, size = 'default' }: { children: ReactNode; size?: keyof typeof heights }) {
     return (
         <section
             data-tone="dark"
-            className={`relative overflow-hidden bg-night text-moonlight ${tall ? 'min-h-svh' : 'min-h-[78svh]'} flex items-center`}
+            className={`relative flex items-center overflow-hidden bg-night text-moonlight ${heights[size]}`}
         >
             <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_0%,var(--color-night-blue)_0%,var(--color-night)_62%)]" />
             <Starfield className="absolute inset-0" density="medium" />
@@ -26,7 +28,9 @@ export function NightBanner({ children, tall = false }: { children: ReactNode; t
                     </g>
                 ))}
             </svg>
-            <div className="relative z-[2] mx-auto w-full max-w-4xl px-5 pt-32 pb-40 text-center sm:px-8">
+            <div
+                className={`relative z-[2] mx-auto w-full max-w-4xl px-5 text-center sm:px-8 ${size === 'short' ? 'pt-32 pb-28' : 'pt-32 pb-40'}`}
+            >
                 {children}
             </div>
         </section>

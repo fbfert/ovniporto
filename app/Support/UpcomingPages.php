@@ -59,40 +59,5 @@ final class UpcomingPages
             'phase' => 'Fase 2 · Páginas públicas',
             'change' => 'add-region-partners',
         ],
-        'lenda' => [
-            'title' => 'A lenda',
-            'eyebrow' => 'De Cachi a Lages',
-            'description' => 'A história do carro amarelo ainda está sendo escrita. Enquanto isso, a origem real: uma visita ao Ovnipuerto de Cachi, na Argentina.',
-            'phase' => 'Fase 2 · Páginas públicas',
-            'change' => 'add-content-pages',
-        ],
-        'comunidade' => [
-            'title' => 'Comunidade',
-            'eyebrow' => 'Entre na vigília',
-            'description' => 'Regras de convivência curtas: respeito, nada de dados de terceiros, humor sim e mentira não.',
-            'phase' => 'Fase 2 · Páginas públicas',
-            'change' => 'add-content-pages',
-        ],
-        'faq' => [
-            'title' => 'Perguntas frequentes',
-            'eyebrow' => 'Antes que você pergunte',
-            'description' => 'O lugar existe? É de graça? Meus dados ficam públicos? As respostas chegam junto com as páginas de conteúdo.',
-            'phase' => 'Fase 2 · Páginas públicas',
-            'change' => 'add-content-pages',
-        ],
-        'privacidade' => [
-            'title' => 'Privacidade',
-            'eyebrow' => 'Seus dados, suas regras',
-            'description' => 'O texto final será redigido pelo encarregado. Já valem as regras: sem cookies de terceiros e fotos publicadas sem metadados.',
-            'phase' => 'Fase 2 · Páginas públicas',
-            'change' => 'add-content-pages',
-        ],
-        'termos' => [
-            'title' => 'Termos de uso',
-            'eyebrow' => 'O combinado',
-            'description' => 'Os termos ainda são rascunho e serão redigidos pelo encarregado antes do lançamento.',
-            'phase' => 'Fase 2 · Páginas públicas',
-            'change' => 'add-content-pages',
-        ],
     ];
 }
