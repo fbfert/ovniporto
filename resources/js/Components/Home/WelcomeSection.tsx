@@ -1,4 +1,5 @@
 import { CountUp } from '@/Components/Ui/CountUp';
+import { BeamIcon, CompassIcon, PinIcon, StarIcon } from '@/Components/Icons';
 import { InfoCard } from '@/Components/Ui/InfoCard';
 import { Reveal } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
@@ -26,10 +27,22 @@ export function WelcomeSection({ intro, sightingsCount }: { intro: string; sight
             <Reveal className="mx-auto mt-14 max-w-5xl">
                 <dl className="grid grid-cols-2 rounded-[22px] bg-night/[0.035] text-left ring-1 ring-night/10 md:grid-cols-4">
                     {[
-                        <InfoCard key="onde" label={t.welcome.where} value={t.welcome.whereValue} href="/o-lugar" />,
-                        <InfoCard key="cidade" label={t.welcome.city} value={t.welcome.cityValue} />,
+                        <InfoCard
+                            key="onde"
+                            icon={<PinIcon size="0.95rem" />}
+                            label={t.welcome.where}
+                            value={t.welcome.whereValue}
+                            href="/o-lugar"
+                        />,
+                        <InfoCard
+                            key="cidade"
+                            icon={<CompassIcon size="0.95rem" />}
+                            label={t.welcome.city}
+                            value={t.welcome.cityValue}
+                        />,
                         <InfoCard
                             key="relatos"
+                            icon={<StarIcon size="0.95rem" />}
                             label={t.welcome.sightings}
                             value={
                                 <span>
@@ -41,6 +54,7 @@ export function WelcomeSection({ intro, sightingsCount }: { intro: string; sight
                         />,
                         <InfoCard
                             key="pista"
+                            icon={<BeamIcon size="0.95rem" />}
                             label={t.welcome.runway}
                             value={t.welcome.runwayValue}
                             extra={<Badge tone="car">{t.welcome.planning}</Badge>}

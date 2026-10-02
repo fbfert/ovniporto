@@ -26,4 +26,4 @@
 ## 5. Verificação
 
 - [x] 5.1 Testes, lint e typecheck verdes; conferir no navegador em 1440 px
-- [ ] 5.2 Conferir no navegador em 390 px
+- [x] 5.2 Conferir no navegador em 390 px

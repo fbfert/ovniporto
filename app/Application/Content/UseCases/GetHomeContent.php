@@ -16,9 +16,6 @@ final readonly class GetHomeContent
         'home_store',
         'home_legend',
         'legend_body',
-        'link_whatsapp',
-        'link_instagram',
-        'contact_email',
     ];
 
     public function __construct(private ContentBlockRepository $blocks) {}

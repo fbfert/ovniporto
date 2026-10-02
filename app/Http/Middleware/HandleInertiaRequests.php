@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Application\Content\UseCases\GetCommunityLinks;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -21,6 +22,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'appUrl' => rtrim((string) config('app.url'), '/'),
             'currentUrl' => $request->url(),
+            'community' => fn () => app(GetCommunityLinks::class)->execute(),
             'flash' => [
                 'toast' => fn () => $request->session()->get('toast'),
             ],

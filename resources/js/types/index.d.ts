@@ -46,9 +46,6 @@ export interface HomeContent {
     home_store: string;
     home_legend: string;
     legend_body: string | null;
-    link_whatsapp: string;
-    link_instagram: string;
-    contact_email: string;
 }
 
 export interface HomeProps {
@@ -60,8 +57,15 @@ export interface HomeProps {
     partners: PartnerCard[];
 }
 
+export interface CommunityLinks {
+    whatsapp: string | null;
+    instagram: string | null;
+    email: string;
+}
+
 export interface SharedProps {
     appUrl: string;
+    community: CommunityLinks;
     currentUrl: string;
     flash: { toast: string | null };
     errors: Record<string, string>;

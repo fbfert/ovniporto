@@ -123,6 +123,10 @@ export const t = {
             other: 'Outro',
         } as Record<string, string>,
     },
+    form: {
+        charactersUsed: 'caracteres usados',
+        close: 'Fechar',
+    },
     community: {
         eyebrow: 'Entre na vigília',
         title: 'Comunidade',

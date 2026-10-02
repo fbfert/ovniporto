@@ -1,16 +1,17 @@
 import { Head } from '@inertiajs/react';
-import type { ReactNode } from 'react';
-import { Seal } from '@/Components/Brand/Seal';
+import { useState, type ReactNode } from 'react';
+import { Seal, SealArt } from '@/Components/Brand/Seal';
+import * as Icons from '@/Components/Icons';
 import { Button } from '@/Components/Ui/Button';
-import { CheckboxField, TextField } from '@/Components/Ui/Fields';
+import { CheckboxField, ChipGroup, SelectField, TextareaField, TextField } from '@/Components/Ui/Fields';
 import { InfoCard } from '@/Components/Ui/InfoCard';
 import { Marquee } from '@/Components/Ui/Marquee';
+import { Modal } from '@/Components/Ui/Modal';
 import { NightSkyArt, Polaroid } from '@/Components/Ui/Polaroid';
 import { Section } from '@/Components/Ui/Section';
 import { TicketCard } from '@/Components/Ui/TicketCard';
 import { ToastProvider, useToast } from '@/Components/Ui/Toast';
 import { Badge, Display, Eyebrow } from '@/Components/Ui/Typography';
-import { SealArt } from '@/Components/Brand/Seal';
 
 const swatches = ['moonlight', 'night', 'night-blue', 'horizon', 'beam', 'beam-glow', 'car'] as const;
 
@@ -29,6 +30,88 @@ function ToastDemo() {
         <Button variant="secondary" tone="dark" onClick={() => toast('Quase lá: confirme no seu e-mail.')}>
             Mostrar toast
         </Button>
+    );
+}
+
+const SIGHTING_TYPES = [
+    { value: 'light', label: 'Luz', icon: <Icons.StarIcon size="1rem" /> },
+    { value: 'object', label: 'Objeto', icon: <Icons.UfoIcon size="1rem" /> },
+    { value: 'trail', label: 'Rastro', icon: <Icons.BeamIcon size="1rem" /> },
+    { value: 'other', label: 'Outro' },
+];
+const DIRECTIONS = ['N', 'NE', 'L', 'SE', 'S', 'SO', 'O', 'NO'].map((d) => ({ value: d, label: d }));
+const TIME_RANGES = [
+    { value: 'dusk', label: 'Anoitecer' },
+    { value: 'night', label: 'Noite' },
+    { value: 'dawn', label: 'Madrugada' },
+];
+
+function ModalDemo({ tone }: { tone: 'light' | 'dark' }) {
+    const [open, setOpen] = useState(false);
+    return (
+        <>
+            <Button variant="secondary" tone={tone} onClick={() => setOpen(true)}>
+                Abrir modal
+            </Button>
+            <Modal open={open} onClose={() => setOpen(false)} title="Entrar na comunidade" tone={tone}>
+                <p className="mb-6 opacity-80">Entre com sua conta Google. Só pedimos nome, e-mail e foto.</p>
+                <div className="flex flex-wrap gap-3">
+                    <Button onClick={() => setOpen(false)}>Continuar</Button>
+                    <Button variant="ghost" tone={tone} onClick={() => setOpen(false)}>
+                        Agora não
+                    </Button>
+                </div>
+            </Modal>
+        </>
+    );
+}
+
+function FormDemo({ tone }: { tone: 'light' | 'dark' }) {
+    const [description, setDescription] = useState('Uma luz verde parada sobre a serra, depois sumiu de uma vez.');
+    const [type, setType] = useState<string | null>('light');
+    const [directions, setDirections] = useState<string[]>(['NE']);
+    return (
+        <div className="grid w-full max-w-3xl gap-6 md:grid-cols-2">
+            <TextareaField
+                tone={tone}
+                label="O que você viu?"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+                maxLength={80}
+                showCount
+                className="md:col-span-2"
+            />
+            <SelectField
+                tone={tone}
+                label="Faixa de horário"
+                placeholder="Escolha"
+                defaultValue=""
+                options={TIME_RANGES}
+            />
+            <SelectField
+                tone={tone}
+                label="Com erro"
+                defaultValue=""
+                placeholder="Escolha"
+                options={TIME_RANGES}
+                error="Escolha uma faixa de horário."
+            />
+            <ChipGroup
+                tone={tone}
+                label="Tipo (seleção única)"
+                options={SIGHTING_TYPES}
+                value={type}
+                onChange={setType}
+            />
+            <ChipGroup
+                tone={tone}
+                multiple
+                label="Direção do olhar (múltipla)"
+                options={DIRECTIONS}
+                value={directions}
+                onChange={setDirections}
+            />
+        </div>
     );
 }
 
@@ -76,6 +159,23 @@ function Kit({ tone }: { tone: 'light' | 'dark' }) {
                 />
                 <CheckboxField tone={tone} label="Autorizo publicar este relato." />
             </Row>
+            <Row title="Texto longo, select e pílulas">
+                <FormDemo tone={tone} />
+            </Row>
+            <Row title="Modal">
+                <ModalDemo tone={tone} />
+            </Row>
+            <Row title="Ícones">
+                {Object.entries(Icons).map(([name, Icon]) => (
+                    <span
+                        key={name}
+                        className="inline-flex w-28 flex-col items-center gap-2 text-center text-xs opacity-80"
+                    >
+                        <Icon size="1.75rem" />
+                        {name.replace('Icon', '')}
+                    </span>
+                ))}
+            </Row>
         </>
     );
 }
@@ -100,8 +200,17 @@ export default function Styleguide() {
                 <Kit tone="light" />
                 <Row title="Informação">
                     <dl className="grid grid-cols-2 gap-6">
-                        <InfoCard label="Onde" value="Vila das Pedras, Lages · SC" />
-                        <InfoCard label="Pista" value="Meta 2028" extra={<Badge tone="car">em planejamento</Badge>} />
+                        <InfoCard
+                            icon={<Icons.PinIcon size="0.95rem" />}
+                            label="Onde"
+                            value="Vila das Pedras, Lages · SC"
+                        />
+                        <InfoCard
+                            icon={<Icons.BeamIcon size="0.95rem" />}
+                            label="Pista"
+                            value="Meta 2028"
+                            extra={<Badge tone="car">em planejamento</Badge>}
+                        />
                     </dl>
                 </Row>
                 <Row title="Polaroids">
@@ -143,6 +252,13 @@ export default function Styleguide() {
                 </Row>
                 <Row title="Toast">
                     <ToastDemo />
+                </Row>
+            </Section>
+            <Section tone="dark" pattern="grid">
+                <Row title="Seção com grade">
+                    <p className="max-w-[48ch] opacity-80">
+                        Fundo quadriculado discreto, para mapas e fichas da torre de controle.
+                    </p>
                 </Row>
             </Section>
         </ToastProvider>

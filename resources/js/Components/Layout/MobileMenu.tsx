@@ -1,10 +1,12 @@
 import { Link } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Starfield } from '@/Components/Scene/Starfield';
 import { Button } from '@/Components/Ui/Button';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { t } from '@/i18n/pt-BR';
 import { ease } from '@/lib/motion';
+import { useCommunityChannels } from './community';
 import { JOIN_HREF, allLinks } from './nav';
 
 /** Origin of the circular reveal: the menu button (top-right of the pill). */
@@ -16,40 +18,9 @@ const ORIGIN = 'calc(100% - 2.6rem) 2.6rem';
  */
 export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
     const panelRef = useRef<HTMLDivElement>(null);
+    const social = useCommunityChannels().filter((channel) => channel.key !== 'email');
 
-    useEffect(() => {
-        if (!open) return;
-        const panel = panelRef.current;
-        const previous = document.activeElement as HTMLElement | null;
-        document.documentElement.style.overflow = 'hidden';
-        const focusables = () =>
-            Array.from(panel?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? []);
-        requestAnimationFrame(() => focusables()[0]?.focus());
-
-        const onKey = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
-                onClose();
-                return;
-            }
-            if (event.key !== 'Tab') return;
-            const items = focusables();
-            const first = items[0];
-            const last = items[items.length - 1];
-            if (event.shiftKey && document.activeElement === first) {
-                event.preventDefault();
-                last?.focus();
-            } else if (!event.shiftKey && document.activeElement === last) {
-                event.preventDefault();
-                first?.focus();
-            }
-        };
-        document.addEventListener('keydown', onKey);
-        return () => {
-            document.removeEventListener('keydown', onKey);
-            document.documentElement.style.overflow = '';
-            (previous ?? document.getElementById('menu-trigger'))?.focus();
-        };
-    }, [open, onClose]);
+    useFocusTrap(panelRef, open, onClose, 'menu-trigger');
 
     return (
         <AnimatePresence>
@@ -108,6 +79,26 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                         <Button href={JOIN_HREF} size="lg" onClick={onClose}>
                             {t.nav.join}
                         </Button>
+                        <ul className="flex justify-center gap-3">
+                            {social.map((channel) => (
+                                <li key={channel.key}>
+                                    {channel.href ? (
+                                        <a
+                                            href={channel.href}
+                                            className="inline-flex min-h-11 press items-center gap-2 rounded-full border border-moonlight/30 px-4 text-sm font-semibold"
+                                        >
+                                            {channel.icon}
+                                            {channel.label}
+                                        </a>
+                                    ) : (
+                                        <span className="inline-flex min-h-11 items-center gap-2 rounded-full border border-dashed border-moonlight/20 px-4 text-sm text-moonlight/55">
+                                            {channel.icon}
+                                            {channel.label} · {t.footer.soon}
+                                        </span>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
                         <p className="text-center font-script text-xl text-beam-glow">{t.brand.signoff}</p>
                     </div>
                 </motion.div>

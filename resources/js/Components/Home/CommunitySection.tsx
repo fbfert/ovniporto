@@ -3,27 +3,30 @@ import { Reveal } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
 import { Badge, Display, Eyebrow } from '@/Components/Ui/Typography';
 import { t } from '@/i18n/pt-BR';
+import { useCommunityChannels, type CommunityChannel } from '@/Components/Layout/community';
 import { Postcard } from './Postcard';
 import { WaitlistForm } from './WaitlistForm';
 
-function SocialButton({ href, label }: { href: string; label: string }) {
-    if (href) {
+function SocialButton({ channel }: { channel: CommunityChannel }) {
+    if (channel.href) {
         return (
-            <Button href={href} variant="secondary" tone="dark" external>
-                {label}
+            <Button href={channel.href} variant="secondary" tone="dark" external iconLeft={channel.icon}>
+                {channel.label}
             </Button>
         );
     }
     return (
         <span className="inline-flex h-12 items-center gap-2 rounded-full border-[1.5px] border-dashed border-moonlight/30 px-5 text-[0.95rem] font-semibold text-moonlight/60">
-            {label}
+            {channel.icon}
+            {channel.label}
             <Badge tone="neutral">{t.community.linkSoon}</Badge>
         </span>
     );
 }
 
 /** Section 09. Join the vigil, ask to be told when the campaign opens, send a postcard. */
-export function CommunitySection({ whatsapp, instagram }: { whatsapp: string; instagram: string }) {
+export function CommunitySection() {
+    const social = useCommunityChannels().filter((channel) => channel.key !== 'email');
     return (
         <Section tone="dark" pattern="stars" wave labelledBy="comunidade" className="pb-10">
             <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
@@ -35,8 +38,9 @@ export function CommunitySection({ whatsapp, instagram }: { whatsapp: string; in
                 </div>
                 <div className="flex flex-wrap gap-3">
                     <Button href="/comunidade">{t.community.google}</Button>
-                    <SocialButton href={whatsapp} label={t.community.whatsapp} />
-                    <SocialButton href={instagram} label={t.community.instagram} />
+                    {social.map((channel) => (
+                        <SocialButton key={channel.key} channel={channel} />
+                    ))}
                 </div>
             </div>
 

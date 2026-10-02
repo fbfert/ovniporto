@@ -33,7 +33,7 @@ export function Section({
     children,
 }: {
     tone?: Tone;
-    pattern?: 'none' | 'stars';
+    pattern?: 'none' | 'stars' | 'grid';
     wave?: boolean;
     id?: string;
     labelledBy?: string;
@@ -64,6 +64,16 @@ export function Section({
                 </svg>
             )}
             {backdrop && <div className="absolute inset-0 z-[1] overflow-hidden">{backdrop}</div>}
+            {pattern === 'grid' && (
+                <div
+                    aria-hidden
+                    className={`absolute inset-0 z-0 [mask-image:radial-gradient(ellipse_at_center,#000_30%,transparent_75%)] bg-[size:40px_40px] ${
+                        dark
+                            ? 'bg-[linear-gradient(rgb(244_245_232/0.06)_1px,transparent_1px),linear-gradient(90deg,rgb(244_245_232/0.06)_1px,transparent_1px)]'
+                            : 'bg-[linear-gradient(rgb(6_17_33/0.06)_1px,transparent_1px),linear-gradient(90deg,rgb(6_17_33/0.06)_1px,transparent_1px)]'
+                    }`}
+                />
+            )}
             {dark && pattern === 'stars' && <Starfield className="absolute inset-0 z-0" density="low" parallax />}
             <div
                 className={`relative z-[2] mx-auto w-full max-w-[84rem] px-5 py-[clamp(4rem,3rem+5vw,8rem)] sm:px-8 ${innerClassName}`}

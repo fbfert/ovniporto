@@ -1,19 +1,16 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { Seal } from '@/Components/Brand/Seal';
 import { SaucerShape } from '@/Components/Scene/Art';
 import { Section } from '@/Components/Ui/Section';
 import { Eyebrow } from '@/Components/Ui/Typography';
 import { t } from '@/i18n/pt-BR';
-import type { HomeContent } from '@/types';
+import { useCommunityChannels } from './community';
 import { allLinks } from './nav';
 
 const MAP_URL = 'https://www.openstreetmap.org/?mlat=-27.85495&mlon=-50.21841#map=14/-27.85495/-50.21841';
 
 export function Footer() {
-    const content = usePage().props.content as Partial<HomeContent> | undefined;
-    const whatsapp = content?.link_whatsapp;
-    const instagram = content?.link_instagram;
-    const email = content?.contact_email || 'contato@ovniporto.tars.art.br';
+    const channels = useCommunityChannels();
 
     return (
         <footer className="relative overflow-hidden">
@@ -61,42 +58,24 @@ export function Footer() {
                             {t.footer.community}
                         </h2>
                         <ul className="mt-4 space-y-1">
-                            <li>
-                                {whatsapp ? (
-                                    <a
-                                        href={whatsapp}
-                                        className="inline-flex min-h-9 items-center hover:text-beam-glow"
-                                    >
-                                        WhatsApp
-                                    </a>
-                                ) : (
-                                    <span className="inline-flex min-h-9 items-center text-moonlight/55">
-                                        WhatsApp · {t.footer.soon}
-                                    </span>
-                                )}
-                            </li>
-                            <li>
-                                {instagram ? (
-                                    <a
-                                        href={instagram}
-                                        className="inline-flex min-h-9 items-center hover:text-beam-glow"
-                                    >
-                                        Instagram
-                                    </a>
-                                ) : (
-                                    <span className="inline-flex min-h-9 items-center text-moonlight/55">
-                                        Instagram · {t.footer.soon}
-                                    </span>
-                                )}
-                            </li>
-                            <li>
-                                <a
-                                    href={`mailto:${email}`}
-                                    className="inline-flex min-h-9 items-center break-all hover:text-beam-glow"
-                                >
-                                    {email}
-                                </a>
-                            </li>
+                            {channels.map((channel) => (
+                                <li key={channel.key}>
+                                    {channel.href ? (
+                                        <a
+                                            href={channel.href}
+                                            className="inline-flex min-h-9 items-center gap-2 break-all hover:text-beam-glow"
+                                        >
+                                            {channel.icon}
+                                            {channel.label}
+                                        </a>
+                                    ) : (
+                                        <span className="inline-flex min-h-9 items-center gap-2 text-moonlight/55">
+                                            {channel.icon}
+                                            {channel.label} · {t.footer.soon}
+                                        </span>
+                                    )}
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>

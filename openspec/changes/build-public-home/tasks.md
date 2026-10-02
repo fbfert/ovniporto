@@ -36,7 +36,7 @@
 ## 5. Avise-me
 
 - [x] 5.1 Criar newsletter_subscribers, UseCase SubscribeToWaitlist (idempotente), rota com rate limit e e-mail de confirmação em fila com link assinado; verificar com testes de feature (válido, inválido, repetido, assinatura adulterada, 429)
-- [ ] 5.2 Ligar o formulário da home com Toast de retorno e verificar no navegador
+- [x] 5.2 Ligar o formulário da home com Toast de retorno e verificar no navegador
 
 ## 6. Placeholders e verificação final
 

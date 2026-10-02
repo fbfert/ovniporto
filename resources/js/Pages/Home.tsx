@@ -1,3 +1,4 @@
+import { usePage } from '@inertiajs/react';
 import type { ReactNode } from 'react';
 import { AbductionHero } from '@/Components/Home/AbductionHero';
 import { CommunitySection } from '@/Components/Home/CommunitySection';
@@ -11,9 +12,10 @@ import { SeoHead } from '@/Components/Layout/SeoHead';
 import { Marquee } from '@/Components/Ui/Marquee';
 import { t } from '@/i18n/pt-BR';
 import { PublicLayout } from '@/Layouts/PublicLayout';
-import type { HomeProps } from '@/types';
+import type { HomeProps, SharedProps } from '@/types';
 
 export default function Home({ counters, content, sightings, products, spaces, partners }: HomeProps) {
+    const { community } = usePage<SharedProps>().props;
     return (
         <>
             <SeoHead />
@@ -32,9 +34,9 @@ export default function Home({ counters, content, sightings, products, spaces, p
             {/* 07 */}
             <LegendSection teaser={content.home_legend} pending={content.legend_body === null} />
             {/* 08 */}
-            <RegionSection partners={partners} contactEmail={content.contact_email} />
+            <RegionSection partners={partners} contactEmail={community.email} />
             {/* 09 */}
-            <CommunitySection whatsapp={content.link_whatsapp} instagram={content.link_instagram} />
+            <CommunitySection />
             {/* 10: footer lives in the layout */}
         </>
     );
