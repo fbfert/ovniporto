@@ -1,0 +1,1 @@
+{"id":"WH-58D329510W468432D-8HN650336L201105X","event_type":"PAYMENT.CAPTURE.COMPLETED","resource":{"id":"3C679366HH908993F","status":"COMPLETED","amount":{"currency_code":"BRL","value":"28.50"},"supplementary_data":{"related_ids":{"order_id":"5O190127TN364715T"}}}}

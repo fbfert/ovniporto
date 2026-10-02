@@ -153,7 +153,7 @@ export function CartDrawer() {
                                         </span>
                                     </div>
                                     <p className="mt-1 text-sm text-moonlight/60">{copy.shippingNote}</p>
-                                    <Button href="/finalizar" variant="car" size="lg" className="mt-4 w-full">
+                                    <Button href="/checkout" variant="car" size="lg" className="mt-4 w-full">
                                         {copy.checkout}
                                     </Button>
                                 </footer>

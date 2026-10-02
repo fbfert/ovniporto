@@ -59,6 +59,7 @@ final readonly class ManageCart
                 'max' => $max,
                 'madeToOrder' => $variant->madeToOrder,
                 'productionDays' => $variant->productionDays,
+                'weightGrams' => $variant->weightGrams,
                 'image' => $variant->imageUrl,
                 'imageAlt' => $variant->imageAlt,
             ];

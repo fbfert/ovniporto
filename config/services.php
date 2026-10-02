@@ -21,6 +21,22 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI', '/auth/google/callback'),
     ],
 
+    // Sandbox or live by PAYPAL_MODE; without a client id, local dev simulates payments.
+    'paypal' => [
+        'mode' => env('PAYPAL_MODE', 'sandbox'),
+        'client_id' => env('PAYPAL_CLIENT_ID'),
+        'client_secret' => env('PAYPAL_CLIENT_SECRET'),
+        'webhook_id' => env('PAYPAL_WEBHOOK_ID'),
+    ],
+
+    // Sandbox or production by MELHOR_ENVIO_ENV; without a token, quotes are a marked simulation.
+    'melhor_envio' => [
+        'env' => env('MELHOR_ENVIO_ENV', 'sandbox'),
+        'token' => env('MELHOR_ENVIO_TOKEN'),
+        'from_postal_code' => env('MELHOR_ENVIO_FROM_POSTAL_CODE'),
+        'user_agent' => env('MELHOR_ENVIO_USER_AGENT', 'OVNIPORTO (contato@ovniporto.tars.art.br)'),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],

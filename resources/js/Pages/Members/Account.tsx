@@ -7,7 +7,7 @@ import { TextField } from '@/Components/Ui/Fields';
 import { Modal } from '@/Components/Ui/Modal';
 import { Section } from '@/Components/Ui/Section';
 import { Badge, Display } from '@/Components/Ui/Typography';
-import { longDate, t } from '@/i18n/pt-BR';
+import { longDate, money, t } from '@/i18n/pt-BR';
 import { PublicLayout } from '@/Layouts/PublicLayout';
 
 const copy = t.members;
@@ -114,7 +114,42 @@ function SightingsTab({ sightings }: { sightings: OwnSighting[] }) {
     );
 }
 
-function OrdersTab() {
+interface OwnOrder {
+    number: string;
+    status: string;
+    totalCents: number;
+    createdAt: string;
+    items: number;
+}
+
+function OrdersTab({ orders }: { orders: OwnOrder[] }) {
+    if (orders.length > 0) {
+        return (
+            <ul className="divide-y-2 divide-dashed divide-night/12 border-y-2 border-dashed border-night/12">
+                {orders.map((order) => (
+                    <li key={order.number}>
+                        <Link
+                            href={`/pedido/${order.number}`}
+                            className="flex min-h-11 flex-wrap items-center justify-between gap-3 py-5 hover:underline"
+                        >
+                            <span>
+                                <span className="font-display font-bold tracking-[0.03em]">{order.number}</span>
+                                <span className="ml-3 text-sm text-night/60">
+                                    {longDate(order.createdAt.slice(0, 10))} · {t.cart.count(order.items)}
+                                </span>
+                            </span>
+                            <span className="flex items-center gap-3">
+                                <Badge tone={order.status === 'pending_payment' ? 'car' : 'neutral'}>
+                                    {t.order.status[order.status] ?? order.status}
+                                </Badge>
+                                <span className="font-semibold tabular-nums">{money(order.totalCents)}</span>
+                            </span>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+        );
+    }
     return (
         <div className="rounded-[22px] border-2 border-dashed border-night/20 p-10 text-center">
             <p className="font-script text-2xl text-horizon">{copy.noOrders}</p>
@@ -233,11 +268,12 @@ function PrivacyTab({ nickname }: { nickname: string }) {
 export default function Account({
     profile,
     sightings,
+    orders,
     tab,
 }: {
     profile: Profile;
     sightings: OwnSighting[];
-    orders: unknown[];
+    orders: OwnOrder[];
     tab: Tab;
 }) {
     const member = useAuthMember();
@@ -290,7 +326,7 @@ export default function Account({
 
                 <div className="mt-10">
                     {tab === 'relatos' && <SightingsTab sightings={sightings} />}
-                    {tab === 'pedidos' && <OrdersTab />}
+                    {tab === 'pedidos' && <OrdersTab orders={orders} />}
                     {tab === 'dados' && <ProfileTab profile={profile} />}
                     {tab === 'privacidade' && <PrivacyTab nickname={profile.nickname} />}
                 </div>

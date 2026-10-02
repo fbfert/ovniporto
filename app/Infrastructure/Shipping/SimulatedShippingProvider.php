@@ -4,7 +4,9 @@ namespace App\Infrastructure\Shipping;
 
 use App\Domain\Shipping\Cep;
 use App\Domain\Shipping\Contracts\ShippingProvider;
+use App\Domain\Shipping\Data\Shipment;
 use App\Domain\Shipping\Data\ShippingOption;
+use App\Domain\Shipping\ShippingUnavailable;
 
 /**
  * Stand-in until Melhor Envio is connected: a rough table by distance from
@@ -29,6 +31,17 @@ final class SimulatedShippingProvider implements ShippingProvider
             new ShippingOption('simulated-pac', 'Correios', 'PAC', 2100 + $extra + $weightSteps * 400, 7 + $extraDays),
             new ShippingOption('simulated-sedex', 'Correios', 'SEDEX', 3400 + $extra * 2 + $weightSteps * 700, 2 + intdiv($extraDays, 2)),
         ];
+    }
+
+    /** A simulation never buys a real label. */
+    public function createLabel(Shipment $shipment): array
+    {
+        throw new ShippingUnavailable('O frete real ainda não está conectado (Melhor Envio).');
+    }
+
+    public function isDelivered(string $shipmentId): bool
+    {
+        return false;
     }
 
     public function isSimulated(): bool

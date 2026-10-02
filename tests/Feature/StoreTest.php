@@ -4,6 +4,7 @@ use App\Domain\Members\Contracts\IdentityProvider;
 use App\Domain\Members\Data\Identity;
 use App\Domain\Shipping\Cep;
 use App\Domain\Shipping\Contracts\ShippingProvider;
+use App\Domain\Shipping\Data\Shipment;
 use App\Domain\Shipping\Data\ShippingOption;
 use App\Models\CampaignSetting;
 use App\Models\Member;
@@ -28,6 +29,16 @@ function spyShipping(): object
             $this->calls++;
 
             return [new ShippingOption('pac', 'Correios', 'PAC', 2190, 8)];
+        }
+
+        public function createLabel(Shipment $shipment): array
+        {
+            return ['shipmentId' => 'x', 'trackingCode' => null, 'trackingUrl' => null];
+        }
+
+        public function isDelivered(string $shipmentId): bool
+        {
+            return false;
         }
 
         public function isSimulated(): bool

@@ -29,10 +29,10 @@ use App\Http\Controllers\Sightings\LogbookController;
 use App\Http\Controllers\Sightings\ReportController;
 use App\Http\Controllers\Sightings\SightingPhotoController;
 use App\Http\Controllers\Store\CartController;
+use App\Http\Controllers\Store\CheckoutController;
+use App\Http\Controllers\Store\PaymentController;
 use App\Http\Controllers\Store\StoreController;
-use App\Http\Controllers\UpcomingPageController;
 use App\Http\Controllers\WaitlistController;
-use App\Support\UpcomingPages;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -201,6 +201,17 @@ Route::post('/carrinho/itens', [CartController::class, 'add'])->middleware('thro
 Route::patch('/carrinho/itens/{variant}', [CartController::class, 'update'])->whereNumber('variant')->middleware('throttle:60,1')->name('cart.update');
 Route::delete('/carrinho/itens/{variant}', [CartController::class, 'remove'])->whereNumber('variant')->name('cart.remove');
 
+// Checkout: visitors and members; card data never reaches these routes (the provider's components take it).
+Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout');
+Route::post('/checkout/identificacao', [CheckoutController::class, 'identify'])->middleware('throttle:30,1')->name('checkout.identify');
+Route::post('/checkout/entrega', [CheckoutController::class, 'delivery'])->middleware('throttle:30,1')->name('checkout.delivery');
+Route::post('/checkout', [CheckoutController::class, 'place'])->middleware('throttle:10,1')->name('checkout.place');
+Route::get('/pedido/{number}/pagar', [CheckoutController::class, 'pay'])->where('number', 'OVP-\d{4}-\d{6}')->name('order.pay');
+Route::post('/pedido/{number}/pagamento', [PaymentController::class, 'start'])->where('number', 'OVP-\d{4}-\d{6}')->middleware('throttle:20,1')->name('order.payment.start');
+Route::post('/pedido/{number}/aprovar', [PaymentController::class, 'approve'])->where('number', 'OVP-\d{4}-\d{6}')->middleware('throttle:20,1')->name('order.payment.approve');
+Route::get('/pedido/{number}', [PaymentController::class, 'show'])->where('number', 'OVP-\d{4}-\d{6}')->name('order.show');
+Route::post('/webhooks/paypal', [PaymentController::class, 'webhook'])->middleware('throttle:120,1')->name('webhooks.paypal');
+
 // Livro de avistamentos: only approved reports are public.
 Route::get('/mapa', [LogbookController::class, 'index'])->name('logbook');
 Route::get('/relatos/{sighting}', [LogbookController::class, 'show'])->whereNumber('sighting')->name('sightings.show');
@@ -218,11 +229,6 @@ Route::get('/avise-me/confirmar/{subscriber}', [WaitlistController::class, 'conf
     ->whereNumber('subscriber')
     ->middleware('signed')
     ->name('waitlist.confirm');
-
-// Menu destinations built by later OpenSpec changes (openspec/changes/add-*).
-foreach (array_keys(UpcomingPages::PAGES) as $slug) {
-    Route::get($slug, UpcomingPageController::class)->name("upcoming.{$slug}");
-}
 
 Route::get('/dev/styleguide', StyleguideController::class)->name('dev.styleguide');
 Route::get('/dev/entrar-como/{member}', SignInAsController::class)->whereNumber('member')->name('dev.sign-in-as');

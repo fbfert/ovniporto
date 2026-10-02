@@ -17,4 +17,4 @@
 - [x] 3.1 Implementar `/conta` com as quatro abas e edição de apelido/cidade, verificado por teste de feature (200 para membro; redireciona visitante)
 - [x] 3.2 Implementar UseCase e job "Baixar meus dados" com e-mail em fila, verificado por teste que usa `Queue::fake` e `Mail::fake`
 - [x] 3.3 Implementar "Excluir minha conta" com confirmação por apelido, verificado por testes Pest (confirmação errada não exclui; exclusão apaga perfil, relatos e fotos)
-- [ ] 3.4 Anonimizar pedidos na exclusão da conta: entra com `add-checkout-payments` (a tabela de pedidos ainda não existe); basta registrar o adaptador de Orders na tag `member.erasers` (porta `MemberContentEraser`) e cobrir com teste
+- [x] 3.4 Anonimizar pedidos na exclusão da conta: entra com `add-checkout-payments` (a tabela de pedidos ainda não existe); basta registrar o adaptador de Orders na tag `member.erasers` (porta `MemberContentEraser`) e cobrir com teste

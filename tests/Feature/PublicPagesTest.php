@@ -2,18 +2,7 @@
 
 use App\Application\Content\UseCases\GetCommunityLinks;
 use App\Models\ContentBlock;
-use App\Support\UpcomingPages;
 use Inertia\Testing\AssertableInertia as Assert;
-
-it('renders an honest "em construção" page for every menu destination', function (string $slug) {
-    $this->get("/{$slug}")
-        ->assertOk()
-        ->assertInertia(fn (Assert $page) => $page
-            ->component('ComingSoon')
-            ->where('slug', $slug)
-            ->where('title', UpcomingPages::PAGES[$slug]['title'])
-        );
-})->with(array_keys(UpcomingPages::PAGES));
 
 it('never asks for money on /apoie while the budget is being planned', function () {
     $this->get('/apoie')
