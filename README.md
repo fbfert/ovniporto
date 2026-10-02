@@ -122,13 +122,15 @@ Roadmap já especificado (na ordem do plano):
 
 | Comando | O que faz |
 | --- | --- |
-| `php artisan brand:og` | Gera `public/og/default.jpg` (1200×630) com a cena noturna |
+| `php artisan brand:seal "<adesivo.png>"` | Recorta o adesivo redondo em `public/brand/seal-*.{webp,avif}` e `seal.png` (centro e raio ajustáveis por `--cx --cy --r`) |
+| `php artisan brand:og` | Gera `public/og/default.jpg` (1200×630) com o adesivo sobre a ilustração da capa (ou a cena desenhada, se ela não existir) |
 | `php artisan dev:seed-demo` | Relatos e parceiros de demonstração (bloqueado fora do ambiente local) |
 | `php artisan dev:clear-demo` | Remove tudo que é de demonstração |
+| `php artisan concept:import "<pasta>"` | Gera AVIF/WebP/JPEG e o manifesto das ilustrações conceituais a partir dos originais (ver `ImportConceptIllustrations::FILES`); depois rode `php artisan brand:og` e `php artisan db:seed --class=PlaceSpaceSeeder` |
 
 ## Conteúdo que ainda não existe
 
-Nada é inventado: a lenda mostra "aguardando conteúdo", imagens conceituais levam a etiqueta "conceito", fotos do terreno aparecem como moldura tracejada e parceiros só aparecem com consentimento registrado. O selo atual é provisório, desenhado em código. Quando o adesivo real chegar, coloque-o em `public/brand/seal.svg` e troque o `SealArt`.
+Nada é inventado: a lenda mostra "aguardando conteúdo", as ilustrações conceituais (em `public/concept`) sempre levam a etiqueta "conceito", fotos do terreno aparecem como moldura tracejada e parceiros só aparecem com consentimento registrado. O selo é o adesivo impresso, recortado por `php artisan brand:seal "<adesivo.png>"` em `public/brand`.
 
 ---
 

@@ -20,6 +20,18 @@ it('renders the home with the brand name and shared metadata', function () {
         );
 });
 
+it('gives each space its concept illustration, and only ones that exist', function () {
+    $manifest = json_decode((string) file_get_contents(resource_path('js/data/concept.json')), true);
+
+    $this->get('/')->assertInertia(fn (Assert $page) => $page
+        ->where('spaces.1.concept', 'vigil')
+        ->where('spaces', fn ($spaces) => collect($spaces)
+            ->pluck('concept')
+            ->filter()
+            ->every(fn (string $slug) => isset($manifest[$slug]) && is_file(public_path("concept/{$slug}.jpg"))))
+    );
+});
+
 it('counts and lists only approved sightings', function () {
     Sighting::factory()->count(2)->approved()->create();
     Sighting::factory()->count(3)->create();

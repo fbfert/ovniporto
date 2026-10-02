@@ -1,6 +1,8 @@
 import { motion, useMotionValue, useScroll, useTransform, type MotionValue } from 'motion/react';
 import { useId, useRef } from 'react';
 import { Seal } from '@/Components/Brand/Seal';
+import { Picture } from '@/Components/Ui/Picture';
+import { Badge } from '@/Components/Ui/Typography';
 import { ARAUCARIAS, AraucariaShape, SaucerShape, SERRA, YellowCarShape } from '@/Components/Scene/Art';
 import { Starfield } from '@/Components/Scene/Starfield';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
@@ -11,12 +13,16 @@ const CAR = { x: 800, y: 873 };
 const UFO_HOVER_Y = 430;
 const CAR_LIFT = -(CAR.y - UFO_HOVER_Y - 30);
 const PARTICLES = [-70, -42, -18, 6, 30, 52, 76, -56, 18, 64];
+/** Scroll range where the illustrated cover hands over to the animated scene, before the saucer descends. */
+const COVER_FADE = [0.06, 0.26];
 
 /**
  * Section 01. One orchestrated moment, driven by scroll rather than time:
  * the seal lifts away, the saucer comes down the faint beam, the green light
  * opens and the yellow car of the legend goes up. Scrolling back reverses it.
- * Reduced motion: a still night scene, no pinning.
+ * The first frame is the concept illustration of the runway; it fades out as
+ * the story starts so the drawn saucer never shares the sky with the painted one.
+ * Reduced motion: the illustration alone, still, no pinning.
  */
 export function AbductionHero() {
     const ref = useRef<HTMLElement>(null);
@@ -34,7 +40,8 @@ export function AbductionHero() {
         >
             <div className="sticky top-0 h-svh min-h-[640px] overflow-hidden">
                 <Sky p={p} />
-                <Scene p={p} />
+                <CoverArt p={p} />
+                {!reduced && <Scene p={p} />}
                 <Overlay p={p} />
             </div>
         </section>
@@ -61,12 +68,37 @@ function Sky({ p }: { p: MotionValue<number> }) {
     );
 }
 
+function CoverArt({ p }: { p: MotionValue<number> }) {
+    const opacity = useTransform(p, COVER_FADE, [1, 0]);
+    const scale = useTransform(p, COVER_FADE, [1, 1.06]);
+    return (
+        <motion.div aria-hidden style={{ opacity }} className="absolute inset-0">
+            <motion.div style={{ scale }} className="absolute inset-0">
+                <Picture
+                    slug="cover"
+                    alt=""
+                    priority
+                    className="h-full w-full"
+                    imgClassName="h-full w-full object-cover object-[50%_70%]"
+                />
+            </motion.div>
+            {/* 30% night veil keeps the seal readable over the painting */}
+            <div className="absolute inset-0 bg-night/30" />
+            <div className="absolute inset-x-0 top-0 h-1/3 bg-[linear-gradient(to_bottom,rgb(6_17_33/0.55),transparent)]" />
+            <Badge tone="horizon" className="absolute top-[5.5rem] right-4 sm:right-6">
+                {t.concept.badge}
+            </Badge>
+        </motion.div>
+    );
+}
+
 function Scene({ p }: { p: MotionValue<number> }) {
     const uid = useId().replace(/:/g, '');
     const beamGradient = `beam-${uid}`;
     const coreGradient = `beam-core-${uid}`;
     const halo = `halo-${uid}`;
 
+    const farOpacity = useTransform(p, COVER_FADE, [0, 1]);
     const ufoY = useTransform(p, [0.1, 0.36, 0.86, 1], [-220, UFO_HOVER_Y, UFO_HOVER_Y, -260], {
         ease: [easeFn.snap, easeFn.linear, easeFn.glide],
     });
@@ -111,13 +143,15 @@ function Scene({ p }: { p: MotionValue<number> }) {
                 </radialGradient>
             </defs>
 
-            {/* far ridge */}
-            <path d={SERRA.far} fill="var(--color-night-blue)" />
-            {ARAUCARIAS.far.map((tree) => (
-                <g key={tree.x} transform={`translate(${tree.x} ${tree.y})`} opacity={0.9}>
-                    <AraucariaShape height={tree.h} seed={tree.seed} fill="rgb(6 17 33 / 0.55)" />
-                </g>
-            ))}
+            {/* far ridge and trees: hidden while the illustration is on screen */}
+            <motion.g style={{ opacity: farOpacity }}>
+                <path d={SERRA.far} fill="var(--color-night-blue)" />
+                {ARAUCARIAS.far.map((tree) => (
+                    <g key={tree.x} transform={`translate(${tree.x} ${tree.y})`} opacity={0.9}>
+                        <AraucariaShape height={tree.h} seed={tree.seed} fill="rgb(6 17 33 / 0.55)" />
+                    </g>
+                ))}
+            </motion.g>
 
             {/* the beam (drawn behind the near ridge so the hill swallows its foot) */}
             <g transform={`translate(${CAR.x} ${UFO_HOVER_Y + 14})`}>
@@ -142,11 +176,13 @@ function Scene({ p }: { p: MotionValue<number> }) {
 
             {/* near ridge */}
             <path d={SERRA.near} fill="var(--color-night)" />
-            {ARAUCARIAS.near.map((tree) => (
-                <g key={tree.x} transform={`translate(${tree.x} ${tree.y})`}>
-                    <AraucariaShape height={tree.h} seed={tree.seed} />
-                </g>
-            ))}
+            <motion.g style={{ opacity: farOpacity }}>
+                {ARAUCARIAS.near.map((tree) => (
+                    <g key={tree.x} transform={`translate(${tree.x} ${tree.y})`}>
+                        <AraucariaShape height={tree.h} seed={tree.seed} />
+                    </g>
+                ))}
+            </motion.g>
 
             {/* the car and its shadow */}
             <g transform={`translate(${CAR.x} ${CAR.y})`}>

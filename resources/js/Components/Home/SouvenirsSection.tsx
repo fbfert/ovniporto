@@ -1,5 +1,6 @@
 import { SealArt } from '@/Components/Brand/Seal';
 import { Button } from '@/Components/Ui/Button';
+import { ConceptImage } from '@/Components/Ui/ConceptImage';
 import { Reveal, RevealItem } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
 import { TicketCard } from '@/Components/Ui/TicketCard';
@@ -9,12 +10,26 @@ import type { ProductCard } from '@/types';
 
 const SLOTS = 3;
 
+/** The future customs-and-shop building, faded into the night behind the tickets. */
+function CustomsBackdrop() {
+    return (
+        <ConceptImage
+            slug="customs-shop"
+            sizes="100vw"
+            className="h-full w-full"
+            pictureClassName="opacity-45 [mask-image:radial-gradient(85%_75%_at_70%_20%,#000_30%,transparent)]"
+            imgClassName="h-full w-full object-cover object-[50%_35%]"
+            badgeClassName="top-12 right-5 sm:right-8"
+        />
+    );
+}
+
 /** Section 06. Souvenirs as admission tickets; empty slots stay as dashed stubs, never fake products. */
 export function SouvenirsSection({ lead, products }: { lead: string; products: ProductCard[] }) {
     const stubs = Math.max(0, SLOTS - products.length);
 
     return (
-        <Section tone="dark" wave labelledBy="lembrancas">
+        <Section tone="dark" wave labelledBy="lembrancas" backdrop={<CustomsBackdrop />}>
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
                 <div>
                     <Eyebrow tone="dark">{t.store.eyebrow}</Eyebrow>
@@ -49,7 +64,7 @@ export function SouvenirsSection({ lead, products }: { lead: string; products: P
                                 ) : (
                                     <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_50%_40%,rgb(84_201_51/0.22),transparent_60%)]">
                                         <div className="w-[52%] -rotate-6 drop-shadow-[0_14px_20px_rgb(6_17_33/0.6)] transition-transform duration-500 ease-snap [@media(hover:hover)]:group-hover/ticket:rotate-0">
-                                            <SealArt title={product.imageAlt ?? product.name} />
+                                            <SealArt title={product.imageAlt ?? product.name} sizes="12rem" />
                                         </div>
                                     </div>
                                 )

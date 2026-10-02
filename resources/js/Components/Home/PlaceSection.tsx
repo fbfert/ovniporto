@@ -1,10 +1,11 @@
 import { Button } from '@/Components/Ui/Button';
+import { ConceptImage } from '@/Components/Ui/ConceptImage';
+import { hasConcept } from '@/Components/Ui/Picture';
 import { Reveal, RevealItem } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
 import { Badge, Display, Eyebrow } from '@/Components/Ui/Typography';
 import { t } from '@/i18n/pt-BR';
 import type { PlaceSpace } from '@/types';
-import { RunwayConceptArt } from './ConceptArt';
 
 /** Section 05. The runway as it honestly is: a plan, phase by phase. */
 export function PlaceSection({ lead, spaces }: { lead: string; spaces: PlaceSpace[] }) {
@@ -49,14 +50,13 @@ export function PlaceSection({ lead, spaces }: { lead: string; spaces: PlaceSpac
                 </RevealItem>
                 <RevealItem>
                     <figure>
-                        <div className="group relative aspect-[16/10] overflow-hidden rounded-[22px] bg-night">
-                            <div className="h-full w-full transition-transform duration-700 ease-snap [@media(hover:hover)]:group-hover:scale-[1.03]">
-                                <RunwayConceptArt />
-                            </div>
-                            <Badge tone="horizon" className="absolute top-4 right-4">
-                                {t.place.concept}
-                            </Badge>
-                        </div>
+                        <ConceptImage
+                            slug="overview"
+                            sizes="(min-width: 768px) 50vw, 100vw"
+                            className="group aspect-[16/10] rounded-[22px] bg-night"
+                            imgClassName="h-full w-full object-cover object-[60%_50%] transition-transform duration-700 ease-snap [@media(hover:hover)]:group-hover:scale-[1.03]"
+                            badgeClassName="top-4 right-4"
+                        />
                         <figcaption className="mt-3 px-1 text-sm font-semibold">{t.place.future}</figcaption>
                     </figure>
                 </RevealItem>
@@ -75,10 +75,21 @@ export function PlaceSection({ lead, spaces }: { lead: string; spaces: PlaceSpac
                     {spaces.map((space, i) => (
                         <li
                             key={space.slug}
-                            className={`flex w-[min(78vw,17.5rem)] shrink-0 snap-start flex-col rounded-[22px] p-6 ring-1 ${
+                            className={`flex w-[min(78vw,17.5rem)] shrink-0 snap-start flex-col overflow-hidden rounded-[22px] p-6 pt-0 ring-1 ${
                                 space.phase === 1 ? 'bg-beam/10 ring-beam/50' : 'bg-night/[0.03] ring-night/12'
                             }`}
                         >
+                            {hasConcept(space.concept) ? (
+                                <ConceptImage
+                                    slug={space.concept}
+                                    sizes="18rem"
+                                    className="-mx-6 mb-5 aspect-[4/3] bg-night"
+                                />
+                            ) : (
+                                <div className="-mx-6 mb-5 flex aspect-[4/3] items-center justify-center border-b-2 border-dashed border-night/15 bg-night/[0.03]">
+                                    <p className="font-script text-xl text-horizon">{t.place.conceptPending}</p>
+                                </div>
+                            )}
                             <Display
                                 as="span"
                                 outlined

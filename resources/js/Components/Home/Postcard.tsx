@@ -68,7 +68,7 @@ export function Postcard() {
                 <div className="grid gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
                     <div className="flex items-center gap-4 sm:flex-col sm:items-start">
                         <div className="w-24 shrink-0 -rotate-6 sm:w-32">
-                            <SealArt title="Selo OVNIPORTO no postal" />
+                            <SealArt title="Selo OVNIPORTO no postal" sizes="8rem" />
                         </div>
                         <p className="font-script text-[1.45rem] leading-snug text-night/85">
                             {t.community.postcardMessage}

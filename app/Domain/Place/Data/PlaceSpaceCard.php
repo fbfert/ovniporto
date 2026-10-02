@@ -10,9 +10,10 @@ final readonly class PlaceSpaceCard
         public string $role,
         public int $phase,
         public string $status,
+        public ?string $concept = null,
     ) {}
 
-    /** @return array{slug: string, name: string, role: string, phase: int, status: string} */
+    /** @return array{slug: string, name: string, role: string, phase: int, status: string, concept: ?string} */
     public function toArray(): array
     {
         return [
@@ -21,6 +22,7 @@ final readonly class PlaceSpaceCard
             'role' => $this->role,
             'phase' => $this->phase,
             'status' => $this->status,
+            'concept' => $this->concept,
         ];
     }
 }

@@ -1,29 +1,10 @@
-import { YellowCarShape } from '@/Components/Scene/Art';
 import { Button } from '@/Components/Ui/Button';
+import { ConceptImage } from '@/Components/Ui/ConceptImage';
 import { Polaroid } from '@/Components/Ui/Polaroid';
 import { Reveal } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
 import { Badge, Display, Eyebrow } from '@/Components/Ui/Typography';
 import { t } from '@/i18n/pt-BR';
-
-function CarPortrait() {
-    return (
-        <svg
-            viewBox="0 0 400 300"
-            role="img"
-            aria-label="Ilustração provisória do carro amarelo da lenda"
-            className="h-full w-full"
-        >
-            <rect width="400" height="300" fill="var(--color-night-blue)" />
-            <path d="M150 0 L250 0 L320 300 L80 300 Z" fill="var(--color-beam)" opacity="0.16" />
-            <path d="M185 0 L215 0 L250 300 L150 300 Z" fill="var(--color-beam-glow)" opacity="0.14" />
-            <g transform="translate(200 190) rotate(-12) scale(1.45)">
-                <YellowCarShape headlights />
-            </g>
-            <path d="M0 262 C120 250 280 250 400 262 L400 300 L0 300 Z" fill="var(--color-night)" />
-        </svg>
-    );
-}
 
 /** Section 07. Asymmetric: the car on a big polaroid, the legend (not yet written) beside it. */
 export function LegendSection({ teaser, pending }: { teaser: string; pending: boolean }) {
@@ -34,8 +15,15 @@ export function LegendSection({ teaser, pending }: { teaser: string; pending: bo
                     <Polaroid
                         rotate={-3}
                         tape="corner"
-                        art={<CarPortrait />}
-                        imageClassName="aspect-[4/3]"
+                        art={
+                            <ConceptImage
+                                slug="yellow-car"
+                                sizes="(min-width: 768px) 28rem, 90vw"
+                                className="absolute inset-0"
+                                badgeClassName="bottom-3 left-3"
+                            />
+                        }
+                        imageClassName="aspect-[4/5]"
                         caption={pending ? t.legend.polaroid : 'O carro amarelo'}
                         href="/lenda"
                     />

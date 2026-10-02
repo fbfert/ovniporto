@@ -63,6 +63,39 @@ final class NightCanvas
         return $this;
     }
 
+    /** Paints an illustration cover-cropped to the canvas (focus = vertical crop anchor, 0 top … 1 bottom), under a night veil. */
+    public function backdrop(string $path, float $veil = 0.3, float $focus = 0.5): self
+    {
+        $bytes = @file_get_contents($path);
+        $source = $bytes === false ? false : @imagecreatefromstring($bytes);
+        if ($source === false) {
+            throw new RuntimeException("Could not read backdrop: {$path}");
+        }
+
+        $scale = max($this->width / imagesx($source), $this->height / imagesy($source));
+        $cropW = (int) round($this->width / $scale);
+        $cropH = (int) round($this->height / $scale);
+        $srcX = (int) ((imagesx($source) - $cropW) / 2);
+        $srcY = (int) ((imagesy($source) - $cropH) * $focus);
+        imagecopyresampled($this->image, $source, 0, 0, $srcX, $srcY, $this->width, $this->height, $cropW, $cropH);
+        imagefilledrectangle($this->image, 0, 0, $this->width, $this->height, $this->color(self::NIGHT, $veil));
+
+        return $this;
+    }
+
+    /** Draws a (transparent) image scaled to $size×$size with its top-left at ($x, $y). */
+    public function overlay(string $path, int $x, int $y, int $size): self
+    {
+        $bytes = @file_get_contents($path);
+        $source = $bytes === false ? false : @imagecreatefromstring($bytes);
+        if ($source === false) {
+            throw new RuntimeException("Could not read overlay: {$path}");
+        }
+        imagecopyresampled($this->image, $source, $x, $y, 0, 0, $size, $size, imagesx($source), imagesy($source));
+
+        return $this;
+    }
+
     public function haze(float $fromRatio = 0.5): self
     {
         $start = (int) ($this->height * $fromRatio);

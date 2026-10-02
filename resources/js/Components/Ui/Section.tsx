@@ -19,6 +19,7 @@ const waveFill: Record<Tone, string> = {
  * A page band. Dark bands get the starfield and report themselves to the header
  * (data-tone) so the floating menu can invert. `wave` draws a soft hill-line edge
  * over the previous band instead of a straight cut: the serra skyline, simplified.
+ * `backdrop` paints behind the content (e.g. a faded illustration).
  */
 export function Section({
     tone = 'light',
@@ -28,6 +29,7 @@ export function Section({
     labelledBy,
     className = '',
     innerClassName = '',
+    backdrop,
     children,
 }: {
     tone?: Tone;
@@ -37,6 +39,7 @@ export function Section({
     labelledBy?: string;
     className?: string;
     innerClassName?: string;
+    backdrop?: ReactNode;
     children: ReactNode;
 }) {
     const dark = tone === 'dark';
@@ -60,6 +63,7 @@ export function Section({
                     />
                 </svg>
             )}
+            {backdrop && <div className="absolute inset-0 z-[1] overflow-hidden">{backdrop}</div>}
             {dark && pattern === 'stars' && <Starfield className="absolute inset-0 z-0" density="low" parallax />}
             <div
                 className={`relative z-[2] mx-auto w-full max-w-[84rem] px-5 py-[clamp(4rem,3rem+5vw,8rem)] sm:px-8 ${innerClassName}`}

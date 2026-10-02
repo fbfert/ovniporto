@@ -33,7 +33,7 @@ export const t = {
         scroll: 'Role para explorar',
         punchline: 'Mais um pro Livro de avistamentos.',
         sceneLabel:
-            'Ilustração: a serra de Lages à noite, com araucárias no horizonte. Um disco voador desce e abduz um carro amarelo.',
+            'Ilustração conceitual da pista à noite na serra de Lages. Ao rolar, um disco voador desce e abduz um carro amarelo.',
     },
     welcome: {
         eyebrow: 'Bem-vindo ao',
@@ -69,6 +69,29 @@ export const t = {
         status: { planning: 'em planejamento', building: 'em obra', open: 'aberto' },
         more: 'Conhecer o projeto',
         spacesLabel: 'Os espaços, fase a fase',
+        conceptPending: 'Ilustração em produção',
+    },
+    concept: {
+        badge: 'conceito',
+        alt: {
+            cover: 'Ilustração conceitual: a pista circular de pedras à noite, com balizas vermelhas e um disco voador lançando um feixe verde sobre ela.',
+            'cover-alt': 'Ilustração conceitual: disco voador sobre a pista circular no campo estrelado da serra.',
+            vigil: 'Ilustração conceitual da área de vigília: pessoas de costas em espreguiçadeiras, enroladas em mantas, olhando a Via Láctea ao redor de um fogo baixo.',
+            'yellow-car':
+                'Ilustração conceitual: o carro amarelo suspenso num feixe verde ao entardecer, com um visitante tirando foto.',
+            'yellow-car-sculpture':
+                'Ilustração conceitual: escultura de disco voador segurando o carro amarelo no feixe verde, sobre o mirante da serra.',
+            'customs-shop':
+                'Ilustração conceitual da Aduana interplanetária: casa de madeira e pedra com a porta aberta, balcão de carimbos e prateleiras de lembranças.',
+            'snack-bar':
+                'Ilustração conceitual da lanchonete: balcão coberto com o quadro Cardápio de bordo e mesas compridas com gente de manta numa noite fria.',
+            tower: 'Ilustração conceitual da torre de controle: mirante de madeira com telescópio, e a pista com balizas vermelhas lá embaixo.',
+            overview:
+                'Ilustração conceitual da vista geral: a pista, a vigília, o carro no feixe, a aduana e a torre ligados por caminhos de pedra, com a hospedaria ao fundo.',
+            'museum-path':
+                'Ilustração conceitual do museu ao ar livre: trilha de pedra com placas baixas iluminadas, uma com a estrela de Cachi.',
+            'museum-path-alt': 'Ilustração conceitual: trilha astronômica com placas iluminadas sob a Via Láctea.',
+        },
     },
     store: {
         eyebrow: 'Lembranças de',
