@@ -45,6 +45,9 @@ interface OrderRepository
     /** Stock leaves the shelf only for in-stock items, and only once (called inside the paid transition). */
     public function decrementStock(int $orderId): void;
 
+    /** A refund before shipping puts in-stock items back on the shelf. */
+    public function restoreStock(int $orderId, ?int $actorId): void;
+
     /** @return list<int> pending_payment orders created before the cutoff */
     public function abandonedBefore(\DateTimeInterface $cutoff): array;
 

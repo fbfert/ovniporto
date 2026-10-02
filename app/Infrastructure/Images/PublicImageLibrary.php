@@ -4,6 +4,7 @@ namespace App\Infrastructure\Images;
 
 use App\Domain\Content\Contracts\ImageLibrary;
 use App\Domain\Sightings\Contracts\ImageProcessor;
+use App\Domain\Sightings\UnsupportedImage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -21,6 +22,28 @@ final readonly class PublicImageLibrary implements ImageLibrary
         Storage::disk('public')->put($path, array_values($image->variants)[0] ?? '');
 
         return $path;
+    }
+
+    public function storeSquare(string $contents, string $folder): string
+    {
+        $image = @imagecreatefromstring($contents);
+        if ($image === false) {
+            throw new UnsupportedImage('The image could not be decoded.');
+        }
+        $side = min(imagesx($image), imagesy($image));
+        $square = imagecrop($image, [
+            'x' => intdiv(imagesx($image) - $side, 2),
+            'y' => intdiv(imagesy($image) - $side, 2),
+            'width' => $side,
+            'height' => $side,
+        ]);
+        if ($square === false) {
+            throw new UnsupportedImage('The image could not be cropped.');
+        }
+        ob_start();
+        imagepng($square);
+
+        return $this->store((string) ob_get_clean(), $folder);
     }
 
     public function delete(?string $path): void

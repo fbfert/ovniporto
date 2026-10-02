@@ -38,6 +38,8 @@ final readonly class SimulatedPaymentGateway implements PaymentGateway
         return null;
     }
 
+    public function refund(string $captureId, int $amountCents, string $orderNumber): void {}
+
     public function isSimulated(): bool
     {
         return true;

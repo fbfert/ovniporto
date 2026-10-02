@@ -4,7 +4,7 @@
 
 - [x] 1.1 Criar layout do painel e gates por área e papel, verificado por testes de feature (moderator não acessa pedidos; store não acessa relatos; member recebe 403)
 - [x] 1.2 Criar `audit_logs` e decorador de auditoria dos UseCases do painel, verificado por teste que executa cada ação e confere o registro
-- [ ] 1.3 Implementar dashboard com contagens, metas, gráfico de 12 semanas e "Precisa de você", verificado por teste de feature com dados fabricados nos limites (48 h, 2 dias, 7 dias)
+- [x] 1.3 Implementar dashboard com contagens, metas, gráfico de 12 semanas e "Precisa de você", verificado por teste de feature com dados fabricados nos limites (48 h, 2 dias, 7 dias)
 - [x] 1.4 Implementar `/painel/membros` (papel só por admin, bloqueio com motivo, exclusão) e `/painel/auditoria`, verificado por testes de feature de autorização e de bloqueio impedindo relato
 
 ## 2. Moderação de relatos
@@ -16,11 +16,11 @@
 
 ## 3. Loja
 
-- [ ] 3.1 Implementar lista e ficha de pedidos com CPF mascarado e revelação auditada, verificado por teste de feature
-- [ ] 3.2 Implementar ações por status, etiqueta e "Marcar enviado", verificado por testes: transição inválida falha; etiqueta só em pedido pago
-- [ ] 3.3 Implementar reembolso via `PaymentGateway`, verificado por teste que confirma o evento de reembolso
-- [ ] 3.4 Implementar ordem de produção em PDF e exportação CSV, verificado por teste que gera os arquivos e confere conteúdo
-- [ ] 3.5 Implementar CRUD de produtos, variantes, imagens (alt obrigatório) e histórico de estoque, verificado por testes de feature
+- [x] 3.1 Implementar lista e ficha de pedidos com CPF mascarado e revelação auditada, verificado por teste de feature
+- [x] 3.2 Implementar ações por status, etiqueta e "Marcar enviado", verificado por testes: transição inválida falha; etiqueta só em pedido pago
+- [x] 3.3 Implementar reembolso via `PaymentGateway`, verificado por teste que confirma o evento de reembolso
+- [x] 3.4 Implementar ordem de produção em PDF e exportação CSV, verificado por teste que gera os arquivos e confere conteúdo
+- [x] 3.5 Implementar CRUD de produtos, variantes, imagens (alt obrigatório) e histórico de estoque, verificado por testes de feature
 
 ## 4. Conteúdo e campanha
 

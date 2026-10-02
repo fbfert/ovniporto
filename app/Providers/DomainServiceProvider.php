@@ -10,6 +10,7 @@ use App\Domain\Campaign\Contracts\CampaignAdminRepository;
 use App\Domain\Campaign\Contracts\CampaignRepository;
 use App\Domain\Campaign\Contracts\WaitlistNotifier;
 use App\Domain\Campaign\Contracts\WaitlistRepository;
+use App\Domain\Catalog\Contracts\ProductAdminRepository;
 use App\Domain\Catalog\Contracts\ProductReadRepository;
 use App\Domain\Content\Contracts\ContentAdminRepository;
 use App\Domain\Content\Contracts\ContentBlockRepository;
@@ -21,8 +22,11 @@ use App\Domain\Members\Contracts\IdentityProvider;
 use App\Domain\Members\Contracts\MemberAdminRepository;
 use App\Domain\Members\Contracts\MemberRepository;
 use App\Domain\Orders\Contracts\CartRepository;
+use App\Domain\Orders\Contracts\OrderAdminRepository;
 use App\Domain\Orders\Contracts\OrderNotifier;
 use App\Domain\Orders\Contracts\OrderRepository;
+use App\Domain\Orders\Contracts\ProductionDocument;
+use App\Domain\Panel\Contracts\DashboardRepository;
 use App\Domain\Payments\Contracts\PaymentGateway;
 use App\Domain\Place\Contracts\ConstructionPostRepository;
 use App\Domain\Place\Contracts\DiaryAdminRepository;
@@ -43,6 +47,7 @@ use App\Domain\Sightings\Contracts\SightingReadRepository;
 use App\Domain\Sightings\Contracts\SightingWriteRepository;
 use App\Infrastructure\Audit\DatabaseAuditor;
 use App\Infrastructure\Content\CommonMarkRenderer;
+use App\Infrastructure\Documents\DompdfProductionDocument;
 use App\Infrastructure\Geo\CachedGeocoder;
 use App\Infrastructure\Geo\NominatimGeocoder;
 use App\Infrastructure\Identity\GoogleIdentityProvider;
@@ -65,15 +70,18 @@ use App\Infrastructure\Persistence\Eloquent\EloquentCartRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentConstructionPostRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentContentAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentContentBlockRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentDashboardRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentDiaryAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentEditorialListRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentMemberAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentMemberRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentMemberSightingRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentModerationRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentOrderAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentOrderRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentPlaceAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentPlaceSpaceRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentProductAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentProductReadRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentRegionAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentRegionPartnerRepository;
@@ -122,6 +130,10 @@ class DomainServiceProvider extends ServiceProvider
         CartRepository::class => EloquentCartRepository::class,
         AddressLookup::class => ViaCepAddressLookup::class,
         OrderRepository::class => EloquentOrderRepository::class,
+        OrderAdminRepository::class => EloquentOrderAdminRepository::class,
+        ProductAdminRepository::class => EloquentProductAdminRepository::class,
+        DashboardRepository::class => EloquentDashboardRepository::class,
+        ProductionDocument::class => DompdfProductionDocument::class,
         OrderNotifier::class => MailOrderNotifier::class,
         ImageLibrary::class => PublicImageLibrary::class,
         ContentAdminRepository::class => EloquentContentAdminRepository::class,

@@ -25,6 +25,11 @@ final class UnconfiguredPaymentGateway implements PaymentGateway
         return null;
     }
 
+    public function refund(string $captureId, int $amountCents, string $orderNumber): void
+    {
+        throw new PaymentUnavailable('O pagamento ainda está sendo configurado.');
+    }
+
     public function isSimulated(): bool
     {
         return false;

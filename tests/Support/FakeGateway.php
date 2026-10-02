@@ -45,6 +45,14 @@ final class FakeGateway implements PaymentGateway
         );
     }
 
+    /** @var list<array{captureId: string, amountCents: int}> */
+    public array $refunds = [];
+
+    public function refund(string $captureId, int $amountCents, string $orderNumber): void
+    {
+        $this->refunds[] = ['captureId' => $captureId, 'amountCents' => $amountCents];
+    }
+
     public function isSimulated(): bool
     {
         return false;

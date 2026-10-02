@@ -25,6 +25,9 @@ interface PaymentGateway
      */
     public function verifyWebhook(array $headers, string $body): ?WebhookNotice;
 
+    /** Gives the whole capture back to the buyer. PaymentUnavailable when the provider refuses. */
+    public function refund(string $captureId, int $amountCents, string $orderNumber): void;
+
     /** Local stand-in: the checkout offers a "simulate approval" button instead of real buttons. */
     public function isSimulated(): bool;
 }

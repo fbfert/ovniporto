@@ -97,12 +97,36 @@ final class EloquentOrderRepository implements OrderRepository
 
     public function decrementStock(int $orderId): void
     {
+        $this->moveStock($orderId, -1, 'Venda');
+    }
+
+    public function restoreStock(int $orderId, ?int $actorId): void
+    {
+        $this->moveStock($orderId, 1, 'Reembolso antes do envio', $actorId);
+    }
+
+    /** In-stock items only; every change lands in the stock history with the order. */
+    private function moveStock(int $orderId, int $sign, string $reason, ?int $actorId = null): void
+    {
+        $order = Order::query()->findOrFail($orderId);
         $items = OrderItem::query()->where('order_id', $orderId)->where('made_to_order', false)->whereNotNull('product_variant_id')->get();
         foreach ($items as $item) {
             $variant = ProductVariant::query()->lockForUpdate()->find($item->product_variant_id);
-            if ($variant !== null && $variant->stock_qty !== null) {
-                $variant->update(['stock_qty' => max(0, $variant->stock_qty - $item->quantity)]);
+            if ($variant === null || $variant->stock_qty === null) {
+                continue;
             }
+            $before = $variant->stock_qty;
+            $after = max(0, $before + $sign * $item->quantity);
+            $variant->update(['stock_qty' => $after]);
+            DB::table('stock_movements')->insert([
+                'product_variant_id' => $variant->id,
+                'delta' => $after - $before,
+                'quantity_after' => $after,
+                'reason' => "{$reason} · {$order->number}",
+                'actor_id' => $actorId,
+                'order_id' => $orderId,
+                'created_at' => now(),
+            ]);
         }
     }
 

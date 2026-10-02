@@ -109,6 +109,17 @@ final readonly class PayPalGateway implements PaymentGateway
         );
     }
 
+    public function refund(string $captureId, int $amountCents, string $orderNumber): void
+    {
+        $this->send(fn (PendingRequest $http) => $http
+            ->withHeaders(['PayPal-Request-Id' => "refund-{$captureId}"])
+            ->post("/v2/payments/captures/{$captureId}/refund", [
+                'amount' => ['currency_code' => 'BRL', 'value' => Money::cents($amountCents)->decimal()],
+                'invoice_id' => "{$orderNumber}-refund",
+                'note_to_payer' => "Reembolso do pedido {$orderNumber}",
+            ]));
+    }
+
     public function isSimulated(): bool
     {
         return false;

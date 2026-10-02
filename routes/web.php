@@ -15,9 +15,10 @@ use App\Http\Controllers\Panel\AuditController;
 use App\Http\Controllers\Panel\CampaignAdminController;
 use App\Http\Controllers\Panel\ContentHubController;
 use App\Http\Controllers\Panel\MemberAdminController;
+use App\Http\Controllers\Panel\OrderAdminController;
 use App\Http\Controllers\Panel\PanelHomeController;
-use App\Http\Controllers\Panel\PanelUpcomingController;
 use App\Http\Controllers\Panel\PlaceAdminController;
+use App\Http\Controllers\Panel\ProductAdminController;
 use App\Http\Controllers\Panel\RegionAdminController;
 use App\Http\Controllers\Panel\SettingsController;
 use App\Http\Controllers\Panel\SightingModerationController;
@@ -185,12 +186,34 @@ Route::middleware(['auth', 'profile.complete', 'panel:inicio'])->prefix('painel'
         });
     });
 
-    foreach (['pedidos', 'produtos'] as $area) {
-        Route::get($area, PanelUpcomingController::class)
-            ->middleware("panel:{$area}")
-            ->defaults('area', $area)
-            ->name(".{$area}");
-    }
+    Route::middleware('panel:pedidos')->prefix('pedidos')->name('.orders')->group(function () {
+        Route::get('/', [OrderAdminController::class, 'index']);
+        Route::get('/exportar', [OrderAdminController::class, 'export'])->name('.export');
+        Route::get('/{number}', [OrderAdminController::class, 'show'])->where('number', 'OVP-\d{4}-\d{6}')->name('.show');
+        Route::get('/{number}/ordem-de-producao.pdf', [OrderAdminController::class, 'productionPdf'])->where('number', 'OVP-\d{4}-\d{6}')->name('.pdf');
+        Route::post('/{number}/cpf', [OrderAdminController::class, 'cpf'])->where('number', 'OVP-\d{4}-\d{6}')->middleware('throttle:30,1')->name('.cpf');
+        Route::post('/{number}/producao', [OrderAdminController::class, 'production'])->where('number', 'OVP-\d{4}-\d{6}')->name('.production');
+        Route::post('/{number}/etiqueta', [OrderAdminController::class, 'label'])->where('number', 'OVP-\d{4}-\d{6}')->name('.label');
+        Route::post('/{number}/enviado', [OrderAdminController::class, 'ship'])->where('number', 'OVP-\d{4}-\d{6}')->name('.ship');
+        Route::post('/{number}/entregue', [OrderAdminController::class, 'deliver'])->where('number', 'OVP-\d{4}-\d{6}')->name('.deliver');
+        Route::post('/{number}/cancelar', [OrderAdminController::class, 'cancel'])->where('number', 'OVP-\d{4}-\d{6}')->name('.cancel');
+        Route::post('/{number}/reembolsar', [OrderAdminController::class, 'refund'])->where('number', 'OVP-\d{4}-\d{6}')->name('.refund');
+    });
+
+    Route::middleware('panel:produtos')->prefix('produtos')->name('.products')->group(function () {
+        Route::get('/', [ProductAdminController::class, 'index']);
+        Route::get('/novo', [ProductAdminController::class, 'create'])->name('.create');
+        Route::post('/', [ProductAdminController::class, 'store'])->name('.store');
+        Route::get('/{product}', [ProductAdminController::class, 'edit'])->whereNumber('product')->name('.edit');
+        Route::put('/{product}', [ProductAdminController::class, 'update'])->whereNumber('product')->name('.update');
+        Route::post('/{product}/variantes', [ProductAdminController::class, 'addVariant'])->whereNumber('product')->name('.variants.store');
+        Route::put('/{product}/variantes/{variant}', [ProductAdminController::class, 'updateVariant'])->whereNumber(['product', 'variant'])->name('.variants.update');
+        Route::post('/{product}/variantes/{variant}/estoque', [ProductAdminController::class, 'adjustStock'])->whereNumber(['product', 'variant'])->name('.variants.stock');
+        Route::post('/{product}/imagens', [ProductAdminController::class, 'addImage'])->whereNumber('product')->name('.images.store');
+        Route::put('/{product}/imagens/{image}', [ProductAdminController::class, 'updateImage'])->whereNumber(['product', 'image'])->name('.images.update');
+        Route::delete('/{product}/imagens/{image}', [ProductAdminController::class, 'deleteImage'])->whereNumber(['product', 'image'])->name('.images.destroy');
+        Route::post('/{product}/imagens/{image}/mover', [ProductAdminController::class, 'moveImage'])->whereNumber(['product', 'image'])->name('.images.move');
+    });
 });
 
 // Store: only active products are public; prices always come from the server.

@@ -45,6 +45,9 @@ final class MailOrderNotifier implements OrderNotifier
             OrderStatus::Delivered => new OrderMail("Entregue · {$o->number}", 'Pousou', [
                 'O pedido '.$o->number.' foi entregue. Cola o adesivo, manda foto pra gente.',
             ], $this->link($o)),
+            OrderStatus::Refunded => new OrderMail("Reembolso · {$o->number}", 'Reembolso feito', [
+                'Devolvemos o valor do pedido '.$o->number.' pelo PayPal. Ele aparece no mesmo meio de pagamento em alguns dias úteis.',
+            ], $this->link($o)),
             default => null,
         });
     }
