@@ -14,6 +14,8 @@ use App\Http\Controllers\Place\ConstructionDiaryController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Place\SupportController;
 use App\Http\Controllers\Region\RegionController;
+use App\Http\Controllers\Sightings\ReportController;
+use App\Http\Controllers\Sightings\SightingPhotoController;
 use App\Http\Controllers\UpcomingPageController;
 use App\Http\Controllers\WaitlistController;
 use App\Support\UpcomingPages;
@@ -61,8 +63,19 @@ Route::middleware('auth')->group(function () {
             ->middleware('throttle:3,60')
             ->name('account.export');
         Route::delete('/conta', [AccountController::class, 'destroy'])->name('account.destroy');
+
+        Route::get('/relatar', [ReportController::class, 'create'])->name('report');
+        Route::post('/relatar', [ReportController::class, 'store'])->middleware('throttle:5,1')->name('report.store');
+        Route::get('/relatar/enviado', [ReportController::class, 'sent'])->name('report.sent');
+        Route::post('/relatar/fotos', [ReportController::class, 'upload'])->middleware('throttle:20,1')->name('report.photos.store');
+        Route::delete('/relatar/fotos/{upload}', [ReportController::class, 'discard'])->whereUuid('upload')->name('report.photos.destroy');
     });
 });
+
+// Report photos: approved ones are public; pending ones need a signed URL and the author or a moderator.
+Route::get('/fotos/relatos/{photo}/{width}', SightingPhotoController::class)
+    ->whereNumber(['photo', 'width'])
+    ->name('sighting.photo');
 
 Route::post('/avise-me', [WaitlistController::class, 'store'])
     ->middleware('throttle:5,1')

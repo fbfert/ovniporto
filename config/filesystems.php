@@ -33,7 +33,9 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
-            'serve' => true,
+            // Private files (report photos, uploads) are never served by Laravel's /storage route:
+            // only SightingPhotoController hands them out, with its own rules.
+            'serve' => false,
             'throw' => false,
             'report' => false,
         ],

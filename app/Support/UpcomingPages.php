@@ -17,13 +17,6 @@ final class UpcomingPages
             'phase' => 'Fase 3 · Membros e relatos',
             'change' => 'add-sightings-map',
         ],
-        'relatar' => [
-            'title' => 'Relatar avistamento',
-            'eyebrow' => 'Viu alguma coisa?',
-            'description' => 'Um relato em 4 passos, feito para o celular, à noite, com uma mão. As fotos sobem sem os dados de local e hora.',
-            'phase' => 'Fase 3 · Membros e relatos',
-            'change' => 'add-sighting-submission',
-        ],
         'loja' => [
             'title' => 'Loja',
             'eyebrow' => 'Lembranças de',

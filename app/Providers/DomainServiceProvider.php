@@ -17,10 +17,17 @@ use App\Domain\Place\Contracts\ConstructionPostRepository;
 use App\Domain\Place\Contracts\PlaceSpaceRepository;
 use App\Domain\Place\Contracts\SitePhotoRepository;
 use App\Domain\Region\Contracts\RegionPartnerRepository;
+use App\Domain\Sightings\Contracts\ImageProcessor;
 use App\Domain\Sightings\Contracts\MemberSightingRepository;
+use App\Domain\Sightings\Contracts\PhotoStorage;
+use App\Domain\Sightings\Contracts\SightingNotifier;
 use App\Domain\Sightings\Contracts\SightingReadRepository;
+use App\Domain\Sightings\Contracts\SightingWriteRepository;
 use App\Infrastructure\Content\CommonMarkRenderer;
 use App\Infrastructure\Identity\GoogleIdentityProvider;
+use App\Infrastructure\Images\GdImageProcessor;
+use App\Infrastructure\Images\PrivatePhotoStorage;
+use App\Infrastructure\Mail\MailSightingNotifier;
 use App\Infrastructure\Mail\MailWaitlistNotifier;
 use App\Infrastructure\Members\SightingsContentEraser;
 use App\Infrastructure\Members\SightingsDataSource;
@@ -35,6 +42,7 @@ use App\Infrastructure\Persistence\Eloquent\EloquentPlaceSpaceRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentProductReadRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentRegionPartnerRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentSightingReadRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentSightingWriteRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentSitePhotoRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentWaitlistRepository;
 use Illuminate\Support\ServiceProvider;
@@ -63,6 +71,10 @@ class DomainServiceProvider extends ServiceProvider
         IdentityProvider::class => GoogleIdentityProvider::class,
         SightingReadRepository::class => EloquentSightingReadRepository::class,
         MemberSightingRepository::class => EloquentMemberSightingRepository::class,
+        SightingWriteRepository::class => EloquentSightingWriteRepository::class,
+        ImageProcessor::class => GdImageProcessor::class,
+        PhotoStorage::class => PrivatePhotoStorage::class,
+        SightingNotifier::class => MailSightingNotifier::class,
         ProductReadRepository::class => EloquentProductReadRepository::class,
         PlaceSpaceRepository::class => EloquentPlaceSpaceRepository::class,
         SitePhotoRepository::class => EloquentSitePhotoRepository::class,
