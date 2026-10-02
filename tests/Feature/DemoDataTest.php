@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ConstructionPost;
 use App\Models\RegionPartner;
 use App\Models\Sighting;
 use Illuminate\Support\Facades\Storage;
@@ -18,10 +19,12 @@ it('seeds and clears clearly marked demo data locally', function () {
     $this->artisan('dev:seed-demo')->assertSuccessful();
 
     expect(Sighting::query()->approved()->where('is_demo', true)->count())->toBe(12)
-        ->and(RegionPartner::query()->where('name', 'like', '%[EXEMPLO]%')->count())->toBe(3);
+        ->and(RegionPartner::query()->where('name', 'like', '%[EXEMPLO]%')->count())->toBe(3)
+        ->and(ConstructionPost::query()->where('title', 'like', '[EXEMPLO]%')->count())->toBe(2);
 
     $this->artisan('dev:clear-demo')->assertSuccessful();
 
     expect(Sighting::query()->count())->toBe(0)
-        ->and(RegionPartner::query()->count())->toBe(0);
+        ->and(RegionPartner::query()->count())->toBe(0)
+        ->and(ConstructionPost::query()->count())->toBe(0);
 });

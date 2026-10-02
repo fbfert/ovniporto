@@ -6,6 +6,9 @@ use App\Http\Controllers\Content\LegalPageController;
 use App\Http\Controllers\Content\LegendController;
 use App\Http\Controllers\Dev\StyleguideController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Place\ConstructionDiaryController;
+use App\Http\Controllers\Place\PlaceController;
+use App\Http\Controllers\Place\SupportController;
 use App\Http\Controllers\UpcomingPageController;
 use App\Http\Controllers\WaitlistController;
 use App\Support\UpcomingPages;
@@ -18,6 +21,14 @@ Route::get('/faq', FaqController::class)->name('faq');
 Route::get('/comunidade', CommunityController::class)->name('community');
 Route::get('/privacidade', LegalPageController::class)->defaults('kind', 'privacy')->name('privacy');
 Route::get('/termos', LegalPageController::class)->defaults('kind', 'terms')->name('terms');
+
+Route::get('/o-lugar', PlaceController::class)->name('place');
+Route::get('/apoie', SupportController::class)->name('support');
+Route::get('/obra', [ConstructionDiaryController::class, 'index'])->name('diary');
+Route::get('/obra.rss', [ConstructionDiaryController::class, 'feed'])->name('diary.feed');
+Route::get('/obra/{slug}', [ConstructionDiaryController::class, 'show'])
+    ->where('slug', '[a-z0-9-]+')
+    ->name('diary.post');
 
 Route::post('/avise-me', [WaitlistController::class, 'store'])
     ->middleware('throttle:5,1')

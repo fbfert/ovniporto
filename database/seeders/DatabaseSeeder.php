@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
             CommunityRuleSeeder::class,
             PlaceSpaceSeeder::class,
+            CampaignSettingSeeder::class,
             ProductSeeder::class,
         ]);
     }

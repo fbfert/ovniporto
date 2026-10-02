@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Domain\Sightings\SightingStatus;
 use App\Domain\Sightings\SightingType;
 use App\Infrastructure\Brand\NightCanvas;
+use App\Models\ConstructionPost;
 use App\Models\RegionPartner;
 use App\Models\Sighting;
 use Illuminate\Console\Attributes\Description;
@@ -13,7 +14,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
 #[Signature('dev:seed-demo')]
-#[Description('Local only: 12 approved demo sightings with generated sky photos and 3 [EXEMPLO] partners')]
+#[Description('Local only: 12 approved demo sightings with generated sky photos, 3 [EXEMPLO] partners and 2 [EXEMPLO] diary posts')]
 class SeedDemoData extends Command
 {
     private const LAGES = [-27.81, -50.326];
@@ -72,7 +73,19 @@ class SeedDemoData extends Command
             ]);
         }
 
-        $this->info('Dados de demonstração criados: 12 relatos e 3 parceiros [EXEMPLO].');
+        foreach ([1 => 'Medição do terreno', 2 => 'Primeiras pedras separadas'] as $i => $title) {
+            ConstructionPost::query()->create([
+                'title' => "[EXEMPLO] {$title}",
+                'slug' => 'exemplo-'.str($title)->slug(),
+                'excerpt' => 'Post fictício de demonstração do Diário da obra.',
+                'body' => "**[EXEMPLO]** Este post existe só no ambiente local, para testar o Diário da obra.\n\n## O que foi feito\nNada: a obra ainda não começou.",
+                'phase' => 1,
+                'published_at' => now()->subDays(10 * $i),
+                'is_demo' => true,
+            ]);
+        }
+
+        $this->info('Dados de demonstração criados: 12 relatos, 3 parceiros e 2 posts da obra [EXEMPLO].');
 
         return self::SUCCESS;
     }

@@ -23,7 +23,7 @@ class PlaceSpaceSeeder extends Seeder
         ];
 
         foreach ($spaces as $order => [$slug, $name, $role, $phase, $concept]) {
-            PlaceSpace::query()->updateOrCreate(['slug' => $slug], [
+            PlaceSpace::query()->firstOrCreate(['slug' => $slug], [
                 'name' => $name,
                 'role' => $role,
                 'phase' => $phase,

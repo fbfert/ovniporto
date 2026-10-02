@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\ConstructionPost;
 use App\Models\RegionPartner;
 use App\Models\Sighting;
 use Illuminate\Console\Attributes\Description;
@@ -23,6 +24,7 @@ class ClearDemoData extends Command
 
         Sighting::query()->where('is_demo', true)->delete();
         RegionPartner::query()->where('is_demo', true)->delete();
+        ConstructionPost::query()->where('is_demo', true)->delete();
         Storage::disk('public')->deleteDirectory('demo');
 
         $this->info('Dados de demonstração removidos.');

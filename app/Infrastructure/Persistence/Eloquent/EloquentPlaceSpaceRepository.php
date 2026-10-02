@@ -21,6 +21,7 @@ final class EloquentPlaceSpaceRepository implements PlaceSpaceRepository
                 phase: $space->phase,
                 status: $space->status,
                 concept: $space->concept_image_path,
+                description: $space->description,
             ))
             ->values()
             ->all();

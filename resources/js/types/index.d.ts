@@ -29,6 +29,7 @@ export interface PlaceSpace {
     phase: number;
     status: 'planning' | 'building' | 'open';
     concept: string | null;
+    description: string | null;
 }
 
 export interface PartnerCard {

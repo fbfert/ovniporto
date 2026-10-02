@@ -31,27 +31,6 @@ final class UpcomingPages
             'phase' => 'Fase 4 · Loja',
             'change' => 'add-store-catalog',
         ],
-        'o-lugar' => [
-            'title' => 'O lugar',
-            'eyebrow' => 'Ao lado da Hospedaria Vila das Pedras',
-            'description' => 'A pista de pouso ainda não existe. Aqui vão ficar o mapa, as fotos do terreno, os espaços fase a fase e as regras do céu escuro.',
-            'phase' => 'Fase 2 · Páginas públicas',
-            'change' => 'add-place-and-campaign',
-        ],
-        'apoie' => [
-            'title' => 'Apoie a pista',
-            'eyebrow' => 'Orçamento em planejamento',
-            'description' => 'Nenhuma arrecadação abre antes de existir orçamento. Deixe o e-mail e a torre avisa quando a campanha começar.',
-            'phase' => 'Fase 2 · Páginas públicas',
-            'change' => 'add-place-and-campaign',
-        ],
-        'obra' => [
-            'title' => 'Diário da obra',
-            'eyebrow' => 'Pedra por pedra',
-            'description' => 'A obra ainda não começou. O primeiro post será o dia em que a primeira pedra for colocada.',
-            'phase' => 'Fase 2 · Páginas públicas',
-            'change' => 'add-place-and-campaign',
-        ],
         'regiao' => [
             'title' => 'Conheça a região',
             'eyebrow' => 'Fique mais um dia',
