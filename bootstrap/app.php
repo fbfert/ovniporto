@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureNotBlocked;
 use App\Http\Middleware\EnsurePanelArea;
 use App\Http\Middleware\EnsureProfileCompleted;
 use App\Http\Middleware\HandleInertiaRequests;
@@ -20,7 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             HandleInertiaRequests::class,
         ]);
-        $middleware->alias(['profile.complete' => EnsureProfileCompleted::class, 'panel' => EnsurePanelArea::class]);
+        $middleware->alias(['profile.complete' => EnsureProfileCompleted::class, 'panel' => EnsurePanelArea::class, 'not.blocked' => EnsureNotBlocked::class]);
         // Signed-in members who still visit /entrar go straight to their account.
         $middleware->redirectUsersTo(fn () => route('account'));
     })

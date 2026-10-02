@@ -2,6 +2,8 @@
 
 namespace App\Application\Sightings\UseCases;
 
+use App\Domain\Members\Contracts\MemberRepository;
+use App\Domain\Members\MemberBlocked;
 use App\Domain\Sightings\Contracts\SightingNotifier;
 use App\Domain\Sightings\Contracts\SightingWriteRepository;
 use App\Domain\Sightings\Data\SightingSubmission;
@@ -19,12 +21,16 @@ use DateTimeImmutable;
 final readonly class SubmitSighting
 {
     public function __construct(
+        private MemberRepository $members,
         private SightingWriteRepository $sightings,
         private SightingNotifier $notifier,
     ) {}
 
     public function execute(int $memberId, SightingSubmission $submission): int
     {
+        if ($this->members->isBlocked($memberId)) {
+            throw new MemberBlocked;
+        }
         $now = new DateTimeImmutable;
         SubmissionRules::validate($submission, $now);
 

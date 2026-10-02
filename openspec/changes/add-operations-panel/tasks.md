@@ -5,7 +5,7 @@
 - [x] 1.1 Criar layout do painel e gates por área e papel, verificado por testes de feature (moderator não acessa pedidos; store não acessa relatos; member recebe 403)
 - [x] 1.2 Criar `audit_logs` e decorador de auditoria dos UseCases do painel, verificado por teste que executa cada ação e confere o registro
 - [ ] 1.3 Implementar dashboard com contagens, metas, gráfico de 12 semanas e "Precisa de você", verificado por teste de feature com dados fabricados nos limites (48 h, 2 dias, 7 dias)
-- [ ] 1.4 Implementar `/painel/membros` (papel só por admin, bloqueio com motivo, exclusão) e `/painel/auditoria`, verificado por testes de feature de autorização e de bloqueio impedindo relato
+- [x] 1.4 Implementar `/painel/membros` (papel só por admin, bloqueio com motivo, exclusão) e `/painel/auditoria`, verificado por testes de feature de autorização e de bloqueio impedindo relato
 
 ## 2. Moderação de relatos
 

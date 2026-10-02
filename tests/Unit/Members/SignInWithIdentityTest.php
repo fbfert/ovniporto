@@ -56,6 +56,11 @@ function memoryMembers(): MemberRepository
         }
 
         public function delete(int $memberId): void {}
+
+        public function isBlocked(int $memberId): bool
+        {
+            return false;
+        }
     };
 }
 

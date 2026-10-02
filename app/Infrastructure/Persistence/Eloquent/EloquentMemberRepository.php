@@ -89,4 +89,9 @@ final class EloquentMemberRepository implements MemberRepository
     {
         Member::query()->whereKey($memberId)->delete();
     }
+
+    public function isBlocked(int $memberId): bool
+    {
+        return Member::query()->whereKey($memberId)->whereNotNull('blocked_at')->exists();
+    }
 }

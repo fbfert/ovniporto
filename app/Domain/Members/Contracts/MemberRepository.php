@@ -27,4 +27,7 @@ interface MemberRepository
     public function find(int $memberId): ?array;
 
     public function delete(int $memberId): void;
+
+    /** Blocked by the tower: no new reports (nor orders, with the store). */
+    public function isBlocked(int $memberId): bool;
 }

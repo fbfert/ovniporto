@@ -30,11 +30,22 @@ final readonly class DeleteAccount
             return false;
         }
 
+        return $this->erase($memberId);
+    }
+
+    /** Erases the account without the nickname confirmation: the admin, from the panel. */
+    public function erase(int $memberId): bool
+    {
+        $profile = $this->members->find($memberId);
+        if ($profile === null) {
+            return false;
+        }
+
         foreach ($this->erasers as $eraser) {
             $eraser->eraseFor($memberId);
         }
         $this->members->delete($memberId);
-        Mail::to($profile['email'])->queue(new AccountDeletedMail($profile['nickname']));
+        Mail::to($profile['email'])->queue(new AccountDeletedMail($profile['nickname'] ?? $profile['name']));
 
         return true;
     }

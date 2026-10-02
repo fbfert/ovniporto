@@ -6,6 +6,7 @@ use App\Application\Sightings\UseCases\GetSightingDraft;
 use App\Application\Sightings\UseCases\ResubmitSighting;
 use App\Application\Sightings\UseCases\SubmitSighting;
 use App\Application\Sightings\UseCases\UploadSightingPhoto;
+use App\Domain\Members\MemberBlocked;
 use App\Domain\Sightings\InvalidSubmission;
 use App\Domain\Sightings\SubmissionRules;
 use App\Http\Controllers\Controller;
@@ -48,6 +49,8 @@ class ReportController extends Controller
             $resubmit->execute((int) $request->user()?->getAuthIdentifier(), $sighting->id, $request->submission());
         } catch (InvalidSubmission $e) {
             throw ValidationException::withMessages([$e->field => $e->getMessage()]);
+        } catch (MemberBlocked $e) {
+            throw ValidationException::withMessages(['status' => $e->getMessage()]);
         }
 
         return redirect()->route('report.sent');
@@ -99,6 +102,8 @@ class ReportController extends Controller
             $submit->execute((int) $request->user()?->getAuthIdentifier(), $request->submission());
         } catch (InvalidSubmission $e) {
             throw ValidationException::withMessages([$e->field => $e->getMessage()]);
+        } catch (MemberBlocked $e) {
+            throw ValidationException::withMessages(['status' => $e->getMessage()]);
         }
 
         return redirect()->route('report.sent');

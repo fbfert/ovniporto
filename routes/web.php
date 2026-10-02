@@ -12,6 +12,7 @@ use App\Http\Controllers\Members\AccountController;
 use App\Http\Controllers\Members\GoogleAuthController;
 use App\Http\Controllers\Members\WelcomeController;
 use App\Http\Controllers\Panel\AuditController;
+use App\Http\Controllers\Panel\MemberAdminController;
 use App\Http\Controllers\Panel\PanelHomeController;
 use App\Http\Controllers\Panel\PanelUpcomingController;
 use App\Http\Controllers\Panel\SightingModerationController;
@@ -70,16 +71,18 @@ Route::middleware('auth')->group(function () {
             ->name('account.export');
         Route::delete('/conta', [AccountController::class, 'destroy'])->name('account.destroy');
 
-        Route::get('/relatar', [ReportController::class, 'create'])->name('report');
-        Route::post('/relatar', [ReportController::class, 'store'])->middleware('throttle:5,1')->name('report.store');
-        Route::get('/relatar/enviado', [ReportController::class, 'sent'])->name('report.sent');
-        Route::get('/relatar/{sighting}/editar', [ReportController::class, 'edit'])->whereNumber('sighting')->name('report.edit');
-        Route::put('/relatar/{sighting}', [ReportController::class, 'update'])
-            ->whereNumber('sighting')
-            ->middleware('throttle:5,1')
-            ->name('report.update');
-        Route::post('/relatar/fotos', [ReportController::class, 'upload'])->middleware('throttle:20,1')->name('report.photos.store');
-        Route::delete('/relatar/fotos/{upload}', [ReportController::class, 'discard'])->whereUuid('upload')->name('report.photos.destroy');
+        Route::middleware('not.blocked')->group(function () {
+            Route::get('/relatar', [ReportController::class, 'create'])->name('report');
+            Route::post('/relatar', [ReportController::class, 'store'])->middleware('throttle:5,1')->name('report.store');
+            Route::get('/relatar/enviado', [ReportController::class, 'sent'])->name('report.sent');
+            Route::get('/relatar/{sighting}/editar', [ReportController::class, 'edit'])->whereNumber('sighting')->name('report.edit');
+            Route::put('/relatar/{sighting}', [ReportController::class, 'update'])
+                ->whereNumber('sighting')
+                ->middleware('throttle:5,1')
+                ->name('report.update');
+            Route::post('/relatar/fotos', [ReportController::class, 'upload'])->middleware('throttle:20,1')->name('report.photos.store');
+            Route::delete('/relatar/fotos/{upload}', [ReportController::class, 'discard'])->whereUuid('upload')->name('report.photos.destroy');
+        });
     });
 });
 
@@ -99,7 +102,16 @@ Route::middleware(['auth', 'profile.complete', 'panel:inicio'])->prefix('painel'
     Route::get('/auditoria', AuditController::class)->middleware('panel:auditoria')->name('.audit');
 
     // Areas whose tools arrive with later changes; the role check already applies.
-    foreach (['membros', 'pedidos', 'produtos', 'conteudo'] as $area) {
+    Route::middleware('panel:membros')->prefix('membros')->name('.members')->group(function () {
+        Route::get('/', [MemberAdminController::class, 'index']);
+        Route::get('/{member}', [MemberAdminController::class, 'show'])->whereNumber('member')->name('.show');
+        Route::put('/{member}/papel', [MemberAdminController::class, 'role'])->whereNumber('member')->name('.role');
+        Route::post('/{member}/bloqueio', [MemberAdminController::class, 'block'])->whereNumber('member')->name('.block');
+        Route::delete('/{member}/bloqueio', [MemberAdminController::class, 'unblock'])->whereNumber('member')->name('.unblock');
+        Route::delete('/{member}', [MemberAdminController::class, 'destroy'])->whereNumber('member')->name('.destroy');
+    });
+
+    foreach (['pedidos', 'produtos', 'conteudo'] as $area) {
         Route::get($area, PanelUpcomingController::class)
             ->middleware("panel:{$area}")
             ->defaults('area', $area)

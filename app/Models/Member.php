@@ -22,6 +22,8 @@ use Illuminate\Support\Carbon;
  * @property string|null $city
  * @property MemberRole $role
  * @property Carbon|null $terms_accepted_at
+ * @property Carbon|null $blocked_at
+ * @property string|null $blocked_reason
  * @property Carbon $created_at
  */
 class Member extends Authenticatable
@@ -35,7 +37,7 @@ class Member extends Authenticatable
 
     protected function casts(): array
     {
-        return ['terms_accepted_at' => 'datetime', 'role' => MemberRole::class];
+        return ['terms_accepted_at' => 'datetime', 'blocked_at' => 'datetime', 'role' => MemberRole::class];
     }
 
     /** No password: Google is the only way in. */
@@ -47,6 +49,11 @@ class Member extends Authenticatable
     public function hasCompleteProfile(): bool
     {
         return $this->nickname !== null && $this->terms_accepted_at !== null;
+    }
+
+    public function isBlocked(): bool
+    {
+        return $this->blocked_at !== null;
     }
 
     /** @return HasMany<Sighting, $this> */

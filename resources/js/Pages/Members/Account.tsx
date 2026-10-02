@@ -1,5 +1,6 @@
 import { Link, router, useForm } from '@inertiajs/react';
 import { useState, type FormEvent, type ReactNode } from 'react';
+import { useAuthMember } from '@/Components/Members/auth';
 import { SeoHead } from '@/Components/Layout/SeoHead';
 import { Button } from '@/Components/Ui/Button';
 import { TextField } from '@/Components/Ui/Fields';
@@ -239,6 +240,7 @@ export default function Account({
     orders: unknown[];
     tab: Tab;
 }) {
+    const member = useAuthMember();
     return (
         <>
             <SeoHead title={copy.accountTitle} />
@@ -259,6 +261,15 @@ export default function Account({
                         </Display>
                     </div>
                 </div>
+
+                {member?.blocked && (
+                    <p
+                        role="status"
+                        className="mt-8 max-w-[60ch] rounded-2xl bg-car px-5 py-3 font-semibold text-night"
+                    >
+                        {copy.blockedNotice}
+                    </p>
+                )}
 
                 <nav aria-label={copy.accountTitle} className="-mx-5 mt-10 overflow-x-auto px-5 sm:mx-0 sm:px-0">
                     <ul className="flex gap-2 border-b-2 border-dashed border-night/15 pb-3">

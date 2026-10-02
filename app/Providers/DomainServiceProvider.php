@@ -14,6 +14,7 @@ use App\Domain\Content\Contracts\EditorialListRepository;
 use App\Domain\Content\Contracts\MarkdownRenderer;
 use App\Domain\Map\Contracts\Geocoder;
 use App\Domain\Members\Contracts\IdentityProvider;
+use App\Domain\Members\Contracts\MemberAdminRepository;
 use App\Domain\Members\Contracts\MemberRepository;
 use App\Domain\Place\Contracts\ConstructionPostRepository;
 use App\Domain\Place\Contracts\PlaceSpaceRepository;
@@ -42,6 +43,7 @@ use App\Infrastructure\Persistence\Eloquent\EloquentCampaignRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentConstructionPostRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentContentBlockRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentEditorialListRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentMemberAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentMemberRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentMemberSightingRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentModerationRepository;
@@ -76,6 +78,7 @@ class DomainServiceProvider extends ServiceProvider
         EditorialListRepository::class => EloquentEditorialListRepository::class,
         MarkdownRenderer::class => CommonMarkRenderer::class,
         MemberRepository::class => EloquentMemberRepository::class,
+        MemberAdminRepository::class => EloquentMemberAdminRepository::class,
         IdentityProvider::class => GoogleIdentityProvider::class,
         SightingReadRepository::class => EloquentSightingReadRepository::class,
         MemberSightingRepository::class => EloquentMemberSightingRepository::class,

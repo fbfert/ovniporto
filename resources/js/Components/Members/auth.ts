@@ -6,6 +6,7 @@ export interface AuthMember {
     avatarUrl: string | null;
     canOpenPanel: boolean;
     complete: boolean;
+    blocked: boolean;
 }
 
 export function useAuthMember(): AuthMember | null {

@@ -4,6 +4,8 @@ namespace App\Application\Sightings\UseCases;
 
 use App\Domain\Audit\Contracts\Auditor;
 use App\Domain\Audit\Data\AuditEntry;
+use App\Domain\Members\Contracts\MemberRepository;
+use App\Domain\Members\MemberBlocked;
 use App\Domain\Sightings\Contracts\PhotoStorage;
 use App\Domain\Sightings\Contracts\SightingNotifier;
 use App\Domain\Sightings\Contracts\SightingWriteRepository;
@@ -23,6 +25,7 @@ use DateTimeImmutable;
 final readonly class ResubmitSighting
 {
     public function __construct(
+        private MemberRepository $members,
         private SightingWriteRepository $sightings,
         private PhotoStorage $storage,
         private SightingNotifier $notifier,
@@ -31,6 +34,9 @@ final readonly class ResubmitSighting
 
     public function execute(int $memberId, int $sightingId, SightingSubmission $submission): void
     {
+        if ($this->members->isBlocked($memberId)) {
+            throw new MemberBlocked;
+        }
         $owned = $this->sightings->findOwned($memberId, $sightingId)
             ?? throw new InvalidSubmission('status', 'Relato não encontrado.');
         if (! ModerationRules::canResubmit($owned['status'])) {

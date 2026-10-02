@@ -46,7 +46,7 @@ class HandleInertiaRequests extends Middleware
         return array_map(fn (PanelArea $area) => $area->value, PanelArea::openTo($member->role));
     }
 
-    /** @return array{nickname: ?string, avatarUrl: ?string, canOpenPanel: bool, complete: bool}|null */
+    /** @return array{nickname: ?string, avatarUrl: ?string, canOpenPanel: bool, complete: bool, blocked: bool}|null */
     private function member(Request $request): ?array
     {
         $member = $request->user();
@@ -59,6 +59,7 @@ class HandleInertiaRequests extends Middleware
             'avatarUrl' => $member->avatar_url,
             'canOpenPanel' => $member->role->canOpenPanel(),
             'complete' => $member->hasCompleteProfile(),
+            'blocked' => $member->isBlocked(),
         ];
     }
 }
