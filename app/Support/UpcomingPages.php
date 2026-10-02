@@ -10,13 +10,6 @@ final class UpcomingPages
 {
     /** @var array<string, array{title: string, eyebrow: string, description: string, phase: string, change: string}> */
     public const PAGES = [
-        'mapa' => [
-            'title' => 'Livro de avistamentos',
-            'eyebrow' => 'Céu sob vigilância',
-            'description' => 'O mapa com todos os relatos aprovados pela torre, filtros por período e tipo, e a ficha de cada avistamento.',
-            'phase' => 'Fase 3 · Membros e relatos',
-            'change' => 'add-sightings-map',
-        ],
         'loja' => [
             'title' => 'Loja',
             'eyebrow' => 'Lembranças de',

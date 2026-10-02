@@ -17,7 +17,7 @@ export function PageCover({
     return (
         <NightBanner size="short">
             <Eyebrow tone="dark">{eyebrow}</Eyebrow>
-            <Display as="h1" className="mt-4 text-[clamp(1.7rem,0.35rem+6.4vw,5.5rem)]! text-balance">
+            <Display as="h1" className="mt-4 text-[clamp(1.7rem,0.35rem+6.4vw,4.4rem)]! text-balance">
                 {title}
             </Display>
             {lead && <p className="mx-auto mt-6 max-w-[48ch] text-lg leading-relaxed text-moonlight/80">{lead}</p>}

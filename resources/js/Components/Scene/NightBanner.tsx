@@ -29,7 +29,7 @@ export function NightBanner({ children, size = 'default' }: { children: ReactNod
                 ))}
             </svg>
             <div
-                className={`relative z-[2] mx-auto w-full max-w-4xl px-5 text-center sm:px-8 ${size === 'short' ? 'pt-32 pb-28' : 'pt-32 pb-40'}`}
+                className={`relative z-[2] mx-auto w-full max-w-5xl px-5 text-center sm:px-8 ${size === 'short' ? 'pt-32 pb-28' : 'pt-32 pb-40'}`}
             >
                 {children}
             </div>

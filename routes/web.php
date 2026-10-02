@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\SightingsApiController;
 use App\Http\Controllers\Content\CommunityController;
 use App\Http\Controllers\Content\FaqController;
 use App\Http\Controllers\Content\LegalPageController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Place\ConstructionDiaryController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Place\SupportController;
 use App\Http\Controllers\Region\RegionController;
+use App\Http\Controllers\Sightings\LogbookController;
 use App\Http\Controllers\Sightings\ReportController;
 use App\Http\Controllers\Sightings\SightingPhotoController;
 use App\Http\Controllers\UpcomingPageController;
@@ -71,6 +73,11 @@ Route::middleware('auth')->group(function () {
         Route::delete('/relatar/fotos/{upload}', [ReportController::class, 'discard'])->whereUuid('upload')->name('report.photos.destroy');
     });
 });
+
+// Livro de avistamentos: only approved reports are public.
+Route::get('/mapa', [LogbookController::class, 'index'])->name('logbook');
+Route::get('/relatos/{sighting}', [LogbookController::class, 'show'])->whereNumber('sighting')->name('sightings.show');
+Route::get('/api/sightings', SightingsApiController::class)->middleware('throttle:60,1')->name('api.sightings');
 
 // Report photos: approved ones are public; pending ones need a signed URL and the author or a moderator.
 Route::get('/fotos/relatos/{photo}/{width}', SightingPhotoController::class)

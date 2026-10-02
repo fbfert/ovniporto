@@ -1,10 +1,11 @@
 import { motion, type Variants } from 'motion/react';
 import { NightSkyArt, Polaroid } from '@/Components/Ui/Polaroid';
+import { SightingPolaroid } from '@/Components/Sightings/SightingPolaroid';
 import { Button } from '@/Components/Ui/Button';
 import { Section } from '@/Components/Ui/Section';
 import { Display, Eyebrow } from '@/Components/Ui/Typography';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
-import { shortDate, t } from '@/i18n/pt-BR';
+import { t } from '@/i18n/pt-BR';
 import { spring, STAGGER } from '@/lib/motion';
 import type { SightingCard } from '@/types';
 
@@ -52,14 +53,10 @@ export function LogbookSection({ sightings }: { sightings: SightingCard[] }) {
                     return (
                         <motion.li key={sighting?.id ?? `empty-${i}`} variants={drop(rotate)} className={OFFSETS[i]}>
                             {sighting ? (
-                                <Polaroid
-                                    href={`/mapa#relato-${sighting.id}`}
+                                <SightingPolaroid
+                                    sighting={sighting}
                                     rotate={rotate}
                                     tape={i % 2 === 0 ? 'top' : 'corner'}
-                                    src={sighting.photo}
-                                    alt={`${t.logbook.types[sighting.type]} vista por ${sighting.nickname}`}
-                                    art={<NightSkyArt label={t.logbook.types[sighting.type]} seed={sighting.id} />}
-                                    caption={`${t.logbook.types[sighting.type]} · ${sighting.place ?? t.logbook.noPlace} · ${shortDate(sighting.date)}`}
                                 />
                             ) : (
                                 <Polaroid

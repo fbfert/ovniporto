@@ -133,3 +133,79 @@
         color: var(--color-car);
     }
 }
+
+/*
+ * Livro de avistamentos map: OSM tiles darkened in CSS (no extra tile provider),
+ * beam-green report dots with a slow halo, clusters numbered in the display face.
+ */
+.night-map .leaflet-tile-pane {
+    filter: invert(1) hue-rotate(195deg) brightness(0.82) contrast(0.92) saturate(0.6);
+}
+.night-map .leaflet-container,
+.night-map.leaflet-container {
+    background: var(--color-night);
+}
+.sighting-dot {
+    position: relative;
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 9999px;
+    background: var(--color-beam);
+    border: 2px solid var(--color-night);
+    box-shadow: 0 0 10px 2px rgb(84 201 51 / 0.6);
+}
+.sighting-dot::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 9999px;
+    border: 2px solid rgb(84 201 51 / 0.55);
+    animation: sighting-halo 2.6s var(--ease-glide) infinite;
+}
+@keyframes sighting-halo {
+    from {
+        transform: scale(0.6);
+        opacity: 1;
+    }
+    to {
+        transform: scale(1.6);
+        opacity: 0;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .sighting-dot::after {
+        animation: none;
+        opacity: 0.4;
+    }
+}
+.sighting-cluster {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    background: rgb(20 38 68 / 0.92);
+    border: 2px solid var(--color-beam);
+    color: var(--color-moonlight);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.95rem;
+    box-shadow: 0 0 18px 2px rgb(84 201 51 / 0.45);
+}
+.night-map .leaflet-popup-content-wrapper {
+    border-radius: 4px;
+    background: var(--color-moonlight);
+    color: var(--color-night);
+    box-shadow: var(--shadow-polaroid);
+    padding: 0;
+}
+.night-map .leaflet-popup-content {
+    margin: 10px 10px 4px;
+    width: 180px !important;
+    font-family: var(--font-sans);
+}
+.night-map .leaflet-popup-tip {
+    background: var(--color-moonlight);
+}

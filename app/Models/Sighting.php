@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Domain\Sightings\SightingStatus;
 use App\Domain\Sightings\SightingType;
+use App\Observers\SightingObserver;
 use Database\Factories\SightingFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +30,12 @@ use Illuminate\Support\Carbon;
  * @property int|null $member_id
  * @property string|null $moderation_note
  * @property Carbon $created_at
+ * @property string $observed_time_kind
+ * @property string|null $observed_time_range
+ * @property string|null $observed_time
+ * @property string|null $gaze_direction
  */
+#[ObservedBy(SightingObserver::class)]
 class Sighting extends Model
 {
     /** @use HasFactory<SightingFactory> */
