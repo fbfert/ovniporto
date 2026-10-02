@@ -70,9 +70,33 @@ export interface SharedProps {
     appUrl: string;
     community: CommunityLinks;
     currentUrl: string;
-    flash: { toast: string | null };
+    flash: { toast: string | null; cartOpen?: boolean };
     /** Panel areas the signed-in role may open; only on /painel pages. */
     panelAreas: string[] | null;
+    cart: Cart;
     errors: Record<string, string>;
     [key: string]: unknown;
+}
+
+export interface CartItem {
+    variantId: number;
+    productName: string;
+    productSlug: string;
+    variantName: string;
+    unitPriceCents: number;
+    lineCents: number;
+    quantity: number;
+    max: number;
+    madeToOrder: boolean;
+    productionDays: number;
+    image: string | null;
+    imageAlt: string | null;
+}
+
+/** Priced by the server on every visit (shared prop). */
+export interface Cart {
+    items: CartItem[];
+    count: number;
+    subtotalCents: number;
+    weightGrams: number;
 }

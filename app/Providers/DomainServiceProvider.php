@@ -20,6 +20,7 @@ use App\Domain\Map\Contracts\Geocoder;
 use App\Domain\Members\Contracts\IdentityProvider;
 use App\Domain\Members\Contracts\MemberAdminRepository;
 use App\Domain\Members\Contracts\MemberRepository;
+use App\Domain\Orders\Contracts\CartRepository;
 use App\Domain\Place\Contracts\ConstructionPostRepository;
 use App\Domain\Place\Contracts\DiaryAdminRepository;
 use App\Domain\Place\Contracts\PlaceAdminRepository;
@@ -28,6 +29,7 @@ use App\Domain\Place\Contracts\SitePhotoRepository;
 use App\Domain\Region\Contracts\ConsentProofStorage;
 use App\Domain\Region\Contracts\RegionAdminRepository;
 use App\Domain\Region\Contracts\RegionPartnerRepository;
+use App\Domain\Shipping\Contracts\ShippingProvider;
 use App\Domain\Sightings\Contracts\ImageProcessor;
 use App\Domain\Sightings\Contracts\MemberSightingRepository;
 use App\Domain\Sightings\Contracts\ModerationRepository;
@@ -50,6 +52,7 @@ use App\Infrastructure\Members\SightingsDataSource;
 use App\Infrastructure\Members\WaitlistDataSource;
 use App\Infrastructure\Persistence\Eloquent\EloquentCampaignAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentCampaignRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentCartRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentConstructionPostRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentContentAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentContentBlockRepository;
@@ -69,6 +72,7 @@ use App\Infrastructure\Persistence\Eloquent\EloquentSightingWriteRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentSitePhotoRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentWaitlistRepository;
 use App\Infrastructure\Region\PrivateConsentProofStorage;
+use App\Infrastructure\Shipping\SimulatedShippingProvider;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Support\ServiceProvider;
 
@@ -103,6 +107,8 @@ class DomainServiceProvider extends ServiceProvider
         SightingNotifier::class => MailSightingNotifier::class,
         ModerationRepository::class => EloquentModerationRepository::class,
         Auditor::class => DatabaseAuditor::class,
+        CartRepository::class => EloquentCartRepository::class,
+        ShippingProvider::class => SimulatedShippingProvider::class,
         ImageLibrary::class => PublicImageLibrary::class,
         ContentAdminRepository::class => EloquentContentAdminRepository::class,
         CampaignAdminRepository::class => EloquentCampaignAdminRepository::class,

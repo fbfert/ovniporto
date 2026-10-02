@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use App\Application\Content\UseCases\GetCommunityLinks;
+use App\Application\Orders\UseCases\ManageCart;
 use App\Domain\Panel\PanelArea;
+use App\Http\Support\CartOwners;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -29,10 +31,23 @@ class HandleInertiaRequests extends Middleware
             'auth' => fn () => ['member' => $this->member($request)],
             // Panel menu: the areas this role may open (the server checks each one again).
             'panelAreas' => fn () => $this->panelAreas($request),
+            // The drawer and the header counter, priced by the server on every visit.
+            'cart' => fn () => $this->cart($request),
             'flash' => [
                 'toast' => fn () => $request->session()->get('toast'),
+                'cartOpen' => fn () => (bool) $request->session()->get('cartOpen'),
             ],
         ];
+    }
+
+    /** @return array{items: list<array<string, mixed>>, count: int, subtotalCents: int, weightGrams: int} */
+    private function cart(Request $request): array
+    {
+        $owner = CartOwners::forRead($request);
+
+        return $owner === null
+            ? ['items' => [], 'count' => 0, 'subtotalCents' => 0, 'weightGrams' => 0]
+            : app(ManageCart::class)->view($owner);
     }
 
     /** @return list<string>|null */

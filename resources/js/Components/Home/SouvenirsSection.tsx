@@ -47,7 +47,7 @@ export function SouvenirsSection({ lead, products }: { lead: string; products: P
                 {products.map((product) => (
                     <RevealItem as="li" key={product.id}>
                         <TicketCard
-                            href={`/loja#${product.slug}`}
+                            href={`/loja/${product.slug}`}
                             label={product.label}
                             title={product.name}
                             price={money(product.priceCents)}

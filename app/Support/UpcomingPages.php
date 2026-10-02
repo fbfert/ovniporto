@@ -10,12 +10,12 @@ final class UpcomingPages
 {
     /** @var array<string, array{title: string, eyebrow: string, description: string, phase: string, change: string}> */
     public const PAGES = [
-        'loja' => [
-            'title' => 'Loja',
-            'eyebrow' => 'Lembranças de',
-            'description' => 'O adesivo já está pronto pra colar. Camiseta, caneca e o Kit Abdução entram depois, impressos sob pedido.',
+        'finalizar' => [
+            'title' => 'Finalizar compra',
+            'eyebrow' => 'Quase lá',
+            'description' => 'O pagamento (cartão e Pix pelo PayPal) e o frete pelo Melhor Envio estão sendo ligados. Seu carrinho fica guardado até lá.',
             'phase' => 'Fase 4 · Loja',
-            'change' => 'add-store-catalog',
+            'change' => 'add-checkout-payments',
         ],
     ];
 }

@@ -5,6 +5,7 @@ import { Seal } from '@/Components/Brand/Seal';
 import { useAuthMember } from '@/Components/Members/auth';
 import { JoinButton } from '@/Components/Members/JoinButton';
 import { MemberMenu } from '@/Components/Members/MemberMenu';
+import { CartButton } from '@/Components/Store/CartDrawer';
 import { t } from '@/i18n/pt-BR';
 import { duration, ease } from '@/lib/motion';
 import { MobileMenu } from './MobileMenu';
@@ -92,6 +93,7 @@ export function Header() {
                     </Link>
 
                     <div className="flex items-center justify-end gap-2">
+                        <CartButton />
                         {member ? (
                             <MemberMenu member={member} />
                         ) : (

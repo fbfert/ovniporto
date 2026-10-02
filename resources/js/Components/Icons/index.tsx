@@ -152,3 +152,29 @@ export function CloseIcon(props: IconProps) {
         </Icon>
     );
 }
+
+/** A paper shopping bag with rope handles. */
+export function BagIcon(props: IconProps) {
+    return (
+        <Icon {...props}>
+            <path d="M5 8h14l-1 12H6L5 8Z" />
+            <path d="M9 10V7a3 3 0 0 1 6 0v3" />
+        </Icon>
+    );
+}
+
+export function MinusIcon(props: IconProps) {
+    return (
+        <Icon {...props}>
+            <path d="M6 12h12" />
+        </Icon>
+    );
+}
+
+export function PlusIcon(props: IconProps) {
+    return (
+        <Icon {...props}>
+            <path d="M12 6v12M6 12h12" />
+        </Icon>
+    );
+}

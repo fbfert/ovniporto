@@ -28,6 +28,8 @@ use App\Http\Controllers\Region\RegionController;
 use App\Http\Controllers\Sightings\LogbookController;
 use App\Http\Controllers\Sightings\ReportController;
 use App\Http\Controllers\Sightings\SightingPhotoController;
+use App\Http\Controllers\Store\CartController;
+use App\Http\Controllers\Store\StoreController;
 use App\Http\Controllers\UpcomingPageController;
 use App\Http\Controllers\WaitlistController;
 use App\Support\UpcomingPages;
@@ -190,6 +192,14 @@ Route::middleware(['auth', 'profile.complete', 'panel:inicio'])->prefix('painel'
             ->name(".{$area}");
     }
 });
+
+// Store: only active products are public; prices always come from the server.
+Route::get('/loja', [StoreController::class, 'index'])->name('store');
+Route::get('/loja/{slug}', [StoreController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('store.product');
+Route::post('/loja/frete', [StoreController::class, 'shipping'])->middleware('throttle:20,1')->name('store.shipping');
+Route::post('/carrinho/itens', [CartController::class, 'add'])->middleware('throttle:60,1')->name('cart.add');
+Route::patch('/carrinho/itens/{variant}', [CartController::class, 'update'])->whereNumber('variant')->middleware('throttle:60,1')->name('cart.update');
+Route::delete('/carrinho/itens/{variant}', [CartController::class, 'remove'])->whereNumber('variant')->name('cart.remove');
 
 // Livro de avistamentos: only approved reports are public.
 Route::get('/mapa', [LogbookController::class, 'index'])->name('logbook');

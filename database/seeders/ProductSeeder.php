@@ -31,6 +31,8 @@ class ProductSeeder extends Seeder
             ]);
 
             if ($slug === 'adesivo-ovniporto') {
+                // Packaging estimate for freight (envelope with the sticker); the admin adjusts it in the panel.
+                $product->update(['weight_grams' => 20, 'dimensions' => ['length' => 16, 'width' => 11, 'height' => 1]]);
                 $product->variants()->updateOrCreate(['sku' => 'OVP-ADESIVO'], [
                     'name' => 'Único',
                     'stock_qty' => 500,
