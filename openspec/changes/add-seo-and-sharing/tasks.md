@@ -13,5 +13,5 @@
 
 ## 3. Postal e métrica
 
-- [ ] 3.1 Implementar `/postal` com download e compartilhamento nativo com alternativas, verificado por teste de feature e teste de componente do fallback
+- [x] 3.1 Implementar `/postal` com download e compartilhamento nativo com alternativas, verificado por teste de feature e teste de componente do fallback
 - [ ] 3.2 Adicionar Umami + Postgres ao compose e wrapper tipado de eventos só em produção, verificado por teste de feature (script ausente fora de produção) e conferência dos 6 eventos no painel do Umami em staging

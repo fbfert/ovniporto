@@ -62,7 +62,7 @@ return [
         'postcard' => [
             'title' => 'Mande um postal',
             'description' => 'Um postal do OVNIPORTO para mandar a quem precisa ver o céu de Lages. Guardei um lugar pra você.',
-            'image' => '/postal/postal.jpg',
+            'image' => '/brand/postal-og.jpg',
         ],
 
         // Private or transactional: titled, never indexed.

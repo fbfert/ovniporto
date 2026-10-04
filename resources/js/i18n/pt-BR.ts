@@ -147,6 +147,7 @@ export const t = {
         postcardTo: 'Para: quem precisa de um céu escuro',
         postcardMessage: 'Achei o lugar onde o céu ainda é escuro e alguém sempre jura ter visto alguma coisa.',
         shareWhatsapp: 'Enviar no WhatsApp',
+        openPostcard: 'Abrir o postal',
         copy: 'Copiar link',
         copied: 'Link copiado',
         shareText: (url: string) => `Olha o que estão fazendo no céu de Lages: ${url}`,
@@ -563,6 +564,24 @@ export const t = {
     },
     toast: {
         close: 'Fechar aviso',
+    },
+    postcardPage: {
+        eyebrow: 'Mande um postal',
+        title: 'Um postal do planalto',
+        lead: 'Baixe a imagem ou mande direto para quem precisa ver o céu de Lages.',
+        frontAlt:
+            'Postal do OVNIPORTO: ilustração conceito da pista de pouso sob o céu estrelado da serra, com o selo, a frase "Guardei um lugar pra você." e Lages, SC.',
+        flipToBack: 'Virar o postal',
+        flipToFront: 'Ver a frente',
+        share: 'Compartilhar postal',
+        download: 'Baixar postal',
+        whatsapp: 'Enviar no WhatsApp',
+        copy: 'Copiar link',
+        copied: 'Link copiado.',
+        shareTitle: 'Um postal do OVNIPORTO',
+        shareText: (url: string) => `Guardei um lugar pra você no céu de Lages: ${url}`,
+        fileName: 'postal-ovniporto.jpg',
+        note: 'A imagem tem 1500 × 1000 px, o formato de um postal de verdade. A ilustração é um conceito: a pista ainda vai ser construída.',
     },
     storePage: {
         eyebrow: 'Lembranças de',

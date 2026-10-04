@@ -216,6 +216,19 @@ final class NightCanvas
         return $box[2] - $box[0];
     }
 
+    /** WebP copy, optionally scaled down to $width (keeps the aspect ratio). */
+    public function saveWebp(string $path, ?int $width = null, int $quality = 82): void
+    {
+        $image = $width === null || $width >= $this->width ? $this->image : imagescale($this->image, $width);
+        if ($image === false) {
+            throw new RuntimeException("GD could not scale the canvas to {$width}px.");
+        }
+        if (! is_dir(dirname($path))) {
+            mkdir(dirname($path), 0755, true);
+        }
+        imagewebp($image, $path, $quality);
+    }
+
     public function saveJpeg(string $path, int $quality = 86): void
     {
         if (! is_dir(dirname($path))) {

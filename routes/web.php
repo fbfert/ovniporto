@@ -8,6 +8,7 @@ use App\Http\Controllers\Content\FaqController;
 use App\Http\Controllers\Content\LegalPageController;
 use App\Http\Controllers\Content\LegendController;
 use App\Http\Controllers\Content\OgImageController;
+use App\Http\Controllers\Content\PostcardController;
 use App\Http\Controllers\Dev\SignInAsController;
 use App\Http\Controllers\Dev\StyleguideController;
 use App\Http\Controllers\HomeController;
@@ -44,6 +45,7 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('/lenda', LegendController::class)->name('legend');
 Route::get('/faq', FaqController::class)->name('faq');
 Route::get('/comunidade', CommunityController::class)->name('community');
+Route::get('/postal', PostcardController::class)->name('postcard');
 Route::get('/privacidade', LegalPageController::class)->defaults('kind', 'privacy')->name('privacy');
 Route::get('/termos', LegalPageController::class)->defaults('kind', 'terms')->name('terms');
 
