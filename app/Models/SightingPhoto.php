@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
  * @property int $width
  * @property int $height
  * @property list<int>|null $variants
+ * @property bool $avif AVIF siblings and the 20 px placeholder exist
  * @property Carbon|null $processed_at
  * @property int $sort_order
  */
@@ -22,7 +23,7 @@ class SightingPhoto extends Model
 
     protected function casts(): array
     {
-        return ['variants' => 'array', 'processed_at' => 'datetime'];
+        return ['variants' => 'array', 'avif' => 'boolean', 'processed_at' => 'datetime'];
     }
 
     /** @return BelongsTo<Sighting, $this> */

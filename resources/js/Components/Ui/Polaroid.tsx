@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { motion } from 'motion/react';
 import type { ReactNode } from 'react';
+import { ContentImage, type PhotoSources } from '@/Components/Ui/Picture';
 import { spring } from '@/lib/motion';
 
 /**
@@ -10,6 +11,7 @@ import { spring } from '@/lib/motion';
  */
 export function Polaroid({
     src,
+    sources,
     alt = '',
     art,
     caption,
@@ -20,6 +22,7 @@ export function Polaroid({
     imageClassName = 'aspect-[4/5]',
 }: {
     src?: string | null;
+    sources?: PhotoSources | null;
     alt?: string;
     art?: ReactNode;
     caption: ReactNode;
@@ -45,7 +48,13 @@ export function Polaroid({
             )}
             <div className={`relative overflow-hidden bg-night ${imageClassName}`}>
                 {src ? (
-                    <img src={src} alt={alt} loading="lazy" decoding="async" className="h-full w-full object-cover" />
+                    <ContentImage
+                        src={src}
+                        alt={alt}
+                        sources={sources}
+                        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                        className="h-full w-full"
+                    />
                 ) : (
                     art
                 )}

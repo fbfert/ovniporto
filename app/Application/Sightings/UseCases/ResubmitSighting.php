@@ -14,6 +14,7 @@ use App\Domain\Sightings\Contracts\SightingWriteRepository;
 use App\Domain\Sightings\Data\SightingSubmission;
 use App\Domain\Sightings\InvalidSubmission;
 use App\Domain\Sightings\ModerationRules;
+use App\Domain\Sightings\SightingPhotoFiles;
 use App\Domain\Sightings\SubmissionRules;
 use App\Jobs\LocateSighting;
 use App\Jobs\ProcessSightingPhoto;
@@ -89,9 +90,8 @@ final readonly class ResubmitSighting
     /** @param list<int> $variants */
     private function erase(string $path, array $variants): void
     {
-        $this->storage->delete($path);
-        foreach ($variants as $width) {
-            $this->storage->delete("{$path}-{$width}.webp");
+        foreach (SightingPhotoFiles::all($path, $variants) as $file) {
+            $this->storage->delete($file);
         }
     }
 }

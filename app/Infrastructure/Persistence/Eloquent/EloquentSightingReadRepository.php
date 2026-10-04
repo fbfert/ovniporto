@@ -116,6 +116,7 @@ final class EloquentSightingReadRepository implements SightingReadRepository
             observedDate: DateTimeImmutable::createFromInterface($sighting->observed_date),
             nickname: $sighting->public_nickname,
             photoUrl: $this->firstPhotoUrl($sighting, 800),
+            photoSources: ($photo = $sighting->photos->first()) instanceof SightingPhoto ? SightingPhotoUrls::sources($photo) : null,
         );
     }
 
@@ -147,6 +148,7 @@ final class EloquentSightingReadRepository implements SightingReadRepository
                 ->map(fn (SightingPhoto $photo) => [
                     'thumb' => $signed ? SightingPhotoUrls::signed($photo, 400) : SightingPhotoUrls::public($photo, 400),
                     'full' => $signed ? SightingPhotoUrls::signed($photo, 1600) : SightingPhotoUrls::public($photo, 1600),
+                    'sources' => SightingPhotoUrls::sources($photo, $signed),
                 ])
                 ->filter(fn (array $urls) => $urls['full'] !== null)
                 ->values()

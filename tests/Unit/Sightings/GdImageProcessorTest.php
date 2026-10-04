@@ -18,15 +18,18 @@ it('writes WebP variants with none of the original metadata', function () {
     $image = (new GdImageProcessor)->process($original, [400, 800, 1600]);
 
     expect([$image->width, $image->height])->toBe([1200, 900])
-        ->and(array_keys($image->variants))->toBe([400, 800]); // never upscaled past 1200
+        // Never upscaled: 1600 becomes the photo's own 1200, kept once.
+        ->and(array_keys($image->variants))->toBe([400, 800, 1200]);
     foreach ($image->variants as $webp) {
         expect(substr($webp, 0, 4))->toBe('RIFF')
-            ->and(substr($webp, 8, 4))->toBe('WEBP')
-            ->and($webp)->not->toContain('Exif')
-            ->not->toContain('EXIF')
-            ->not->toContain('XMP')
-            ->not->toContain(JpegWithExif::MAKE);
+            ->and(substr($webp, 8, 4))->toBe('WEBP');
     }
+    foreach ([...$image->variants, ...$image->avif, $image->placeholder] as $encoded) {
+        foreach (JpegWithExif::SIGNATURES as $signature) {
+            expect($encoded)->not->toContain($signature);
+        }
+    }
+    expect(array_keys($image->avif))->toBe(GdImageProcessor::canEncodeAvif() ? [400, 800, 1200] : []);
 });
 
 it('turns a sideways phone photo upright before dropping the tag', function () {

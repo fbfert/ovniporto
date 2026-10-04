@@ -3,6 +3,7 @@ import { PageCover } from '@/Components/Content/PageCover';
 import { Prose } from '@/Components/Content/Prose';
 import { SeoHead } from '@/Components/Layout/SeoHead';
 import { Button } from '@/Components/Ui/Button';
+import { ContentImage } from '@/Components/Ui/Picture';
 import { Section } from '@/Components/Ui/Section';
 import { Badge } from '@/Components/Ui/Typography';
 import { t } from '@/i18n/pt-BR';
@@ -30,10 +31,13 @@ export default function DiaryPost({ post }: { post: Post }) {
             <Section tone="light">
                 <article className="mx-auto max-w-[68ch]">
                     {post.cover && (
-                        <img
+                        <ContentImage
                             src={post.cover}
                             alt={post.coverAlt ?? ''}
-                            className="mb-10 aspect-[16/10] w-full rounded-[22px] object-cover"
+                            sizes="(min-width: 768px) 68ch, 100vw"
+                            priority
+                            className="mb-10 overflow-hidden rounded-[22px]"
+                            imgClassName="aspect-[16/10] w-full rounded-[22px] object-cover"
                         />
                     )}
                     <Prose html={post.bodyHtml} className="text-night/85" />
@@ -48,11 +52,12 @@ export default function DiaryPost({ post }: { post: Post }) {
                             <ul className="mt-4 grid grid-cols-2 gap-3">
                                 {post.gallery.map((image) => (
                                     <li key={image.url}>
-                                        <img
+                                        <ContentImage
                                             src={image.url}
                                             alt={image.alt}
-                                            loading="lazy"
-                                            className="aspect-square w-full rounded-[14px] object-cover"
+                                            sizes="(min-width: 768px) 34ch, 50vw"
+                                            className="overflow-hidden rounded-[14px]"
+                                            imgClassName="aspect-square w-full rounded-[14px] object-cover"
                                         />
                                     </li>
                                 ))}

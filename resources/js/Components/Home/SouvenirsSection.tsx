@@ -1,6 +1,7 @@
 import { SealArt } from '@/Components/Brand/Seal';
 import { Button } from '@/Components/Ui/Button';
 import { ConceptImage } from '@/Components/Ui/ConceptImage';
+import { ContentImage } from '@/Components/Ui/Picture';
 import { Reveal, RevealItem } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
 import { TicketCard } from '@/Components/Ui/TicketCard';
@@ -55,11 +56,11 @@ export function SouvenirsSection({ lead, products }: { lead: string; products: P
                             meta={product.madeToOrder ? t.store.madeToOrder(product.productionDays) : t.store.ready}
                             art={
                                 product.image ? (
-                                    <img
+                                    <ContentImage
                                         src={product.image}
                                         alt={product.imageAlt ?? product.name}
-                                        loading="lazy"
-                                        className="h-full w-full object-cover"
+                                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                                        className="h-full w-full"
                                     />
                                 ) : (
                                     <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_50%_40%,rgb(84_201_51/0.22),transparent_60%)]">

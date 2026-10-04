@@ -2,10 +2,12 @@
 
 namespace App\Infrastructure\Persistence\Eloquent;
 
+use App\Application\Content\UseCases\GetHomeData;
 use App\Domain\Members\Contracts\MemberRepository;
 use App\Domain\Members\Data\Identity;
 use App\Domain\Members\MemberRole;
 use App\Domain\Members\Nickname;
+use App\Infrastructure\Cache\FragmentCache;
 use App\Models\Member;
 use DateTimeInterface;
 
@@ -58,6 +60,8 @@ final class EloquentMemberRepository implements MemberRepository
             'city' => $city,
             'terms_accepted_at' => $termsAcceptedAt,
         ]);
+        // A completed profile joins the home's member count (query updates skip model events).
+        FragmentCache::bump(GetHomeData::FRAGMENT);
     }
 
     public function acceptTerms(int $memberId, DateTimeInterface $acceptedAt): void

@@ -2,9 +2,9 @@
 
 ## 1. Performance
 
-- [ ] 1.1 Implementar pipeline AVIF/WebP 400–1600 e componente `Picture` com LQIP, verificado por teste de unidade do pipeline e inspeção do `srcset` no HTML
+- [x] 1.1 Implementar pipeline AVIF/WebP 400–1600 e componente `Picture` com LQIP, verificado por teste de unidade do pipeline e inspeção do `srcset` no HTML
 - [ ] 1.2 Configurar subset e preload de fontes e code-splitting com carregamento sob demanda de mapa e animação, verificado por análise do bundle mostrando `/faq` sem código de mapa
-- [ ] 1.3 Adicionar `Cache-Control`/`ETag` e cache de fragmentos invalidado por eventos, verificado por teste de feature que recebe 304
+- [x] 1.3 Adicionar `Cache-Control`/`ETag` e cache de fragmentos invalidado por eventos, verificado por teste de feature que recebe 304
 - [ ] 1.4 Rodar Lighthouse mobile (mediana de 3) nas 5 rotas, verificado por relatórios com todas as categorias ≥ 90
 
 ## 2. Acessibilidade

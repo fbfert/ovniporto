@@ -4,6 +4,7 @@ import { WaitlistForm } from '@/Components/Home/WaitlistForm';
 import { StarIcon } from '@/Components/Icons';
 import { SeoHead } from '@/Components/Layout/SeoHead';
 import { Button } from '@/Components/Ui/Button';
+import { ContentImage } from '@/Components/Ui/Picture';
 import { Reveal, RevealItem } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
 import { Badge, Display, Eyebrow } from '@/Components/Ui/Typography';
@@ -98,7 +99,12 @@ function SupportersWall({ names, sponsors }: { names: string[]; sponsors: Sponso
                     <ul className="mt-5 flex flex-wrap items-center gap-8">
                         {sponsors.map((sponsor) => {
                             const label = sponsor.logo ? (
-                                <img src={sponsor.logo} alt={sponsor.name} className="h-12 w-auto object-contain" />
+                                <ContentImage
+                                    src={sponsor.logo}
+                                    alt={sponsor.name}
+                                    sizes="12rem"
+                                    imgClassName="h-12 w-auto object-contain"
+                                />
                             ) : (
                                 <span className="font-display font-bold tracking-[0.03em] uppercase">
                                     {sponsor.name}

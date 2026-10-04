@@ -1,5 +1,5 @@
 import { ConceptImage } from '@/Components/Ui/ConceptImage';
-import { hasConcept } from '@/Components/Ui/Picture';
+import { ContentImage, hasConcept } from '@/Components/Ui/Picture';
 import { Badge } from '@/Components/Ui/Typography';
 import { t } from '@/i18n/pt-BR';
 import type { PlaceSpace } from '@/types';
@@ -25,11 +25,11 @@ export function SpaceConcept({
     if (space.conceptUrl) {
         return (
             <div className={`relative overflow-hidden ${className}`}>
-                <img
+                <ContentImage
                     src={space.conceptUrl}
                     alt={`${space.name}: ${t.concept.badge}`}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
+                    sizes={sizes}
+                    className="h-full w-full"
                 />
                 <Badge tone="horizon" className="absolute top-3 right-3">
                     {t.concept.badge}

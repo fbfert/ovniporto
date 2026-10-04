@@ -50,11 +50,11 @@ FROM php:${PHP_VERSION}-fpm-alpine AS php-base
 
 RUN set -eux; \
     apk add --no-cache \
-        icu-libs libzip libpng libjpeg-turbo libwebp freetype oniguruma; \
+        icu-libs libzip libpng libjpeg-turbo libwebp libavif freetype oniguruma; \
     apk add --no-cache --virtual .build-deps \
         $PHPIZE_DEPS icu-dev libzip-dev libpng-dev libjpeg-turbo-dev \
-        libwebp-dev freetype-dev oniguruma-dev linux-headers; \
-    docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp; \
+        libwebp-dev libavif-dev freetype-dev oniguruma-dev linux-headers; \
+    docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-avif; \
     docker-php-ext-install -j"$(nproc)" \
         pdo_mysql mbstring intl gd zip bcmath opcache pcntl; \
     pecl install redis; \

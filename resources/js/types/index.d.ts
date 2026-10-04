@@ -1,3 +1,5 @@
+import type { PhotoSources } from '@/Components/Ui/Picture';
+
 export type SightingTypeValue = 'light' | 'object' | 'trail' | 'other';
 
 export interface SightingCard {
@@ -7,6 +9,7 @@ export interface SightingCard {
     date: string;
     nickname: string;
     photo: string | null;
+    photoSources: PhotoSources | null;
 }
 
 export interface ProductCard {

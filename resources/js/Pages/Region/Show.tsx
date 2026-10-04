@@ -4,6 +4,7 @@ import { SeoHead } from '@/Components/Layout/SeoHead';
 import { LazyMap, ovniportoMarker } from '@/Components/Map/LazyMap';
 import type { PartnerListing } from '@/Components/Region/PartnerTile';
 import { Button } from '@/Components/Ui/Button';
+import { ContentImage } from '@/Components/Ui/Picture';
 import { NightSkyArt } from '@/Components/Ui/Polaroid';
 import { Section } from '@/Components/Ui/Section';
 import { Badge, Display, Eyebrow } from '@/Components/Ui/Typography';
@@ -95,7 +96,13 @@ export default function RegionShow({ partner, origin }: { partner: Partner; orig
                 <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
                     <div className="relative aspect-[4/3] overflow-hidden rounded-[26px] bg-night lg:aspect-square">
                         {partner.cover ? (
-                            <img src={partner.cover} alt={partner.name} className="h-full w-full object-cover" />
+                            <ContentImage
+                                src={partner.cover}
+                                alt={partner.name}
+                                sizes="(min-width: 1024px) 50vw, 100vw"
+                                priority
+                                className="h-full w-full"
+                            />
                         ) : (
                             <NightSkyArt label={copy.coverPending} seed={partner.slug.length} />
                         )}
@@ -137,11 +144,12 @@ export default function RegionShow({ partner, origin }: { partner: Partner; orig
                         <ul className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
                             {partner.gallery.map((image) => (
                                 <li key={image.url}>
-                                    <img
+                                    <ContentImage
                                         src={image.url}
                                         alt={image.alt}
-                                        loading="lazy"
-                                        className="aspect-square w-full rounded-[16px] object-cover"
+                                        sizes="(min-width: 768px) 25vw, 50vw"
+                                        className="overflow-hidden rounded-[16px]"
+                                        imgClassName="aspect-square w-full rounded-[16px] object-cover"
                                     />
                                 </li>
                             ))}

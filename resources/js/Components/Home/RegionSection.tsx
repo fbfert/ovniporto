@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { AraucariaShape } from '@/Components/Scene/Art';
 import { Button } from '@/Components/Ui/Button';
+import { ContentImage } from '@/Components/Ui/Picture';
 import { Reveal, RevealItem } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
 import { Badge, Display, Eyebrow } from '@/Components/Ui/Typography';
@@ -35,11 +36,11 @@ export function RegionSection({ partners, contactEmail }: { partners: PartnerCar
                             >
                                 <div className="size-24 shrink-0 overflow-hidden rounded-2xl bg-night-blue">
                                     {partner.cover && (
-                                        <img
+                                        <ContentImage
                                             src={partner.cover}
                                             alt=""
-                                            loading="lazy"
-                                            className="h-full w-full object-cover"
+                                            sizes="6rem"
+                                            className="h-full w-full"
                                         />
                                     )}
                                 </div>

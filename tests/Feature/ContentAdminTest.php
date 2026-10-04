@@ -95,9 +95,12 @@ it('publishes terrain photos without camera metadata, alt required', function ()
     $this->actingAs($this->admin)->post('/painel/lugar/fotos', ['image' => jpeg()])->assertSessionHasErrors('alt');
     $this->post('/painel/lugar/fotos', ['image' => jpeg(), 'alt' => 'O terreno ao entardecer'])->assertSessionHasNoErrors();
 
-    $path = collect(Storage::disk('public')->allFiles('site'))->sole();
-    expect($path)->toEndWith('.webp')
-        ->and(Storage::disk('public')->get($path))->not->toContain('Exif');
+    // The photo, its AVIF/WebP widths and the placeholder: none keeps camera metadata.
+    $files = Storage::disk('public')->allFiles('site');
+    expect($files)->toHaveCount(10);
+    foreach ($files as $path) {
+        expect(Storage::disk('public')->get($path))->not->toContain('Exif');
+    }
     $this->get('/o-lugar')->assertInertia(fn (Assert $page) => $page->where('photos.0.alt', 'O terreno ao entardecer'));
 });
 

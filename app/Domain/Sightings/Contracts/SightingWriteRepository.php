@@ -31,8 +31,8 @@ interface SightingWriteRepository
     /** @return array{path: string, sightingId: int}|null */
     public function findPhoto(int $photoId): ?array;
 
-    /** @param list<int> $variantWidths */
-    public function markPhotoProcessed(int $photoId, string $basePath, int $width, int $height, array $variantWidths): void;
+    /** @param list<int> $variantWidths widths written as WebP (and as AVIF too when $avif) */
+    public function markPhotoProcessed(int $photoId, string $basePath, int $width, int $height, array $variantWidths, bool $avif = false): void;
 
     public function deletePhoto(int $photoId): void;
 

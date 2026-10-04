@@ -1,4 +1,5 @@
 import { SealArt } from '@/Components/Brand/Seal';
+import { ContentImage } from '@/Components/Ui/Picture';
 
 /** A product photo, or — while there is none — the sticker itself on a beam glow (never a fake photo). */
 export function ProductArt({
@@ -13,7 +14,15 @@ export function ProductArt({
     className?: string;
 }) {
     if (image) {
-        return <img src={image} alt={alt} loading="lazy" className={`h-full w-full object-cover ${className}`} />;
+        return (
+            <ContentImage
+                src={image}
+                alt={alt}
+                sizes={sizes}
+                className="h-full w-full"
+                imgClassName={`h-full w-full object-cover ${className}`}
+            />
+        );
     }
     return (
         <div

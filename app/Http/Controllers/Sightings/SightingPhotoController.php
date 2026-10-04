@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sightings;
 
 use App\Domain\Panel\PanelArea;
+use App\Domain\Sightings\SightingPhotoFiles;
 use App\Domain\Sightings\SightingStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
@@ -18,10 +19,12 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class SightingPhotoController extends Controller
 {
-    public function __invoke(Request $request, SightingPhoto $photo, int $width): Response
+    public function __invoke(Request $request, SightingPhoto $photo, int $width, string $format = 'webp'): Response
     {
         $sighting = $photo->sighting;
-        abort_unless(in_array($width, $photo->variants ?? [], true), 404);
+        // The 20 px placeholder and the AVIF siblings exist only for photos processed with them.
+        $widths = $photo->avif ? [...($photo->variants ?? []), SightingPhotoFiles::PLACEHOLDER_WIDTH] : ($photo->variants ?? []);
+        abort_unless(in_array($width, $widths, true) && ($format === 'webp' || $photo->avif), 404);
 
         $public = $sighting->status === SightingStatus::Approved && $sighting->published_at !== null;
         if (! $public) {
@@ -32,11 +35,11 @@ class SightingPhotoController extends Controller
             abort_unless($allowed, 404);
         }
 
-        $path = "{$photo->path}-{$width}.webp";
+        $path = "{$photo->path}-{$width}.{$format}";
         abort_unless(Storage::disk('local')->exists($path), 404);
 
         return response((string) Storage::disk('local')->get($path), 200, [
-            'Content-Type' => 'image/webp',
+            'Content-Type' => "image/{$format}",
             'Cache-Control' => $public ? 'public, max-age=604800, immutable' : 'private, no-store',
             'X-Content-Type-Options' => 'nosniff',
         ]);

@@ -4,6 +4,7 @@ import { PageCover } from '@/Components/Content/PageCover';
 import { SeoHead } from '@/Components/Layout/SeoHead';
 import { Button } from '@/Components/Ui/Button';
 import { ConceptImage } from '@/Components/Ui/ConceptImage';
+import { ContentImage } from '@/Components/Ui/Picture';
 import { NightSkyArt } from '@/Components/Ui/Polaroid';
 import { Reveal, RevealItem } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
@@ -58,11 +59,12 @@ export default function Diary({ posts }: { posts: DiaryPostCard[] }) {
                                 <Link href={`/obra/${post.slug}`} className="group block">
                                     <div className="relative aspect-[16/10] overflow-hidden rounded-[22px] bg-night">
                                         {post.cover ? (
-                                            <img
+                                            <ContentImage
                                                 src={post.cover}
                                                 alt={post.coverAlt ?? ''}
-                                                loading="lazy"
-                                                className="h-full w-full object-cover transition-transform duration-500 ease-snap [@media(hover:hover)]:group-hover:scale-[1.03]"
+                                                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                                                className="h-full w-full"
+                                                imgClassName="h-full w-full object-cover transition-transform duration-500 ease-snap [@media(hover:hover)]:group-hover:scale-[1.03]"
                                             />
                                         ) : (
                                             <NightSkyArt label={t.place.phase(post.phase)} seed={post.slug.length} />

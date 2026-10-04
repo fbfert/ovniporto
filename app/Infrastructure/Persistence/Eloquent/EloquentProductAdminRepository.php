@@ -2,8 +2,10 @@
 
 namespace App\Infrastructure\Persistence\Eloquent;
 
+use App\Application\Content\UseCases\GetHomeData;
 use App\Domain\Catalog\Contracts\ProductAdminRepository;
 use App\Domain\Catalog\Data\ProductDraft;
+use App\Infrastructure\Cache\FragmentCache;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
@@ -128,6 +130,8 @@ final class EloquentProductAdminRepository implements ProductAdminRepository
         ProductVariant::query()->whereKey($variantId)->update([
             'name' => $name, 'sku' => $sku, 'price_delta_cents' => $priceDeltaCents, 'is_active' => $active,
         ]);
+        // Query updates skip model events: the cached home shows prices.
+        FragmentCache::bump(GetHomeData::FRAGMENT);
     }
 
     public function skuTaken(string $sku, ?int $exceptVariantId = null): bool
@@ -167,6 +171,7 @@ final class EloquentProductAdminRepository implements ProductAdminRepository
     public function updateImage(int $imageId, string $alt): void
     {
         ProductImage::query()->whereKey($imageId)->update(['alt' => $alt]);
+        FragmentCache::bump(GetHomeData::FRAGMENT);
     }
 
     public function deleteImage(int $imageId): ?string
@@ -193,6 +198,7 @@ final class EloquentProductAdminRepository implements ProductAdminRepository
                 ProductImage::query()->whereKey($id)->update(['sort_order' => $order]);
             }
         });
+        FragmentCache::bump(GetHomeData::FRAGMENT);
     }
 
     /** @return array<string, mixed> */

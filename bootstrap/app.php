@@ -4,6 +4,7 @@ use App\Http\Middleware\EnsureNotBlocked;
 use App\Http\Middleware\EnsurePanelArea;
 use App\Http\Middleware\EnsureProfileCompleted;
 use App\Http\Middleware\HandleInertiaRequests;
+use App\Http\Middleware\RevalidateWithETag;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -21,6 +22,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             HandleInertiaRequests::class,
         ]);
+        // Outermost, so the ETag covers the body exactly as it leaves.
+        $middleware->web(prepend: [RevalidateWithETag::class]);
         $middleware->alias(['profile.complete' => EnsureProfileCompleted::class, 'panel' => EnsurePanelArea::class, 'not.blocked' => EnsureNotBlocked::class]);
         // The payment provider posts its notifications without our CSRF token (the signature is checked instead).
         $middleware->validateCsrfTokens(except: ['webhooks/*']);

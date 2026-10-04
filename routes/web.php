@@ -249,8 +249,9 @@ Route::get('/relatos/{sighting}', [LogbookController::class, 'show'])->whereNumb
 Route::get('/api/sightings', SightingsApiController::class)->middleware('throttle:60,1')->name('api.sightings');
 
 // Report photos: approved ones are public; pending ones need a signed URL and the author or a moderator.
-Route::get('/fotos/relatos/{photo}/{width}', SightingPhotoController::class)
+Route::get('/fotos/relatos/{photo}/{width}/{format?}', SightingPhotoController::class)
     ->whereNumber(['photo', 'width'])
+    ->whereIn('format', ['webp', 'avif'])
     ->name('sighting.photo');
 
 Route::post('/avise-me', [WaitlistController::class, 'store'])

@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { PinIcon } from '@/Components/Icons';
+import { ContentImage } from '@/Components/Ui/Picture';
 import { NightSkyArt } from '@/Components/Ui/Polaroid';
 import { Badge } from '@/Components/Ui/Typography';
 import { t } from '@/i18n/pt-BR';
@@ -23,11 +24,12 @@ export function PartnerTile({ partner }: { partner: PartnerListing }) {
         <Link href={`/regiao/${partner.slug}`} className="group block">
             <div className="relative aspect-square overflow-hidden rounded-[22px] bg-night">
                 {partner.cover ? (
-                    <img
+                    <ContentImage
                         src={partner.cover}
                         alt=""
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-500 ease-snap [@media(hover:hover)]:group-hover:scale-[1.04]"
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        className="h-full w-full"
+                        imgClassName="h-full w-full object-cover transition-transform duration-500 ease-snap [@media(hover:hover)]:group-hover:scale-[1.04]"
                     />
                 ) : (
                     <NightSkyArt label={t.regionPage.coverPending} seed={partner.slug.length} />

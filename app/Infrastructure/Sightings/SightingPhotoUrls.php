@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Sightings;
 
+use App\Domain\Sightings\SightingPhotoFiles;
 use App\Models\SightingPhoto;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
@@ -37,6 +38,39 @@ final class SightingPhotoUrls
             now()->addMinutes(self::SIGNED_MINUTES),
             ['photo' => $photo->id, 'width' => self::closest($photo->variants, $width)],
         );
+    }
+
+    /**
+     * What <Picture> needs: WebP and AVIF srcsets plus the 20 px placeholder, public or
+     * signed like the photo itself. Null for photos without variants (seeded demo files).
+     *
+     * @return array{webp: string, avif: ?string, placeholder: ?string, width: int, height: int}|null
+     */
+    public static function sources(SightingPhoto $photo, bool $signed = false): ?array
+    {
+        $widths = $photo->variants ?? [];
+        if ($widths === []) {
+            return null;
+        }
+        $url = fn (int $width, string $format) => self::url($photo, $width, $format, $signed);
+        $srcset = fn (string $format) => implode(', ', array_map(fn (int $w) => $url($w, $format)." {$w}w", $widths));
+
+        return [
+            'webp' => $srcset('webp'),
+            'avif' => $photo->avif ? $srcset('avif') : null,
+            'placeholder' => $photo->avif ? $url(SightingPhotoFiles::PLACEHOLDER_WIDTH, 'webp') : null,
+            'width' => $photo->width,
+            'height' => $photo->height,
+        ];
+    }
+
+    private static function url(SightingPhoto $photo, int $width, string $format, bool $signed): string
+    {
+        $parameters = ['photo' => $photo->id, 'width' => $width, 'format' => $format === 'webp' ? null : $format];
+
+        return $signed
+            ? URL::temporarySignedRoute('sighting.photo', now()->addMinutes(self::SIGNED_MINUTES), $parameters)
+            : route('sighting.photo', $parameters);
     }
 
     /** @param list<int> $variants */

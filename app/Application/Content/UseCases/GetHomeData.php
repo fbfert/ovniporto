@@ -8,6 +8,7 @@ use App\Domain\Members\Contracts\MemberRepository;
 use App\Domain\Place\Contracts\PlaceSpaceRepository;
 use App\Domain\Region\Contracts\RegionPartnerRepository;
 use App\Domain\Sightings\Contracts\SightingReadRepository;
+use App\Infrastructure\Cache\FragmentCache;
 
 final readonly class GetHomeData
 {
@@ -26,7 +27,17 @@ final readonly class GetHomeData
         private RegionPartnerRepository $partners,
     ) {}
 
+    public const FRAGMENT = 'home';
+
+    /** Up to 10 minutes; any change to what the home shows bumps the fragment (HomeFragmentObserver). */
+    public const TTL_SECONDS = 600;
+
     public function execute(): HomeData
+    {
+        return FragmentCache::remember(self::FRAGMENT, 'data', self::TTL_SECONDS, fn () => $this->build());
+    }
+
+    private function build(): HomeData
     {
         return new HomeData(
             membersCount: $this->members->countActive(),

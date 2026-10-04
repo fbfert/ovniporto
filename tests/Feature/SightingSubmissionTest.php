@@ -105,7 +105,7 @@ it('never keeps EXIF: the stored photos have no metadata and the original is gon
     $this->post('/relatar', reportPayload(['photos' => [$upload]]))->assertRedirect('/relatar/enviado');
 
     $photo = SightingPhoto::query()->sole();
-    expect($photo->variants)->toBe([400, 800, 1600])
+    expect($photo->variants)->toBe([400, 800, 1200, 1600])
         ->and($photo->processed_at)->not->toBeNull();
     Storage::disk('local')->assertMissing($originalPath);
     expect(SightingUpload::query()->count())->toBe(0);

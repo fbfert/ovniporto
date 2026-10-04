@@ -57,8 +57,8 @@ it('keeps no EXIF, XMP or IPTC in any stored file, from upload to approval', fun
     ])->assertRedirect('/relatar/enviado');
 
     $photo = SightingPhoto::query()->sole();
-    expect($photo->variants)->toBe([400, 800, 1600])
-        ->and(Storage::disk('local')->allFiles())->toHaveCount(3)
+    expect($photo->variants)->toBe([400, 800, 1200, 1600])
+        ->and(Storage::disk('local')->allFiles())->toHaveCount(9)
         ->and(filesWithMetadata())->toBe([])
         ->and(SightingUpload::query()->count())->toBe(0);
 

@@ -2,6 +2,7 @@ import { useState, type KeyboardEvent } from 'react';
 import { CameraIcon } from '@/Components/Icons';
 import { Button } from '@/Components/Ui/Button';
 import { Modal } from '@/Components/Ui/Modal';
+import { ContentImage } from '@/Components/Ui/Picture';
 import { t } from '@/i18n/pt-BR';
 
 export interface SitePhoto {
@@ -45,11 +46,11 @@ export function SitePhotos({ photos, className = '' }: { photos: SitePhoto[]; cl
                             onClick={() => setIndex(i)}
                             className="group block w-full overflow-hidden rounded-[18px] bg-night"
                         >
-                            <img
+                            <ContentImage
                                 src={photo.url}
                                 alt={photo.alt}
-                                loading="lazy"
-                                className={`w-full object-cover transition-transform duration-500 ease-snap [@media(hover:hover)]:group-hover:scale-[1.03] ${i === 0 ? 'aspect-[16/10]' : 'aspect-square'}`}
+                                sizes={i === 0 ? '(min-width: 1024px) 50vw, 100vw' : '(min-width: 1024px) 25vw, 50vw'}
+                                imgClassName={`w-full object-cover transition-transform duration-500 ease-snap [@media(hover:hover)]:group-hover:scale-[1.03] ${i === 0 ? 'aspect-[16/10]' : 'aspect-square'}`}
                             />
                         </button>
                     </li>
@@ -63,7 +64,13 @@ export function SitePhotos({ photos, className = '' }: { photos: SitePhoto[]; cl
             >
                 {current && (
                     <figure onKeyDown={onKeyDown}>
-                        <img src={current.url} alt={current.alt} className="w-full rounded-[14px]" />
+                        <ContentImage
+                            src={current.url}
+                            alt={current.alt}
+                            sizes="(min-width: 768px) 48rem, 100vw"
+                            className="overflow-hidden rounded-[14px]"
+                            imgClassName="w-full rounded-[14px]"
+                        />
                         {current.caption && (
                             <figcaption className="mt-3 font-script text-xl">{current.caption}</figcaption>
                         )}

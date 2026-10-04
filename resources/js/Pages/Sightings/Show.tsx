@@ -8,6 +8,7 @@ import { SightingPolaroid } from '@/Components/Sightings/SightingPolaroid';
 import { TowerStamp } from '@/Components/Sightings/TowerStamp';
 import { Button } from '@/Components/Ui/Button';
 import { Modal } from '@/Components/Ui/Modal';
+import { ContentImage, type PhotoSources } from '@/Components/Ui/Picture';
 import { NightSkyArt } from '@/Components/Ui/Polaroid';
 import { Section } from '@/Components/Ui/Section';
 import { Badge, Display, Eyebrow } from '@/Components/Ui/Typography';
@@ -31,7 +32,7 @@ interface Sighting {
     nickname: string;
     status: string;
     publishedAt: string | null;
-    photos: { thumb: string | null; full: string | null }[];
+    photos: { thumb: string | null; full: string | null; sources: PhotoSources | null }[];
 }
 
 function Fact({ label, children }: { label: string; children: ReactNode }) {
@@ -67,10 +68,13 @@ function Gallery({ sighting }: { sighting: Sighting }) {
                             onClick={() => setOpen(i)}
                             className="block w-full overflow-hidden rounded-[18px] bg-night-blue"
                         >
-                            <img
+                            <ContentImage
                                 src={(i === 0 ? photo.full : photo.thumb) ?? ''}
                                 alt={`${type} vista por ${sighting.nickname}, foto ${i + 1}`}
-                                className={`w-full object-cover ${i === 0 ? 'aspect-[4/3]' : 'aspect-square'}`}
+                                sources={photo.sources}
+                                sizes={i === 0 ? '(min-width: 1024px) 55vw, 100vw' : '(min-width: 1024px) 25vw, 50vw'}
+                                priority={i === 0}
+                                imgClassName={`w-full object-cover ${i === 0 ? 'aspect-[4/3]' : 'aspect-square'}`}
                             />
                         </button>
                     </li>
@@ -83,10 +87,13 @@ function Gallery({ sighting }: { sighting: Sighting }) {
                 className="max-w-3xl!"
             >
                 {current?.full && (
-                    <img
+                    <ContentImage
                         src={current.full}
                         alt={`${type} vista por ${sighting.nickname}`}
-                        className="w-full rounded-[14px]"
+                        sources={current.sources}
+                        sizes="(min-width: 768px) 48rem, 100vw"
+                        className="overflow-hidden rounded-[14px]"
+                        imgClassName="w-full rounded-[14px]"
                     />
                 )}
             </Modal>

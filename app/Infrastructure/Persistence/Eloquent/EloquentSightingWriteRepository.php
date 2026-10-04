@@ -153,13 +153,14 @@ final class EloquentSightingWriteRepository implements SightingWriteRepository
         return $photo === null ? null : ['path' => $photo->path, 'sightingId' => $photo->sighting_id];
     }
 
-    public function markPhotoProcessed(int $photoId, string $basePath, int $width, int $height, array $variantWidths): void
+    public function markPhotoProcessed(int $photoId, string $basePath, int $width, int $height, array $variantWidths, bool $avif = false): void
     {
         SightingPhoto::query()->whereKey($photoId)->update([
             'path' => $basePath,
             'width' => $width,
             'height' => $height,
             'variants' => json_encode($variantWidths),
+            'avif' => $avif,
             'processed_at' => now(),
         ]);
     }

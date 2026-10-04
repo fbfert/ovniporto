@@ -14,9 +14,11 @@ final readonly class SightingCard
         public DateTimeImmutable $observedDate,
         public string $nickname,
         public ?string $photoUrl,
+        /** @var array{webp: string, avif: ?string, placeholder: ?string, width: int, height: int}|null */
+        public ?array $photoSources = null,
     ) {}
 
-    /** @return array{id: int, type: string, place: string|null, date: string, nickname: string, photo: string|null} */
+    /** @return array{id: int, type: string, place: string|null, date: string, nickname: string, photo: string|null, photoSources: array<string, mixed>|null} */
     public function toArray(): array
     {
         return [
@@ -26,6 +28,7 @@ final readonly class SightingCard
             'date' => $this->observedDate->format('Y-m-d'),
             'nickname' => $this->nickname,
             'photo' => $this->photoUrl,
+            'photoSources' => $this->photoSources,
         ];
     }
 }

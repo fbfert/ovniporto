@@ -17,6 +17,13 @@ final class GdImageProcessor implements ImageProcessor
 {
     private const WEBP_QUALITY = 80;
 
+    private const AVIF_QUALITY = 55;
+
+    /** 0 (slowest, smallest) to 10: 6 keeps a 1600 px photo well under a second. */
+    private const AVIF_SPEED = 6;
+
+    public const PLACEHOLDER_WIDTH = 20;
+
     /** High, so the clean copy kept until processing loses nothing visible. */
     private const JPEG_QUALITY = 92;
 
@@ -36,15 +43,26 @@ final class GdImageProcessor implements ImageProcessor
         $width = imagesx($image);
         $height = imagesy($image);
         $variants = [];
+        $avif = [];
         foreach ($widths as $target) {
-            if ($target > $width && $variants !== []) {
+            // Never upscaled: a target larger than the photo becomes the photo's own width, once.
+            $w = min($target, $width);
+            if (isset($variants[$w])) {
                 continue;
             }
-            $w = min($target, $width);
-            $variants[$w] = $this->webp($this->resize($image, $w));
+            $resized = $this->resize($image, $w);
+            $variants[$w] = $this->webp($resized);
+            if (self::canEncodeAvif()) {
+                $avif[$w] = $this->avif($resized);
+            }
         }
 
-        return new ProcessedImage($width, $height, $variants);
+        return new ProcessedImage($width, $height, $variants, $avif, $this->webp($this->resize($image, self::PLACEHOLDER_WIDTH)));
+    }
+
+    public static function canEncodeAvif(): bool
+    {
+        return function_exists('imageavif') && (gd_info()['AVIF Support'] ?? false);
     }
 
     /** Pixels only, upright: GD never carries EXIF/XMP/IPTC/ICC into a new encoding. */
@@ -95,6 +113,14 @@ final class GdImageProcessor implements ImageProcessor
     {
         ob_start();
         imagewebp($image, null, self::WEBP_QUALITY);
+
+        return (string) ob_get_clean();
+    }
+
+    private function avif(GdImage $image): string
+    {
+        ob_start();
+        imageavif($image, null, self::AVIF_QUALITY, self::AVIF_SPEED);
 
         return (string) ob_get_clean();
     }

@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Persistence\Eloquent;
 
 use App\Domain\Sightings\Contracts\MemberSightingRepository;
+use App\Domain\Sightings\SightingPhotoFiles;
 use App\Infrastructure\Sightings\SightingPhotoUrls;
 use App\Models\Sighting;
 use App\Models\SightingPhoto;
@@ -81,10 +82,7 @@ final class EloquentMemberSightingRepository implements MemberSightingRepository
     private function erase(Sighting $sighting): void
     {
         foreach ($sighting->photos as $photo) {
-            $files = [
-                (string) $photo->path,
-                ...array_map(fn (int $width) => "{$photo->path}-{$width}.webp", $photo->variants ?? []),
-            ];
+            $files = SightingPhotoFiles::all((string) $photo->path, $photo->variants ?? []);
             foreach (self::PHOTO_DISKS as $disk) {
                 Storage::disk($disk)->delete($files);
             }
