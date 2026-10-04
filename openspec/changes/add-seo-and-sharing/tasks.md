@@ -15,3 +15,4 @@
 
 - [x] 3.1 Implementar `/postal` com download e compartilhamento nativo com alternativas, verificado por teste de feature e teste de componente do fallback
 - [ ] 3.2 Adicionar Umami + Postgres ao compose e wrapper tipado de eventos só em produção, verificado por teste de feature (script ausente fora de produção) e conferência dos 6 eventos no painel do Umami em staging
+  - Implementado e testado localmente (script só em produção, wrapper com os 6 eventos, Umami 3.4.0 + Postgres no compose com o perfil `analytics`). Falta a conferência dos 6 eventos no painel do Umami em staging.

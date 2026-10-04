@@ -25,6 +25,7 @@ import { useDraft } from '@/hooks/useDraft';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { t } from '@/i18n/pt-BR';
 import { ease } from '@/lib/motion';
+import { track } from '@/lib/analytics';
 
 const copy = t.report;
 const DRAFT_KEY = 'ovniporto:relato';
@@ -125,6 +126,7 @@ export default function Report({ nickname, today, lages, limits, editing }: Prop
             return;
         }
         if (draft.step < 4) {
+            if (draft.step === 1 && !editing) track('relatar_iniciado');
             goTo((draft.step + 1) as Step);
             return;
         }
@@ -149,7 +151,10 @@ export default function Report({ nickname, today, lages, limits, editing }: Prop
                 photos: draft.photos.filter((photo) => !isKept(photo.id)).map((photo) => photo.id),
                 keptPhotos: draft.photos.filter((photo) => isKept(photo.id)).map((photo) => keptId(photo.id)),
             },
-            onSuccess: () => clear(),
+            onSuccess: () => {
+                if (!editing) track('relatar_enviado');
+                clear();
+            },
             onError: (serverErrors) => {
                 const fields = Object.keys(serverErrors);
                 const step = Math.min(...fields.map((field) => FIELD_STEP[field] ?? 4)) as Step;

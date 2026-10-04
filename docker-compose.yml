@@ -118,7 +118,41 @@ services:
       retries: 5
     restart: unless-stopped
 
+  # Cookieless metric (Umami) with its own Postgres. Off by default locally:
+  #   docker compose --profile analytics up -d   → http://localhost:${UMAMI_PORT:-3001}
+  # The site only prints the script in production (UMAMI_SCRIPT_URL + UMAMI_WEBSITE_ID).
+  umami:
+    image: ghcr.io/umami-software/umami:3.4.0
+    profiles: ["analytics"]
+    environment:
+      DATABASE_URL: postgresql://umami:${UMAMI_DB_PASSWORD:-umami}@umami-db:5432/umami
+      APP_SECRET: ${UMAMI_APP_SECRET:-change-me}
+      DISABLE_TELEMETRY: 1
+    ports:
+      - "${UMAMI_PORT:-127.0.0.1:3001}:3000"
+    depends_on:
+      umami-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  umami-db:
+    image: postgres:16-alpine
+    profiles: ["analytics"]
+    environment:
+      POSTGRES_DB: umami
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: ${UMAMI_DB_PASSWORD:-umami}
+    volumes:
+      - umami-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U umami -d umami"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
 volumes:
   mysql-data:
   redis-data:
   storage-data:
+  umami-data:

@@ -3,6 +3,7 @@ import type { FormEvent } from 'react';
 import { Button } from '@/Components/Ui/Button';
 import { CheckboxField, TextField } from '@/Components/Ui/Fields';
 import { t } from '@/i18n/pt-BR';
+import { track } from '@/lib/analytics';
 
 /** "Avise-me da campanha": e-mail + explicit consent, double opt-in on the server. */
 export function WaitlistForm({ source = 'home', tone = 'dark' }: { source?: string; tone?: 'light' | 'dark' }) {
@@ -12,7 +13,10 @@ export function WaitlistForm({ source = 'home', tone = 'dark' }: { source?: stri
         event.preventDefault();
         form.post('/avise-me', {
             preserveScroll: true,
-            onSuccess: () => form.reset('email', 'consent'),
+            onSuccess: () => {
+                track('avise_me', { origem: source });
+                form.reset('email', 'consent');
+            },
         });
     };
 

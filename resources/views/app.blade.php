@@ -14,6 +14,7 @@
         @if (is_array($seo))
             @include('partials.seo', ['seo' => $seo])
         @endif
+        @include('partials.analytics')
         {{-- With SSR on, the rendered <title> from SeoHead replaces this fallback. --}}
         <x-inertia::head>
             <title>{{ is_array($seo) ? $seo['fullTitle'] : 'OVNIPORTO Lages' }}</title>

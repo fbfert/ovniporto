@@ -14,6 +14,12 @@ return [
     |
     */
 
+    // Cookieless metric, self-hosted (the umami service in docker-compose.yml). Loaded only in production.
+    'umami' => [
+        'script_url' => env('UMAMI_SCRIPT_URL'),
+        'website_id' => env('UMAMI_WEBSITE_ID'),
+    ],
+
     // Sign-in for members. Scopes are fixed in code: openid, email, profile.
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),

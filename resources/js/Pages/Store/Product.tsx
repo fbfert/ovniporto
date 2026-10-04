@@ -12,6 +12,7 @@ import { Badge, Display } from '@/Components/Ui/Typography';
 import { money, t } from '@/i18n/pt-BR';
 import { PublicLayout } from '@/Layouts/PublicLayout';
 import type { ProductCard, SharedProps } from '@/types';
+import { track } from '@/lib/analytics';
 
 const copy = t.storePage;
 
@@ -53,7 +54,12 @@ export default function ProductPage({ product, related }: Props) {
         router.post(
             '/carrinho/itens',
             { variantId: variant.id, quantity },
-            { preserveScroll: true, preserveState: true, onFinish: () => setAdding(false) },
+            {
+                preserveScroll: true,
+                preserveState: true,
+                onSuccess: () => track('adicionar_carrinho', { produto: product.slug }),
+                onFinish: () => setAdding(false),
+            },
         );
     };
 

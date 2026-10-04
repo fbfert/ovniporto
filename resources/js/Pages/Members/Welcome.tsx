@@ -8,6 +8,7 @@ import { Section } from '@/Components/Ui/Section';
 import { Display, Eyebrow } from '@/Components/Ui/Typography';
 import { t } from '@/i18n/pt-BR';
 import { PublicLayout } from '@/Layouts/PublicLayout';
+import { track } from '@/lib/analytics';
 
 const copy = t.members;
 
@@ -65,7 +66,7 @@ export default function Welcome({ firstName, suggestion }: { firstName: string; 
     const submit = (event: FormEvent) => {
         event.preventDefault();
         if (availability.state === 'taken') return;
-        form.post('/boas-vindas');
+        form.post('/boas-vindas', { onSuccess: () => track('entrar_comunidade') });
     };
 
     return (

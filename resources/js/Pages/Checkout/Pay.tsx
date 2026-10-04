@@ -8,6 +8,7 @@ import { Display, Eyebrow } from '@/Components/Ui/Typography';
 import { money, t } from '@/i18n/pt-BR';
 import { postJson } from '@/lib/http';
 import { PublicLayout } from '@/Layouts/PublicLayout';
+import { track } from '@/lib/analytics';
 
 const copy = t.pay;
 
@@ -42,6 +43,7 @@ export default function Pay({ order, payment }: Props) {
                 {},
             );
             if (result.paid) {
+                track('compra_concluida');
                 router.visit(result.redirect);
             } else {
                 setPending(true);
