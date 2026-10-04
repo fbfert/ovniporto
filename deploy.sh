@@ -4,7 +4,7 @@
 #
 #   ./deploy.sh                      deploy origin/main
 #   DEPLOY_REF=<sha|branch> ./deploy.sh
-#   HEALTH_URL=http://127.0.0.1:9/up ./deploy.sh   simulate a failed health check (tests the rollback)
+#   SIMULATE_FAILURE=1 ./deploy.sh  treat the new release as unhealthy (tests the rollback)
 #
 # Steps: fetch the target commit, build images tagged with it, start them, run the (additive)
 # migrations, warm the caches, restart SSR and the queue workers and check /up. If /up does not
@@ -104,7 +104,7 @@ main() {
     warm_up "$target"
 
     log "Verificando $HEALTH_URL"
-    if ! healthy; then
+    if [ -n "${SIMULATE_FAILURE:-}" ] || ! healthy; then
         rollback "$current"
     fi
 

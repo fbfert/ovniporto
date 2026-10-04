@@ -119,7 +119,7 @@ O script faz, em ordem:
 
 Se `/up` não responder, ele volta para a versão anterior (`.deploy/current` e `.deploy/previous`) e termina com erro. Rodar de novo sem nada novo não muda nada.
 
-Para testar a volta automática, use `HEALTH_URL=http://127.0.0.1:9/up HEALTH_TRIES=2 ./deploy.sh` com um commit novo.
+Para testar a volta automática, use `SIMULATE_FAILURE=1 DEPLOY_REF=<outro commit> ./deploy.sh`: a versão nova é tratada como fora do ar, a anterior volta e é conferida em `/up`.
 
 **Voltar manualmente:**
 ```sh

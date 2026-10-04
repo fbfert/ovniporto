@@ -50,7 +50,7 @@ compose exec -T umami-db pg_dump -U umami -d umami --no-owner | gzip > "$work/um
 log "Arquivos (volume storage)"
 compose exec -T app tar -C /var/www/html/storage -czf - app > "$work/storage.tar.gz"
 
-git rev-parse --short=12 HEAD > "$work/release" 2>/dev/null || true
+{ git rev-parse --short=12 HEAD 2>/dev/null || echo desconhecida; } > "$work/release"
 
 log "Criptografando para o destinatário age"
 tar -C "$work" -cf - mysql.sql.gz umami.sql.gz storage.tar.gz release \
