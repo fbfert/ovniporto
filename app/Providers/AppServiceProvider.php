@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Domain\Panel\PanelArea;
+use App\Infrastructure\Monitoring\JobFailureAlert;
 use App\Models\ContentBlock;
 use App\Models\Member;
 use App\Models\PlaceSpace;
@@ -15,6 +16,8 @@ use App\Models\SightingPhoto;
 use App\Observers\HomeFragmentObserver;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Queue\Events\JobFailed;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Vite;
@@ -42,6 +45,9 @@ class AppServiceProvider extends ServiceProvider
         if (filled(config('ovniporto.vite_hot_file'))) {
             Vite::useHotFile((string) config('ovniporto.vite_hot_file'));
         }
+
+        // A job that fails for good e-mails the operators (Horizon covers queues that wait too long).
+        Event::listen(JobFailed::class, JobFailureAlert::class);
 
         // Everything the home shows: a change to any of these makes the cached home stale.
         foreach (self::HOME_MODELS as $model) {

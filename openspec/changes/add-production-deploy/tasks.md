@@ -15,7 +15,7 @@
 ## 3. Backup e monitoramento
 
 - [ ] 3.1 Escrever script de backup criptografado com envio ao bucket e expiração de 30 dias, verificado por restauração completa em ambiente limpo documentada
-- [ ] 3.2 Proteger Horizon e Pulse por papel admin e configurar alertas de fila e de 3 falhas, verificado por teste de feature de acesso e job de falha forçada gerando e-mail
+- [x] 3.2 Proteger Horizon e Pulse por papel admin e configurar alertas de fila e de 3 falhas, verificado por teste de feature de acesso e job de falha forçada gerando e-mail
 - [ ] 3.3 Configurar uptime externo em `/up`, verificado por alerta recebido ao derrubar o serviço em staging
 
 ## 4. Go-live

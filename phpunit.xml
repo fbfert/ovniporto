@@ -18,6 +18,8 @@
         </include>
     </source>
     <php>
+        <!-- The image pipeline decodes real photos; matches docker/php/ovniporto.ini. -->
+        <ini name="memory_limit" value="384M"/>
         <env name="APP_ENV" value="testing"/>
         <env name="APP_MAINTENANCE_DRIVER" value="file"/>
         <env name="BCRYPT_ROUNDS" value="4"/>

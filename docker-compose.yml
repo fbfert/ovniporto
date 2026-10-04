@@ -74,11 +74,10 @@ services:
       - "13714"
     restart: unless-stopped
 
-  # Plain queue worker for now. Horizon replaces this service command
-  # (`php artisan horizon`) once laravel/horizon is installed in a later change.
+  # Horizon runs the Redis queue workers (3 tries per job, config/horizon.php); panel at /painel/filas.
   worker:
     <<: *app-image
-    command: ["php", "artisan", "queue:work", "--tries=3"]
+    command: ["php", "artisan", "horizon"]
     env_file: .env
     environment:
       <<: *app-env
