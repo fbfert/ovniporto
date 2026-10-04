@@ -9,8 +9,9 @@
 ## 2. Deploy e segurança
 
 - [ ] 2.1 Escrever `deploy.sh` idempotente com health check e rollback, verificado executando duas vezes e simulando falha de `/up`
-- [ ] 2.2 Configurar CSP (report-only no staging, depois aplicada), HSTS, X-Frame-Options e rate limits, verificado por testes de feature de 429 e checagem dos cabeçalhos
-- [ ] 2.3 Garantir segredos só por variáveis, verificado por varredura de segredos (ex.: gitleaks) sem achados
+- [x] 2.2 Configurar CSP (report-only no staging, depois aplicada), HSTS, X-Frame-Options e rate limits, verificado por testes de feature de 429 e checagem dos cabeçalhos
+  - Falta no staging: deixar `CSP_MODE=report-only`, pagar com o PayPal sandbox, abrir mapa, /o-lugar e a métrica, e conferir `storage/logs` por "CSP violation" antes de mudar para `enforce`.
+- [x] 2.3 Garantir segredos só por variáveis, verificado por varredura de segredos (ex.: gitleaks) sem achados
 
 ## 3. Backup e monitoramento
 

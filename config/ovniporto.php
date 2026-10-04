@@ -7,6 +7,10 @@ return [
         'lng' => -50.21841,
     ],
 
+    // Content-Security-Policy (App\Http\Middleware\SecurityHeaders): "enforce" in production,
+    // "report-only" on staging while checking PayPal, maps and the metric, "off" in local development.
+    'csp' => env('CSP_MODE', env('APP_ENV') === 'production' ? 'enforce' : 'off'),
+
     // Operations alerts (queue waiting too long, job failing for good). Empty: alerts go to every admin.
     'alerts_email' => env('ALERTS_EMAIL'),
 

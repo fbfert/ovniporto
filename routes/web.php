@@ -4,6 +4,7 @@ use App\Domain\Content\Sharing\OgKind;
 use App\Http\Controllers\Api\SightingsApiController;
 use App\Http\Controllers\Content\CommunityController;
 use App\Http\Controllers\Content\CrawlerController;
+use App\Http\Controllers\Content\CspReportController;
 use App\Http\Controllers\Content\FaqController;
 use App\Http\Controllers\Content\LegalPageController;
 use App\Http\Controllers\Content\LegendController;
@@ -63,8 +64,8 @@ Route::get('/obra/{slug}', [ConstructionDiaryController::class, 'show'])
 // Members: Google is the only way in.
 Route::middleware('guest')->group(function () {
     Route::get('/entrar', [GoogleAuthController::class, 'show'])->name('login');
-    Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('auth.google');
-    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
+    Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->middleware('throttle:20,1')->name('auth.google');
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->middleware('throttle:20,1')->name('auth.google.callback');
 });
 Route::middleware('auth')->group(function () {
     Route::post('/sair', [GoogleAuthController::class, 'logout'])->name('logout');
@@ -262,6 +263,7 @@ Route::get('/avise-me/confirmar/{subscriber}', [WaitlistController::class, 'conf
     ->middleware('signed')
     ->name('waitlist.confirm');
 
+Route::post('/csp-report', CspReportController::class)->middleware('throttle:60,1')->name('csp.report');
 Route::get('/sitemap.xml', [CrawlerController::class, 'sitemap'])->name('sitemap');
 Route::get('/robots.txt', [CrawlerController::class, 'robots'])->name('robots');
 

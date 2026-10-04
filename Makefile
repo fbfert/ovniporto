@@ -11,7 +11,7 @@ TEST_ENV = -e APP_ENV=testing -e DB_CONNECTION=sqlite -e DB_DATABASE=:memory: \
 	-e CACHE_STORE=array -e SESSION_DRIVER=array -e QUEUE_CONNECTION=sync \
 	-e MAIL_MAILER=array -e INERTIA_SSR_ENABLED=false
 
-.PHONY: help up down sh test e2e lint build ssr-restart migrate seed-demo logs \
+.PHONY: help up down sh test e2e lint secrets build ssr-restart migrate seed-demo logs \
 	local-test local-lint local-build
 
 help: ## List available targets
@@ -33,6 +33,9 @@ test: ## Pest in the app image, then the Vitest component tests in the node buil
 
 e2e: ## End-to-end suite (Playwright, axe-core, visual) run natively: PHP 8.3+, Node 22+, `npx playwright install chromium`
 	npm run e2e
+
+secrets: ## Scan the whole Git history for leaked credentials (gitleaks in a container)
+	docker run --rm -v "$(CURDIR):/repo" zricethezav/gitleaks:latest git /repo --redact --no-banner
 
 lint: ## Pint + PHPStan in the app image, ESLint/tsc/Prettier in the node build image
 	$(COMPOSE) run --rm --no-deps $(APP) ./vendor/bin/pint --test
