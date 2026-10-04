@@ -371,6 +371,16 @@ export const t = {
         cityLabel: 'Cidade (opcional)',
         cityPlaceholder: 'Lages',
         termsLabel: 'Li e aceito os termos de uso e a política de privacidade.',
+        termsUpdate: {
+            eyebrow: 'Antes de continuar',
+            title: 'Os termos mudaram',
+            lead: (date: string) =>
+                `Atualizamos os termos de uso e a política de privacidade em ${date}. Leia o que mudou e aceite para seguir na vigília.`,
+            leadInitial:
+                'Precisamos do seu aceite aos termos de uso e à política de privacidade para seguir na vigília.',
+            accept: 'Aceitar e continuar',
+            notNow: 'Agora não, sair',
+        },
         enter: 'Entrar na vigília',
         previewCaption: (nickname: string) => `Luz · Lages · por ${nickname}`,
         previewLabel: 'Assim seu apelido aparece num relato',

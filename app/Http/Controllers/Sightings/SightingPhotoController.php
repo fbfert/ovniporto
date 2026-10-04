@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Sightings;
 
+use App\Domain\Panel\PanelArea;
 use App\Domain\Sightings\SightingStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
@@ -27,7 +28,7 @@ class SightingPhotoController extends Controller
             $member = $request->user();
             $allowed = $request->hasValidSignature()
                 && $member instanceof Member
-                && ($sighting->member_id === $member->id || $member->role->canOpenPanel());
+                && ($sighting->member_id === $member->id || PanelArea::Sightings->allows($member->role));
             abort_unless($allowed, 404);
         }
 

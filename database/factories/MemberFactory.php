@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Application\Privacy\UseCases\CurrentTermsVersion;
+use App\Domain\Privacy\ConsentType;
+use App\Models\Consent;
 use App\Models\Member;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,6 +25,21 @@ class MemberFactory extends Factory
             'role' => 'member',
             'terms_accepted_at' => now(),
         ];
+    }
+
+    /** A member who accepted the terms has that acceptance in the consent ledger, with the current version. */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Member $member) {
+            if ($member->terms_accepted_at !== null) {
+                Consent::query()->create([
+                    'type' => ConsentType::Terms->value,
+                    'version' => app(CurrentTermsVersion::class)->execute(),
+                    'member_id' => $member->id,
+                    'given_at' => $member->terms_accepted_at,
+                ]);
+            }
+        });
     }
 
     /** Just signed in with Google: no nickname, no terms yet. */

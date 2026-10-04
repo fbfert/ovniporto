@@ -6,6 +6,8 @@ use App\Domain\Audit\Contracts\Auditor;
 use App\Domain\Audit\Data\AuditEntry;
 use App\Domain\Content\Contracts\ImageLibrary;
 use App\Domain\Map\Contracts\Geocoder;
+use App\Domain\Privacy\ConsentType;
+use App\Domain\Privacy\Contracts\ConsentLedger;
 use App\Domain\Region\Contracts\ConsentProofStorage;
 use App\Domain\Region\Contracts\RegionAdminRepository;
 use App\Domain\Region\Data\PartnerFields;
@@ -26,6 +28,7 @@ final readonly class ManageRegionPartners
         private ImageLibrary $images,
         private ConsentProofStorage $proofs,
         private Auditor $auditor,
+        private ConsentLedger $consents,
     ) {}
 
     /** @return list<array<string, mixed>> */
@@ -48,20 +51,40 @@ final readonly class ManageRegionPartners
 
     public function create(int $actorId, PartnerFields $fields): int
     {
-        return $this->auditor->audited(
+        $id = $this->auditor->audited(
             new AuditEntry($actorId, 'region.created', 'partner', 0, ['name' => $fields->name]),
             fn () => null,
             fn () => $this->partners->create($fields),
         );
+        $this->recordConsent($id, $fields->consentGivenAt);
+
+        return $id;
     }
 
     public function update(int $actorId, int $id, PartnerFields $fields): void
     {
+        $before = $this->partners->find($id);
         $this->auditor->audited(
             new AuditEntry($actorId, 'region.updated', 'partner', $id),
-            fn () => $this->partners->find($id),
+            fn () => $before,
             fn () => $this->partners->update($id, $fields),
         );
+        if ($fields->consentGivenAt?->format('Y-m-d') !== ($before['consentGivenAt'] ?? null)) {
+            $this->recordConsent($id, $fields->consentGivenAt);
+        }
+    }
+
+    /** The partner's yes to being listed, on the date they gave it; IP and browser are of who registered it. */
+    private function recordConsent(int $partnerId, ?DateTimeImmutable $givenAt): void
+    {
+        if ($givenAt !== null) {
+            $this->consents->record(
+                ConsentType::PartnerListing,
+                ConsentType::PartnerListing->textVersion(),
+                subject: "parceiro:{$partnerId}",
+                givenAt: $givenAt,
+            );
+        }
     }
 
     public function setCover(int $actorId, int $id, string $image): void

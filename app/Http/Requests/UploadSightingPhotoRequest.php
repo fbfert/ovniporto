@@ -8,6 +8,9 @@ class UploadSightingPhotoRequest extends FormRequest
 {
     public const MAX_KB = 8192;
 
+    /** Accepted by type but not decodable on the server (e.g. a raw HEIC the browser didn't convert). */
+    public const UNREADABLE = 'Não consegui ler esta foto. Tente de novo em JPG ou PNG.';
+
     /** @return array<string, mixed> */
     public function rules(): array
     {

@@ -9,6 +9,7 @@ use App\Application\Sightings\UseCases\UploadSightingPhoto;
 use App\Domain\Members\MemberBlocked;
 use App\Domain\Sightings\InvalidSubmission;
 use App\Domain\Sightings\SubmissionRules;
+use App\Domain\Sightings\UnsupportedImage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubmitSightingRequest;
 use App\Http\Requests\UploadSightingPhotoRequest;
@@ -80,11 +81,11 @@ class ReportController extends Controller
         $file = $request->file('photo');
         abort_unless($file !== null && ! is_array($file), 422);
 
-        $id = $upload->execute(
-            (int) $request->user()?->getAuthIdentifier(),
-            (string) file_get_contents($file->getRealPath()),
-            (string) $file->getMimeType(),
-        );
+        try {
+            $id = $upload->execute((int) $request->user()?->getAuthIdentifier(), (string) file_get_contents($file->getRealPath()));
+        } catch (UnsupportedImage) {
+            throw ValidationException::withMessages(['photo' => UploadSightingPhotoRequest::UNREADABLE]);
+        }
 
         return response()->json(['id' => $id], 201);
     }

@@ -60,6 +60,11 @@ final class EloquentMemberRepository implements MemberRepository
         ]);
     }
 
+    public function acceptTerms(int $memberId, DateTimeInterface $acceptedAt): void
+    {
+        Member::query()->whereKey($memberId)->update(['terms_accepted_at' => $acceptedAt]);
+    }
+
     public function updateProfile(int $memberId, string $nickname, ?string $city): void
     {
         Member::query()->whereKey($memberId)->update(['nickname' => Nickname::normalize($nickname), 'city' => $city]);

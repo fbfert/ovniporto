@@ -50,6 +50,8 @@ function memoryMembers(): MemberRepository
 
         public function updateProfile(int $memberId, string $nickname, ?string $city): void {}
 
+        public function acceptTerms(int $memberId, DateTimeInterface $acceptedAt): void {}
+
         public function find(int $memberId): ?array
         {
             return null;

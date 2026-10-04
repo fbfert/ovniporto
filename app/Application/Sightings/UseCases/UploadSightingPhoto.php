@@ -2,27 +2,32 @@
 
 namespace App\Application\Sightings\UseCases;
 
+use App\Domain\Sightings\Contracts\ImageProcessor;
 use App\Domain\Sightings\Contracts\PhotoStorage;
 use App\Domain\Sightings\Contracts\SightingWriteRepository;
+use App\Domain\Sightings\UnsupportedImage;
 use Illuminate\Support\Str;
 
-/** Step one of the two-step upload: the file goes to the private temporary area and gets an id. */
+/**
+ * Step one of the two-step upload: the photo is re-encoded without any metadata
+ * (EXIF, XMP, IPTC) before it touches the disk, then gets an id in the private area.
+ */
 final readonly class UploadSightingPhoto
 {
-    private const EXTENSIONS = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/heic' => 'heic', 'image/heif' => 'heic'];
-
     public function __construct(
         private PhotoStorage $storage,
         private SightingWriteRepository $sightings,
+        private ImageProcessor $images,
     ) {}
 
-    public function execute(int $memberId, string $contents, string $mime): string
+    /** @throws UnsupportedImage when the file isn't a photo the server can read */
+    public function execute(int $memberId, string $contents): string
     {
-        $extension = self::EXTENSIONS[$mime] ?? 'bin';
-        $path = "uploads/{$memberId}/".Str::uuid()->toString().".{$extension}";
-        $this->storage->put($path, $contents);
+        $clean = $this->images->sanitize($contents);
+        $path = "uploads/{$memberId}/".Str::uuid()->toString().'.jpg';
+        $this->storage->put($path, $clean);
 
-        return $this->sightings->recordUpload($memberId, $path, $mime, strlen($contents));
+        return $this->sightings->recordUpload($memberId, $path, 'image/jpeg', strlen($clean));
     }
 
     public function discard(int $memberId, string $uploadId): void

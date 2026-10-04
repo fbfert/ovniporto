@@ -63,6 +63,10 @@ it('dates a legal text and lifts the draft notice only when marked final', funct
 
     expect(ContentBlock::query()->where('key', 'privacy_final')->value('value'))->toBe('1')
         ->and(ContentBlock::query()->where('key', 'privacy_updated_at')->value('value'))->toBe(now()->toDateString());
+
+    // A final text is a new version of the terms: the admin agrees to it too before going on.
+    $this->put('/painel/configuracoes/textos/nao_existe', ['value' => 'x'])->assertRedirect('/termos/aceitar');
+    $this->post('/termos/aceitar', ['terms' => '1']);
     $this->put('/painel/configuracoes/textos/nao_existe', ['value' => 'x'])->assertNotFound();
 });
 

@@ -4,6 +4,8 @@ namespace App\Application\Sightings\UseCases;
 
 use App\Domain\Members\Contracts\MemberRepository;
 use App\Domain\Members\MemberBlocked;
+use App\Domain\Privacy\ConsentType;
+use App\Domain\Privacy\Contracts\ConsentLedger;
 use App\Domain\Sightings\Contracts\SightingNotifier;
 use App\Domain\Sightings\Contracts\SightingWriteRepository;
 use App\Domain\Sightings\Data\SightingSubmission;
@@ -24,6 +26,7 @@ final readonly class SubmitSighting
         private MemberRepository $members,
         private SightingWriteRepository $sightings,
         private SightingNotifier $notifier,
+        private ConsentLedger $consents,
     ) {}
 
     public function execute(int $memberId, SightingSubmission $submission): int
@@ -41,6 +44,13 @@ final readonly class SubmitSighting
         }
 
         $created = $this->sightings->createPending($memberId, $submission, array_column($uploads, 'path'), $now);
+        $this->consents->record(
+            ConsentType::SightingPublication,
+            ConsentType::SightingPublication->textVersion(),
+            $memberId,
+            subject: "relato:{$created['sightingId']}",
+            givenAt: $now,
+        );
         foreach ($uploads as $upload) {
             $this->sightings->deleteUpload($upload['id']);
         }

@@ -17,13 +17,21 @@ final class GdImageProcessor implements ImageProcessor
 {
     private const WEBP_QUALITY = 80;
 
+    /** High, so the clean copy kept until processing loses nothing visible. */
+    private const JPEG_QUALITY = 92;
+
+    public function sanitize(string $binary): string
+    {
+        $image = $this->decode($binary);
+        ob_start();
+        imagejpeg($image, null, self::JPEG_QUALITY);
+
+        return (string) ob_get_clean();
+    }
+
     public function process(string $binary, array $widths): ProcessedImage
     {
-        $image = @imagecreatefromstring($binary);
-        if ($image === false) {
-            throw new UnsupportedImage('The photo format could not be decoded.');
-        }
-        $image = $this->upright($image, JpegOrientation::read($binary));
+        $image = $this->decode($binary);
 
         $width = imagesx($image);
         $height = imagesy($image);
@@ -37,6 +45,17 @@ final class GdImageProcessor implements ImageProcessor
         }
 
         return new ProcessedImage($width, $height, $variants);
+    }
+
+    /** Pixels only, upright: GD never carries EXIF/XMP/IPTC/ICC into a new encoding. */
+    private function decode(string $binary): GdImage
+    {
+        $image = @imagecreatefromstring($binary);
+        if ($image === false) {
+            throw new UnsupportedImage('The photo format could not be decoded.');
+        }
+
+        return $this->upright($image, JpegOrientation::read($binary));
     }
 
     private function upright(GdImage $image, int $orientation): GdImage

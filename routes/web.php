@@ -14,6 +14,7 @@ use App\Http\Controllers\Dev\StyleguideController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Members\AccountController;
 use App\Http\Controllers\Members\GoogleAuthController;
+use App\Http\Controllers\Members\TermsAcceptanceController;
 use App\Http\Controllers\Members\WelcomeController;
 use App\Http\Controllers\Panel\AuditController;
 use App\Http\Controllers\Panel\CampaignAdminController;
@@ -68,6 +69,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/sair', [GoogleAuthController::class, 'logout'])->name('logout');
     Route::get('/boas-vindas', [WelcomeController::class, 'show'])->name('welcome');
+    Route::get('/termos/aceitar', [TermsAcceptanceController::class, 'show'])->name('terms.accept');
+    Route::post('/termos/aceitar', [TermsAcceptanceController::class, 'store'])->name('terms.accept.store');
     Route::post('/boas-vindas', [WelcomeController::class, 'store'])->name('welcome.store');
     Route::get('/apelido-disponivel', [WelcomeController::class, 'nickname'])
         ->middleware('throttle:60,1')

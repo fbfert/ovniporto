@@ -23,6 +23,8 @@ interface MemberRepository
 
     public function updateProfile(int $memberId, string $nickname, ?string $city): void;
 
+    public function acceptTerms(int $memberId, DateTimeInterface $acceptedAt): void;
+
     /** @return array{id: int, name: string, email: string, avatarUrl: ?string, nickname: ?string, city: ?string, role: string, termsAcceptedAt: ?string, createdAt: string}|null */
     public function find(int $memberId): ?array;
 

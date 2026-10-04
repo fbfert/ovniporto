@@ -6,6 +6,8 @@ use App\Domain\Audit\Contracts\Auditor;
 use App\Domain\Audit\Data\AuditEntry;
 use App\Domain\Members\Contracts\MemberRepository;
 use App\Domain\Members\MemberBlocked;
+use App\Domain\Privacy\ConsentType;
+use App\Domain\Privacy\Contracts\ConsentLedger;
 use App\Domain\Sightings\Contracts\PhotoStorage;
 use App\Domain\Sightings\Contracts\SightingNotifier;
 use App\Domain\Sightings\Contracts\SightingWriteRepository;
@@ -30,6 +32,7 @@ final readonly class ResubmitSighting
         private PhotoStorage $storage,
         private SightingNotifier $notifier,
         private Auditor $auditor,
+        private ConsentLedger $consents,
     ) {}
 
     public function execute(int $memberId, int $sightingId, SightingSubmission $submission): void
@@ -62,6 +65,14 @@ final readonly class ResubmitSighting
             fn () => $this->sightings->resubmit($sightingId, $submission, $kept, array_column($uploads, 'path'), $now),
         );
 
+        // The consent is given again with the new text, photos and point.
+        $this->consents->record(
+            ConsentType::SightingPublication,
+            ConsentType::SightingPublication->textVersion(),
+            $memberId,
+            subject: "relato:{$sightingId}",
+            givenAt: $now,
+        );
         foreach ($uploads as $upload) {
             $this->sightings->deleteUpload($upload['id']);
         }

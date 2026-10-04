@@ -36,6 +36,7 @@ use App\Domain\Place\Contracts\DiaryAdminRepository;
 use App\Domain\Place\Contracts\PlaceAdminRepository;
 use App\Domain\Place\Contracts\PlaceSpaceRepository;
 use App\Domain\Place\Contracts\SitePhotoRepository;
+use App\Domain\Privacy\Contracts\ConsentLedger;
 use App\Domain\Region\Contracts\ConsentProofStorage;
 use App\Domain\Region\Contracts\RegionAdminRepository;
 use App\Domain\Region\Contracts\RegionPartnerRepository;
@@ -95,6 +96,7 @@ use App\Infrastructure\Persistence\Eloquent\EloquentSightingReadRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentSightingWriteRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentSitePhotoRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentWaitlistRepository;
+use App\Infrastructure\Privacy\DatabaseConsentLedger;
 use App\Infrastructure\Region\PrivateConsentProofStorage;
 use App\Infrastructure\Shipping\MelhorEnvioShippingProvider;
 use App\Infrastructure\Shipping\SimulatedShippingProvider;
@@ -122,6 +124,7 @@ class DomainServiceProvider extends ServiceProvider
         ContentBlockRepository::class => EloquentContentBlockRepository::class,
         EditorialListRepository::class => EloquentEditorialListRepository::class,
         MarkdownRenderer::class => CommonMarkRenderer::class,
+        ConsentLedger::class => DatabaseConsentLedger::class,
         OgCardRepository::class => EloquentOgCardRepository::class,
         OgImageRenderer::class => GdOgImageRenderer::class,
         PublishedContentIndex::class => EloquentPublishedContentIndex::class,

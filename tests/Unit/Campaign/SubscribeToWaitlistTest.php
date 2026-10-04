@@ -3,6 +3,8 @@
 use App\Application\Campaign\UseCases\SubscribeToWaitlist;
 use App\Domain\Campaign\Contracts\WaitlistNotifier;
 use App\Domain\Campaign\Contracts\WaitlistRepository;
+use App\Domain\Privacy\ConsentType;
+use Tests\Support\SpyConsentLedger;
 
 function fakeWaitlist(): WaitlistRepository
 {
@@ -55,7 +57,7 @@ it('normalizes the e-mail and sends one confirmation', function () {
     $waitlist = fakeWaitlist();
     $notifier = spyNotifier();
 
-    (new SubscribeToWaitlist($waitlist, $notifier))->execute('  Vigia@Serra.com ', 'home');
+    (new SubscribeToWaitlist($waitlist, $notifier, new SpyConsentLedger))->execute('  Vigia@Serra.com ', 'home');
 
     expect($waitlist->rows)->toHaveKey('vigia@serra.com')
         ->and($notifier->sent)->toBe(['vigia@serra.com']);
@@ -64,11 +66,25 @@ it('normalizes the e-mail and sends one confirmation', function () {
 it('is idempotent: a second subscription neither duplicates nor re-sends', function () {
     $waitlist = fakeWaitlist();
     $notifier = spyNotifier();
-    $useCase = new SubscribeToWaitlist($waitlist, $notifier);
+    $useCase = new SubscribeToWaitlist($waitlist, $notifier, new SpyConsentLedger);
 
     $useCase->execute('vigia@serra.com', 'home');
     $useCase->execute('VIGIA@serra.com', 'loja');
 
     expect($waitlist->rows)->toHaveCount(1)
         ->and($notifier->sent)->toHaveCount(1);
+});
+
+it('records the newsletter consent once, with its version and the subscription', function () {
+    $consents = new SpyConsentLedger;
+    $useCase = new SubscribeToWaitlist(fakeWaitlist(), spyNotifier(), $consents);
+
+    $useCase->execute('vigia@serra.com', 'home');
+    $useCase->execute('vigia@serra.com', 'home');
+
+    expect($consents->records)->toHaveCount(1)
+        ->and($consents->records[0]['type'])->toBe(ConsentType::Newsletter)
+        ->and($consents->records[0]['version'])->toBe(ConsentType::Newsletter->textVersion())
+        ->and($consents->records[0]['email'])->toBe('vigia@serra.com')
+        ->and($consents->records[0]['subject'])->toBe('avise-me:1');
 });

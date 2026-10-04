@@ -12,6 +12,14 @@ use App\Domain\Sightings\UnsupportedImage;
 interface ImageProcessor
 {
     /**
+     * Decodes the photo, turns it upright and encodes it again as JPEG: only the
+     * pixels survive, never EXIF, XMP or IPTC. Runs before anything is stored.
+     *
+     * @throws UnsupportedImage when the format can't be decoded
+     */
+    public function sanitize(string $binary): string;
+
+    /**
      * @param  list<int>  $widths  widths of the WebP variants (never upscaled)
      *
      * @throws UnsupportedImage when the format can't be decoded

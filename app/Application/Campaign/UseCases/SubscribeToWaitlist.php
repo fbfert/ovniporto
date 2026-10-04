@@ -4,6 +4,8 @@ namespace App\Application\Campaign\UseCases;
 
 use App\Domain\Campaign\Contracts\WaitlistNotifier;
 use App\Domain\Campaign\Contracts\WaitlistRepository;
+use App\Domain\Privacy\ConsentType;
+use App\Domain\Privacy\Contracts\ConsentLedger;
 
 /**
  * Idempotent: subscribing twice yields the same outcome and never reveals
@@ -16,6 +18,7 @@ final readonly class SubscribeToWaitlist
     public function __construct(
         private WaitlistRepository $waitlist,
         private WaitlistNotifier $notifier,
+        private ConsentLedger $consents,
     ) {}
 
     public function execute(string $email, string $source): void
@@ -24,6 +27,7 @@ final readonly class SubscribeToWaitlist
         $id = $this->waitlist->addIfAbsent($email, $source, self::CONSENT_TEXT);
 
         if ($id !== null) {
+            $this->consents->record(ConsentType::Newsletter, ConsentType::Newsletter->textVersion(), email: $email, subject: "avise-me:{$id}");
             $this->notifier->sendConfirmation($id, $email);
         }
     }
