@@ -10,10 +10,15 @@
         "lint": "eslint resources/js && tsc --noEmit && prettier --check \"resources/js/**/*.{ts,tsx}\" \"resources/css/**/*.css\"",
         "format": "prettier --write \"resources/js/**/*.{ts,tsx}\" \"resources/css/**/*.css\"",
         "ssr": "node bootstrap/ssr/ssr.js",
-        "test": "vitest run"
+        "test": "vitest run",
+        "e2e": "npm run build:client && playwright test",
+        "e2e:update": "npm run build:client && playwright test --update-snapshots",
+        "contrast": "node scripts/check-contrast.mjs"
     },
     "devDependencies": {
+        "@axe-core/playwright": "^4.13.0",
         "@eslint/js": "^10.0.1",
+        "@playwright/test": "^1.63.0",
         "@tailwindcss/vite": "^4.0.0",
         "@testing-library/react": "^16.3.3",
         "@testing-library/user-event": "^14.6.7",

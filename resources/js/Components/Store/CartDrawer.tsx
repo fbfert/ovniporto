@@ -1,6 +1,6 @@
 import { Link, router, usePage } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { BagIcon, CloseIcon } from '@/Components/Icons';
 import { Button } from '@/Components/Ui/Button';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
@@ -69,6 +69,17 @@ export function CartDrawer() {
     const panelRef = useRef<HTMLDivElement>(null);
     const reduced = usePrefersReducedMotion();
     useFocusTrap(panelRef, open, () => setOpen(false), 'cart-trigger');
+
+    // The drawer lives in the persistent layout: going to another page (checkout, a product)
+    // closes it, while adding an item comes back to the same URL and keeps it open.
+    useEffect(() => {
+        let url = window.location.pathname;
+        return router.on('navigate', (event) => {
+            const next = new URL(event.detail.page.url, window.location.origin).pathname;
+            if (next !== url) setOpen(false);
+            url = next;
+        });
+    }, [setOpen]);
 
     const motionProps = reduced
         ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }

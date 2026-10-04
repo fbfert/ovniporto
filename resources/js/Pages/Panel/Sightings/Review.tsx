@@ -67,7 +67,7 @@ const dateTime = (iso: string) =>
 function Fact({ label, children }: { label: string; children: ReactNode }) {
     return (
         <div className="border-b-2 border-dashed border-night/12 py-3">
-            <dt className="text-[0.7rem] font-semibold tracking-[0.12em] text-night/55 uppercase">{label}</dt>
+            <dt className="text-[0.7rem] font-semibold tracking-[0.12em] text-night/60 uppercase">{label}</dt>
             <dd className="mt-1">{children}</dd>
         </div>
     );
@@ -305,7 +305,7 @@ function ReviewScreen({ sighting, history, neighbours, tab }: Props) {
                                     </Button>
                                 )}
                             </div>
-                            <p className="mt-4 hidden text-sm text-night/55 sm:block">{copy.shortcuts}</p>
+                            <p className="mt-4 hidden text-sm text-night/60 sm:block">{copy.shortcuts}</p>
                         </section>
                     )}
 
@@ -324,7 +324,7 @@ function ReviewScreen({ sighting, history, neighbours, tab }: Props) {
                                                 {entry.actor ?? t.panel.audit.system}
                                             </strong>{' '}
                                             {t.panel.actions[entry.action] ?? entry.action}
-                                            <span className="text-night/55"> · {dateTime(entry.at)}</span>
+                                            <span className="text-night/60"> · {dateTime(entry.at)}</span>
                                         </p>
                                         {typeof entry.context.note === 'string' && (
                                             <p className="mt-1 text-sm text-night/75">{entry.context.note}</p>

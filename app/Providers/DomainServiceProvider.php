@@ -56,6 +56,7 @@ use App\Infrastructure\Content\CommonMarkRenderer;
 use App\Infrastructure\Documents\DompdfProductionDocument;
 use App\Infrastructure\Geo\CachedGeocoder;
 use App\Infrastructure\Geo\NominatimGeocoder;
+use App\Infrastructure\Geo\OfflineGeocoder;
 use App\Infrastructure\Identity\GoogleIdentityProvider;
 use App\Infrastructure\Images\GdImageProcessor;
 use App\Infrastructure\Images\PrivatePhotoStorage;
@@ -183,7 +184,9 @@ class DomainServiceProvider extends ServiceProvider
         $this->app->singleton(PaymentGateway::class, fn () => $this->paymentGateway());
 
         $this->app->when(ManagePlace::class)->needs('$embedHosts')->give(fn () => (array) config('ovniporto.embed_hosts'));
-        $this->app->bind(Geocoder::class, fn () => new CachedGeocoder(new NominatimGeocoder, $this->app->make(Cache::class)));
+        $this->app->bind(Geocoder::class, fn () => config('ovniporto.geocoder') === 'offline'
+            ? new OfflineGeocoder
+            : new CachedGeocoder(new NominatimGeocoder, $this->app->make(Cache::class)));
     }
 
     /** Melhor Envio once its token is set; until then, the marked simulation. */

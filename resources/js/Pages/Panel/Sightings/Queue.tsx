@@ -54,7 +54,7 @@ export default function Queue({ tab, counts, items, page, hasMore }: Props) {
                 ) : (
                     <>
                         <QueueList items={items} />
-                        <p className="mt-4 hidden text-sm text-night/55 sm:block">{copy.shortcuts}</p>
+                        <p className="mt-4 hidden text-sm text-night/60 sm:block">{copy.shortcuts}</p>
                     </>
                 )}
             </div>

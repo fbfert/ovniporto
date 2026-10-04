@@ -9,12 +9,12 @@ export const primaryLinks = [
 
 export const allLinks = [
     ...primaryLinks,
-    { href: '/relatar', label: 'Relatar avistamento' },
-    { href: '/lenda', label: 'A lenda' },
-    { href: '/apoie', label: 'Apoie a pista' },
-    { href: '/obra', label: 'Diário da obra' },
-    { href: '/comunidade', label: 'Comunidade' },
-    { href: '/faq', label: 'Perguntas frequentes' },
+    { href: '/relatar', label: t.nav.report },
+    { href: '/lenda', label: t.nav.legend },
+    { href: '/apoie', label: t.nav.support },
+    { href: '/obra', label: t.nav.diary },
+    { href: '/comunidade', label: t.nav.community },
+    { href: '/faq', label: t.nav.faq },
 ] as const;
 
 /** Full-page sign-in, for places where a modal would stack on another overlay (mobile menu). */

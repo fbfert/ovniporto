@@ -7,7 +7,7 @@ import { TextField } from '@/Components/Ui/Fields';
 import { Section } from '@/Components/Ui/Section';
 import { Display } from '@/Components/Ui/Typography';
 import { money, t } from '@/i18n/pt-BR';
-import { postJson } from '@/lib/http';
+import { HttpError, postJson } from '@/lib/http';
 import { PublicLayout } from '@/Layouts/PublicLayout';
 import type { SharedProps } from '@/types';
 
@@ -131,8 +131,8 @@ export default function Checkout({ customer, signedIn, shippingAvailable }: Prop
                 shippingOptionId: result.options[0]?.id ?? '',
                 pickup: result.options.length === 0 ? true : current.pickup,
             }));
-        } catch {
-            setCepError('Digite um CEP com 8 números.');
+        } catch (error) {
+            setCepError(error instanceof HttpError && error.status === 422 ? copy.cepInvalid : copy.cepUnreachable);
         } finally {
             setLooking(false);
         }
@@ -143,7 +143,7 @@ export default function Checkout({ customer, signedIn, shippingAvailable }: Prop
         if (!data.pickup && (!data.address.number.trim() || !chosen)) {
             form.setError(
                 !chosen ? 'shippingOptionId' : 'address.number',
-                !chosen ? 'Escolha como receber.' : 'Diga o número.',
+                !chosen ? copy.chooseDelivery : copy.numberMissing,
             );
             return;
         }

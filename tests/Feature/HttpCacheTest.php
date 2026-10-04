@@ -52,3 +52,13 @@ it('refreshes the home when the panel edits its texts', function () {
 
     $this->get('/')->assertInertia(fn (Assert $page) => $page->where('content.home_intro', 'Texto novo da home'));
 });
+
+it('serves the cached home from the database store, as in production', function () {
+    config(['cache.default' => 'database']);
+    $this->seed(ProductSeeder::class);
+
+    $this->get('/')->assertOk();
+    expect(DB::table('cache')->where('key', 'like', '%fragment:home:%:data')->exists())->toBeTrue();
+
+    $this->get('/')->assertOk()->assertInertia(fn (Assert $page) => $page->has('products')->has('counters'));
+});

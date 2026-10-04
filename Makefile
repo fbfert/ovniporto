@@ -11,7 +11,7 @@ TEST_ENV = -e APP_ENV=testing -e DB_CONNECTION=sqlite -e DB_DATABASE=:memory: \
 	-e CACHE_STORE=array -e SESSION_DRIVER=array -e QUEUE_CONNECTION=sync \
 	-e MAIL_MAILER=array -e INERTIA_SSR_ENABLED=false
 
-.PHONY: help up down sh test lint build ssr-restart migrate seed-demo logs \
+.PHONY: help up down sh test e2e lint build ssr-restart migrate seed-demo logs \
 	local-test local-lint local-build
 
 help: ## List available targets
@@ -30,6 +30,9 @@ test: ## Pest in the app image, then the Vitest component tests in the node buil
 	$(COMPOSE) run --rm --no-deps $(TEST_ENV) $(APP) php artisan test
 	docker build --target build -f docker/ssr/Dockerfile -t $(NODE_IMAGE) .
 	docker run --rm $(NODE_IMAGE) npm test
+
+e2e: ## End-to-end suite (Playwright, axe-core, visual) run natively: PHP 8.3+, Node 22+, `npx playwright install chromium`
+	npm run e2e
 
 lint: ## Pint + PHPStan in the app image, ESLint/tsc/Prettier in the node build image
 	$(COMPOSE) run --rm --no-deps $(APP) ./vendor/bin/pint --test

@@ -53,7 +53,7 @@ export function ShippingQuote({ request }: { request: QuoteRequest }) {
     const submit = async (event: FormEvent) => {
         event.preventDefault();
         if (cep.replace(/\D/g, '').length !== 8) {
-            setError('Digite um CEP com 8 números.');
+            setError(t.checkout.cepInvalid);
             setQuote(null);
             return;
         }

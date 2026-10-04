@@ -216,7 +216,8 @@ export default function RegionPartner({
                             center={origin}
                             onChange={(point) => form.setData((data) => ({ ...data, lat: point.lat, lng: point.lng }))}
                             label={copy.point}
-                            className="aspect-[4/3] w-full"
+                            keyboardHint={t.report.when.mapKeyboardHint}
+                            className="aspect-[4/3] w-full rounded-[22px]"
                         />
                         <p className="mt-2 text-sm text-night/60">
                             {copy.pointHint} {copy.mapCredit}
@@ -249,7 +250,7 @@ export default function RegionPartner({
                             <label className="block">
                                 <span className="mb-2 block text-sm font-semibold">
                                     {copy.consentProof}{' '}
-                                    <span className="font-normal text-night/55">{common.optional}</span>
+                                    <span className="font-normal text-night/60">{common.optional}</span>
                                 </span>
                                 <input
                                     type="file"

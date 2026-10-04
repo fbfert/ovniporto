@@ -56,7 +56,7 @@ function Sky({ p }: { p: MotionValue<number> }) {
                 aria-hidden
                 className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_0%,var(--color-night-blue)_0%,var(--color-night)_62%)]"
             />
-            <motion.div aria-hidden className="absolute inset-0" style={{ transform: starsY }}>
+            <motion.div aria-hidden data-parallax className="absolute inset-0" style={{ transform: starsY }}>
                 <Starfield density="medium" />
             </motion.div>
             {/* lilac haze along the horizon: the brand's horizon color at dusk */}

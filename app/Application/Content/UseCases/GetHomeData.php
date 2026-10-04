@@ -32,9 +32,16 @@ final readonly class GetHomeData
     /** Up to 10 minutes; any change to what the home shows bumps the fragment (HomeFragmentObserver). */
     public const TTL_SECONDS = 600;
 
-    public function execute(): HomeData
+    /**
+     * The page props of the home. Cached as plain arrays: the cache refuses to unserialize
+     * objects (config/cache.php, serializable_classes = false), so a cached HomeData would
+     * come back broken from the database or Redis stores.
+     *
+     * @return array<string, mixed>
+     */
+    public function execute(): array
     {
-        return FragmentCache::remember(self::FRAGMENT, 'data', self::TTL_SECONDS, fn () => $this->build());
+        return FragmentCache::remember(self::FRAGMENT, 'data', self::TTL_SECONDS, fn () => $this->build()->toArray());
     }
 
     private function build(): HomeData

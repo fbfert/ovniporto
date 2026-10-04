@@ -22,7 +22,7 @@ export function SightingPolaroid({
             tape={tape}
             src={sighting.photo}
             sources={sighting.photoSources}
-            alt={`${type} vista por ${sighting.nickname}`}
+            alt={t.logbook.photoAlt(sighting.type, sighting.nickname)}
             art={<NightSkyArt label={type} seed={sighting.id} />}
             caption={`${type} · ${sighting.place ?? t.logbook.noPlace} · ${shortDate(sighting.date)}`}
             className={className}

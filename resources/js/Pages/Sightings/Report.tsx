@@ -1,6 +1,6 @@
 import { Link, router } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Seal } from '@/Components/Brand/Seal';
 import { CloseIcon } from '@/Components/Icons';
 import { SeoHead } from '@/Components/Layout/SeoHead';
@@ -67,20 +67,19 @@ interface Props {
 function validate(step: Step, draft: ReportDraft, limits: Props['limits']): Record<string, string> {
     const errors: Record<string, string> = {};
     if (step === 1) {
-        if (!draft.type) errors.type = 'Escolha o que você viu.';
+        if (!draft.type) errors.type = copy.errors.type;
         const length = draft.description.trim().length;
-        if (length < limits.descriptionMin) errors.description = 'Conte um pouco mais: pelo menos 20 caracteres.';
-        if (length > limits.descriptionMax) errors.description = 'No máximo 1000 caracteres.';
+        if (length < limits.descriptionMin) errors.description = copy.errors.descriptionShort(limits.descriptionMin);
+        if (length > limits.descriptionMax) errors.description = copy.errors.descriptionLong(limits.descriptionMax);
     }
     if (step === 3) {
         if (!draft.point) errors.point = copy.when.pointMissing;
-        if (draft.timeMode === 'range' && !draft.timeRange) errors.time = 'Escolha a faixa de horário.';
-        if (draft.timeMode === 'exact' && !draft.exactTime) errors.time = 'Diga a hora.';
+        if (draft.timeMode === 'range' && !draft.timeRange) errors.time = copy.errors.timeRange;
+        if (draft.timeMode === 'exact' && !draft.exactTime) errors.time = copy.errors.exactTime;
     }
     if (step === 4) {
-        if (!/^[a-z0-9_.]{3,20}$/i.test(draft.nickname.trim()))
-            errors.nickname = 'Use de 3 a 20 letras, números, "_" ou ".".';
-        if (!draft.consent) errors.consent = 'Marque a autorização para publicar o relato.';
+        if (!/^[a-z0-9_.]{3,20}$/i.test(draft.nickname.trim())) errors.nickname = copy.errors.nickname;
+        if (!draft.consent) errors.consent = copy.errors.consent;
     }
     return errors;
 }
@@ -100,7 +99,9 @@ export default function Report({ nickname, today, lages, limits, editing }: Prop
     const [direction, setDirection] = useState(1);
     const [sending, setSending] = useState(false);
     const reduced = usePrefersReducedMotion();
-    const headingRef = useRef<HTMLHeadingElement>(null);
+    // Each step's title is a new element (AnimatePresence waits for the old step to leave), so the
+    // focus goes to it when it mounts: screen readers hear where they are. Stable, so typing never refocuses.
+    const focusTitle = useCallback((title: HTMLHeadingElement | null) => title?.focus({ preventScroll: true }), []);
 
     const update: DraftUpdate = useCallback(
         (patch) => setState((current) => ({ ...current, ...(typeof patch === 'function' ? patch(current) : patch) })),
@@ -113,9 +114,7 @@ export default function Report({ nickname, today, lages, limits, editing }: Prop
         update({ step });
     };
 
-    // Moving between steps puts focus on the new title (screen readers hear where they are).
     useEffect(() => {
-        headingRef.current?.focus({ preventScroll: true });
         window.scrollTo({ top: 0 });
     }, [draft.step]);
 
@@ -248,7 +247,7 @@ export default function Report({ nickname, today, lages, limits, editing }: Prop
                     >
                         <h1
                             id="passo-titulo"
-                            ref={headingRef}
+                            ref={focusTitle}
                             tabIndex={-1}
                             className="font-display text-[clamp(1.6rem,1.1rem+2.4vw,2.4rem)] leading-tight font-extrabold tracking-[0.03em] uppercase outline-none"
                         >

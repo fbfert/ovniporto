@@ -4,7 +4,17 @@ export function xsrfToken(): string {
     return match ? decodeURIComponent(match[1] ?? '') : '';
 }
 
-/** JSON in, JSON out, same-origin with the CSRF header. Throws on a non-2xx answer. */
+/** A response outside 2xx; `status` 422 means the server refused the input. */
+export class HttpError extends Error {
+    constructor(
+        url: string,
+        public readonly status: number,
+    ) {
+        super(`${url} answered ${status}`);
+    }
+}
+
+/** JSON in, JSON out, same-origin with the CSRF header. Throws HttpError on a non-2xx answer. */
 export async function postJson<T>(url: string, body: Record<string, unknown>): Promise<T> {
     const response = await fetch(url, {
         method: 'POST',
@@ -12,6 +22,6 @@ export async function postJson<T>(url: string, body: Record<string, unknown>): P
         headers: { Accept: 'application/json', 'Content-Type': 'application/json', 'X-XSRF-TOKEN': xsrfToken() },
         body: JSON.stringify(body),
     });
-    if (!response.ok) throw new Error(`${url} answered ${response.status}`);
+    if (!response.ok) throw new HttpError(url, response.status);
     return (await response.json()) as T;
 }

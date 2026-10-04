@@ -1,4 +1,5 @@
-import { useId } from 'react';
+import { useId, useState } from 'react';
+import { t } from '@/i18n/pt-BR';
 
 const FLAG_COLORS = ['var(--color-car)', 'var(--color-beam)', 'var(--color-moonlight)', 'var(--color-beam-glow)'];
 
@@ -40,7 +41,8 @@ function Saucer() {
 
 /**
  * Endless strip, slightly tilted and wider than the screen so its ends never
- * show. Pauses on hover; becomes a static centered line with reduced motion.
+ * show. Pauses on hover and with its own button (motion over 5 s must be stoppable:
+ * WCAG 2.2.2); becomes a static centered line with reduced motion.
  */
 export function Marquee({
     items,
@@ -51,6 +53,7 @@ export function Marquee({
     speed?: 'slow' | 'normal';
     tilt?: number;
 }) {
+    const [paused, setPaused] = useState(false);
     const run = (
         <span className="flex shrink-0 items-center">
             {items.map((item) => (
@@ -73,7 +76,9 @@ export function Marquee({
                 <Bunting />
                 <div
                     aria-hidden
-                    className="flex w-max animate-marquee group-hover/marquee:[animation-play-state:paused] motion-reduce:hidden"
+                    className={`flex w-max animate-marquee group-hover/marquee:[animation-play-state:paused] motion-reduce:hidden ${
+                        paused ? '[animation-play-state:paused]' : ''
+                    }`}
                     style={{ ['--marquee-duration' as string]: speed === 'slow' ? '60s' : '38s' }}
                 >
                     {run}
@@ -84,6 +89,17 @@ export function Marquee({
                 <p className="hidden px-6 text-center font-display font-bold tracking-[0.06em] uppercase motion-reduce:block">
                     {items.join(' ✦ ')}
                 </p>
+                <button
+                    type="button"
+                    aria-pressed={paused}
+                    onClick={() => setPaused((value) => !value)}
+                    className="absolute top-1/2 right-[calc(5vw+0.5rem)] flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-night/70 text-moonlight hover:bg-night motion-reduce:hidden"
+                >
+                    <span className="sr-only">{t.marquee.pause}</span>
+                    <svg aria-hidden viewBox="0 0 24 24" className="size-5" fill="currentColor">
+                        {paused ? <path d="M8 5.5v13l11-6.5z" /> : <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" />}
+                    </svg>
+                </button>
             </div>
         </div>
     );

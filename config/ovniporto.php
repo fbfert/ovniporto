@@ -7,6 +7,9 @@ return [
         'lng' => -50.21841,
     ],
 
+    // "nominatim" (OpenStreetMap, cached) or "offline" (no network: e2e suite, offline development).
+    'geocoder' => env('GEOCODER', 'nominatim'),
+
     'shipping' => [
         // Standard box used for quotes and labels (cm); weights come from the products.
         'package' => [

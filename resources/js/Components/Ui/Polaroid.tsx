@@ -70,8 +70,10 @@ export function Polaroid({
     );
 
     if (!href) return body;
+    // A link around a <figure> gets no name in Chromium: say what the card is.
+    const name = [alt, typeof caption === 'string' ? caption : null].filter(Boolean).join('. ') || undefined;
     return (
-        <Link href={href} className="block rounded-sm focus-visible:outline-offset-8">
+        <Link href={href} aria-label={name} className="block rounded-sm focus-visible:outline-offset-8">
             {body}
         </Link>
     );

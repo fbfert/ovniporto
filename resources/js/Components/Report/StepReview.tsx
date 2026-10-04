@@ -52,7 +52,7 @@ export function StepReview({
                                 <img
                                     key={photo.id}
                                     src={photo.thumb}
-                                    alt={`Foto ${i + 1}`}
+                                    alt={t.report.reviewPhotoAlt(i + 1)}
                                     className="size-16 rounded-xl object-cover"
                                 />
                             ))}

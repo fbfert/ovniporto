@@ -92,7 +92,7 @@ export function MarkdownEditor({
                     )}
                 </div>
             )}
-            <p className="mt-1.5 text-xs text-night/55">{copy.markdownHint}</p>
+            <p className="mt-1.5 text-xs text-night/60">{copy.markdownHint}</p>
         </div>
     );
 }

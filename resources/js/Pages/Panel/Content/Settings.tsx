@@ -129,7 +129,7 @@ function BlockEditor({ blockKey, values }: { blockKey: string; values: Values })
                 className="flex min-h-11 w-full flex-wrap items-center justify-between gap-2 text-left"
             >
                 <span className="font-semibold">{copy.blocks[blockKey]}</span>
-                <span className="text-sm text-night/55">
+                <span className="text-sm text-night/60">
                     {(values[blockKey] ?? '').trim() === ''
                         ? copy.emptyBlock
                         : updated

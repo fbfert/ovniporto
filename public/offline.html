@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#061121">
+    <meta name="robots" content="noindex">
+    <title>Sem sinal da torre · OVNIPORTO Lages</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <style>
+        /* Served by the service worker when there is no network: everything it needs is inline or precached. */
+        @font-face { font-family: 'Unbounded'; font-weight: 800; font-display: swap; src: url('/fonts/unbounded-latin-800-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Caveat'; font-weight: 600; font-display: swap; src: url('/fonts/caveat-latin-600-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Figtree'; font-weight: 400; font-display: swap; src: url('/fonts/figtree-latin-400-normal.woff2') format('woff2'); }
+        :root { color-scheme: dark; }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 24px 16px;
+            background: radial-gradient(120% 80% at 50% 0%, #142644 0%, #061121 70%); color: #f4f5e8;
+            font-family: 'Figtree', system-ui, sans-serif; text-align: center;
+        }
+        main { max-width: 34rem; }
+        img { width: 112px; height: 112px; }
+        .eyebrow { margin: 28px 0 0; font-family: 'Caveat', cursive; font-weight: 600; font-size: 1.6rem; color: #addba1; }
+        h1 { margin: 6px 0 0; font-family: 'Unbounded', 'Arial Black', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; font-size: clamp(1.9rem, 1rem + 4vw, 3rem); line-height: 1.05; }
+        p.lead { margin: 18px auto 0; max-width: 40ch; font-size: 1.1rem; line-height: 1.6; color: rgba(244, 245, 232, 0.8); }
+        button {
+            margin-top: 28px; min-height: 48px; padding: 0 28px; border: 0; border-radius: 999px;
+            background: #54c933; color: #061121; font: 600 1rem 'Figtree', system-ui, sans-serif; cursor: pointer;
+        }
+        button:focus-visible { outline: 3px solid #54c933; outline-offset: 4px; }
+    </style>
+</head>
+<body>
+    <main>
+        <img src="/icons/icon-192.png" alt="Selo do OVNIPORTO" width="112" height="112">
+        <p class="eyebrow">A vigília continua</p>
+        <h1>Sem sinal da torre</h1>
+        <p class="lead">Parece que a internet não chegou até aqui. Quando o sinal voltar, é só tentar de novo: o céu não sai do lugar.</p>
+        <button type="button" onclick="location.reload()">Tentar de novo</button>
+    </main>
+</body>
+</html>

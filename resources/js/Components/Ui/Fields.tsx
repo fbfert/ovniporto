@@ -13,8 +13,8 @@ import { t } from '@/i18n/pt-BR';
 type Tone = 'light' | 'dark';
 
 const surface: Record<Tone, string> = {
-    dark: 'bg-night/60 text-moonlight placeholder:text-moonlight/45 border-moonlight/25 focus:border-beam',
-    light: 'bg-moonlight text-night placeholder:text-night/40 border-night/25 focus:border-horizon',
+    dark: 'bg-night/60 text-moonlight placeholder:text-moonlight/50 border-moonlight/25 focus:border-beam',
+    light: 'bg-moonlight text-night placeholder:text-night/60 border-night/25 focus:border-horizon',
 };
 
 const control =
@@ -71,7 +71,7 @@ function FieldShell({
  */
 function Counter({ id, length, max, tone }: { id: string; length: number; max: number; tone: Tone }) {
     const near = length >= max * 0.9;
-    const muted = tone === 'dark' ? 'text-moonlight/55' : 'text-night/55';
+    const muted = tone === 'dark' ? 'text-moonlight/55' : 'text-night/60';
     const warn = tone === 'dark' ? 'text-car' : 'text-horizon';
     return (
         <p

@@ -64,6 +64,20 @@ make lint        # Pint, Larastan nível 6, ESLint, tsc e Prettier
 
 Sem Docker: `php artisan test`, `composer lint` e `npm run lint`.
 
+### Ponta a ponta (Playwright)
+
+```bash
+npx playwright install chromium   # uma vez
+make e2e                          # ou npm run e2e (Windows sem make)
+npm run e2e:update                # regrava as capturas de referência da home
+```
+
+- Roda contra os assets compilados (`npm run build:client`) no servidor embutido do PHP, na porta 8091, com um banco SQLite próprio (`database/e2e.sqlite`, recriado a cada execução com os seeds base, o conteúdo de demonstração e os membros de `E2eSeeder`). O banco de desenvolvimento não é tocado.
+- O login com Google é substituído pela rota local `/dev/entrar-como/{id}`; pagamento e frete usam os provedores simulados (sem credenciais).
+- Cobre os fluxos críticos, teclado, movimento reduzido, modo offline, axe-core nas páginas principais e regressão visual da home em 390 e 1440 px (tolerância de 0,5%).
+- As capturas de referência ficam em `e2e/*-snapshots/` com o sistema no nome do arquivo: cada sistema operacional gera e versiona as suas.
+- Relatório HTML de cada execução: `storage/e2e-report/` (`npx playwright show-report storage/e2e-report`).
+
 ---
 
 ## Estrutura

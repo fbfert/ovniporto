@@ -258,7 +258,7 @@ export default function Show({
                             {order.events.map((event, i) => (
                                 <li key={i} className="text-sm">
                                     <strong className="font-semibold">{t.order.status[event.to]}</strong>
-                                    <span className="text-night/55">
+                                    <span className="text-night/60">
                                         {' '}
                                         · {copy.actor[event.actor] ?? event.actor} · {when(event.at)}
                                     </span>
@@ -273,19 +273,19 @@ export default function Show({
                     <PanelSection title={copy.customer}>
                         <dl className="space-y-2">
                             <div>
-                                <dt className="text-sm text-night/55">{t.checkout.name}</dt>
+                                <dt className="text-sm text-night/60">{t.checkout.name}</dt>
                                 <dd>{order.customer.name ?? '—'}</dd>
                             </div>
                             <div>
-                                <dt className="text-sm text-night/55">{t.checkout.email}</dt>
+                                <dt className="text-sm text-night/60">{t.checkout.email}</dt>
                                 <dd className="break-all">{order.customer.email ?? '—'}</dd>
                             </div>
                             <div>
-                                <dt className="text-sm text-night/55">{t.checkout.phone}</dt>
+                                <dt className="text-sm text-night/60">{t.checkout.phone}</dt>
                                 <dd>{order.customer.phone ?? '—'}</dd>
                             </div>
                             <div>
-                                <dt className="text-sm text-night/55">{t.checkout.cpf}</dt>
+                                <dt className="text-sm text-night/60">{t.checkout.cpf}</dt>
                                 <dd>
                                     <CpfReveal number={order.number} masked={order.customer.cpf} />
                                 </dd>
@@ -319,15 +319,15 @@ export default function Show({
                     <PanelSection title={copy.payment}>
                         <dl className="space-y-2 text-sm">
                             <div>
-                                <dt className="text-night/55">{copy.payment}</dt>
+                                <dt className="text-night/60">{copy.payment}</dt>
                                 <dd>{order.payment.method ?? '—'}</dd>
                             </div>
                             <div>
-                                <dt className="text-night/55">{copy.paymentId}</dt>
+                                <dt className="text-night/60">{copy.paymentId}</dt>
                                 <dd className="break-all">{order.payment.orderId ?? '—'}</dd>
                             </div>
                             <div>
-                                <dt className="text-night/55">{copy.captureId}</dt>
+                                <dt className="text-night/60">{copy.captureId}</dt>
                                 <dd className="break-all">{order.payment.captureId ?? '—'}</dd>
                             </div>
                         </dl>

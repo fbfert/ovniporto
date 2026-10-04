@@ -442,7 +442,7 @@ export default function Edit({ product }: { product: Product | null }) {
                                                     </strong>{' '}
                                                     {variantName(m.variantId)} · {m.reason}
                                                 </span>
-                                                <span className="text-night/55">
+                                                <span className="text-night/60">
                                                     {m.after} · {m.actor ?? t.panel.audit.system} ·{' '}
                                                     {new Date(m.at.replace(' ', 'T') + 'Z').toLocaleString('pt-BR', {
                                                         dateStyle: 'short',

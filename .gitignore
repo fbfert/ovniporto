@@ -26,3 +26,8 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# End-to-end suite (Playwright)
+/database/e2e.sqlite
+/storage/e2e-report/
+/storage/e2e-results/

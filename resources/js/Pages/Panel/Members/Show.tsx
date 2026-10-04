@@ -267,7 +267,7 @@ export default function Show({ member, history, canManage, isSelf }: Props) {
                                     <li key={i} className="text-sm">
                                         <strong className="font-semibold">{entry.actor ?? t.panel.audit.system}</strong>{' '}
                                         {t.panel.actions[entry.action] ?? entry.action}
-                                        <span className="text-night/55"> · {dateTime(entry.at)}</span>
+                                        <span className="text-night/60"> · {dateTime(entry.at)}</span>
                                         {typeof entry.context.reason === 'string' && (
                                             <p className="mt-1 text-night/75">{entry.context.reason}</p>
                                         )}

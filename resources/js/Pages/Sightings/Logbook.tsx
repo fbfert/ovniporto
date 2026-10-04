@@ -6,9 +6,11 @@ import { LoadMore } from '@/Components/Sightings/LoadMore';
 import { SightingPolaroid } from '@/Components/Sightings/SightingPolaroid';
 import { SightingsMap, type SightingPin } from '@/Components/Sightings/SightingsMap';
 import { Button } from '@/Components/Ui/Button';
+import { ListState } from '@/Components/Ui/ListState';
 import { ChipGroup } from '@/Components/Ui/Fields';
 import { Section } from '@/Components/Ui/Section';
 import { Display } from '@/Components/Ui/Typography';
+import { useListRequest } from '@/hooks/useListRequest';
 import { t } from '@/i18n/pt-BR';
 import { PublicLayout } from '@/Layouts/PublicLayout';
 import type { SightingCard } from '@/types';
@@ -30,29 +32,37 @@ interface Props {
     hasMore: boolean;
 }
 
-/** Filters live in the URL; a new filter resets the merged list of polaroids. */
-function applyFilters(periodo: string, tipo: string | null) {
-    router.get(
-        '/mapa',
-        { periodo, ...(tipo ? { tipo } : {}) },
-        {
-            preserveState: true,
-            preserveScroll: true,
-            replace: true,
-            reset: ['cards'],
-            only: ['filters', 'total', 'pins', 'cards', 'page', 'hasMore'],
-        },
-    );
-}
-
 export default function Logbook({ filters, total, pins, cards, page, hasMore }: Props) {
+    const list = useListRequest();
+    const more = useListRequest();
+
+    /** Filters live in the URL; a new filter resets the merged list of polaroids. */
+    const applyFilters = (periodo: string, tipo: string | null) =>
+        list.run((callbacks) =>
+            router.get(
+                '/mapa',
+                { periodo, ...(tipo ? { tipo } : {}) },
+                {
+                    preserveState: true,
+                    preserveScroll: true,
+                    replace: true,
+                    reset: ['cards'],
+                    only: ['filters', 'total', 'pins', 'cards', 'page', 'hasMore'],
+                    ...callbacks,
+                },
+            ),
+        );
+
     const loadMore = (nextPage: number, done: () => void) =>
-        router.reload({
-            data: { pagina: nextPage },
-            only: ['cards', 'page', 'hasMore'],
-            preserveUrl: true,
-            onFinish: done,
-        });
+        more.run((callbacks) =>
+            router.reload({
+                data: { pagina: nextPage },
+                only: ['cards', 'page', 'hasMore'],
+                preserveUrl: true,
+                ...callbacks,
+                onFinish: done,
+            }),
+        );
 
     return (
         <>
@@ -96,14 +106,22 @@ export default function Logbook({ filters, total, pins, cards, page, hasMore }: 
                 <Display as="h2" id="relatos" className="text-[clamp(1.6rem,1rem+2.4vw,2.6rem)]!">
                     {copy.listTitle}
                 </Display>
-                {cards.length === 0 ? (
-                    <div className="mt-10 rounded-[22px] border-2 border-dashed border-moonlight/20 p-10 text-center">
-                        <p className="font-script text-2xl text-beam-glow">{copy.empty}</p>
-                        <div className="mt-5">
-                            <Button href="/relatar">{copy.reportLong}</Button>
+                <ListState
+                    status={list.status}
+                    tone="dark"
+                    onRetry={list.retry}
+                    isEmpty={cards.length === 0}
+                    placeholderClassName="aspect-[4/5] rounded-[6px]"
+                    className="mt-12 grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 lg:grid-cols-4"
+                    empty={
+                        <div className="mt-10 rounded-[22px] border-2 border-dashed border-moonlight/20 p-10 text-center">
+                            <p className="font-script text-2xl text-beam-glow">{copy.empty}</p>
+                            <div className="mt-5">
+                                <Button href="/relatar">{copy.reportLong}</Button>
+                            </div>
                         </div>
-                    </div>
-                ) : (
+                    }
+                >
                     <ul className="mt-12 grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 lg:grid-cols-4">
                         {cards.map((sighting, i) => (
                             <li key={sighting.id}>
@@ -115,8 +133,14 @@ export default function Logbook({ filters, total, pins, cards, page, hasMore }: 
                             </li>
                         ))}
                     </ul>
+                </ListState>
+                {more.status === 'error' ? (
+                    <ListState status="error" tone="dark" onRetry={more.retry} isEmpty={false} empty={null}>
+                        {null}
+                    </ListState>
+                ) : (
+                    <LoadMore page={page} hasMore={hasMore} onLoad={loadMore} />
                 )}
-                <LoadMore page={page} hasMore={hasMore} onLoad={loadMore} />
             </Section>
 
             <div className="fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 lg:hidden">

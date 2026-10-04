@@ -84,3 +84,18 @@ html.lenis body {
         scroll-behavior: auto !important;
     }
 }
+
+/* Page change (Inertia viewTransition on full visits): a short cross-fade, a plain cut when motion is reduced. */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 150ms;
+    animation-timing-function: var(--ease-glide);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none !important;
+    }
+}

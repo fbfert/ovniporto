@@ -80,7 +80,7 @@ export default function Pay({ order, payment }: Props) {
                                 <li key={i} className="flex justify-between gap-3 py-3">
                                     <span>
                                         {item.quantity} × {item.name}{' '}
-                                        <span className="text-night/55">· {item.variant}</span>
+                                        <span className="text-night/60">· {item.variant}</span>
                                     </span>
                                     <span className="tabular-nums">{money(item.lineCents)}</span>
                                 </li>
@@ -142,7 +142,7 @@ export default function Pay({ order, payment }: Props) {
                                 {error}
                             </p>
                         )}
-                        <p className="mt-4 text-sm text-night/55">{copy.expires}</p>
+                        <p className="mt-4 text-sm text-night/60">{copy.expires}</p>
                     </div>
                 </div>
             </Section>

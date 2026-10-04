@@ -6,10 +6,12 @@ import { LazyMap, ovniportoMarker, type MapMarker } from '@/Components/Map/LazyM
 import { PartnerTile, type PartnerListing } from '@/Components/Region/PartnerTile';
 import { Button } from '@/Components/Ui/Button';
 import { ChipGroup, TextField } from '@/Components/Ui/Fields';
+import { ListState } from '@/Components/Ui/ListState';
 import { NightSkyArt, Polaroid } from '@/Components/Ui/Polaroid';
 import { Reveal, RevealItem } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
 import { Display, Eyebrow } from '@/Components/Ui/Typography';
+import { useListRequest } from '@/hooks/useListRequest';
 import { t } from '@/i18n/pt-BR';
 import { PublicLayout } from '@/Layouts/PublicLayout';
 import type { SharedProps } from '@/types';
@@ -29,19 +31,6 @@ interface Props {
     partners: PartnerListing[];
     total: number;
     filters: { tipo: string | null; q: string | null };
-}
-
-/** Partial reload: only the list and the filters travel; the URL keeps the state for sharing. */
-function applyFilters(tipo: string | null, q: string) {
-    const query: Record<string, string> = {};
-    if (tipo) query.tipo = tipo;
-    if (q.trim()) query.q = q.trim();
-    router.get('/regiao', query, {
-        only: ['partners', 'filters'],
-        preserveState: true,
-        preserveScroll: true,
-        replace: true,
-    });
 }
 
 function EmptyRegion({ email }: { email: string }) {
@@ -69,6 +58,23 @@ export default function RegionIndex({ partners, total, filters }: Props) {
     const { community } = usePage<SharedProps>().props;
     const [view, setView] = useState('list');
     const [search, setSearch] = useState(filters.q ?? '');
+    const list = useListRequest();
+
+    /** Partial reload: only the list and the filters travel; the URL keeps the state for sharing. */
+    const applyFilters = (tipo: string | null, q: string) => {
+        const query: Record<string, string> = {};
+        if (tipo) query.tipo = tipo;
+        if (q.trim()) query.q = q.trim();
+        list.run((callbacks) =>
+            router.get('/regiao', query, {
+                only: ['partners', 'filters'],
+                preserveState: true,
+                preserveScroll: true,
+                replace: true,
+                ...callbacks,
+            }),
+        );
+    };
     const first = useRef(true);
 
     // Debounced search: the request goes out 300ms after the last keystroke.
@@ -141,41 +147,51 @@ export default function RegionIndex({ partners, total, filters }: Props) {
                             {copy.count(partners.length)}
                         </p>
 
-                        {partners.length === 0 ? (
-                            <div className="mt-8 rounded-[22px] border-2 border-dashed border-night/20 p-10 text-center">
-                                <p className="font-script text-2xl text-horizon">{copy.noResults}</p>
-                                <div className="mt-5">
-                                    <Button
-                                        variant="secondary"
-                                        onClick={() => {
-                                            setSearch('');
-                                            applyFilters(null, '');
-                                        }}
-                                    >
-                                        {copy.clear}
-                                    </Button>
+                        <ListState
+                            status={list.status}
+                            onRetry={list.retry}
+                            isEmpty={partners.length === 0}
+                            placeholders={3}
+                            placeholderClassName="aspect-[4/3] rounded-[22px]"
+                            className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3"
+                            empty={
+                                <div className="mt-8 rounded-[22px] border-2 border-dashed border-night/20 p-10 text-center">
+                                    <p className="font-script text-2xl text-horizon">{copy.noResults}</p>
+                                    <div className="mt-5">
+                                        <Button
+                                            variant="secondary"
+                                            onClick={() => {
+                                                setSearch('');
+                                                applyFilters(null, '');
+                                            }}
+                                        >
+                                            {copy.clear}
+                                        </Button>
+                                    </div>
                                 </div>
-                            </div>
-                        ) : view === 'map' ? (
-                            <LazyMap
-                                markers={markers}
-                                label={copy.mapLabel}
-                                zoom={11}
-                                className="mt-8 aspect-[4/5] w-full sm:aspect-[16/9]"
-                            />
-                        ) : (
-                            <Reveal
-                                stagger
-                                as="ul"
-                                className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3"
-                            >
-                                {partners.map((partner) => (
-                                    <RevealItem as="li" key={partner.slug}>
-                                        <PartnerTile partner={partner} />
-                                    </RevealItem>
-                                ))}
-                            </Reveal>
-                        )}
+                            }
+                        >
+                            {view === 'map' ? (
+                                <LazyMap
+                                    markers={markers}
+                                    label={copy.mapLabel}
+                                    zoom={11}
+                                    className="mt-8 aspect-[4/5] w-full sm:aspect-[16/9]"
+                                />
+                            ) : (
+                                <Reveal
+                                    stagger
+                                    as="ul"
+                                    className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3"
+                                >
+                                    {partners.map((partner) => (
+                                        <RevealItem as="li" key={partner.slug}>
+                                            <PartnerTile partner={partner} />
+                                        </RevealItem>
+                                    ))}
+                                </Reveal>
+                            )}
+                        </ListState>
                     </>
                 )}
             </Section>

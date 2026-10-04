@@ -163,6 +163,7 @@ export function StepWhenWhere({
                     onChange={(point) => update({ point, pointFromPhoto: false })}
                     label={copy.mapLabel}
                     className="-mx-5 h-[min(60svh,26rem)] rounded-none sm:mx-0 sm:rounded-[22px]"
+                    keyboardHint={copy.mapKeyboardHint}
                 />
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <p className="text-sm text-moonlight/65">{copy.mapHint}</p>

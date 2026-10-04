@@ -117,7 +117,7 @@ export default function Index({ items, total, counts, page, hasMore, filters, pe
                                 </span>
                                 <span className="flex items-baseline gap-3 sm:justify-end">
                                     <span className="font-semibold tabular-nums">{money(order.totalCents)}</span>
-                                    <span className="text-sm text-night/55">{t.panel.since(order.ageHours)}</span>
+                                    <span className="text-sm text-night/60">{t.panel.since(order.ageHours)}</span>
                                 </span>
                             </Link>
                         </li>

@@ -18,6 +18,16 @@ export const t = {
         closeMenu: 'Fechar menu',
         skip: 'Ir para o conteúdo',
         primary: 'Navegação principal',
+        report: 'Relatar avistamento',
+        legend: 'A lenda',
+        support: 'Apoie a pista',
+        diary: 'Diário da obra',
+        community: 'Comunidade',
+        faq: 'Perguntas frequentes',
+    },
+    marquee: {
+        /** Toggle with aria-pressed: the label stays, the pressed state says it is paused. */
+        pause: 'Pausar faixa',
     },
     footer: {
         explore: 'Navegue',
@@ -56,6 +66,9 @@ export const t = {
         map: 'Ver o mapa',
         types: { light: 'Luz', object: 'Objeto', trail: 'Rastro', other: 'Outro' },
         noPlace: 'Serra catarinense',
+        /** Alt of a report photo card: "Luz vista por coruja", "Rastro visto por coruja". */
+        photoAlt: (type: 'light' | 'object' | 'trail' | 'other', nickname: string) =>
+            `${{ light: 'Luz vista', object: 'Objeto visto', trail: 'Rastro visto', other: 'Algo visto' }[type]} por ${nickname}`,
     },
     strip: ['A pista de pouso do planalto', 'Lages · SC', 'Meta 2028', 'Vigília grátis'],
     place: {
@@ -149,13 +162,13 @@ export const t = {
         shareWhatsapp: 'Enviar no WhatsApp',
         openPostcard: 'Abrir o postal',
         copy: 'Copiar link',
-        copied: 'Link copiado',
+        copied: 'Link copiado.',
         shareText: (url: string) => `Olha o que estão fazendo no céu de Lages: ${url}`,
     },
     legendPage: {
         eyebrow: 'Como tudo começou',
         title: 'A lenda',
-        lead: 'Uma pista de pouso de verdade, com uma lenda inventada por cima. A gente conta qual é qual.',
+        lead: 'Uma pista de pouso que vai ser de verdade, com uma lenda inventada por cima. A gente conta qual é qual.',
         originEyebrow: 'A origem real',
         originTitle: 'De Cachi a Lages',
         origin: [
@@ -217,7 +230,7 @@ export const t = {
         eyebrow: 'Ao lado da Hospedaria Vila das Pedras',
         title: 'O lugar',
         goal: 'meta 2028',
-        lead: 'Uma pista de pouso de pedra no alto da serra, construída em fases. Hoje é terreno, céu escuro e muita vontade.',
+        lead: 'Uma pista de pouso de pedra no alto da serra, a ser construída em fases. Hoje é terreno, céu escuro e muita vontade.',
         description:
             'O projeto da pista de pouso do OVNIPORTO em Lages, SC: onde vai ficar, os espaços fase a fase e as regras do céu escuro.',
         whereEyebrow: 'Onde',
@@ -246,7 +259,7 @@ export const t = {
         skyRules: [
             {
                 title: 'Luz baixa e vermelha',
-                body: 'Toda luz do chão fica baixa, quente ou vermelha e apontada para baixo. Nada de poste branco.',
+                body: 'Toda luz do chão vai ser baixa, quente ou vermelha e apontada para baixo. Nada de poste branco.',
             },
             {
                 title: 'Caminhos acessíveis',
@@ -254,7 +267,7 @@ export const t = {
             },
             {
                 title: 'Um QR em cada placa',
-                body: 'Cada espaço conta a sua história no celular, com o brilho da tela no mínimo.',
+                body: 'Cada espaço vai contar a sua história no celular, com o brilho da tela no mínimo.',
             },
         ],
         closing: 'Avise-me quando a campanha abrir',
@@ -275,7 +288,7 @@ export const t = {
         how: [
             {
                 title: 'Financiamento coletivo',
-                body: 'Uma campanha numa plataforma de crowdfunding, com meta e prazo claros.',
+                body: 'Uma campanha numa plataforma de apoio coletivo, com meta e prazo claros.',
             },
             { title: 'Parte das vendas da loja', body: 'Uma fatia de cada lembrança vendida vai para a pista.' },
             { title: 'Patrocínio local', body: 'Empresas da serra que quiserem ver o nome na pista.' },
@@ -307,7 +320,7 @@ export const t = {
         eyebrow: 'Pedra por pedra',
         title: 'Diário da obra',
         description: 'O diário da construção da pista de pouso do OVNIPORTO, em Lages, SC.',
-        empty: 'A obra ainda não começou. O primeiro post será o dia em que a primeira pedra for colocada.',
+        empty: 'A obra ainda não começou. O primeiro post sai no dia em que a primeira pedra for colocada.',
         rss: 'Assinar o feed RSS',
         back: 'Voltar ao diário',
         gallery: 'Galeria',
@@ -430,6 +443,16 @@ export const t = {
     report: {
         title: 'Relatar avistamento',
         progress: (step: number) => `Passo ${step} de 4`,
+        errors: {
+            type: 'Escolha o que você viu.',
+            descriptionShort: (min: number) => `Conte um pouco mais: pelo menos ${min} caracteres.`,
+            descriptionLong: (max: number) => `No máximo ${max} caracteres.`,
+            timeRange: 'Escolha a faixa de horário.',
+            exactTime: 'Diga a hora.',
+            nickname: 'Use de 3 a 20 letras, números, "_" ou ".".',
+            consent: 'Marque a autorização para publicar o relato.',
+        },
+        reviewPhotoAlt: (n: number) => `Foto ${n} do seu relato`,
         back: 'Voltar',
         next: 'Continuar',
         skip: 'Pular',
@@ -458,7 +481,7 @@ export const t = {
             facesNotice: 'Sem rostos nem placas de carro.',
             unreadable: 'Esse formato não abriu neste navegador. Envie a foto em JPG ou PNG.',
             failed: 'A foto não subiu. Tente de novo.',
-            full: 'Já são 3 fotos.',
+            full: 'Já são 3 fotos. Remova uma para trocar.',
         },
         when: {
             title: 'Quando e onde?',
@@ -481,11 +504,12 @@ export const t = {
             ignoreSuggestion: 'Ignorar',
             mapLabel: 'Mapa para marcar de onde você olhou o céu',
             mapHint: 'Toque no mapa para marcar. Dá para arrastar o marcador.',
+            mapKeyboardHint: 'Pelo teclado: mova o mapa com as setas e aperte Enter para marcar o centro.',
             mapWarning: 'Marque de onde olhou o céu, não sua casa.',
             myLocation: 'Usar minha localização atual',
             locating: 'Localizando…',
             locationDenied: 'Sem permissão de localização. Marque no mapa.',
-            locationWhy: 'Só para centralizar o mapa; o ponto continua sendo você quem escolhe.',
+            locationWhy: 'Só para centralizar o mapa: quem escolhe o ponto continua sendo você.',
             pointMissing: 'Marque o ponto no mapa.',
             gazeLabel: 'Direção do olhar (opcional)',
         },
@@ -502,11 +526,16 @@ export const t = {
         },
         sent: {
             title: 'Relato na torre de controle',
-            lead: 'Relato na torre de controle, em análise.',
+            lead: 'Recebido. Agora ele fica em análise até a torre decidir.',
             email: 'Você recebe um e-mail quando for aprovado ou se precisar de ajuste.',
             mine: 'Ver meus relatos',
             home: 'Voltar ao início',
         },
+    },
+    listStatus: {
+        loading: 'Carregando…',
+        error: 'Sem sinal da torre agora. Confira a conexão e tente de novo.',
+        retry: 'Tentar de novo',
     },
     logbookPage: {
         eyebrow: 'Céu sob vigilância',
@@ -565,7 +594,7 @@ export const t = {
         419: { title: 'A página ficou tempo demais no ar.', lead: 'Recarregue e tente de novo.' },
         429: { title: 'Calma, piloto.', lead: 'Muitas tentativas seguidas. Espere um minuto e tente de novo.' },
         500: { title: 'Perdemos o sinal da torre.', lead: 'Algo deu errado do nosso lado. Já estamos olhando.' },
-        503: { title: 'Pista em manutenção.', lead: 'Voltamos em instantes.' },
+        503: { title: 'Torre em manutenção.', lead: 'O site volta em instantes. Recarregue daqui a pouco.' },
         back: 'Voltar ao início',
     } as Record<number, { title: string; lead: string }> & { back: string },
     waitlist: {
@@ -581,7 +610,7 @@ export const t = {
         title: 'Um postal do planalto',
         lead: 'Baixe a imagem ou mande direto para quem precisa ver o céu de Lages.',
         frontAlt:
-            'Postal do OVNIPORTO: ilustração conceito da pista de pouso sob o céu estrelado da serra, com o selo, a frase "Guardei um lugar pra você." e Lages, SC.',
+            'Postal do OVNIPORTO: ilustração conceitual da pista de pouso sob o céu estrelado da serra, com o selo, a frase "Guardei um lugar pra você." e Lages, SC.',
         flipToBack: 'Virar o postal',
         flipToFront: 'Ver a frente',
         share: 'Compartilhar postal',
@@ -625,12 +654,16 @@ export const t = {
         calculating: 'calculando…',
         shippingDays: (days: number) => (days === 1 ? '1 dia útil' : `${days} dias úteis`),
         shippingSimulated: 'Valores simulados: o frete exato chega com a integração do Melhor Envio.',
-        shippingError: 'Não deu para calcular agora. Tente de novo.',
+        shippingError: 'Não deu para calcular o frete agora. Confira o CEP e tente de novo.',
         noCep: 'Não sei meu CEP',
         back: 'Voltar à loja',
     },
     checkout: {
         title: 'Finalizar compra',
+        cepInvalid: 'Digite um CEP com 8 números.',
+        cepUnreachable: 'Não deu para consultar o CEP agora. Confira a conexão e tente de novo.',
+        chooseDelivery: 'Escolha como receber.',
+        numberMissing: 'Diga o número.',
         steps: ['Você', 'Entrega', 'Revisão'],
         stepOf: (n: number) => `Etapa ${n} de 3`,
         back: 'Voltar',
@@ -754,7 +787,7 @@ export const t = {
             } as Record<string, string>,
             goalsTitle: (deadline: string) => `Metas até ${deadline}`,
             goalsTitleEmpty: 'Metas de 6 meses',
-            goalsEmpty: 'Defina a data de lançamento e as metas em Conteúdo → Configurações.',
+            goalsEmpty: 'Defina a data de lançamento e as metas em Conteúdo → Configurações e textos.',
             goalLabels: { members: 'Membros', sightings: 'Relatos publicados', orders: 'Pedidos vendidos' } as Record<
                 string,
                 string
@@ -800,8 +833,8 @@ export const t = {
             actions: {
                 production: 'Marcar em produção',
                 label: 'Gerar etiqueta',
-                ship: 'Marcar enviado',
-                deliver: 'Marcar entregue',
+                ship: 'Marcar como enviado',
+                deliver: 'Marcar como entregue',
                 cancel: 'Cancelar',
                 refund: 'Reembolsar',
             } as Record<string, string>,
@@ -839,7 +872,7 @@ export const t = {
             height: 'Altura (cm)',
             label: 'Etiqueta do cartão',
             activeLabel: 'Ativo (aparece na loja)',
-            featuredLabel: 'Destaque na home',
+            featuredLabel: 'Destaque na página inicial',
             preview: 'Prévia do cartão',
             variants: 'Variantes',
             variantName: 'Nome',
@@ -1015,7 +1048,7 @@ export const t = {
                 {
                     href: '/painel/configuracoes',
                     title: 'Configurações e textos',
-                    body: 'Links, metas, textos da home e das páginas legais, FAQ e regras.',
+                    body: 'Links, metas, textos da página inicial e das páginas legais, FAQ e regras.',
                 },
                 {
                     href: '/painel/lugar',
@@ -1059,10 +1092,10 @@ export const t = {
             goalOrders: 'Meta de pedidos',
             blocksTitle: 'Textos do site',
             blocks: {
-                home_intro: 'Home: apresentação',
-                home_place: 'Home: o lugar',
-                home_store: 'Home: loja',
-                home_legend: 'Home: a lenda',
+                home_intro: 'Página inicial: apresentação',
+                home_place: 'Página inicial: o lugar',
+                home_store: 'Página inicial: loja',
+                home_legend: 'Página inicial: a lenda',
                 legend_body: 'Página da lenda',
                 privacy_body: 'Política de privacidade',
                 terms_body: 'Termos de uso',
@@ -1147,7 +1180,7 @@ export const t = {
             whatsapp: 'WhatsApp',
             instagram: 'Instagram',
             website: 'Site',
-            featured: 'Destaque na home',
+            featured: 'Destaque na página inicial',
             cover: 'Foto de capa',
             consentTitle: 'Consentimento',
             consentGivenAt: 'Consentimento recebido em',
