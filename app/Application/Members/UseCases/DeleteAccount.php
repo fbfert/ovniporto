@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\Mail;
 
 /**
  * "Excluir minha conta", confirmed by typing the nickname. Each module erases
- * its part through MemberContentEraser (Sightings today; Orders will anonymize
- * once the store has a checkout), then the profile goes and a goodbye e-mail is queued.
+ * its part through MemberContentEraser (reports and photos deleted, orders anonymized
+ * for tax law, consents anonymized, newsletter sign-up dropped), then the profile goes
+ * and a goodbye e-mail is queued.
  */
 final readonly class DeleteAccount
 {
@@ -42,7 +43,7 @@ final readonly class DeleteAccount
         }
 
         foreach ($this->erasers as $eraser) {
-            $eraser->eraseFor($memberId);
+            $eraser->eraseFor($memberId, $profile['email']);
         }
         $this->members->delete($memberId);
         Mail::to($profile['email'])->queue(new AccountDeletedMail($profile['nickname'] ?? $profile['name']));

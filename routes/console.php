@@ -13,3 +13,6 @@ Schedule::command('orders:track-shipments')->dailyAt('07:00');
 
 // sitemap.xml follows what was published (served as a ready file between runs).
 Schedule::command('sitemap:generate')->hourly();
+
+// Anonymized orders of deleted accounts go for good once the tax retention ends.
+Schedule::command('privacy:purge-orders')->dailyAt('03:30');

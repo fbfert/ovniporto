@@ -13,9 +13,9 @@
 
 ## 3. Portabilidade e exclusão
 
-- [ ] 3.1 Implementar exportação com providers por módulo, verificado por teste que confere as cinco seções e ausência de dados de terceiros
-- [ ] 3.2 Implementar exclusão com anonimização e `retention_until`, verificado por teste de pedido "Titular excluído" e fotos/variantes apagadas do disco
-- [ ] 3.3 Implementar comando agendado de apagamento após retenção, verificado por teste com tempo simulado
+- [x] 3.1 Implementar exportação com providers por módulo, verificado por teste que confere as cinco seções e ausência de dados de terceiros
+- [x] 3.2 Implementar exclusão com anonimização e `retention_until`, verificado por teste de pedido "Titular excluído" e fotos/variantes apagadas do disco
+- [x] 3.3 Implementar comando agendado de apagamento após retenção, verificado por teste com tempo simulado
 
 ## 4. Transparência e rastreamento
 

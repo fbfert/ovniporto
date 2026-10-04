@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\DB;
 
 final class EloquentOrderRepository implements OrderRepository
 {
+    /** Shown in the panel where the customer's name was, after the account is deleted. */
+    private const DELETED_HOLDER = 'Titular excluído';
+
     public function create(NewOrder $order): array
     {
         return DB::transaction(function () use ($order) {
@@ -254,18 +257,31 @@ final class EloquentOrderRepository implements OrderRepository
             ->all();
     }
 
-    public function anonymizeFor(int $memberId): void
+    public function anonymizeFor(int $memberId, string $email, int $retentionYears): void
     {
-        Order::query()->where('member_id', $memberId)->get()->each(function (Order $order) {
-            $address = $order->address;
-            $order->update([
-                'member_id' => null,
-                'customer_name' => null,
-                'customer_email' => null,
-                'customer_phone' => null,
-                'address' => $address === null ? null : ['city' => $address['city'], 'state' => $address['state']],
-            ]);
-        });
+        Order::query()
+            ->where(fn ($q) => $q->where('member_id', $memberId)->orWhere('customer_email', mb_strtolower($email)))
+            ->get()
+            ->each(function (Order $order) use ($retentionYears) {
+                $address = $order->address;
+                $order->update([
+                    'member_id' => null,
+                    'customer_name' => self::DELETED_HOLDER,
+                    'customer_email' => null,
+                    'customer_phone' => null,
+                    'address' => $address === null ? null : ['city' => $address['city'], 'state' => $address['state']],
+                    'retention_until' => $order->paid_at?->copy()->addYears($retentionYears) ?? now(),
+                ]);
+            });
+    }
+
+    public function purgeRetainedUntil(DateTimeInterface $now): int
+    {
+        $due = Order::query()->whereNotNull('retention_until')->where('retention_until', '<=', $now)->pluck('id');
+        // Items and the order diary go with the order (cascade); stock movements keep their numbers.
+        Order::query()->whereKey($due)->delete();
+
+        return $due->count();
     }
 
     /** @return array{id: int, number: string, status: OrderStatus, totalCents: int, paymentOrderId: ?string, memberId: ?int, cartToken: ?string, pickup: bool, shipmentId: ?string} */

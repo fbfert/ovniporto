@@ -29,6 +29,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $payment_order_id
  * @property string|null $payment_capture_id
  * @property Carbon|null $paid_at
+ * @property Carbon|null $retention_until set when the customer's account is deleted; purged after it
  * @property string|null $shipment_id
  * @property string|null $tracking_code
  * @property string|null $tracking_url
@@ -46,6 +47,7 @@ class Order extends Model
             'address' => 'array',
             'pickup' => 'boolean',
             'paid_at' => 'datetime',
+            'retention_until' => 'datetime',
         ];
     }
 

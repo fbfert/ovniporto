@@ -224,7 +224,7 @@ it('anonymizes the orders when the member deletes the account', function () {
 
     expect($order->fresh())
         ->member_id->toBeNull()
-        ->customer_name->toBeNull()
+        ->customer_name->toBe('Titular excluído')
         ->customer_email->toBeNull()
         ->total_cents->toBe(2850)
         ->and($order->fresh()->address)->toBe(['city' => 'Lages', 'state' => 'SC']);

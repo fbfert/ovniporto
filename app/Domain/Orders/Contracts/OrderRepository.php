@@ -65,6 +65,14 @@ interface OrderRepository
     /** @return list<array{number: string, status: string, totalCents: int, createdAt: string, items: int}> newest first */
     public function ofMember(int $memberId): array;
 
-    /** Account deleted: keeps what tax law needs (items, totals, CPF, city) and drops name, contact and street. */
-    public function anonymizeFor(int $memberId): void;
+    /**
+     * Account deleted: orders placed signed in or with the account e-mail keep what tax law
+     * needs (number, items, totals, encrypted CPF, city) under "Titular excluído" and drop
+     * name, contact and street. Paid orders are kept until $retentionYears after payment;
+     * unpaid ones have nothing to keep and are due for purge at once.
+     */
+    public function anonymizeFor(int $memberId, string $email, int $retentionYears): void;
+
+    /** Deletes anonymized orders whose retention ended; returns how many. */
+    public function purgeRetainedUntil(\DateTimeInterface $now): int;
 }

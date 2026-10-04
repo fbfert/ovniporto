@@ -62,9 +62,13 @@ use App\Infrastructure\Images\PublicImageLibrary;
 use App\Infrastructure\Mail\MailOrderNotifier;
 use App\Infrastructure\Mail\MailSightingNotifier;
 use App\Infrastructure\Mail\MailWaitlistNotifier;
+use App\Infrastructure\Members\ConsentsContentEraser;
+use App\Infrastructure\Members\ConsentsDataSource;
 use App\Infrastructure\Members\OrdersContentEraser;
+use App\Infrastructure\Members\OrdersDataSource;
 use App\Infrastructure\Members\SightingsContentEraser;
 use App\Infrastructure\Members\SightingsDataSource;
+use App\Infrastructure\Members\WaitlistContentEraser;
 use App\Infrastructure\Members\WaitlistDataSource;
 use App\Infrastructure\Payments\PayPalGateway;
 use App\Infrastructure\Payments\SimulatedPaymentGateway;
@@ -114,10 +118,10 @@ class DomainServiceProvider extends ServiceProvider
      * Modules that erase their part when a member deletes the account.
      * Orders are anonymized instead of deleted (tax law keeps them).
      */
-    private const MEMBER_ERASERS = [SightingsContentEraser::class, OrdersContentEraser::class];
+    private const MEMBER_ERASERS = [SightingsContentEraser::class, OrdersContentEraser::class, WaitlistContentEraser::class, ConsentsContentEraser::class];
 
     /** Modules that contribute a section to "Baixar meus dados". */
-    private const MEMBER_DATA_SOURCES = [SightingsDataSource::class, WaitlistDataSource::class];
+    private const MEMBER_DATA_SOURCES = [SightingsDataSource::class, OrdersDataSource::class, WaitlistDataSource::class, ConsentsDataSource::class];
 
     /** @var array<class-string, class-string> */
     public array $bindings = [

@@ -46,6 +46,8 @@ final class EloquentMemberSightingRepository implements MemberSightingRepository
     public function deleteAllOf(int $memberId): void
     {
         Sighting::query()->where('member_id', $memberId)->get()->each(fn (Sighting $s) => $this->erase($s));
+        // Photos uploaded but never attached to a report (their rows go with the member).
+        Storage::disk('local')->deleteDirectory("uploads/{$memberId}");
     }
 
     public function draftOf(int $memberId, int $sightingId): ?array
@@ -75,11 +77,16 @@ final class EloquentMemberSightingRepository implements MemberSightingRepository
         ];
     }
 
+    /** The photo and every WebP variant (a processed photo's path is the base the variants hang from). */
     private function erase(Sighting $sighting): void
     {
         foreach ($sighting->photos as $photo) {
+            $files = [
+                (string) $photo->path,
+                ...array_map(fn (int $width) => "{$photo->path}-{$width}.webp", $photo->variants ?? []),
+            ];
             foreach (self::PHOTO_DISKS as $disk) {
-                Storage::disk($disk)->delete((string) $photo->path);
+                Storage::disk($disk)->delete($files);
             }
         }
         $sighting->photos()->delete();
