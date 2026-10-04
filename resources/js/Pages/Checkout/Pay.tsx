@@ -64,7 +64,7 @@ export default function Pay({ order, payment }: Props) {
 
     return (
         <>
-            <SeoHead title={copy.title} />
+            <SeoHead />
             <Section tone="light" innerClassName="pt-32! sm:pt-36!">
                 <div className="mx-auto grid max-w-4xl gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
                     <div>

@@ -178,7 +178,7 @@ export default function Report({ nickname, today, lages, limits, editing }: Prop
 
     return (
         <div data-tone="dark" className="relative min-h-svh bg-night text-moonlight">
-            <SeoHead title={editing ? copy.editingTitle : copy.title} />
+            <SeoHead />
             <Starfield className="fixed inset-0 opacity-60" density="low" />
 
             <header className="sticky top-0 z-20 bg-night/90 px-5 pt-4 pb-3 backdrop-blur-[10px]">

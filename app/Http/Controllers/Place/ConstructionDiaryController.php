@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Place;
 use App\Application\Place\UseCases\GetConstructionPost;
 use App\Application\Place\UseCases\ListConstructionPosts;
 use App\Http\Controllers\Controller;
+use App\Http\Seo\ContentSeo;
 use Illuminate\Http\Response as HttpResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -16,11 +17,11 @@ class ConstructionDiaryController extends Controller
         return Inertia::render('Place/Diary', ['posts' => $listPosts->execute()]);
     }
 
-    public function show(GetConstructionPost $getPost, string $slug): Response
+    public function show(GetConstructionPost $getPost, ContentSeo $seo, string $slug): Response
     {
         $post = $getPost->execute($slug) ?? abort(404);
 
-        return Inertia::render('Place/DiaryPost', ['post' => $post]);
+        return Inertia::render('Place/DiaryPost', ['post' => $post, 'seo' => $seo->post($post)->toArray()]);
     }
 
     public function feed(ListConstructionPosts $listPosts): HttpResponse

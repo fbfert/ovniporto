@@ -128,7 +128,7 @@ export default function Place({
 }) {
     return (
         <>
-            <SeoHead title={copy.title} description={copy.description} image="/concept/overview.jpg" />
+            <SeoHead />
             <PlaceCover />
 
             <Section tone="light" labelledBy="onde">

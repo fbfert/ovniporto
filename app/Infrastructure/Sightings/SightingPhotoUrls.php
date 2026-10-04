@@ -40,7 +40,7 @@ final class SightingPhotoUrls
     }
 
     /** @param list<int> $variants */
-    private static function closest(array $variants, int $width): int
+    public static function closest(array $variants, int $width): int
     {
         $larger = array_filter($variants, fn (int $w) => $w >= $width);
 

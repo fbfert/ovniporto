@@ -10,7 +10,7 @@ import { PublicLayout } from '@/Layouts/PublicLayout';
 export default function SignIn() {
     return (
         <>
-            <SeoHead title={t.members.loginTitle} />
+            <SeoHead />
             <Section tone="dark" pattern="stars" className="min-h-svh" innerClassName="pt-36! max-w-xl!">
                 <Display as="h1" className="text-center text-[clamp(1.7rem,1rem+3vw,3rem)]! text-balance">
                     {t.members.loginTitle}

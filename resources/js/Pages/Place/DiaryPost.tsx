@@ -19,11 +19,7 @@ interface Post extends DiaryPostCard {
 export default function DiaryPost({ post }: { post: Post }) {
     return (
         <>
-            <SeoHead
-                title={post.title}
-                description={post.excerpt ?? copy.description}
-                image={post.cover ?? undefined}
-            />
+            <SeoHead />
             <PageCover eyebrow={copy.title} title={post.title}>
                 <p className="mt-6 flex flex-wrap items-center justify-center gap-3 text-sm text-moonlight/75">
                     <Badge tone="beam">{t.place.phase(post.phase)}</Badge>

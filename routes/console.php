@@ -10,3 +10,6 @@ Schedule::command('orders:cancel-abandoned')->everyTenMinutes();
 
 // Delivery status from the shipping provider, once a day.
 Schedule::command('orders:track-shipments')->dailyAt('07:00');
+
+// sitemap.xml follows what was published (served as a ready file between runs).
+Schedule::command('sitemap:generate')->hourly();

@@ -111,11 +111,7 @@ export default function Show({
 
     return (
         <>
-            <SeoHead
-                title={`${type} · ${longDate(sighting.observedDate)}`}
-                description={sighting.description.slice(0, 150)}
-                image={sighting.photos[0]?.full ?? undefined}
-            />
+            <SeoHead />
             <Section tone="dark" pattern="stars" innerClassName="pt-32! sm:pt-36!">
                 {ownPending && (
                     <p role="status" className="mb-10 rounded-2xl bg-car px-5 py-3 font-semibold text-night">

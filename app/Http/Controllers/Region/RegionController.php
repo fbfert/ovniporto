@@ -6,6 +6,7 @@ use App\Application\Region\UseCases\GetRegionPartner;
 use App\Application\Region\UseCases\ListRegionPartners;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegionFilterRequest;
+use App\Http\Seo\ContentSeo;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -19,8 +20,10 @@ class RegionController extends Controller
         ]);
     }
 
-    public function show(GetRegionPartner $getPartner, string $slug): Response
+    public function show(GetRegionPartner $getPartner, ContentSeo $seo, string $slug): Response
     {
-        return Inertia::render('Region/Show', $getPartner->execute($slug) ?? abort(404));
+        $page = $getPartner->execute($slug) ?? abort(404);
+
+        return Inertia::render('Region/Show', [...$page, 'seo' => $seo->partner($page['partner'])->toArray()]);
     }
 }

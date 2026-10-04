@@ -70,7 +70,7 @@ export default function Welcome({ firstName, suggestion }: { firstName: string; 
 
     return (
         <>
-            <SeoHead title={copy.welcomeTitle} />
+            <SeoHead />
             <Section tone="dark" pattern="stars" className="min-h-svh" innerClassName="pt-32! sm:pt-36!">
                 <div className="grid items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-20">
                     <form onSubmit={submit} noValidate>

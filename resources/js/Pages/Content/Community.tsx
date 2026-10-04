@@ -22,7 +22,7 @@ export default function Community({ rules }: { rules: Rule[] }) {
 
     return (
         <>
-            <SeoHead title={copy.title} description={copy.description} />
+            <SeoHead />
             <PageCover eyebrow={copy.eyebrow} title={copy.title} />
 
             <Section tone="light" labelledBy="regras">

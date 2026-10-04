@@ -117,7 +117,7 @@ function PublishedLegend({ html }: { html: string }) {
 export default function Legend({ legendHtml }: { legendHtml: string | null }) {
     return (
         <>
-            <SeoHead title={copy.title} description={copy.lead} />
+            <SeoHead />
             <PageCover eyebrow={copy.eyebrow} title={copy.title} lead={copy.lead} />
 
             <Section tone="light" labelledBy="origem">

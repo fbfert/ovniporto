@@ -17,6 +17,9 @@ use App\Domain\Content\Contracts\ContentBlockRepository;
 use App\Domain\Content\Contracts\EditorialListRepository;
 use App\Domain\Content\Contracts\ImageLibrary;
 use App\Domain\Content\Contracts\MarkdownRenderer;
+use App\Domain\Content\Contracts\OgCardRepository;
+use App\Domain\Content\Contracts\OgImageRenderer;
+use App\Domain\Content\Contracts\PublishedContentIndex;
 use App\Domain\Map\Contracts\Geocoder;
 use App\Domain\Members\Contracts\IdentityProvider;
 use App\Domain\Members\Contracts\MemberAdminRepository;
@@ -46,6 +49,7 @@ use App\Domain\Sightings\Contracts\SightingNotifier;
 use App\Domain\Sightings\Contracts\SightingReadRepository;
 use App\Domain\Sightings\Contracts\SightingWriteRepository;
 use App\Infrastructure\Audit\DatabaseAuditor;
+use App\Infrastructure\Brand\GdOgImageRenderer;
 use App\Infrastructure\Content\CommonMarkRenderer;
 use App\Infrastructure\Documents\DompdfProductionDocument;
 use App\Infrastructure\Geo\CachedGeocoder;
@@ -77,12 +81,14 @@ use App\Infrastructure\Persistence\Eloquent\EloquentMemberAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentMemberRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentMemberSightingRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentModerationRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentOgCardRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentOrderAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentOrderRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentPlaceAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentPlaceSpaceRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentProductAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentProductReadRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentPublishedContentIndex;
 use App\Infrastructure\Persistence\Eloquent\EloquentRegionAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentRegionPartnerRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentSightingReadRepository;
@@ -116,6 +122,9 @@ class DomainServiceProvider extends ServiceProvider
         ContentBlockRepository::class => EloquentContentBlockRepository::class,
         EditorialListRepository::class => EloquentEditorialListRepository::class,
         MarkdownRenderer::class => CommonMarkRenderer::class,
+        OgCardRepository::class => EloquentOgCardRepository::class,
+        OgImageRenderer::class => GdOgImageRenderer::class,
+        PublishedContentIndex::class => EloquentPublishedContentIndex::class,
         MemberRepository::class => EloquentMemberRepository::class,
         MemberAdminRepository::class => EloquentMemberAdminRepository::class,
         IdentityProvider::class => GoogleIdentityProvider::class,

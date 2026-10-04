@@ -2,14 +2,14 @@
 
 ## 1. Metadados e dados estruturados
 
-- [ ] 1.1 Estender o `SeoHead` com dados por página e imagem OG padrão, verificado por teste de feature que percorre as rotas públicas conferindo título, descrição, canonical e og:image
-- [ ] 1.2 Adicionar JSON-LD (Organization, Product, Article, Place, FAQPage), verificado por testes de feature que decodificam o JSON-LD de cada página
+- [x] 1.1 Estender o `SeoHead` com dados por página e imagem OG padrão, verificado por teste de feature que percorre as rotas públicas conferindo título, descrição, canonical e og:image
+- [x] 1.2 Adicionar JSON-LD (Organization, Product, Article, Place, FAQPage), verificado por testes de feature que decodificam o JSON-LD de cada página
 
 ## 2. Imagens OG e sitemap
 
-- [ ] 2.1 Definir `OgImageRenderer` e implementar rotas `/og/*` com cache e invalidação, verificado por testes (conteúdo não público = 404; edição gera nova versão)
-- [ ] 2.2 Implementar `sitemap.xml` e `robots.txt`, verificado por teste que confirma ausência de `/painel` e `/conta` e presença de conteúdos publicados
-- [ ] 2.3 Implementar comando `og:check {url}`, verificado por teste do comando contra uma rota local
+- [x] 2.1 Definir `OgImageRenderer` e implementar rotas `/og/*` com cache e invalidação, verificado por testes (conteúdo não público = 404; edição gera nova versão)
+- [x] 2.2 Implementar `sitemap.xml` e `robots.txt`, verificado por teste que confirma ausência de `/painel` e `/conta` e presença de conteúdos publicados
+- [x] 2.3 Implementar comando `og:check {url}`, verificado por teste do comando contra uma rota local
 
 ## 3. Postal e métrica
 

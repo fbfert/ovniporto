@@ -5,7 +5,7 @@ import { createRoot, hydrateRoot } from 'react-dom/client';
 import { resolvePage } from '@/lib/pages';
 
 createInertiaApp({
-    title: (title) => (title ? `${title} · OVNIPORTO Lages` : 'OVNIPORTO Lages'),
+    title: (title) => (title ? `${title} · OVNIPORTO Lages` : 'OVNIPORTO Lages · A pista de pouso do planalto'),
     resolve: resolvePage,
     setup({ el, App, props }) {
         if (el.hasChildNodes()) {

@@ -56,7 +56,7 @@ export default function Logbook({ filters, total, pins, cards, page, hasMore }: 
 
     return (
         <>
-            <SeoHead title={copy.title} description={copy.description} />
+            <SeoHead />
             <PageCover eyebrow={copy.eyebrow} title={copy.title}>
                 <p className="mt-6 font-script text-[clamp(1.5rem,1.2rem+1vw,2rem)] text-beam-glow" aria-live="polite">
                     {copy.count(total)}

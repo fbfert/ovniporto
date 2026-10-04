@@ -187,7 +187,7 @@ export default function Support({ campaign }: { campaign: Campaign }) {
 
     return (
         <>
-            <SeoHead title={copy.title} description={copy.description} image="/concept/overview.jpg" />
+            <SeoHead />
             <PageCover eyebrow={copy.eyebrow} title={copy.title}>
                 <div className="mt-6 flex justify-center">
                     {campaign.status === 'planning' && <Badge tone="car">{copy.planningBadge}</Badge>}

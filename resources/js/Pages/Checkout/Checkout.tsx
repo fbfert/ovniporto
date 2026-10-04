@@ -175,7 +175,7 @@ export default function Checkout({ customer, signedIn, shippingAvailable }: Prop
 
     return (
         <>
-            <SeoHead title={copy.title} />
+            <SeoHead />
             <Section tone="dark" pattern="stars" innerClassName="pt-32! sm:pt-36!">
                 <div className="mx-auto max-w-2xl">
                     <Display as="h1" className="text-[clamp(1.8rem,1.2rem+2.4vw,2.8rem)]!">

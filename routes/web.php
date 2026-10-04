@@ -1,10 +1,13 @@
 <?php
 
+use App\Domain\Content\Sharing\OgKind;
 use App\Http\Controllers\Api\SightingsApiController;
 use App\Http\Controllers\Content\CommunityController;
+use App\Http\Controllers\Content\CrawlerController;
 use App\Http\Controllers\Content\FaqController;
 use App\Http\Controllers\Content\LegalPageController;
 use App\Http\Controllers\Content\LegendController;
+use App\Http\Controllers\Content\OgImageController;
 use App\Http\Controllers\Dev\SignInAsController;
 use App\Http\Controllers\Dev\StyleguideController;
 use App\Http\Controllers\HomeController;
@@ -252,6 +255,16 @@ Route::get('/avise-me/confirmar/{subscriber}', [WaitlistController::class, 'conf
     ->whereNumber('subscriber')
     ->middleware('signed')
     ->name('waitlist.confirm');
+
+Route::get('/sitemap.xml', [CrawlerController::class, 'sitemap'])->name('sitemap');
+Route::get('/robots.txt', [CrawlerController::class, 'robots'])->name('robots');
+
+// Link previews of public content (public/og/default.jpg is a static file and never reaches here).
+Route::get('/og/{kind}/{key}.{version}.jpg', OgImageController::class)
+    ->whereIn('kind', array_column(OgKind::cases(), 'value'))
+    ->where(['key' => '[a-z0-9-]+', 'version' => '[a-f0-9]{10}'])
+    ->middleware('throttle:120,1')
+    ->name('og.image');
 
 Route::get('/dev/styleguide', StyleguideController::class)->name('dev.styleguide');
 Route::get('/dev/entrar-como/{member}', SignInAsController::class)->whereNumber('member')->name('dev.sign-in-as');

@@ -66,8 +66,21 @@ export interface CommunityLinks {
     email: string;
 }
 
+/** Sharing metadata built by the server (AppHttpSeoSeo); app.blade.php prints the tags. */
+export interface PageSeo {
+    title: string | null;
+    fullTitle: string;
+    description: string;
+    canonical: string;
+    image: string;
+    type: string;
+    robots: string;
+    jsonLd: Record<string, unknown>[];
+}
+
 export interface SharedProps {
     appUrl: string;
+    seo: PageSeo;
     community: CommunityLinks;
     currentUrl: string;
     flash: { toast: string | null; cartOpen?: boolean };

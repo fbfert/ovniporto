@@ -7,7 +7,7 @@ createServer((page) =>
     createInertiaApp({
         page,
         render: renderToString,
-        title: (title) => (title ? `${title} · OVNIPORTO Lages` : 'OVNIPORTO Lages'),
+        title: (title) => (title ? `${title} · OVNIPORTO Lages` : 'OVNIPORTO Lages · A pista de pouso do planalto'),
         resolve: resolvePage,
         setup: ({ App, props }) => <App {...props} />,
     }),

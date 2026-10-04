@@ -8,6 +8,7 @@ use App\Domain\Orders\OrderStatus;
 use App\Domain\Payments\Contracts\PaymentGateway;
 use App\Domain\Payments\PaymentUnavailable;
 use App\Http\Controllers\Controller;
+use App\Http\Seo\ContentSeo;
 use App\Http\Support\OrderAccess;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -63,12 +64,13 @@ class PaymentController extends Controller
         return response()->json(['ok' => true]);
     }
 
-    public function show(Request $request, OrderRepository $orders, string $number): Response
+    public function show(Request $request, OrderRepository $orders, ContentSeo $seo, string $number): Response
     {
         $page = $orders->page($number) ?? abort(404);
         abort_unless(OrderAccess::allows($request, $number, $page['memberId']), 403);
 
         return Inertia::render('Orders/Show', [
+            'seo' => $seo->order($number)->toArray(),
             'order' => $page,
             'payUrl' => $page['status'] === OrderStatus::PendingPayment->value ? URL::signedRoute('order.pay', ['number' => $number]) : null,
         ]);

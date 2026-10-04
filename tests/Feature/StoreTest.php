@@ -84,10 +84,10 @@ it('opens the product page with variants and Product structured data', function 
         ->component('Store/Product')
         ->where('product.name', 'Adesivo OVNIPORTO')
         ->where('product.variants.0.max', 500)
-        ->where('structuredData.@type', 'Product')
-        ->where('structuredData.offers.price', '8.00')
-        ->where('structuredData.offers.priceCurrency', 'BRL')
-        ->where('structuredData.offers.availability', 'https://schema.org/InStock')
+        ->where('seo.jsonLd.0.@type', 'Product')
+        ->where('seo.jsonLd.0.offers.price', '8.00')
+        ->where('seo.jsonLd.0.offers.priceCurrency', 'BRL')
+        ->where('seo.jsonLd.0.offers.availability', 'https://schema.org/InStock')
     );
 });
 

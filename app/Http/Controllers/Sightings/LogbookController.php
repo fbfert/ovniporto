@@ -6,6 +6,7 @@ use App\Application\Sightings\UseCases\GetSightingPage;
 use App\Application\Sightings\UseCases\ListPublicSightings;
 use App\Domain\Sightings\Data\SightingFilters;
 use App\Http\Controllers\Controller;
+use App\Http\Seo\ContentSeo;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -29,11 +30,11 @@ class LogbookController extends Controller
         ]);
     }
 
-    public function show(Request $request, GetSightingPage $getPage, int $sighting): Response
+    public function show(Request $request, GetSightingPage $getPage, ContentSeo $seo, int $sighting): Response
     {
         $viewer = $request->user()?->getAuthIdentifier();
         $page = $getPage->execute($sighting, $viewer === null ? null : (int) $viewer) ?? abort(404);
 
-        return Inertia::render('Sightings/Show', $page);
+        return Inertia::render('Sightings/Show', [...$page, 'seo' => $seo->sighting($page)->toArray()]);
     }
 }

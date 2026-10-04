@@ -1,4 +1,4 @@
-import { Head, Link, router, usePage } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import { useState, type ReactNode } from 'react';
 import { SeoHead } from '@/Components/Layout/SeoHead';
 import { ProductArt } from '@/Components/Store/ProductArt';
@@ -35,10 +35,9 @@ interface Product extends ProductCard {
 interface Props {
     product: Product;
     related: ProductCard[];
-    structuredData: Record<string, unknown>;
 }
 
-export default function ProductPage({ product, related, structuredData }: Props) {
+export default function ProductPage({ product, related }: Props) {
     const { errors } = usePage<SharedProps>().props;
     const firstAvailable = product.variants.find((v) => v.max > 0) ?? product.variants[0];
     const [variantId, setVariantId] = useState<number | null>(firstAvailable?.id ?? null);
@@ -60,19 +59,7 @@ export default function ProductPage({ product, related, structuredData }: Props)
 
     return (
         <>
-            <SeoHead
-                title={product.name}
-                description={product.shortDescription ?? copy.description}
-                image={cover?.url ?? undefined}
-            />
-            <Head>
-                <script
-                    head-key="product-ld"
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-                />
-            </Head>
-
+            <SeoHead />
             <Section tone="dark" pattern="stars" innerClassName="pt-32! sm:pt-36!">
                 <Link
                     href="/loja"

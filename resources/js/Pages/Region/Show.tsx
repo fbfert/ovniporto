@@ -89,11 +89,7 @@ export default function RegionShow({ partner, origin }: { partner: Partner; orig
 
     return (
         <>
-            <SeoHead
-                title={partner.name}
-                description={partner.shortDescription ?? copy.description}
-                image={partner.cover ?? undefined}
-            />
+            <SeoHead />
 
             <Section tone="light" innerClassName="pt-32! sm:pt-36!">
                 <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">

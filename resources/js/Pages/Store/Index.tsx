@@ -27,7 +27,7 @@ export default function Index({
 
     return (
         <>
-            <SeoHead title={copy.title} description={copy.description} />
+            <SeoHead />
             <PageCover eyebrow={copy.eyebrow} title={copy.title}>
                 <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-moonlight/85">{copy.lead}</p>
             </PageCover>

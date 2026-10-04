@@ -10,7 +10,7 @@ import { PublicLayout } from '@/Layouts/PublicLayout';
 export default function Confirmed() {
     return (
         <>
-            <SeoHead title="Inscrição confirmada" />
+            <SeoHead />
             <NightBanner>
                 <div className="flex justify-center">
                     <div className="animate-seal-in">

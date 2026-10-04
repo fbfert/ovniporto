@@ -189,6 +189,33 @@ final class NightCanvas
         return $this;
     }
 
+    /** Darkens towards the bottom so text over a photo stays readable. */
+    public function fade(float $fromRatio, float $maxOpacity): self
+    {
+        $start = (int) ($this->height * $fromRatio);
+        for ($y = $start; $y < $this->height; $y++) {
+            $t = ($y - $start) / max(1, $this->height - $start);
+            imageline($this->image, 0, $y, $this->width, $y, $this->color(self::NIGHT, $maxOpacity * $t));
+        }
+
+        return $this;
+    }
+
+    /** @param array{int, int, int} $rgb */
+    public function textAt(string $text, string $font, float $size, int $x, int $y, array $rgb, float $opacity = 1.0): self
+    {
+        imagettftext($this->image, $size, 0, $x, $y, $this->color($rgb, $opacity), $font, $text);
+
+        return $this;
+    }
+
+    public static function textWidth(string $text, string $font, float $size): int
+    {
+        $box = imagettfbbox($size, 0, $font, $text) ?: [0, 0, 0, 0, 0, 0, 0, 0];
+
+        return $box[2] - $box[0];
+    }
+
     public function saveJpeg(string $path, int $quality = 86): void
     {
         if (! is_dir(dirname($path))) {

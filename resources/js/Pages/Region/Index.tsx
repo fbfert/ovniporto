@@ -94,7 +94,7 @@ export default function RegionIndex({ partners, total, filters }: Props) {
 
     return (
         <>
-            <SeoHead title={copy.title} description={copy.description} />
+            <SeoHead />
 
             <Section tone="light" innerClassName="pt-36! sm:pt-40!">
                 <Eyebrow>{copy.eyebrow}</Eyebrow>

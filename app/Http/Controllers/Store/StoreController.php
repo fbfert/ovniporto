@@ -6,6 +6,7 @@ use App\Application\Catalog\UseCases\GetProductPage;
 use App\Application\Catalog\UseCases\GetStorePage;
 use App\Application\Shipping\UseCases\QuoteShipping;
 use App\Http\Controllers\Controller;
+use App\Http\Seo\ContentSeo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -19,11 +20,15 @@ class StoreController extends Controller
         return Inertia::render('Store/Index', $store->execute());
     }
 
-    public function show(Request $request, GetProductPage $page, string $slug): Response
+    public function show(Request $request, GetProductPage $page, ContentSeo $seo, string $slug): Response
     {
         $data = $page->execute($slug, $request->url()) ?? abort(404);
 
-        return Inertia::render('Store/Product', $data);
+        return Inertia::render('Store/Product', [
+            'product' => $data['product'],
+            'related' => $data['related'],
+            'seo' => $seo->product($data['product'], $data['structuredData'])->toArray(),
+        ]);
     }
 
     /** The CEP is validated before the provider is ever asked. */

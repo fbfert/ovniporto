@@ -279,7 +279,7 @@ export default function Account({
     const member = useAuthMember();
     return (
         <>
-            <SeoHead title={copy.accountTitle} />
+            <SeoHead />
             <Section tone="light" innerClassName="pt-32! sm:pt-36!">
                 <div className="flex flex-wrap items-center gap-5">
                     {profile.avatarUrl && (

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Application\Content\UseCases\GetCommunityLinks;
 use App\Application\Orders\UseCases\ManageCart;
 use App\Domain\Panel\PanelArea;
+use App\Http\Seo\Seo;
 use App\Http\Support\CartOwners;
 use App\Models\Member;
 use Illuminate\Http\Request;
@@ -26,6 +27,8 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'appUrl' => rtrim((string) config('app.url'), '/'),
             'currentUrl' => $request->url(),
+            // Default sharing metadata by route name; content pages pass their own 'seo' prop.
+            'seo' => fn () => Seo::forRoute($request->route()?->getName())->toArray(),
             'community' => fn () => app(GetCommunityLinks::class)->execute(),
             // Only what the header needs about the signed-in member: never the real name or e-mail.
             'auth' => fn () => ['member' => $this->member($request)],

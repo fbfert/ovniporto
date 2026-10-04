@@ -45,7 +45,7 @@ function EmptyDiary() {
 export default function Diary({ posts }: { posts: DiaryPostCard[] }) {
     return (
         <>
-            <SeoHead title={copy.title} description={copy.description} />
+            <SeoHead />
             <PageCover eyebrow={copy.eyebrow} title={copy.title} />
 
             <Section tone="light">

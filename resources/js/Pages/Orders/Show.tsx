@@ -55,7 +55,7 @@ export default function Show({ order, payUrl }: { order: Order; payUrl: string |
     const timeline = order.events.filter((e) => e.from !== e.to);
     return (
         <>
-            <SeoHead title={copy.title(order.number)} />
+            <SeoHead />
             <Section tone="dark" pattern="stars" innerClassName="pt-32! sm:pt-36!">
                 <div className="mx-auto max-w-4xl">
                     <Eyebrow tone="dark">{copy.eyebrow}</Eyebrow>

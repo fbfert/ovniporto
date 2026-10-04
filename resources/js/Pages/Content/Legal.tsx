@@ -23,7 +23,7 @@ export default function Legal({ kind, html, toc, updatedAt, draft }: Props) {
 
     return (
         <>
-            <SeoHead title={page.title} description={page.description} />
+            <SeoHead />
             <PageCover eyebrow={page.eyebrow} title={page.title}>
                 {updatedAt && <p className="mt-6 text-sm text-moonlight/70">{copy.updated(longDate(updatedAt))}</p>}
             </PageCover>

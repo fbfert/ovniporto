@@ -12,6 +12,7 @@ Ver proposal.md. O `SeoHead` básico vem de `public-layout`; aqui ele ganha dado
 
 ## Decisions
 
+- **Metadados nascem no servidor.** Cada controller entrega um objeto `Seo` (título, descrição, imagem, tipo, JSON-LD) junto da página Inertia. O `app.blade.php` imprime as tags no `<head>` a partir dele, então a prévia existe mesmo com o SSR fora do ar e os testes Pest conferem o HTML real. O `SeoHead` do React só lê essa prop para manter o `<head>` certo na navegação pelo cliente. Textos de SEO das páginas fixas ficam em `lang/pt_BR/seo.php`; títulos visíveis continuam no `pt-BR.ts`.
 - **Gerador de OG atrás de interface** (`OgImageRenderer`) no Domain; implementação inicial com biblioteca de imagem no servidor (sem navegador headless, mais leve na VPS). Cache em disco por chave de conteúdo + versão; eventos de edição apagam a entrada.
 - **Sitemap gerado por comando agendado** e servido estático, a partir das mesmas consultas "publicados" de cada módulo.
 - **JSON-LD montado no servidor** a partir dos Resources públicos, sem campos privados.
