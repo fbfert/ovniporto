@@ -22,7 +22,8 @@ interface Meteor {
 }
 
 const BASE_COUNT: Record<Density, number> = { low: 90, medium: 160 };
-const FRAME_MS = 1000 / 30;
+/** Twinkles are slow: 24 fps looks the same as 60 and leaves the main thread to the page. */
+const FRAME_MS = 1000 / 24;
 const MAX_PARALLAX = 12;
 const METEOR_MS = 750;
 const MOONLIGHT = '244,245,232';
@@ -128,6 +129,11 @@ export function Starfield({
                 const twinkle = reduced ? 1 : 0.62 + 0.38 * Math.sin(time * star.speed + star.phase);
                 const y = star.y * height + offset * (star.layer + 1) * 0.5;
                 ctx.fillStyle = `rgba(${star.tint},${(star.alpha * twinkle).toFixed(3)})`;
+                if (star.r <= 1) {
+                    // At a pixel or less a square reads as a dot, and costs a fraction of a path.
+                    ctx.fillRect(star.x * width - star.r, y - star.r, star.r * 2, star.r * 2);
+                    continue;
+                }
                 ctx.beginPath();
                 ctx.arc(star.x * width, y, star.r, 0, Math.PI * 2);
                 ctx.fill();

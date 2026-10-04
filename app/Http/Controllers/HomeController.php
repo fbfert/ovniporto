@@ -11,6 +11,6 @@ class HomeController extends Controller
 {
     public function __invoke(GetHomeData $getHomeData, ContentSeo $seo): Response
     {
-        return Inertia::render('Home', [...$getHomeData->execute(),'seo' => $seo->home()->toArray()]);
+        return Inertia::render('Home', [...$getHomeData->execute(), 'seo' => $seo->home()->toArray()]);
     }
 }

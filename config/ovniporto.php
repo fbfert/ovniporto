@@ -7,6 +7,10 @@ return [
         'lng' => -50.21841,
     ],
 
+    // Where Laravel looks for Vite's dev-server "hot" file. The e2e suite points it at a file that never
+    // exists, so it always tests the built assets even while `npm run dev` runs on the same machine.
+    'vite_hot_file' => env('VITE_HOT_FILE'),
+
     // "nominatim" (OpenStreetMap, cached) or "offline" (no network: e2e suite, offline development).
     'geocoder' => env('GEOCODER', 'nominatim'),
 

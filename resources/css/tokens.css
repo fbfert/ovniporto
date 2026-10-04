@@ -63,13 +63,13 @@
         }
     }
 
+    /* Visible from the first frame (only scale and turn): the cover's sticker is the page's
+       largest element, and an entrance from opacity 0 would hold back its paint (LCP). */
     @keyframes seal-in {
         from {
-            opacity: 0;
-            transform: scale(0.8) rotate(-8deg);
+            transform: scale(0.86) rotate(-8deg);
         }
         to {
-            opacity: 1;
             transform: scale(1) rotate(0deg);
         }
     }

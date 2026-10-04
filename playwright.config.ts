@@ -24,7 +24,20 @@ export default defineConfig({
         trace: 'retain-on-failure',
         reducedMotion: 'reduce',
     },
-    projects: [{ name: 'mobile', use: { ...devices['Pixel 7'], viewport: { width: 390, height: 844 } } }],
+    projects: [
+        // First, on the untouched seed: the flows below approve reports and change what the home shows.
+        {
+            name: 'visual',
+            testMatch: /visual\.spec\.ts/,
+            use: { ...devices['Pixel 7'], viewport: { width: 390, height: 844 } },
+        },
+        {
+            name: 'mobile',
+            testIgnore: /visual\.spec\.ts/,
+            dependencies: ['visual'],
+            use: { ...devices['Pixel 7'], viewport: { width: 390, height: 844 } },
+        },
+    ],
     webServer: {
         // Laravel's router script expects to run from public/ (what `artisan serve` does).
         command: `php -S 127.0.0.1:${E2E_PORT} ../vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php`,

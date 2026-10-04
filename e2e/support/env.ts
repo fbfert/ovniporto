@@ -25,4 +25,6 @@ export const E2E_ENV: Record<string, string> = {
     PAYPAL_CLIENT_ID: '',
     MELHOR_ENVIO_TOKEN: '',
     GEOCODER: 'offline',
+    // Always the built assets, even if `npm run dev` is running (it writes public/hot).
+    VITE_HOT_FILE: resolve('storage/e2e-no-hot'),
 };

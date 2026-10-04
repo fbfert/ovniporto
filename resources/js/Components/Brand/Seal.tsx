@@ -69,7 +69,8 @@ export function Seal({
                 />
             )}
             <span className="relative block h-full w-full rounded-full shadow-[0_18px_50px_-18px_rgb(6_17_33/0.8)]">
-                <SealArt sizes={imageSizes[size]} priority={size === 'lg'} />
+                {/* The header (sm) and cover (lg) seals are on the first screen: never lazy. */}
+                <SealArt sizes={imageSizes[size]} priority={size !== 'md'} />
             </span>
         </span>
     );

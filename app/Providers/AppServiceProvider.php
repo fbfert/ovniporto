@@ -17,6 +17,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,6 +34,14 @@ class AppServiceProvider extends ServiceProvider
 
         // Nominatim's usage policy: one request per second, at most.
         RateLimiter::for('geocoder', fn () => Limit::perSecond(1));
+
+        // Pages arrive rendered by SSR: on 4G the JS module preloads (~200 kB, high priority) only
+        // compete with the CSS and fonts the first paint needs. Without them the JS loads right after,
+        // one round trip later, while the page is already readable.
+        Vite::usePreloadTagAttributes(fn (string $src, string $url) => str_ends_with($url, '.js') ? false : []);
+        if (filled(config('ovniporto.vite_hot_file'))) {
+            Vite::useHotFile((string) config('ovniporto.vite_hot_file'));
+        }
 
         // Everything the home shows: a change to any of these makes the cached home stale.
         foreach (self::HOME_MODELS as $model) {
