@@ -40,6 +40,8 @@ services:
       - "${APP_PORT:-8080}:80"
     volumes:
       - storage-data:/var/www/html/storage:ro
+      # Access logs survive rebuilds, so the 6-month rotation (docker/nginx/logrotate.conf) is what ends them.
+      - nginx-logs:/var/log/nginx
     depends_on:
       - app
     restart: unless-stopped
@@ -156,3 +158,4 @@ volumes:
   redis-data:
   storage-data:
   umami-data:
+  nginx-logs:

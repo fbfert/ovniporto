@@ -64,12 +64,12 @@ it('shows the rules and the community channels', function () {
     );
 });
 
-it('marks privacy as a draft with the 9 topics', function () {
+it('marks privacy as a draft with the 9 topics, after "O que fazemos na prática"', function () {
     $this->get('/privacidade')->assertInertia(fn (Assert $page) => $page
         ->where('kind', 'privacy')
         ->where('draft', true)
         ->where('toc', fn ($toc) => collect($toc)->pluck('title')->all() === [
-            'Dados coletados', 'Finalidades', 'Bases legais', 'Compartilhamento', 'Retenção',
+            'O que fazemos na prática', 'Dados coletados', 'Finalidades', 'Bases legais', 'Compartilhamento', 'Retenção',
             'Direitos do titular', 'Contato do encarregado', 'Cookies', 'Alterações',
         ])
         ->where('html', fn (string $html) => str_contains($html, 'PayPal') && str_contains($html, 'Melhor Envio') && str_contains($html, 'Google'))

@@ -211,6 +211,7 @@ export const t = {
         draftLead: 'Nada aqui é a versão final. A estrutura de tópicos está pronta para ele escrever.',
         updated: (date: string) => `Atualizado em ${date}`,
         toc: 'Nesta página',
+        practicesNote: 'Isto já vale hoje, mesmo com o texto abaixo em rascunho.',
     },
     placePage: {
         eyebrow: 'Ao lado da Hospedaria Vila das Pedras',

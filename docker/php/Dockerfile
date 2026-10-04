@@ -97,6 +97,12 @@ CMD ["php-fpm"]
 # 5. web: nginx with the compiled public/ directory baked in
 # ---------------------------------------------------------------------------
 FROM nginx:1.27-alpine AS web
+# Real log files (the image links them to stdout) rotated by logrotate: 6 months at most.
+RUN apk add --no-cache logrotate \
+    && rm -f /var/log/nginx/access.log /var/log/nginx/error.log \
+    && touch /var/log/nginx/access.log /var/log/nginx/error.log
+COPY --chmod=644 docker/nginx/logrotate.conf /etc/logrotate.d/nginx
+COPY --chmod=755 docker/nginx/40-start-crond.sh /docker-entrypoint.d/40-start-crond.sh
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY public /var/www/html/public
 COPY --from=assets /app/public/build /var/www/html/public/build

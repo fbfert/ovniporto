@@ -19,6 +19,6 @@
 
 ## 4. Transparência e rastreamento
 
-- [ ] 4.1 Gerar seção "O que fazemos na prática" em `/privacidade` a partir da lista de garantias, verificado por teste de feature
-- [ ] 4.2 Configurar logrotate de 6 meses no container web, verificado por `logrotate -d` no container mostrando a política
-- [ ] 4.3 Escrever teste que carrega a home e confere só cookies de sessão e XSRF, verificado por `php artisan test` passando
+- [x] 4.1 Gerar seção "O que fazemos na prática" em `/privacidade` a partir da lista de garantias, verificado por teste de feature
+- [x] 4.2 Configurar logrotate de 6 meses no container web, verificado por `logrotate -d` no container mostrando a política
+- [x] 4.3 Escrever teste que carrega a home e confere só cookies de sessão e XSRF, verificado por `php artisan test` passando

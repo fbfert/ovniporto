@@ -3,6 +3,7 @@
 namespace App\Application\Content\UseCases;
 
 use App\Domain\Content\Contracts\ContentBlockRepository;
+use App\Domain\Privacy\Contracts\PrivacyPractices;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 
@@ -15,12 +16,20 @@ final readonly class GetLegalPage
 {
     public const KINDS = ['privacy', 'terms'];
 
+    public const PRACTICES_ANCHOR = 'o-que-fazemos-na-pratica';
+
     public function __construct(
         private ContentBlockRepository $blocks,
         private RenderContentBlocks $render,
+        private PrivacyPractices $practices,
     ) {}
 
-    /** @return array{html: string, toc: list<array{id: string, title: string}>, updatedAt: ?string, draft: bool} */
+    /**
+     * The privacy page also gets "O que fazemos na prática", first in the index:
+     * guarantees from the code, valid even while the legal text is a draft.
+     *
+     * @return array{html: string, toc: list<array{id: string, title: string}>, updatedAt: ?string, draft: bool, practices: ?array{title: string, items: list<string>}}
+     */
     public function execute(string $kind): array
     {
         if (! in_array($kind, self::KINDS, true)) {
@@ -29,12 +38,17 @@ final readonly class GetLegalPage
 
         $values = $this->blocks->values(["{$kind}_body", "{$kind}_final", "{$kind}_updated_at"]);
         [$html, $toc] = $this->anchorHeadings($this->render->render($values["{$kind}_body"]) ?? '');
+        $practices = $kind === 'privacy' ? ['title' => $this->practices->title(), 'items' => $this->practices->all()] : null;
+        if ($practices !== null) {
+            array_unshift($toc, ['id' => self::PRACTICES_ANCHOR, 'title' => $practices['title']]);
+        }
 
         return [
             'html' => $html,
             'toc' => $toc,
             'updatedAt' => blank($values["{$kind}_updated_at"]) ? null : $values["{$kind}_updated_at"],
             'draft' => blank($values["{$kind}_final"]),
+            'practices' => $practices,
         ];
     }
 

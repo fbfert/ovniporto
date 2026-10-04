@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { PageCover } from '@/Components/Content/PageCover';
 import { Prose } from '@/Components/Content/Prose';
-import { StampIcon } from '@/Components/Icons';
+import { BeamIcon, StampIcon } from '@/Components/Icons';
 import { SeoHead } from '@/Components/Layout/SeoHead';
 import { Section } from '@/Components/Ui/Section';
 import { longDate, t } from '@/i18n/pt-BR';
@@ -15,10 +15,38 @@ interface Props {
     toc: { id: string; title: string }[];
     updatedAt: string | null;
     draft: boolean;
+    practices: { title: string; items: string[] } | null;
+}
+
+/** "O que fazemos na prática": guarantees built from the code, so they hold even while the legal text is a draft. */
+function Practices({ title, items, draft }: { title: string; items: string[]; draft: boolean }) {
+    return (
+        <section
+            id="o-que-fazemos-na-pratica"
+            aria-labelledby="o-que-fazemos-na-pratica-titulo"
+            className="mb-16 scroll-mt-28"
+        >
+            <h2
+                id="o-que-fazemos-na-pratica-titulo"
+                className="font-display text-[clamp(1.3rem,1rem+1.2vw,1.8rem)] leading-tight font-bold tracking-[0.04em] uppercase"
+            >
+                {title}
+            </h2>
+            {draft && <p className="mt-2 font-script text-xl text-horizon">{copy.practicesNote}</p>}
+            <ul className="mt-6 max-w-[68ch] divide-y divide-night/10 border-y border-night/10">
+                {items.map((item) => (
+                    <li key={item} className="flex gap-4 py-4 leading-relaxed text-night/85">
+                        <BeamIcon size="1.25rem" className="mt-0.5 shrink-0 text-beam" />
+                        <span>{item}</span>
+                    </li>
+                ))}
+            </ul>
+        </section>
+    );
 }
 
 /** Long reading page with a fixed index on desktop. The draft notice stays until the text is final. */
-export default function Legal({ kind, html, toc, updatedAt, draft }: Props) {
+export default function Legal({ kind, html, toc, updatedAt, draft, practices }: Props) {
     const page = copy[kind];
 
     return (
@@ -64,7 +92,10 @@ export default function Legal({ kind, html, toc, updatedAt, draft }: Props) {
                             </ol>
                         </nav>
                     )}
-                    <Prose html={html} className="text-night/85" />
+                    <div>
+                        {practices && <Practices title={practices.title} items={practices.items} draft={draft} />}
+                        <Prose html={html} className="text-night/85" />
+                    </div>
                 </div>
             </Section>
         </>
