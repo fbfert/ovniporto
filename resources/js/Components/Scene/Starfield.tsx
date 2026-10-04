@@ -166,15 +166,21 @@ export function Starfield({
             if (visible) start();
             else stop();
         });
-        observer.observe(canvas);
-
         const onVisibility = () => (document.hidden ? stop() : start());
-        document.addEventListener('visibilitychange', onVisibility);
-
         const resizeObserver = new ResizeObserver(resize);
-        resizeObserver.observe(canvas);
+
+        // Decoration: the stars wait until the browser is idle, off the path of the first paint.
+        const begin = () => {
+            observer.observe(canvas);
+            resizeObserver.observe(canvas);
+            document.addEventListener('visibilitychange', onVisibility);
+        };
+        const hasIdle = typeof window.requestIdleCallback === 'function';
+        const idle = hasIdle ? window.requestIdleCallback(begin, { timeout: 1500 }) : window.setTimeout(begin, 200);
 
         return () => {
+            if (hasIdle) window.cancelIdleCallback(idle);
+            else window.clearTimeout(idle);
             stop();
             observer.disconnect();
             resizeObserver.disconnect();

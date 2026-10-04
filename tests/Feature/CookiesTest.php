@@ -28,7 +28,7 @@ it('marks the session cookie HttpOnly and SameSite=Lax', function () {
         ->and(strtolower((string) $session->getSameSite()))->toBe('lax');
 });
 
-it('loads no script or stylesheet from a third party besides Google Fonts', function () {
+it('loads no script, stylesheet or font from a third party', function () {
     Mail::fake();
     app()->detectEnvironment(fn () => 'production');
     config(['services.umami.script_url' => 'https://metrica.ovniporto.tars.art.br/script.js', 'services.umami.website_id' => 'x']);
@@ -37,5 +37,5 @@ it('loads no script or stylesheet from a third party besides Google Fonts', func
     preg_match_all('#<(?:script|link)[^>]+(?:src|href)="(https?://[^"]+)"#', $html, $matches);
     $hosts = array_unique(array_map(fn (string $url) => parse_url($url, PHP_URL_HOST), $matches[1]));
 
-    expect(array_diff($hosts, [parse_url((string) config('app.url'), PHP_URL_HOST), 'fonts.googleapis.com', 'fonts.gstatic.com', 'metrica.ovniporto.tars.art.br']))->toBe([]);
+    expect(array_diff($hosts, [parse_url((string) config('app.url'), PHP_URL_HOST), 'metrica.ovniporto.tars.art.br']))->toBe([]);
 });
