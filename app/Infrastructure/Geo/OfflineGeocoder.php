@@ -11,12 +11,13 @@ use App\Domain\Map\Contracts\Geocoder;
  */
 final class OfflineGeocoder implements Geocoder
 {
-    public function cityAt(float $lat, float $lng): ?string
+    public function cityAt(float $lat, float $lng): string
     {
         return 'Lages, SC';
     }
 
-    public function locate(string $address): ?array
+    /** @return array{lat: float, lng: float} */
+    public function locate(string $address): array
     {
         return ['lat' => (float) config('ovniporto.location.lat'), 'lng' => (float) config('ovniporto.location.lng')];
     }
