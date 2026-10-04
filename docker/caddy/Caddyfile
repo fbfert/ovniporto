@@ -1,0 +1,23 @@
+# Used only with `--profile caddy` (docker-compose.prod.yml), when no other proxy owns 80/443.
+# Caddy gets and renews the Let's Encrypt certificates itself and redirects HTTP to HTTPS.
+{
+	email {$ACME_EMAIL}
+}
+
+# www and any other spelling go to the canonical domain, permanently.
+www.{$APP_DOMAIN} {
+	redir https://{$APP_DOMAIN}{uri} permanent
+}
+
+{$APP_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy web:8080
+	header -Server
+}
+
+# The cookieless metric (Umami) on its own subdomain; drop this block if it is not used.
+{$METRIC_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy umami:3000
+	header -Server
+}

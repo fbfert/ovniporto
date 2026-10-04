@@ -34,3 +34,4 @@ Thumbs.db
 
 # Lighthouse JSON reports (heavy; the summary in evidence/lighthouse.md is kept)
 /openspec/changes/polish-performance-a11y/evidence/lighthouse/
+.deploy/
