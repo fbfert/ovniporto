@@ -10,9 +10,9 @@
 
 ## 2. Domínio e casos de uso
 
-- [ ] 2.1 Criar `app/Domain/Origin` com a interface `OriginLibrary` e os value objects `ConfidenceGrade` (A–F e graus compostos como "A/B") e `SourceKind`. Verificar com testes de unidade de parse e rótulo de cada grau e tipo.
-- [ ] 2.2 Implementar `JsonOriginLibrary` em Infrastructure, com validação da forma dos arquivos e cache versionado por `filemtime` (cacheando arrays), e ligá-la no `DomainServiceProvider`. Verificar com teste de unidade: um arquivo malformado gera erro claro, e um arquivo alterado invalida o cache.
-- [ ] 2.3 Implementar os casos de uso `GetOriginHub`, `GetCachiDossier`, `GetAtlas` e `GetAtlasCase`; o último devolve `null` para slug desconhecido e inclui caso anterior e seguinte. Verificar com um teste de unidade por caso de uso.
+- [x] 2.1 Criar `app/Domain/Origin` com a interface `OriginLibrary` e os value objects `ConfidenceGrade` (A–F e graus compostos como "A/B") e `SourceKind`. Verificar com testes de unidade de parse e rótulo de cada grau e tipo.
+- [x] 2.2 Implementar `JsonOriginLibrary` em Infrastructure, com validação da forma dos arquivos e cache versionado por `filemtime` (cacheando arrays), e ligá-la no `DomainServiceProvider`. Verificar com teste de unidade: um arquivo malformado gera erro claro, e um arquivo alterado invalida o cache.
+- [x] 2.3 Implementar os casos de uso `GetOriginHub`, `GetCachiDossier`, `GetAtlas` e `GetAtlasCase`; o último devolve `null` para slug desconhecido e inclui caso anterior e seguinte. Verificar com um teste de unidade por caso de uso.
 
 ## 3. Rotas, renomeação e SEO
 

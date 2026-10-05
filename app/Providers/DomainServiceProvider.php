@@ -29,6 +29,7 @@ use App\Domain\Orders\Contracts\OrderAdminRepository;
 use App\Domain\Orders\Contracts\OrderNotifier;
 use App\Domain\Orders\Contracts\OrderRepository;
 use App\Domain\Orders\Contracts\ProductionDocument;
+use App\Domain\Origin\Contracts\OriginLibrary;
 use App\Domain\Panel\Contracts\DashboardRepository;
 use App\Domain\Payments\Contracts\PaymentGateway;
 use App\Domain\Place\Contracts\ConstructionPostRepository;
@@ -72,6 +73,7 @@ use App\Infrastructure\Members\SightingsContentEraser;
 use App\Infrastructure\Members\SightingsDataSource;
 use App\Infrastructure\Members\WaitlistContentEraser;
 use App\Infrastructure\Members\WaitlistDataSource;
+use App\Infrastructure\Origin\JsonOriginLibrary;
 use App\Infrastructure\Payments\PayPalGateway;
 use App\Infrastructure\Payments\SimulatedPaymentGateway;
 use App\Infrastructure\Payments\UnconfiguredPaymentGateway;
@@ -181,6 +183,7 @@ class DomainServiceProvider extends ServiceProvider
         $this->app->when(BuildMemberExport::class)->needs('$sources')->giveTagged('member.data-sources');
 
         $this->app->singleton(ShippingProvider::class, fn () => $this->shippingProvider());
+        $this->app->singleton(OriginLibrary::class, fn () => new JsonOriginLibrary(resource_path('content/origin')));
         $this->app->singleton(PaymentGateway::class, fn () => $this->paymentGateway());
 
         $this->app->when(ManagePlace::class)->needs('$embedHosts')->give(fn () => (array) config('ovniporto.embed_hosts'));
