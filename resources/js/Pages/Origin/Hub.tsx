@@ -74,7 +74,7 @@ function Relato({ opening }: { opening: string[] | null }) {
                                     imgClassName="h-full w-full object-cover object-[50%_68%]"
                                 />
                                 <Badge tone="horizon" className="absolute bottom-3 left-3">
-                                    {t.relatoSection.illustration}
+                                    {t.concept.illustration}
                                 </Badge>
                             </div>
                         }

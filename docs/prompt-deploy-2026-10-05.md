@@ -1,8 +1,9 @@
 # Prompt para o Claude da VPS: deploy de 05/10/2026
 
 Cole o bloco abaixo no Claude Code rodando na VPS. Ele publica o topo de `main`
-(Cachi como referência, colaboradores do Atlas, menu novo, espaços de /o-lugar e a página
-do relato do carro amarelo).
+(Cachi como referência, colaboradores do Atlas, menu novo, espaços de /o-lugar, a página
+do relato do carro amarelo, a verificação do Google e as novas ilustrações da origem, do
+lugar e do Atlas).
 
 ---
 
@@ -18,9 +19,9 @@ espere meu "ok" antes da próxima.
   Ele busca origin/main, constrói as imagens, sobe, roda as migrações (sempre aditivas),
   aquece os caches, gera o sitemap, reinicia SSR e workers e confere /up. Se /up falhar,
   ele volta sozinho para a versão anterior.
-- Commits desta versão em origin/main: 5ddfce6 "Make Cachi a search reference, add Atlas
-  collaborators and fill the place spaces" e, logo depois, o commit da página do relato
-  do carro amarelo.
+- Commits desta versão em origin/main, do mais antigo ao mais novo: 5ddfce6 (Cachi,
+  colaboradores, espaços), e09f89c (página do relato), 358aaae (arquivo de verificação do
+  Google) e, no topo, o commit das ilustrações do Atlas e da origem.
 - O que muda nesta versão:
   1. /origem/cachi: título e descrição novos, seção "Em poucas palavras", JSON-LD em
      grafo (Article, Place, Person, BreadcrumbList, FAQPage) e lastmod no sitemap.
@@ -36,9 +37,16 @@ espere meu "ok" antes da próxima.
      estiver vazio. A home ganhou o cartão do Ovnipuerto de Cachi e uma seção do carro amarelo.
      As ilustrações do Niva (public/concept/niva-roadside*) vão versionadas no repositório:
      a página usa a vertical de fundo no celular e a horizontal no desktop.
+  7. Arquivo public/google574c2dea281806aa.html para verificar o site no Google Search Console.
+  8. 16 ilustrações novas em public/concept (cerca de 16 MB no total da pasta):
+     - origem: Estrella de la Esperanza, globo do Atlas, casa-cueva e pedras e cordas;
+     - /o-lugar: Hangar e Museu coberto (a migration
+       2026_10_05_140000_fill_place_space_illustrations liga as duas imagens aos espaços,
+       só onde a ilustração ainda está vazia);
+     - Atlas: um cartão-postal ilustrado por caso, na lista e no topo de cada página de caso.
 - Migrations novas: 2026_10_05_000200_create_research_collaborators_table,
-  2026_10_05_120000_fill_place_spaces_from_plan e 2026_10_05_130000_fill_yellow_car_relato
-  (e qualquer outra pendente, como
+  2026_10_05_120000_fill_place_spaces_from_plan, 2026_10_05_130000_fill_yellow_car_relato e
+  2026_10_05_140000_fill_place_space_illustrations (e qualquer outra pendente, como
   2026_10_05_000100_add_avif_to_sighting_photos, se ainda não rodou).
 
 ## Regras
@@ -52,7 +60,7 @@ espere meu "ok" antes da próxima.
 ## Fase 1: Conferência antes (somente leitura)
 
 - `cd /srv/ovniporto && git fetch origin && git log --oneline -3 origin/main`:
-  confirme que o commit da página do relato está no topo e 5ddfce6 logo abaixo.
+  confirme que o commit das ilustrações está no topo, seguido de 358aaae, e09f89c e 5ddfce6.
 - Versão em produção agora: `cat .deploy/current`.
 - Estado dos containers: `docker compose -f docker-compose.prod.yml ps`.
 - Migrations pendentes:
@@ -103,6 +111,15 @@ Rode e mostre o resultado de cada item:
 10c. Ilustrações do Niva servidas: `curl -sI https://ovniporto.tars.art.br/concept/niva-roadside-1600.avif`
     e `curl -sI https://ovniporto.tars.art.br/concept/niva-roadside-tall-800.avif` respondem 200
     com Content-Type image/avif.
+10d. Verificação do Google: `curl -s https://ovniporto.tars.art.br/google574c2dea281806aa.html`
+    mostra "google-site-verification: google574c2dea281806aa.html".
+10e. Ilustrações novas: `curl -sI https://ovniporto.tars.art.br/concept/atlas-ill-green-river-800.avif`,
+    `.../concept/cachi-casa-cueva-800.avif` e `.../concept/hangar-800.avif` respondem 200
+    com image/avif. `curl -s https://ovniporto.tars.art.br/origem/atlas` contém
+    "atlas-ill-st-paul" e "ilustração"; `curl -s https://ovniporto.tars.art.br/o-lugar`
+    contém "/concept/hangar-".
+10f. Espaços com imagem: `App\Models\PlaceSpace::whereNull('concept_image_path')->count()`
+    deve ser 0.
 11. Formulário de colaborador: NÃO envie um formulário real. Só confirme que
     `curl -s -o /dev/null -w '%{http_code}' -X POST https://ovniporto.tars.art.br/colaborar`
     responde 419 (proteção CSRF ativa) e não 404 ou 500.

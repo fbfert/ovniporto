@@ -21,3 +21,19 @@ it('fills an empty description and keeps what the panel edited', function () {
         ->and(PlaceSpace::query()->where('slug', 'lanchonete')->first()->only(['name', 'description']))->toBe(['name' => 'Cantina', 'description' => 'Editado no painel.'])
         ->and(PlaceSpace::query()->count())->toBe(9);
 });
+
+it('gives the hangar and the indoor museum their illustrations, keeping one chosen in the panel', function () {
+    PlaceSpace::query()->whereIn('slug', ['hangar', 'museu-coberto'])->update(['concept_image_path' => null]);
+    PlaceSpace::query()->where('slug', 'museu-coberto')->update(['concept_image_path' => 'concept/painel.webp']);
+
+    (require database_path('migrations/2026_10_05_140000_fill_place_space_illustrations.php'))->up();
+
+    expect(PlaceSpace::query()->where('slug', 'hangar')->value('concept_image_path'))->toBe('hangar')
+        ->and(PlaceSpace::query()->where('slug', 'museu-coberto')->value('concept_image_path'))->toBe('concept/painel.webp');
+});
+
+it('has every planned space illustrated in the concept manifest', function () {
+    $manifest = json_decode((string) file_get_contents(resource_path('js/data/concept.json')), true);
+
+    expect(array_column(require database_path('data/place_spaces.php'), 'concept'))->each(fn ($slug) => $slug->toBeIn(array_keys($manifest)));
+});

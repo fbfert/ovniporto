@@ -87,6 +87,8 @@ export const t = {
     },
     concept: {
         badge: 'conceito',
+        /** A scene of a relato or of another country's place: illustrated, never a photo, never "how it will look". */
+        illustration: 'ilustração',
         alt: {
             cover: 'Ilustração conceitual: a pista circular de pedras à noite, com balizas vermelhas e um disco voador lançando um feixe verde sobre ela.',
             'cover-alt': 'Ilustração conceitual: disco voador sobre a pista circular no campo estrelado da serra.',
@@ -109,6 +111,37 @@ export const t = {
                 'Ilustração do relato: o Niva amarelo parado na beira da estrada molhada, de capô aberto, com um homem olhando o motor sob um feixe de luz branca que desce de um disco entre as araucárias.',
             'niva-roadside-tall':
                 'Ilustração do relato: à noite, na estrada molhada entre araucárias e postes, um feixe de luz branca desce do céu sobre o Niva amarelo de capô aberto.',
+            hangar: 'Ilustração conceitual do hangar: estacionamento de brita na beira do campo, carros parados em fila, balizas vermelhas baixas e uma placa com seta apontando o caminho de pedra.',
+            'museum-indoor':
+                'Ilustração conceitual do museu coberto: sala de madeira e pedra com vitrine, lampião, polaroids de luzes no céu e a maquete da estrela de pedras, com a pista vista pela janela.',
+            'stone-star-night':
+                'Ilustração da Estrella de la Esperanza à noite: a grande estrela de pedras claras no chão árido de Fuerte Alto, vista do alto, com as montanhas e a Via Láctea.',
+            'atlas-globe':
+                'Ilustração: um globo antigo sobre a mesa, com pontos de luz marcando os ovnipuertos do mundo, e a noite pela janela.',
+            'cachi-casa-cueva':
+                'Ilustração da casa-cueva à noite: o poço circular de adobe e o corredor até a porta escura onde Werner dormia, com a estrela de pedras ao fundo.',
+            'werner-stones':
+                'Ilustração: mãos esticando cordas entre pedras no chão árido para riscar os raios de uma estrela, com as montanhas e o céu noturno ao fundo.',
+            'atlas-ill-st-paul':
+                'Ilustração da plataforma de St. Paul: um disco de concreto elevado sobre um pedestal, entre mastros com bandeiras, sob a aurora boreal.',
+            'atlas-ill-angelholm':
+                'Ilustração do memorial de Ängelholm: marcas de concreto no chão de uma clareira e uma pedra memorial entre as faias, ao entardecer.',
+            'atlas-ill-ares':
+                'Ilustração do ovniport de Arès: área gramada com uma estela de pedra e uma marcação circular no chão, entre pinheiros, diante da Bacia de Arcachon.',
+            'atlas-ill-wycliffe-well':
+                'Ilustração de Wycliffe Well abandonado: estátuas de alienígenas desbotadas, posto vazio e plataforma rachada no deserto vermelho, sob a Via Láctea.',
+            'atlas-ill-green-river':
+                'Ilustração do aeroporto de Green River: pista pequena com luzes azuis, biruta, hangar e um avião parado, com os morros planos do Wyoming ao fundo.',
+            'atlas-ill-barra-do-garcas':
+                'Ilustração do Discoporto de Barra do Garças: área circular marcada no alto da Serra Azul, com o rio Araguaia e as luzes da cidade lá embaixo.',
+            'atlas-ill-lajas':
+                'Ilustração de Lajas: uma placa de rota tomada pelo mato na beira de uma estrada rural, com campos vazios e a Sierra Bermeja ao fundo. Nenhuma pista.',
+            'atlas-ill-el-enladrillado':
+                'Ilustração de El Enladrillado: o platô de grandes lajes de pedra nos Andes, com o vulcão Descabezado Grande nevado e a Via Láctea.',
+            'atlas-ill-emilcin':
+                'Ilustração de Emilcin: um pequeno monumento de pedra na beira de uma estrada de terra com bétulas, entre campos arados, ao entardecer.',
+            'atlas-ill-carbondale':
+                'Ilustração de Carbondale em 1974: uma luz brilhando debaixo da água de um lago escuro, com silhuetas de pessoas e um carro de polícia na margem.',
         },
     },
     store: {
@@ -132,7 +165,6 @@ export const t = {
         title: 'O carro amarelo do Julean',
         cta: 'Ler o relato inteiro',
         polaroid: 'O Niva amarelo',
-        illustration: 'ilustração',
         pending: 'Ainda estamos capturando o relato do Julean que foi abduzido.',
         pendingCta: 'Ver a origem',
     },

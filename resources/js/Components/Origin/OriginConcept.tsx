@@ -4,7 +4,7 @@ import { NightSkyArt } from '@/Components/Ui/Polaroid';
 import { Badge } from '@/Components/Ui/Typography';
 import { t } from '@/i18n/pt-BR';
 
-/** Illustrations of /origem still being generated (prompts in docs/ovniporto-ilustracoes-origem.md). */
+/** Illustrated scenes of /origem (prompts in docs/ovniporto-ilustracoes-origem.md); some may still be pending. */
 export const ORIGIN_CONCEPTS = [
     'origin-journey',
     'niva-abduction',
@@ -31,7 +31,7 @@ export function OriginConcept({
     className?: string;
 }) {
     if (hasConcept(slug)) {
-        return <ConceptImage slug={slug} sizes={sizes} className={className} />;
+        return <ConceptImage slug={slug} sizes={sizes} className={className} badge={t.concept.illustration} />;
     }
 
     return (
@@ -41,7 +41,7 @@ export function OriginConcept({
                 {t.origin.conceptPending}
             </p>
             <Badge tone="horizon" className="absolute top-3 right-3">
-                {t.concept.badge}
+                {t.concept.illustration}
             </Badge>
         </div>
     );

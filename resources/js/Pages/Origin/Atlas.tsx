@@ -4,6 +4,7 @@ import { PageCover } from '@/Components/Content/PageCover';
 import { SeoHead } from '@/Components/Layout/SeoHead';
 import { LazyMap, OVNIPORTO_COORDS, type MapMarker } from '@/Components/Map/LazyMap';
 import { CollaboratorForm } from '@/Components/Origin/CollaboratorForm';
+import { AtlasPostcard } from '@/Components/Origin/AtlasPostcard';
 import { CreditedImage } from '@/Components/Origin/CreditedImage';
 import { ConfidenceSeal } from '@/Components/Origin/SourceBadge';
 import { Timeline } from '@/Components/Origin/Timeline';
@@ -66,6 +67,11 @@ function Stamp({ item }: { item: AtlasCaseSummary }) {
             href={`/origem/atlas/${item.slug}`}
             className="group/stamp flex h-full flex-col rounded-[22px] border-2 border-dashed border-night/20 bg-moonlight p-5 transition-colors duration-200 hover:border-horizon"
         >
+            <AtlasPostcard
+                caseSlug={item.slug}
+                sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
+                className="mb-5 rounded-[14px]"
+            />
             <div className="flex items-start justify-between gap-4">
                 <span className="font-display text-[0.72rem] font-bold tracking-[0.08em] text-horizon uppercase">
                     {copy.caseNumber(item.number)}

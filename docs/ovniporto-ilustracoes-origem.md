@@ -81,12 +81,15 @@ Um globo terrestre antigo, de papel e latão, sobre uma mesa de madeira à noite
 
 - **Onde:** capítulo "A casa-cueva" em `/origem/cachi`.
 - **Arquivo:** `Casa-cueva.png` → slug `cachi-casa-cueva`
-- **Formato:** 4:3.
+- **Formato:** 4:3 horizontal.
+- **Referências (anexe ao gerador, não vão para o site):** `C:\Users\Dell\Dropbox\OVNIPORTO\casacueva\` — `casacueva1.jfif`, `vivienda-construida-para.jpg` e `casa cueva vista do ceu.jfif`. São fotos de terceiros sem licença: servem só para a forma da construção. A ilustração precisa reinterpretar a cena (outra hora, outro ângulo, pintura), nunca copiar uma das fotos.
 
-Corte lateral do terreno: uma cavidade redonda escavada no chão árido, com uns 3 metros de diâmetro, um colchão simples e uma lamparina acesa dentro. Na superfície, as pontas da estrela de pedras e o céu noturno. Ninguém visível. Sensação de abrigo e de mistério.
+**Como a casa-cueva é de verdade (das referências):** uma construção semienterrada de adobe, cor de terra clara. Um poço circular com paredes curvas de tijolos de adobe, com uns 2,5 m de profundidade e 3 m de diâmetro, ligado por um corredor estreito entre muros a uma porta escura e retangular. Sobre a porta, uma laje redonda e baixa, como um tampo. Num dos muros, um nicho em forma de triângulo. Em volta, chão pedregoso, montes de pedra solta, arbustos secos e algumas árvores ralas. Ao fundo, casas baixas e brancas, as linhas de pedras brancas das estrelas e as montanhas áridas de Fuerte Alto. Vista do alto, a casa-cueva fica junto às figuras de pedra, com o poço redondo e o corredor formando um desenho próprio.
+
+**A cena:** noite com a Via Láctea, vista de um ângulo alto e diagonal. O poço circular e o corredor de adobe em primeiro plano, a porta escura no centro, com uma luz quente e fraca de lamparina vindo lá de dentro, como se alguém dormisse ali. Ao fundo, as linhas brancas da estrela de pedras sob o luar e as montanhas recortadas no céu. Ninguém visível. Sensação de abrigo e de mistério: "o homem que desenhava uma mensagem para o céu passou a viver sob a terra".
 
 **Prompt pronto (inglês):**
-> Realistic painterly cross-section illustration at night, a round underground cavity about 3 meters wide dug into arid ground in northern Argentina, a simple mattress and a lit oil lamp inside, on the surface the tips of a star made of pale stones and a starry sky in deep navy (#061121) with lilac horizon (#494383), nobody visible, sheltering and mysterious mood, 4:3, no text.
+> Realistic painterly illustration at night in Fuerte Alto, Cachi, northern Argentina, seen from a high diagonal angle: a half-buried adobe structure the color of pale earth, a circular sunken pit about 3 meters wide with curved adobe-brick walls, connected by a narrow corridor between low adobe walls to a dark rectangular doorway under a low round slab, a small triangle-shaped niche in one wall, a faint warm oil-lamp glow coming from inside the doorway, stony arid ground with loose stone piles and dry shrubs, lines of white stones forming star shapes glowing softly under moonlight in the background, arid mountains silhouetted against a Milky Way sky in deep navy (#061121) with a lilac horizon (#494383), nobody visible, sheltering and mysterious mood, 4:3, no text.
 
 ---
 

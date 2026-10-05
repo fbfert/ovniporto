@@ -1,5 +1,6 @@
 <?php
 
+use App\Domain\Origin\Contracts\OriginLibrary;
 use Illuminate\Support\Facades\File;
 
 function makeOriginPhoto(string $path, int $width, int $height): void
@@ -47,4 +48,13 @@ it('fails when a credited image is missing', function () {
     makeOriginPhoto("{$this->dir}/src/aereo.jpg", 900, 600);
 
     importOrigin($this)->assertFailed()->expectsOutputToContain('st-paul.jpg');
+});
+
+it('has an illustrated postcard for every Atlas case and every origin scene in use', function () {
+    $manifest = array_keys(json_decode((string) file_get_contents(resource_path('js/data/concept.json')), true));
+    $shared = ['cachi' => 'stone-star-night', 'lages' => 'overview'];
+    $postcards = array_map(fn (string $slug) => $shared[$slug] ?? "atlas-ill-{$slug}", app(OriginLibrary::class)->caseSlugs());
+
+    expect($postcards)->each(fn ($slug) => $slug->toBeIn($manifest))
+        ->and(['stone-star-night', 'atlas-globe', 'cachi-casa-cueva', 'werner-stones'])->each(fn ($slug) => $slug->toBeIn($manifest));
 });

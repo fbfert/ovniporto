@@ -69,7 +69,7 @@ export function RelatoSection({ opening }: { opening: string[] | null }) {
                                     imgClassName="h-full w-full object-cover object-[38%_50%]"
                                 />
                                 <Badge tone="horizon" className="absolute bottom-3 left-3">
-                                    {copy.illustration}
+                                    {t.concept.illustration}
                                 </Badge>
                             </div>
                         }

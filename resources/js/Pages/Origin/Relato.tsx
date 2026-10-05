@@ -70,7 +70,7 @@ function Cover() {
                 </p>
             </div>
             <Badge tone="horizon" className="absolute top-[5.5rem] right-4 sm:right-6">
-                {t.relatoSection.illustration}
+                {t.concept.illustration}
             </Badge>
         </section>
     );

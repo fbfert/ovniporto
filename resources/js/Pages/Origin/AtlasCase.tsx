@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import type { ReactNode } from 'react';
 import { SeoHead } from '@/Components/Layout/SeoHead';
+import { AtlasPostcard } from '@/Components/Origin/AtlasPostcard';
 import { CreditedImage } from '@/Components/Origin/CreditedImage';
 import { ConfidenceSeal } from '@/Components/Origin/SourceBadge';
 import { Timeline } from '@/Components/Origin/Timeline';
@@ -69,8 +70,11 @@ export default function AtlasCase({ case: item, image, previous, next, total }: 
                 <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
                     <div>
                         <Eyebrow>{item.country}</Eyebrow>
-                        <div className="mt-3 flex items-start gap-5">
-                            <Display as="h1" className="flex-1 text-[clamp(1.9rem,1rem+3.6vw,3.8rem)]! text-balance">
+                        <div className="mt-3 flex flex-col items-start gap-5">
+                            <Display
+                                as="h1"
+                                className="w-full min-w-0 text-[clamp(1.5rem,0.6rem+2.4vw,2.6rem)]! text-balance [overflow-wrap:anywhere]"
+                            >
                                 {item.name}
                             </Display>
                             <ConfidenceSeal seal={item.seal} />
@@ -95,14 +99,21 @@ export default function AtlasCase({ case: item, image, previous, next, total }: 
                             </div>
                         )}
                     </div>
-                    {image && (
-                        <CreditedImage
-                            credit={image}
-                            caption={item.image?.caption}
-                            priority
+                    <div className="flex flex-col gap-8">
+                        <AtlasPostcard
+                            caseSlug={item.slug}
                             sizes="(min-width: 1024px) 40rem, 92vw"
+                            className="rounded-[18px]"
+                            priority
                         />
-                    )}
+                        {image && (
+                            <CreditedImage
+                                credit={image}
+                                caption={item.image?.caption}
+                                sizes="(min-width: 1024px) 40rem, 92vw"
+                            />
+                        )}
+                    </div>
                 </div>
             </Section>
 

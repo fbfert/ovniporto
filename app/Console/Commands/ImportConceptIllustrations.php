@@ -28,6 +28,23 @@ class ImportConceptIllustrations extends Command
         // The relato of the yellow car (Dropbox OVNIPORTO root, not the Ilustrações folder).
         'nivaamarelo.png' => 'niva-roadside',
         'nivaamarelo2.png' => 'niva-roadside-tall',
+        // Origin scenes, the two spaces still missing and the Atlas postcards (docs/ovniporto-imagens-pendentes.md).
+        'Estrella de la Esperanza.png' => 'stone-star-night',
+        'Atlas dos Ovnipuertos.png' => 'atlas-globe',
+        'Casa-cueva.png' => 'cachi-casa-cueva',
+        'Pedras e cordas.png' => 'werner-stones',
+        'Hangar.png' => 'hangar',
+        'Museu coberto.png' => 'museum-indoor',
+        'Atlas St Paul.png' => 'atlas-ill-st-paul',
+        'Atlas Angelholm.png' => 'atlas-ill-angelholm',
+        'Atlas Ares.png' => 'atlas-ill-ares',
+        'Atlas Wycliffe Well.png' => 'atlas-ill-wycliffe-well',
+        'Atlas Green River.png' => 'atlas-ill-green-river',
+        'Atlas Barra do Garcas.png' => 'atlas-ill-barra-do-garcas',
+        'Atlas Lajas.png' => 'atlas-ill-lajas',
+        'Atlas El Enladrillado.png' => 'atlas-ill-el-enladrillado',
+        'Atlas Emilcin.png' => 'atlas-ill-emilcin',
+        'Atlas Carbondale.png' => 'atlas-ill-carbondale',
     ];
 
     public function handle(): int

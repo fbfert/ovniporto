@@ -37,7 +37,7 @@ return [
         'role' => 'A chegada de carro.',
         'description' => 'Estacionamento para naves terrestres, só com sinalização.',
         'phase' => 1,
-        'concept' => null,
+        'concept' => 'hangar',
     ],
     [
         'slug' => 'museu-ao-ar-livre',
@@ -77,6 +77,6 @@ return [
         'role' => 'O acervo que precisa de abrigo.',
         'description' => 'Objetos, fotos e relatos impressos, de Cachi a Lages. Pode ficar na base da torre.',
         'phase' => 4,
-        'concept' => null,
+        'concept' => 'museum-indoor',
     ],
 ];

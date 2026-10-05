@@ -12,8 +12,19 @@ describe('OriginConcept', () => {
             render(<OriginConcept slug={slug} />);
 
             expect(screen.getByRole('img', { name: 'Conceito em produção' })).toBeTruthy();
-            expect(screen.getByText('conceito')).toBeTruthy();
+            expect(screen.getByText('ilustração')).toBeTruthy();
             expect(document.querySelector('picture')).toBeNull();
+        },
+    );
+
+    it.each(ORIGIN_CONCEPTS.filter((slug) => hasConcept(slug)))(
+        'shows %s as an illustration, never as a concept',
+        (slug) => {
+            render(<OriginConcept slug={slug} />);
+
+            expect(screen.getByText('ilustração')).toBeTruthy();
+            expect(screen.queryByText('conceito')).toBeNull();
+            expect(document.querySelector('picture')).not.toBeNull();
         },
     );
 });

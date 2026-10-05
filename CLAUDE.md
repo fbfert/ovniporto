@@ -75,6 +75,7 @@ Mobile first: tudo é desenhado primeiro para 390px de largura.
 - O relato do carro amarelo: o texto enviado pelo Julean está em /origem/relato (bloco `legend_body`, editável no painel); a home e /origem mostram só a abertura e levam para lá. Se o bloco ficar vazio, volta o aviso "Ainda estamos capturando o relato do Julean que foi abduzido." com o Avise-me.
 - A origem (/origem, /origem/cachi, /origem/atlas): conteúdo documentado em resources/content/origin/*.json. Fotos de terceiros só com licença aberta e crédito visível; mapas de localização sempre identificados como mapa; cada informação com o tipo de fonte ou o grau de confiança (A–F) do dossiê.
 - Fotos reais do terreno, mapa 3D, ilustrações: placeholders com o aviso "conceito".
+- Toda ilustração leva selo visível: "conceito" quando mostra como o OVNIPORTO vai ficar; "ilustração" quando reconstitui um relato, a origem ou um lugar do Atlas. Fotos de terceiros sem licença servem só de referência para ilustrar, nunca são publicadas.
 - Parceiros da região: lista vazia com estado vazio bonito.
 - Orçamento da obra: "em planejamento".
 

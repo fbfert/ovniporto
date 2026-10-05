@@ -128,5 +128,165 @@
             800
         ],
         "lqip": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4ILQAAADQBQCdASoUACQAPu1uslKppiSipWmZMB2JYwDKACMT+ujYsy86VfUPtzIdQukSiw9RyhahwBjAAP7zIFTuYtKHrxOzMM2n2XFyTM1qPzKMy41trCCzchkUaKhCG3l91QzZ3ZUOXs2sk9H7WH9jkM0lkmCxIPLxWchD7Dcudpy+rDl233/QTi+ch2+a79hxCywrq4GQeaUxIHF9QrLf04CY+CfF8YFAvgrfBpbcNfvBE3UAAAA="
+    },
+    "stone-star-night": {
+        "width": 1448,
+        "height": 1086,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAwCdASoUAA8APu1kqU2ppaOiMAgBMB2JYwCdACHpSMht3bIoLs/oAP7pUXNuuT7myLm/oiCI3JG65B6nS/W6+cvmZrRG+1kAJijYwEZTG8KJvuCPAAAA"
+    },
+    "atlas-globe": {
+        "width": 1586,
+        "height": 992,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAABwAwCdASoUAA0APu1iqU2ppaQiMAgBMB2JY0wAUI8U/23lOsQA/u+lyJ6YyqXUVlYzmkBq1yL/PQeazqj4nTsQpzfzOdyvVVN0ZrA42LwAAA=="
+    },
+    "cachi-casa-cueva": {
+        "width": 1586,
+        "height": 992,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAADwAwCdASoUAA0APu1iqU2ppaQiMAgBMB2JZQCsINiDFqQ+cq5aeLyAAP7sQWEbkDDNuURx0ADxDt291cCS0dFndqbZH99NfWbl+zWW0h1PpVHnYMLo63MQd6zy4gRRKZZ6BHVp+t2CapAAAAA="
+    },
+    "werner-stones": {
+        "width": 1586,
+        "height": 992,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAADwAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JQBdgA2kIhEJW0Kl2JNDgAP7uovOB7Ts5PeEDnMhcjZXcnymUPJ4WG8t5rn+B8/ObYnTSIDq7jvAud1eZns2HClO8AYCAEun/lGY9dgA="
+    },
+    "hangar": {
+        "width": 1586,
+        "height": 992,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADQAwCdASoUAA0APu1kqk4ppaQiMAgBMB2JQBOkFThgaydD3T5wowAA/u6Hy4Jv2uBMdvXFZ//CCRXmc3B0/TzAXpl4QD87s5WNyJ0z0aj7AAAA"
+    },
+    "museum-indoor": {
+        "width": 1586,
+        "height": 992,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAADQAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JZACdH8ACbaSfSBuJJMAA/s2VAAiQOvzyEdKBid4uXdr8iOox048Q1jAONZlOXrYw+WbKv6F8HXcVAnoIfVxZBnrEMBTyHJxyu2LsGMWa20CaiqZicSM9TwtyQtlMPAAAAA=="
+    },
+    "atlas-ill-st-paul": {
+        "width": 1448,
+        "height": 1086,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAwCdASoUAA8APu1iqk2ppaQiMAgBMB2JYwCw7CHan6HCvKQ9SH+OAP7yohUIkm0sba9vsfLfIV6nOX4l4nYJtjSj9SJ2tO4JAlnyyYONhygDtwzQUgyHwAA="
+    },
+    "atlas-ill-angelholm": {
+        "width": 1448,
+        "height": 1086,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACwAwCdASoUAA8APu1iqU2ppaQiMAgBMB2JYwAAW/FfrmKz9BtTgAD+6fYdb6N6culf3Xx4g6YJmTPvj+M/VnF57AgAAA=="
+    },
+    "atlas-ill-ares": {
+        "width": 1448,
+        "height": 1086,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAACQAwCdASoUAA8APu1iqk2ppaQiMAgBMB2JS7AIwAJxuF/2tnTAAP7vX9oXyAzMRPTCFEXtamxcyzFKhRW+BGN9VYmi5fcEcCyIuiVhzCU+KMAgmUOiO21hA5fCp9iAAAA="
+    },
+    "atlas-ill-wycliffe-well": {
+        "width": 1448,
+        "height": 1086,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAADwAwCdASoUAA8APu1iqU2ppaQiMAgBMB2JQBadA3adOA6JAkQUK5wAAP7vTBoiZMd7oMjEuun+KeIkYTOVhskJUynkPLPwsrxy6bDHAGnd86gXIWW0fJslvZYQqmkU2AA="
+    },
+    "atlas-ill-green-river": {
+        "width": 1448,
+        "height": 1086,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAACwAwCdASoUAA8APu1iqU2ppaOiMAgBMB2JQBOgA9DY94qyo8+qwAD+7qG4YYDSghZ7abDa5TCBfUGya6rx8iIwDKaItIJ5AOXYAA=="
+    },
+    "atlas-ill-barra-do-garcas": {
+        "width": 1448,
+        "height": 1086,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAACQAwCdASoUAA8APu1iqU2ppaQiMAgBMB2JQBOgBDvdlYe9sDdAAP7r5Mc0i05xKLHhnJ9vgNynHPXOHBr1oVf0t1prPKlQQ9SpcdFkAZ8LDwywo/MAAA=="
+    },
+    "atlas-ill-lajas": {
+        "width": 1448,
+        "height": 1086,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAABQAwCdASoUAA8APu1iqU2ppaQiMAgBMB2JQBdgBDmkSUI5AAD+8NNK+h3Ab/SznAXvfxt6s11ldxa6YI7V7bJq624eHi1AkgAAAA=="
+    },
+    "atlas-ill-el-enladrillado": {
+        "width": 1448,
+        "height": 1086,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADQAwCdASoUAA8APu1iqU2ppaOiMAgBMB2JYwCsACK5t0JqAotYHoAA/u7Whk0TQXbP+fSgcQM2skJQLFHwSqGCQEzIdrdyirt7nEo+nAi9n5MIAAA="
+    },
+    "atlas-ill-emilcin": {
+        "width": 1448,
+        "height": 1086,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAACwAwCdASoUAA8APu1iqU2ppaOiMAgBMB2JQBWABDsPlhQHmhovAAD+7omWJJMngIEzDaIawIb43a9v33vCYJND5voY0+V5YWxWeucucAAAAA=="
+    },
+    "atlas-ill-carbondale": {
+        "width": 1448,
+        "height": 1086,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAACQAwCdASoUAA8APu1iqU2ppaOiMAgBMB2JZQCsACHe2IdSkSvAAP7uhTk1RthX/QAoVm148OZD8FKNrXDEpQmKxWHlxnhri666UEKEAAA="
     }
 }
