@@ -31,10 +31,10 @@
 
 ## 4. Componentes da origem
 
-- [ ] 4.1 Criar `CreditedImage`, com legenda de autor, licença com link e "origem e licença", e com a variante "Mapa de localização". Verificar com teste de componente que nenhuma foto renderiza sem crédito e que o mapa troca a legenda e o alt.
-- [ ] 4.2 Criar `SourceBadge`, com o tipo de fonte por extenso e cor, e `ConfidenceSeal`, o carimbo com o grau A–F e a descrição acessível. Verificar com teste de componente do texto visível e do `aria-label`.
-- [ ] 4.3 Criar `VideoFacade`, com capa local, aviso de conteúdo do YouTube e iframe do youtube-nocookie só após o clique, movendo o foco para o player. Verificar com teste de componente (sem iframe antes do clique, iframe com o domínio nocookie depois) e cobrir a variante de cartão-link para vídeos sem ID.
-- [ ] 4.4 Criar `ChapterIndex`, com índice lateral fixo no desktop e pílula "Capítulos" com painel no celular (foco preso e fecha com Esc), e `Timeline` vertical com anos vazados. Verificar com teste de componente de teclado e Esc.
+- [x] 4.1 Criar `CreditedImage`, com legenda de autor, licença com link e "origem e licença", e com a variante "Mapa de localização". Verificar com teste de componente que nenhuma foto renderiza sem crédito e que o mapa troca a legenda e o alt.
+- [x] 4.2 Criar `SourceBadge`, com o tipo de fonte por extenso e cor, e `ConfidenceSeal`, o carimbo com o grau A–F e a descrição acessível. Verificar com teste de componente do texto visível e do `aria-label`.
+- [x] 4.3 Criar `VideoFacade`, com capa local, aviso de conteúdo do YouTube e iframe do youtube-nocookie só após o clique, movendo o foco para o player. Verificar com teste de componente (sem iframe antes do clique, iframe com o domínio nocookie depois) e cobrir a variante de cartão-link para vídeos sem ID.
+- [x] 4.4 Criar `ChapterIndex`, com índice lateral fixo no desktop e pílula "Capítulos" com painel no celular (foco preso e fecha com Esc), e `Timeline` vertical com anos vazados. Verificar com teste de componente de teclado e Esc.
 
 ## 5. Páginas
 

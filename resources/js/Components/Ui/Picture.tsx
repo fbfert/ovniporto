@@ -2,55 +2,55 @@ import manifest from '@/data/concept.json';
 
 export type ConceptSlug = keyof typeof manifest;
 
-interface ConceptEntry {
+/** One image of a build manifest (concept illustrations, origin photos): the widths that exist and the LQIP. */
+export interface ManifestEntry {
     width: number;
     height: number;
     widths: number[];
     lqip: string;
 }
 
-const entries: Record<string, ConceptEntry | undefined> = manifest;
+const entries: Record<string, ManifestEntry | undefined> = manifest;
 
 export function hasConcept(slug: string | null | undefined): slug is ConceptSlug {
     return !!slug && slug in entries;
 }
 
-function srcSet(slug: string, widths: number[], format: 'avif' | 'webp') {
-    return widths.map((w) => `/concept/${slug}-${w}.${format} ${w}w`).join(', ');
+function srcSet(base: string, slug: string, widths: number[], format: 'avif' | 'webp') {
+    return widths.map((w) => `${base}/${slug}-${w}.${format} ${w}w`).join(', ');
 }
 
-/**
- * Responsive concept illustration: AVIF, then WebP, then the JPEG fallback,
- * over a blurred 20px LQIP so the frame never flashes empty. Lazy unless
- * `priority` (only the hero).
- */
-export function Picture({
-    slug,
-    alt,
-    sizes = '100vw',
-    priority = false,
-    className = '',
-    imgClassName = 'h-full w-full object-cover',
-}: {
-    slug: ConceptSlug;
+interface PictureLook {
     alt: string;
     sizes?: string;
     priority?: boolean;
     className?: string;
     imgClassName?: string;
-}) {
-    const entry = entries[slug];
-    if (!entry) return null;
+}
 
+/**
+ * A manifest image: AVIF, then WebP, then the JPEG fallback, over a blurred 20px LQIP so the frame
+ * never flashes empty. Lazy unless `priority` (only the hero).
+ */
+export function ManifestPicture({
+    base,
+    slug,
+    entry,
+    alt,
+    sizes = '100vw',
+    priority = false,
+    className = '',
+    imgClassName = 'h-full w-full object-cover',
+}: PictureLook & { base: string; slug: string; entry: ManifestEntry }) {
     return (
         <picture
             className={`block bg-cover bg-center ${className}`}
             style={{ backgroundImage: `url("${entry.lqip}")` }}
         >
-            <source type="image/avif" srcSet={srcSet(slug, entry.widths, 'avif')} sizes={sizes} />
-            <source type="image/webp" srcSet={srcSet(slug, entry.widths, 'webp')} sizes={sizes} />
+            <source type="image/avif" srcSet={srcSet(base, slug, entry.widths, 'avif')} sizes={sizes} />
+            <source type="image/webp" srcSet={srcSet(base, slug, entry.widths, 'webp')} sizes={sizes} />
             <img
-                src={`/concept/${slug}.jpg`}
+                src={`${base}/${slug}.jpg`}
                 alt={alt}
                 width={entry.width}
                 height={entry.height}
@@ -61,6 +61,14 @@ export function Picture({
             />
         </picture>
     );
+}
+
+/** A concept illustration from /concept. */
+export function Picture({ slug, ...look }: PictureLook & { slug: ConceptSlug }) {
+    const entry = entries[slug];
+    if (!entry) return null;
+
+    return <ManifestPicture base="/concept" slug={slug} entry={entry} {...look} />;
 }
 
 /** Same widths as PublicImageLibrary::WIDTHS (server) and ProcessSightingPhoto::WIDTHS. */

@@ -166,6 +166,24 @@ export const t = {
     },
     origin: {
         conceptPending: 'Conceito em produção',
+        credit: {
+            photoBy: 'Foto:',
+            mapBy: 'Mapa de localização:',
+            map: 'mapa de localização',
+            source: 'origem e licença',
+        },
+        sourceKind: 'Tipo de fonte',
+        confidence: 'Confiança',
+        confidenceOf: (grades: string) => `Grau de confiança ${grades}`,
+        video: {
+            watch: 'Assistir',
+            notice: 'O vídeo vem do YouTube e só carrega quando você tocar em Assistir.',
+            openOn: (platform: string) => `Abrir no ${platform}`,
+            external: 'Abre fora do site, em outra aba.',
+            platforms: { youtube: 'YouTube', dailymotion: 'Dailymotion', vimeo: 'Vimeo' },
+        },
+        chapters: 'Capítulos',
+        closeChapters: 'Fechar capítulos',
         hub: {
             eyebrow: 'Como tudo começou',
             title: 'A origem',
