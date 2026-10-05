@@ -19,7 +19,7 @@ class SeedDemoData extends Command
 {
     private const LAGES = [-27.81, -50.326];
 
-    private const PLACES = ['Lages', 'Painel', 'Capão Alto', 'São José do Cerrito', 'Coxilha Rica', 'Vila das Pedras'];
+    private const PLACES = ['Lages', 'Painel', 'Capão Alto', 'São José do Cerrito', 'Coxilha Rica', 'Pedras Brancas'];
 
     private const NICKNAMES = ['vigia_da_serra', 'coruja', 'farol', 'araucaria', 'cometa', 'neblina'];
 

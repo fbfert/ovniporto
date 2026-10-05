@@ -21,7 +21,7 @@ Guia completo para construir o site com um assistente de código (Claude Code ou
 ## O que é
 Site real de uma marca e comunidade de Lages, SC, inspirada no Ovnipuerto de Cachi (Argentina).
 Hoje: comunidade, "Livro de avistamentos" (relatos com mapa), loja de produtos.
-Futuro: uma "pista de pouso" física ao lado da Hospedaria Vila das Pedras, meta 2028.
+Futuro: uma "pista de pouso" física na Localidade Pedras Brancas (Lages, SC), meta 2028.
 Tom: astroturismo de verdade com uma camada de lenda e humor. A lenda é criada e o site não finge o contrário.
 O lugar físico ainda NÃO existe: o site nunca fala dele como se já funcionasse.
 Nenhuma arrecadação de dinheiro para a obra antes de existir orçamento: /apoie fica em modo "em planejamento".
@@ -159,7 +159,7 @@ Header:
 Footer (Section tone="dark" pattern="stars"):
 - Linha 1: <Eyebrow>Guardei um lugar pra você.</Eyebrow> grande, centralizado.
 - Linha 2: três colunas: "OVNIPORTO" (selo + "A pista de pouso do planalto" + "Lages · SC"), "Navegue" (todos os links), "Comunidade" (WhatsApp, Instagram, e-mail de contato).
-- Linha 3: "Ao lado da Hospedaria Vila das Pedras · Lages, SC" com link para o mapa, links Privacidade e Termos, e o texto "Feito na serra por Xiax" com link para xiax.com.br.
+- Linha 3: "Localidade Pedras Brancas · Lages, SC" com link para o mapa, links Privacidade e Termos, e o texto "Feito na serra por Xiax" com link para xiax.com.br.
 - Um pequeno disco voador SVG cruza o footer da esquerda para a direita a cada 20 s (desligado em reduced-motion).
 
 Também:
@@ -191,8 +191,8 @@ Seção 01 — Capa (Section tone="dark", 100svh em mobile, min 640px):
 
 Seção 02 — Boas-vindas (Section tone="light"):
 - <Eyebrow>Bem-vindo ao</Eyebrow> + <Display as="h1">OVNIPORTO</Display> + subtítulo "A pista de pouso do planalto" em Figtree 600 cor horizon, tudo centralizado.
-- Parágrafo editável (content_blocks.home_intro), máximo 3 frases. Seed: "No alto da Serra Catarinense, ao lado da Hospedaria Vila das Pedras, uma comunidade mantém o céu sob vigilância. O Livro de avistamentos está aberto, a loja já vende lembranças e a pista de pouso tem meta: 2028. Quase toda noite alguém jura ter visto algo."
-- Quatro <InfoCard>: ONDE "Vila das Pedras, Lages · SC" (link para o mapa), CIDADE "Lages, Santa Catarina", RELATOS "{n} no Livro" (contador animado de 0 ao valor quando entra na viewport), PISTA "Meta 2028" com <Badge tone="car">em planejamento</Badge>.
+- Parágrafo editável (content_blocks.home_intro), máximo 3 frases. Seed: "No alto da Serra Catarinense, na Localidade Pedras Brancas, uma comunidade mantém o céu sob vigilância. O Livro de avistamentos está aberto, a loja já vende lembranças e a pista de pouso tem meta: 2028. Quase toda noite alguém jura ter visto algo."
+- Quatro <InfoCard>: ONDE "Pedras Brancas, Lages · SC" (link para o mapa), CIDADE "Lages, Santa Catarina", RELATOS "{n} no Livro" (contador animado de 0 ao valor quando entra na viewport), PISTA "Meta 2028" com <Badge tone="car">em planejamento</Badge>.
 - Entre a seção 02 e 03, a borda ondulada do <Section>.
 
 Seção 03 — Livro de avistamentos (Section tone="dark" pattern="stars"):
@@ -275,7 +275,7 @@ Modelos e seeds:
 - campaign_settings: status (planning|open|closed), goal_amount (nullable), raised_amount, crowdfunding_url (nullable), store_share_percent (nullable). Seed: status=planning, tudo o mais nulo.
 
 /o-lugar:
-- Capa dark com a ilustração da vista geral (placeholder) e <Display as="h1">O lugar</Display>, <Eyebrow>Ao lado da Hospedaria Vila das Pedras</Eyebrow>, <Badge tone="car">meta 2028</Badge>.
+- Capa dark com a ilustração da vista geral (placeholder) e <Display as="h1">O lugar</Display>, <Eyebrow>Na Localidade Pedras Brancas</Eyebrow>, <Badge tone="car">meta 2028</Badge>.
 - Bloco "Onde": mapa Leaflet estático (sem interação até clicar, para performance) centrado em -27.85495, -50.21841 com um marcador customizado (disco voador SVG) e o botão "Abrir no Google Maps".
 - Bloco "Hoje e amanhã": lado a lado "O terreno hoje" (galeria de site_photos com lightbox acessível; vazio = estado tracejado) e "Como vai ficar" (ilustração conceitual + badge conceito). Slot reservado para o mapa 3D: um <Section> com título "Mapa 3D" e placeholder "Em produção pela arquiteta do projeto".
 - Bloco "Os espaços, fase a fase": linha do tempo vertical em 4 fases; dentro de cada fase, os espaços como cartões numerados com nome, descrição, status badge e a ilustração do espaço quando houver. A fase 1 destacada em beam.

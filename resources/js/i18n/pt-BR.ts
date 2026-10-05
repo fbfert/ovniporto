@@ -5,7 +5,7 @@ export const t = {
         tagline: 'A pista de pouso do planalto',
         city: 'Lages · SC',
         signoff: 'Guardei um lugar pra você.',
-        location: 'Ao lado da Hospedaria Vila das Pedras · Lages, SC',
+        location: 'Localidade Pedras Brancas · Lages, SC',
     },
     nav: {
         region: 'Conheça a região',
@@ -48,7 +48,7 @@ export const t = {
     welcome: {
         eyebrow: 'Bem-vindo ao',
         where: 'Onde',
-        whereValue: 'Vila das Pedras, Lages · SC',
+        whereValue: 'Pedras Brancas, Lages · SC',
         city: 'Cidade',
         cityValue: 'Lages, Santa Catarina',
         sightings: 'Relatos',
@@ -227,7 +227,7 @@ export const t = {
         practicesNote: 'Isto já vale hoje, mesmo com o texto abaixo em rascunho.',
     },
     placePage: {
-        eyebrow: 'Ao lado da Hospedaria Vila das Pedras',
+        eyebrow: 'Na Localidade Pedras Brancas',
         title: 'O lugar',
         goal: 'meta 2028',
         lead: 'Uma pista de pouso de pedra no alto da serra, a ser construída em fases. Hoje é terreno, céu escuro e muita vontade.',
@@ -235,7 +235,7 @@ export const t = {
             'O projeto da pista de pouso do OVNIPORTO em Lages, SC: onde vai ficar, os espaços fase a fase e as regras do céu escuro.',
         whereEyebrow: 'Onde',
         whereTitle: 'No mapa',
-        whereLead: 'Ao lado da Hospedaria Vila das Pedras, em Lages, na Serra Catarinense.',
+        whereLead: 'Na Localidade Pedras Brancas, em Lages, na Serra Catarinense.',
         mapLabel: 'Mapa do local do OVNIPORTO',
         mapActivate: 'Mexer no mapa',
         mapLoading: 'Carregando o mapa…',

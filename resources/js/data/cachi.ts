@@ -22,6 +22,6 @@ export const CACHI_TIMELINE: CachiMilestone[] = [
     },
     {
         when: 'Hoje',
-        text: 'A ideia atravessa a fronteira e pousa na Serra Catarinense, ao lado da Hospedaria Vila das Pedras: nasce o OVNIPORTO.',
+        text: 'A ideia atravessa a fronteira e pousa na Serra Catarinense, na Localidade Pedras Brancas: nasce o OVNIPORTO.',
     },
 ];

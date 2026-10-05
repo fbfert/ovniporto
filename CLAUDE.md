@@ -3,7 +3,7 @@
 ## O que é
 Site real de uma marca e comunidade de Lages, SC, inspirada no Ovnipuerto de Cachi (Argentina).
 Hoje: comunidade, "Livro de avistamentos" (relatos com mapa), loja de produtos.
-Futuro: uma "pista de pouso" física ao lado da Hospedaria Vila das Pedras, meta 2028.
+Futuro: uma "pista de pouso" física na Localidade Pedras Brancas (Lages, SC), meta 2028.
 Tom: astroturismo de verdade com uma camada de lenda e humor. A lenda é criada e o site não finge o contrário.
 O lugar físico ainda NÃO existe: o site nunca fala dele como se já funcionasse.
 Nenhuma arrecadação de dinheiro para a obra antes de existir orçamento: /apoie fica em modo "em planejamento".

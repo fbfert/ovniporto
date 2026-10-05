@@ -11,11 +11,11 @@ class FaqSeeder extends Seeder
     public function run(): void
     {
         $faqs = [
-            ['O OVNIPORTO já existe?', 'Ainda não. Hoje existem a comunidade, o Livro de avistamentos e a loja. A pista de pouso ao lado da Hospedaria Vila das Pedras está em planejamento, com meta para 2028.'],
+            ['O OVNIPORTO já existe?', 'Ainda não. Hoje existem a comunidade, o Livro de avistamentos e a loja. A pista de pouso na Localidade Pedras Brancas está em planejamento, com meta para 2028.'],
             ['É de graça?', 'A vigília vai ser grátis: olhar o céu não tem preço. Entrar na comunidade e relatar avistamentos também é de graça. Só a loja cobra, pelas lembranças.'],
             ['Como relato um avistamento?', 'Com a conta Google, num formulário de 4 passos: o que você viu, fotos (opcionais), quando e onde. A torre de controle revisa antes de publicar. O formulário ainda está em construção; deixe o e-mail no Avise-me para saber quando abrir.'],
             ['Posso ir lá à noite?', 'Ainda não há o que visitar: o terreno não está aberto ao público. Quando a primeira fase abrir, a vigília vai ser à noite, com luz baixa e vermelha para não apagar o céu.'],
-            ['Como eu chego?', 'O OVNIPORTO vai ficar ao lado da Hospedaria Vila das Pedras, em Lages, na Serra Catarinense. O ponto está no mapa, no rodapé do site.'],
+            ['Como eu chego?', 'O OVNIPORTO vai ficar na Localidade Pedras Brancas, em Lages, na Serra Catarinense. O ponto está no mapa, no rodapé do site.'],
             ['Vocês vendem camiseta?', 'Por enquanto, só o adesivo, que já está pronto pra colar. Camiseta, caneca e o Kit Abdução entram na loja depois, impressos sob pedido.'],
             ['Quanto demora a entrega?', 'O adesivo é pronta entrega: o prazo é só o do frete. Nos produtos sob pedido, some os dias de produção, informados em cada produto, ao prazo do frete calculado pelo CEP.'],
             ['Meus dados ficam públicos?', 'Só o seu apelido e o que você autorizar em cada relato: o texto, as fotos e o ponto no mapa que você mesmo escolheu. As fotos são publicadas sem os dados de local e hora do arquivo. Nome e e-mail nunca aparecem.'],

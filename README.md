@@ -1,6 +1,6 @@
 # OVNIPORTO Lages
 
-> A pista de pouso do planalto. Comunidade, Livro de avistamentos e lembranças de uma futura pista de pouso para discos voadores ao lado da Hospedaria Vila das Pedras, em Lages, SC.
+> A pista de pouso do planalto. Comunidade, Livro de avistamentos e lembranças de uma futura pista de pouso para discos voadores na Localidade Pedras Brancas, em Lages, SC.
 
 Laravel 13 · Inertia v3 · React 19 · TypeScript · SSR · Tailwind CSS 4 · Motion (Framer Motion) · Lenis · Pest
 

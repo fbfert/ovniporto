@@ -203,7 +203,7 @@ export default function Styleguide() {
                         <InfoCard
                             icon={<Icons.PinIcon size="0.95rem" />}
                             label="Onde"
-                            value="Vila das Pedras, Lages · SC"
+                            value="Pedras Brancas, Lages · SC"
                         />
                         <InfoCard
                             icon={<Icons.BeamIcon size="0.95rem" />}

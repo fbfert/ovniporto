@@ -34,7 +34,7 @@ Abaixo de 1024 px, o cabeçalho SHALL mostrar o selo e um botão de menu que abr
 - **THEN** o painel abre a partir do botão e, ao fechar, o foco volta ao botão de menu
 
 ### Requirement: Rodapé noturno
-Todas as páginas públicas SHALL terminar com o rodapé escuro contendo "Guardei um lugar pra você.", as colunas OVNIPORTO / Navegue / Comunidade, a localização "Ao lado da Hospedaria Vila das Pedras · Lages, SC", links de Privacidade e Termos e o crédito "Feito na serra por Xiax".
+Todas as páginas públicas SHALL terminar com o rodapé escuro contendo "Guardei um lugar pra você.", as colunas OVNIPORTO / Navegue / Comunidade, a localização "Localidade Pedras Brancas · Lages, SC", links de Privacidade e Termos e o crédito "Feito na serra por Xiax".
 
 #### Scenario: Rodapé presente
 - **WHEN** qualquer página pública é renderizada
