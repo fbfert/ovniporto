@@ -1,0 +1,289 @@
+{
+    "kicker": "Cachi · Salta · Argentina",
+    "title": "Quando uma lenda ganha um lugar",
+    "lead": "Do relato de Werner Jaisli à Estrella de la Esperanza; das pedras em Fuerte Alto ao surgimento do Barrio Ovnipuerto. Uma história de céu, memória, turismo e território.",
+    "quote": "Isso foi contado. Isto está documentado. E cabe a você olhar para o céu.",
+    "cover": "cachi-aereo",
+    "chapters": [
+        {
+            "id": "prologo",
+            "eyebrow": "Prólogo",
+            "title": "Antes da estrela, já havia histórias no céu.",
+            "body": [
+                "Muito antes de Werner Jaisli colocar a primeira pedra em Fuerte Alto, Cachi e os Valles Calchaquíes já acumulavam relatos de luzes, objetos e fenômenos incomuns. Policiais, montanhistas, moradores e pesquisadores amadores formaram um arquivo oral que antecede o Ovnipuerto.",
+                "Essa camada anterior é essencial: o Ovnipuerto não inventou sozinho a fama ufológica de Cachi. Ele deu a ela uma forma visível, permanente e territorial.",
+                "Em Cachi, o mistério ocupa o céu, as montanhas e, nas versões mais fantásticas, até aquilo que estaria escondido sob elas."
+            ],
+            "image": "cachi-paisagem"
+        },
+        {
+            "id": "a-noite",
+            "eyebrow": "24 de novembro de 2008",
+            "title": "A noite em que Werner disse ter recebido uma mensagem",
+            "body": [
+                "Na versão publicada pelo El Tribuno em 2011, o próprio Werner afirmou estar em Fuerte Alto, à meia-noite, acompanhado por seu vizinho Luis. Depois de uma interrupção no fornecimento de energia, dois objetos luminosos teriam surgido sobre o rio Calchaquí.",
+                "Werner contou que pediu mentalmente que os objetos se aproximassem. Segundo ele, aproximaram-se, projetaram uma luz intensa e, então, uma ordem teria surgido em sua mente: construir um Ovnipuerto."
+            ],
+            "kinds": ["voice", "report"],
+            "note": "As versões posteriores variam quanto ao acompanhante, distância dos objetos e alguns detalhes. A página preserva essas divergências em vez de apagá-las.",
+            "facts": {
+                "title": "O núcleo que permanece estável",
+                "items": [
+                    { "label": "Data", "value": "24/11/2008" },
+                    { "label": "Local", "value": "Fuerte Alto, Cachi" },
+                    { "label": "Relato", "value": "dois objetos luminosos" },
+                    { "label": "Contexto", "value": "interrupção de energia" },
+                    { "label": "Mensagem alegada", "value": "construir um sinal para o céu" },
+                    { "label": "Consequência", "value": "início da Estrella de la Esperanza" }
+                ]
+            }
+        },
+        {
+            "id": "estrella",
+            "eyebrow": "2008–2012",
+            "title": "Estrella de la Esperanza",
+            "body": [
+                "A fonte oficial da Câmara de Deputados de Salta descreve a obra principal como uma estrela de 36 pontas e 48 metros de diâmetro, com outra estrela menor, de 12 pontas, em seu interior. Foi construída com pedras e rochas da região, em terras fiscais do Catastro nº 3019, cerca de quatro quilômetros de Cachi.",
+                "Werner e seus colaboradores recolhiam pedras da região e utilizavam cordas esticadas no terreno para definir raios, ângulos e perímetros. Luis Reyes recordou posteriormente a precisão com que Werner produzia as figuras sem grandes equipamentos topográficos."
+            ],
+            "kinds": ["document"],
+            "stats": [
+                { "value": "48 m", "label": "diâmetro oficial" },
+                { "value": "36", "label": "pontas" },
+                { "value": "12", "label": "pontas na estrela interna" },
+                { "value": "2008–12", "label": "período principal da obra" }
+            ],
+            "images": ["cachi-2009", "cachi-estrella"]
+        },
+        {
+            "id": "casa-cueva",
+            "eyebrow": "Um homem sob a terra",
+            "title": "A casa-cueva",
+            "body": [
+                "Werner não apenas construiu as estrelas. Durante parte do período, viveu no próprio terreno, em uma estrutura escavada no solo.",
+                "Reportagens posteriores descrevem a cavidade com aproximadamente 2,5 metros de profundidade e 3 metros de diâmetro. Ele dizia dormir ali para “tomar energia”. O detalhe acrescentou mais uma camada à lenda: o homem que desenhava uma mensagem para o céu passou a viver sob a terra."
+            ],
+            "image": "nevado-de-cachi",
+            "concept": "cachi-casa-cueva"
+        },
+        {
+            "id": "relatos",
+            "eyebrow": "Arquivo de relatos",
+            "title": "126 histórias sob o mesmo céu",
+            "body": [
+                "Um levantamento independente ligado à ufologia afirmou ter entrevistado 95 pessoas, 76 delas testemunhas presenciais, reunindo relatos associados a 126 episódios. Esses números não constituem levantamento científico ou estatal; pertencem a investigação ufológica independente e são apresentados como tal."
+            ],
+            "cases": [
+                {
+                    "date": "1997",
+                    "title": "Marcas no Nevado de Cachi",
+                    "summary": "Antonio Zuleta afirmou ter encontrado e fotografado marcas incomuns durante uma ascensão.",
+                    "kind": "report"
+                },
+                {
+                    "date": "09 MAI 2001",
+                    "title": "A viatura na Recta del Tin Tin",
+                    "summary": "Policiais de Salta relataram ter sido acompanhados por uma intensa luminosidade durante deslocamento de Cachi.",
+                    "kind": "report",
+                    "detail": "múltiplas testemunhas",
+                    "image": "recta-tin-tin"
+                },
+                {
+                    "date": "23 JUN 2001",
+                    "title": "Filmagem de Antonio Zuleta",
+                    "summary": "Zuleta afirmou ter gravado por cerca de vinte minutos um grande objeto luminoso.",
+                    "kind": "archive",
+                    "detail": "registro a recuperar"
+                },
+                {
+                    "date": "2003",
+                    "title": "“Ovnis en Cachi”",
+                    "summary": "Há referência a gravação datada de 20 de outubro de 2003, 19h57, atribuída a Antonio.",
+                    "kind": "archive"
+                },
+                {
+                    "date": "2004",
+                    "title": "Cachipampa",
+                    "summary": "Três profissionais relataram um objeto grande, luminoso e silencioso próximo ao Parque Nacional Los Cardones.",
+                    "kind": "report",
+                    "detail": "relato múltiplo"
+                },
+                {
+                    "date": "2011",
+                    "title": "Quando o mistério encontra explicação",
+                    "summary": "Uma formação registrada como possível OVNI foi posteriormente associada a uma provável nuvem lenticular.",
+                    "kind": "ordinary"
+                }
+            ]
+        },
+        {
+            "id": "desaparecimento",
+            "eyebrow": "Dezembro de 2013",
+            "title": "O desaparecimento de Werner",
+            "body": [
+                "Werner deixou Cachi e, durante anos, a cidade não teve uma explicação pública única para seu paradeiro. A ausência produziu imediatamente histórias.",
+                "Uma delas dizia que os seres para os quais ele construíra a Estrella de la Esperanza haviam voltado para buscá-lo. Outras versões falavam em retorno à Europa ou problemas pessoais. Quando reapareceu em Cachi em 2019, Werner explicou que precisara partir diante de uma situação perigosa e que não conseguira se despedir.",
+                "A verdade seria menos fantástica. Mas, quando Werner retornou, o desaparecimento já pertencia à lenda."
+            ]
+        },
+        {
+            "id": "retorno",
+            "eyebrow": "2019 · retorno",
+            "title": "Llamada al Cielo",
+            "body": [
+                "Werner não voltou apenas para visitar. Retomou o trabalho e iniciou uma nova figura, posteriormente identificada como Llamada al Cielo. Partiu novamente antes de concluí-la."
+            ],
+            "note": "2021: Werner morreu na Suíça, aos 72 anos. Cachi realizou uma missa em sua memória.",
+            "concept": "werner-stones"
+        },
+        {
+            "id": "lenda-vira-lugar",
+            "eyebrow": "2017–2020",
+            "title": "Quando uma lenda ganha um lugar",
+            "body": [
+                "Uma história contada desaparece quando ninguém mais a repete. Algumas histórias, porém, deixam marcas.",
+                "Werner poderia ter guardado sua experiência apenas para si. Em vez disso, começou a carregar pedras. Vieram moradores, jornalistas, curiosos, pesquisadores e turistas. Werner partiu. A estrela ficou.",
+                "Em 2017, a imprensa registrou que a obra ficaria sob os cuidados da Municipalidad de Cachi, com manutenção e intenção de integração ao turismo comunitário. Em 2020, a Câmara de Deputados de Salta discutiu formalmente sua proteção e aprovou uma declaração solicitando sua incorporação ao sistema provincial de proteção do patrimônio arquitetônico e urbanístico.",
+                "A formulação documental segura é: a obra construída por Werner estava situada em terras fiscais e, após sua saída, passou progressivamente aos cuidados da administração municipal."
+            ],
+            "kinds": ["document"],
+            "document": {
+                "title": "Expediente 91-42.710/20",
+                "body": "Apresentado em 5 de agosto de 2020 pelo deputado Marcelo Rubén Oller Zamar. O texto oficial identifica o Catastro nº 3019 e registra 36 pontas e 48 metros.",
+                "url": "https://www.diputadosalta.gob.ar/documentos_legislativos/1551/download_file",
+                "action": "Consultar documento"
+            }
+        },
+        {
+            "id": "cidade",
+            "eyebrow": "2008 → 2026",
+            "title": "A cidade chegou até a estrela",
+            "body": [
+                "No debate parlamentar de 2020, um deputado recordou que, nos primeiros anos, o entorno era praticamente um descampado e que o bairro ainda não existia. Com o tempo, vieram caminhos, sinalização, visitantes, loteamentos, postes e iluminação.",
+                "Primeiro Werner levou a estrela para o deserto. Depois, lentamente, a cidade foi até ela."
+            ],
+            "milestones": [
+                {
+                    "year": "2021",
+                    "title": "Barrio Ovnipuerto",
+                    "body": "O Governo de Salta anunciou obra de energia elétrica para um novo loteamento no Barrio Ovnipuerto, com 407 m de rede de média tensão, 2.740 m de baixa tensão e iluminação pública LED, destinada a 92 famílias."
+                },
+                {
+                    "year": "2026",
+                    "title": "Ovnipuerto vira endereço",
+                    "body": "O Governo provincial realizou sorteio de lotes com serviços em bairros de Cachi e listou naturalmente Ovnipuerto entre as localidades atendidas. A lenda havia se transformado em topônimo administrativo."
+                }
+            ]
+        },
+        {
+            "id": "personagens",
+            "eyebrow": "As pessoas que ficaram",
+            "title": "A lenda sobrevive porque alguém continuou a contá-la",
+            "body": [],
+            "people": [
+                { "name": "Werner Jaisli", "role": "Criador da Estrella de la Esperanza e personagem central. Morreu na Suíça em 2021." },
+                { "name": "Jorge Reyes", "role": "Associado a uma das versões do episódio fundador e participante da construção. Mais tarde preferiu não falar publicamente sobre a experiência." },
+                { "name": "Luis Reyes", "role": "Participou da construção e preservou memórias sobre o método de Werner, as pedras e o retorno de 2019." },
+                { "name": "Antonio Zuleta", "role": "Montanhista, cinegrafista e pesquisador local. Reuniu durante décadas fotografias, vídeos e relatos sobre fenômenos na região." },
+                { "name": "David Zuleta", "role": "Ligado à comunicação/turismo municipal e autor de registros fotográficos e audiovisuais de Werner." },
+                { "name": "Américo Liendro", "role": "Prefeito associado à fase de restauração, manutenção municipal e infraestrutura do entorno." }
+            ],
+            "note": "Werner foi embora. A estrela não. E tampouco desapareceram aqueles que carregaram pedras, observaram o céu, preservaram imagens ou cuidaram do lugar."
+        },
+        {
+            "id": "linha-do-tempo",
+            "eyebrow": "Linha do tempo",
+            "title": "Da observação ao território",
+            "body": [],
+            "timeline": [
+                { "year": "1997", "title": "Marcas no Nevado", "body": "Antonio Zuleta relata e fotografa marcas incomuns durante uma ascensão." },
+                { "year": "2001", "title": "Casos da Recta del Tin Tin", "body": "Relatos policiais e registros audiovisuais passam a integrar o arquivo ufológico local." },
+                { "year": "2008", "title": "A noite de 24 de novembro", "body": "Werner afirma ter visto dois objetos e recebido a instrução para construir um sinal." },
+                { "year": "2009", "title": "Um dos primeiros registros fotográficos", "body": "A Estrella de la Esperanza já aparece documentada durante sua fase de construção." },
+                { "year": "2011", "title": "Ovnipuerto se torna público", "body": "Entrevista direta de Werner e 1º Encuentro de Ovnilogía de la Provincia de Salta, com mais de 300 inscrições anunciadas." },
+                { "year": "2012", "title": "Conclusão da etapa principal", "body": "O conjunto consolida sua forma física." },
+                { "year": "2013", "title": "O desaparecimento", "body": "Werner deixa Cachi. A ausência passa a fazer parte da lenda." },
+                { "year": "2017", "title": "A obra fica sob os cuidados municipais", "body": "Cachi passa a tratar o local também como ativo turístico." },
+                { "year": "2019", "title": "Werner retorna", "body": "Reaparece em Cachi, é fotografado e inicia uma nova figura." },
+                { "year": "2020", "title": "O Legislativo olha para a estrela", "body": "Expediente 91-42.710/20 solicita integração da área à proteção patrimonial provincial." },
+                { "year": "2021", "title": "Ovnipuerto vira bairro e Werner morre", "body": "Infraestrutura pública utiliza oficialmente a denominação Barrio Ovnipuerto. Werner falece na Suíça." },
+                { "year": "2022", "title": "A luz chega ao bairro", "body": "Governo de Salta anuncia a conclusão da rede elétrica e iluminação pública." },
+                { "year": "2026", "title": "A lenda é endereço", "body": "Ovnipuerto aparece normalmente em políticas habitacionais e fundiárias do Governo de Salta." }
+            ]
+        },
+        {
+            "id": "galeria",
+            "eyebrow": "Galeria documental",
+            "title": "Paisagem, estrada e Estrella de la Esperanza",
+            "body": [
+                "Conjunto de imagens de licença aberta selecionadas para acompanhar a reconstrução histórica. Autoria, licença e origem são mantidas em cada legenda."
+            ],
+            "gallery": [
+                { "image": "cachi-aereo", "caption": "Ovnipuerto visto do alto." },
+                { "image": "cachi-2009", "caption": "Registro de 11 de agosto de 2009." },
+                { "image": "cachi-estrella", "caption": "Vista do conjunto em Fuerte Alto." },
+                { "image": "recta-tin-tin", "caption": "Recta del Tin Tin, Parque Nacional Los Cardones." },
+                { "image": "nevado-de-cachi", "caption": "Nevado de Cachi." },
+                { "image": "cachi-paisagem", "caption": "Paisagem no caminho para Cachi." }
+            ]
+        },
+        {
+            "id": "videos",
+            "eyebrow": "Arquivo audiovisual",
+            "title": "Vozes, imagens e céu",
+            "body": [],
+            "videos": [
+                {
+                    "title": "Antonio Zuleta — Fenómeno OVNI en la Recta de Tin Tin",
+                    "description": "Entrevista de Cristian Soldano, 2018. Antonio relata casos locais, incluindo o episódio dos policiais e observações próprias.",
+                    "platform": "youtube",
+                    "youtubeId": "tPnh8GMCoXQ",
+                    "url": "https://www.youtube.com/watch?v=tPnh8GMCoXQ"
+                },
+                {
+                    "title": "Antonio Zuleta — El fenómeno OVNI en Cachi",
+                    "description": "Entrevista registrada em 2014 e posteriormente disponibilizada on-line.",
+                    "platform": "youtube",
+                    "youtubeId": "G3Z_cEDXsb0",
+                    "url": "https://www.youtube.com/watch?v=G3Z_cEDXsb0"
+                },
+                {
+                    "title": "Telenoche — Cachi e Antonio Zuleta",
+                    "description": "Registro televisivo com paisagem, relatos e referências ao Ovnipuerto.",
+                    "platform": "dailymotion",
+                    "url": "https://www.dailymotion.com/video/xa55vo8"
+                },
+                {
+                    "title": "Al centro de la Tierra",
+                    "description": "Trailer do filme de Daniel Rosenfeld centrado em Antonio Zuleta e sua busca. Obra híbrida entre documentário e ficção.",
+                    "platform": "vimeo",
+                    "url": "https://vimeo.com/270913061"
+                }
+            ]
+        },
+        {
+            "id": "fontes",
+            "eyebrow": "Documentação e créditos",
+            "title": "Fontes principais",
+            "body": [
+                "A narrativa distingue documentos públicos, depoimentos diretos, jornalismo, registros audiovisuais e relatos ufológicos. Os links abaixo servem também como trilha de auditoria editorial."
+            ],
+            "sources": [
+                { "title": "Expte. 91-42.710/20", "publisher": "Câmara de Deputados de Salta", "date": "2020-08-05", "kind": "document", "url": "https://www.diputadosalta.gob.ar/documentos_legislativos/1551/download_file" },
+                { "title": "Entrevista com Werner: “El extraño ovnipuerto construido en Cachi”", "publisher": "El Tribuno", "date": "2011-06-20", "kind": "voice", "url": "https://www.eltribuno.com/nota/2011-6-20-22-3-0-el-extrano-ovnipuerto-construido-en-cachi" },
+                { "title": "Gestão municipal: “Inquietud por el destino del ovni puerto en Cachi”", "publisher": "El Tribuno", "date": "2017-11-20", "kind": "press", "url": "https://www.eltribuno.com/salta/nota/2017-11-20-0-0-0-inquietud-por-el-destino-del-ovni-puerto-en-cachi" },
+                { "title": "Morte de Werner: “Falleció el suizo Terry Jaisli”", "publisher": "El Tribuno", "date": "2021-12-27", "kind": "press", "url": "https://www.eltribuno.com/nota/2021-12-27-9-36-0-fallecio-el-suizo-terry-jaisli-creador-el-ovnipuerto-de-cachi-un-hombre-que-dejo-su-huella-en-salta" },
+                { "title": "“Cachi. El misterio del suizo que construyó un ovnipuerto y desapareció”", "publisher": "La Nación — Revista Lugares", "date": "2021-06-09", "kind": "press", "url": "https://www.lanacion.com.ar/revista-lugares/cachi-el-misterio-del-suizo-que-construyo-un-ovnipuerto-y-desaparecio-nid09062021/" },
+                { "title": "Perfil de Werner: “La verdad sobre Terry, el enigmático suizo que vivía bajo tierra”", "publisher": "La Nación", "date": "2023-07-28", "kind": "press", "url": "https://www.lanacion.com.ar/lifestyle/el-ovnipuerto-de-cachi-la-verdad-sobre-terry-el-enigmatico-suizo-que-vivia-bajo-tierra-y-decia-nid28072023/" },
+                { "title": "1º Encuentro de Ovnilogía de la Provincia de Salta", "publisher": "La Hora de Salta", "date": "2011", "kind": "press", "url": "https://www.lahoradesalta.com.ar/cachi-1o-encuentro-de-ovnilogia-de-la-provincia-de-salta/" },
+                { "title": "Energia elétrica em novo loteamento de Cachi", "publisher": "Governo de Salta", "date": "2021", "kind": "document", "url": "https://www.salta.gob.ar/prensa/noticias/obras-de-suministro-de-energia-electrica-en-nuevo-loteo-de-cachi-78639" },
+                { "title": "Energia elétrica para o Barrio Ovnipuerto de Cachi", "publisher": "Governo de Salta", "date": "2022", "kind": "document", "url": "https://www.salta.gob.ar/prensa/noticias/energia-electrica-para-el-barrio-ovnipuerto-de-cachi-80714" },
+                { "title": "Lotes com serviços para 56 famílias de Cachi", "publisher": "Governo de Salta", "date": "2026", "kind": "document", "url": "https://www.salta.gob.ar/prensa/noticias/el-gobierno-de-la-provincia-beneficio-a-56-familias-de-cachi-con-un-lote-con-servicios-108245" },
+                { "title": "Foto de 2009 do Ovnipuerto", "publisher": "Wikimedia Commons — Nora Aliessi, CC BY 2.0", "date": "2009-08-11", "kind": "archive", "url": "https://commons.wikimedia.org/wiki/File:UFO_landing_strip_in_Cachi,_Argentina.jpg" },
+                { "title": "Antonio Zuleta, entrevista de Cristian Soldano", "publisher": "YouTube", "date": "2018", "kind": "voice", "url": "https://www.youtube.com/watch?v=tPnh8GMCoXQ" }
+            ],
+            "note": "A galeria usa só arquivos de licença Creative Commons, com autoria, licença e endereço de origem. Fotografias jornalísticas protegidas ficam apenas citadas nas fontes e não são reproduzidas sem autorização."
+        }
+    ],
+    "epilogue": ["Primeiro foi um relato.", "Depois, uma estrela.", "Depois, uma atração.", "Depois, um bairro.", "A lenda ganhou um lugar."]
+}

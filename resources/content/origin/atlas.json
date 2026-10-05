@@ -1,0 +1,1868 @@
+{
+    "title": "Atlas Mundial dos Ovnipuertos Dossiê de Pesquisa",
+    "subtitle": "De St Paul e Cachi a Lages",
+    "summary": "Inventário documental de 12 casos  |  39 fontes catalogadas  |  12 imagens incorporadas",
+    "revision": "4 de outubro de 2026",
+    "scope": [
+        "Este dossiê reúne o material documental disponível para doze lugares associados à ideia de uma pista, plataforma, monumento, rota ou espaço de recepção extraterrestre. Os casos não formam uma categoria física uniforme. O conjunto inclui obras públicas, monumentos, atrações privadas, uma formação natural reinterpretada, um aeroporto convencional renomeado, propostas não construídas e um projeto ainda sem documentação pública verificável.",
+        "A existência material ou administrativa de vários desses lugares está documentada. Isso não comprova pousos, contatos ou origem extraterrestre. O documento mantém separados os atos oficiais, as evidências físicas, os depoimentos, as tradições locais e as interpretações ufológicas.",
+        "Cada capítulo contém a síntese disponível, a imagem licenciada ou um mapa de contexto, as fontes catalogadas e as perguntas ainda em aberto. Quando a fotografia do objeto específico não está disponível com licença adequada, a figura é identificada como mapa de localização e não como registro da estrutura."
+    ],
+    "method": [
+        "A pesquisa priorizou atos públicos, páginas institucionais, arquivos municipais, imprensa contemporânea, imprensa retrospectiva e fontes ufológicas apenas para documentar a história das narrativas. As buscas foram realizadas em português, espanhol, inglês, francês, sueco, polonês e neerlandês.",
+        "Wikipedia foi usada como pista de descoberta, não como base principal de comprovação.",
+        "Datas de ideia, decisão, construção, inauguração, reforma e abandono foram separadas quando as fontes permitiram.",
+        "Alegações de contato ou pouso foram registradas como relatos atribuídos, não como fatos demonstrados.",
+        "Coordenadas colaborativas foram mantidas com ressalva quando faltou confirmação oficial.",
+        "Cada imagem incorporada foi conferida no nível do arquivo, com autoria, licença e página de origem.",
+        "Novos casos encontrados permanecem como candidatos e não foram incorporados automaticamente ao recorte principal."
+    ],
+    "grades": [
+        {
+            "grade": "A",
+            "use": "fonte primária ou ato oficial"
+        },
+        {
+            "grade": "B",
+            "use": "fonte institucional ou documentação secundária muito sólida"
+        },
+        {
+            "grade": "C",
+            "use": "imprensa ou bibliografia com informação verificável"
+        },
+        {
+            "grade": "D",
+            "use": "relato testemunhal ou entrevista de protagonista"
+        },
+        {
+            "grade": "E",
+            "use": "tradição local ou interpretação ufológica"
+        },
+        {
+            "grade": "F",
+            "use": "informação não confirmada"
+        }
+    ],
+    "cases": [
+        {
+            "slug": "st-paul",
+            "number": 1,
+            "name": "St. Paul UFO Landing Pad",
+            "country": "Canadá",
+            "image": {
+                "file": "atlas-st-paul",
+                "source": "image1.jpg",
+                "caption": "Plataforma de pouso de St. Paul, Alberta, inaugurada em 1967.",
+                "author": "Line Fault",
+                "date": "2015-07-11 19:04:11",
+                "license": "CC BY-SA 4.0"
+            },
+            "facts": [
+                {
+                    "label": "Categoria provisória",
+                    "value": "plataforma pública construída."
+                },
+                {
+                    "label": "Cronologia confirmada",
+                    "value": "proposta e construção em 1967; inauguração em 3 de junho de 1967; centro de informação adjacente aberto nos anos 1990."
+                },
+                {
+                    "label": "Coordenadas de referência",
+                    "value": "53.990765, -111.305710 (ponto da fotografia Commons; conferir posição exata do monumento antes do mapa final)."
+                },
+                {
+                    "label": "Fato documentado",
+                    "value": "projeto do centenário municipal e inauguração oficial."
+                },
+                {
+                    "label": "Narrativa",
+                    "value": "local simbolicamente aberto a visitantes extraterrestres."
+                },
+                {
+                    "label": "Fontes-chave",
+                    "value": "stpaul-town-landing-pad, stpaul-museum-centennial, trent-canada-ufo-history."
+                },
+                {
+                    "label": "Confiança",
+                    "value": "A/B."
+                }
+            ],
+            "confidence": "A/B",
+            "seal": "A/B",
+            "coordinates": {
+                "lat": 53.990765,
+                "lng": -111.30571,
+                "approximate": true,
+                "note": "53.990765, -111.305710 (ponto da fotografia Commons; conferir posição exata do monumento antes do mapa final)."
+            },
+            "claims": [],
+            "chronology": [],
+            "sources": [
+                "stpaul-town-landing-pad",
+                "stpaul-museum-centennial",
+                "trent-canada-ufo-history",
+                "commons-stpaul-image"
+            ],
+            "openQuestions": [
+                "Localizar a proposta original, projeto/blueprint, atas municipais e orçamento.",
+                "Confirmar autoria do desenho arquitetônico em documento primário.",
+                "Localizar o discurso integral de Paul Hellyer de 3 de junho de 1967 no arquivo citado pela tese.",
+                "Confirmar a data exata de abertura do centro de visitantes adjacente nos anos 1990."
+            ]
+        },
+        {
+            "slug": "angelholm",
+            "number": 2,
+            "name": "Ängelholm UFO Memorial",
+            "country": "Suécia",
+            "image": {
+                "file": "atlas-angelholm",
+                "source": "image2.jpg",
+                "caption": "Monumento de Ängelholm, erguido em referência ao relato de Gösta Carlsson.",
+                "author": "ShwSie (talk)",
+                "date": "15 August 2008 (original upload date)",
+                "license": "CC BY 3.0"
+            },
+            "facts": [
+                {
+                    "label": "Categoria provisória",
+                    "value": "memorial que reproduz marcas de um suposto pouso."
+                },
+                {
+                    "label": "Cronologia confirmada",
+                    "value": "relato datado de 18 de maio de 1946; monumento erguido em setembro de 1972; vandalização e reparo em 2008."
+                },
+                {
+                    "label": "Coordenadas",
+                    "value": "56.231944, 12.820833."
+                },
+                {
+                    "label": "Fato documentado",
+                    "value": "existência, forma e data do monumento."
+                },
+                {
+                    "label": "Relato do protagonista",
+                    "value": "encontro de Carlsson com nave e tripulantes."
+                },
+                {
+                    "label": "Avaliação crítica",
+                    "value": "investigação de Clas Svahn/UFO-Sverige informa inconsistências e ausência de comprovação."
+                },
+                {
+                    "label": "Fontes-chave",
+                    "value": "ufo-sverige-gosta, sr-angelholm-repair, commons-angelholm-category."
+                },
+                {
+                    "label": "Confiança",
+                    "value": "B para monumento; D/E para encontro alegado."
+                }
+            ],
+            "confidence": "B para monumento; D/E para encontro alegado",
+            "seal": "B",
+            "coordinates": {
+                "lat": 56.231944,
+                "lng": 12.820833,
+                "approximate": false,
+                "note": "56.231944, 12.820833."
+            },
+            "claims": [],
+            "chronology": [],
+            "sources": [
+                "ufo-sverige-gosta",
+                "sr-angelholm-repair",
+                "angelholm-municipality-gosta",
+                "commons-angelholm-category"
+            ],
+            "openQuestions": [
+                "Confirmar em registro patrimonial sueco a ficha completa RAÄ Strövelstorp 47:1.",
+                "Localizar documento da construção de setembro de 1972 e acordo com o proprietário da terra.",
+                "Esclarecer juridicamente propriedade e manutenção atuais."
+            ]
+        },
+        {
+            "slug": "ares",
+            "number": 3,
+            "name": "Ovniport d’Arès",
+            "country": "França",
+            "image": {
+                "file": "atlas-ares",
+                "source": "image3.jpg",
+                "caption": "Área do ovniport de Arès, na Gironda, com sua materialização posterior.",
+                "author": "Henry SALOMÉ",
+                "date": "07/03/2009",
+                "license": "CC BY-SA 4.0"
+            },
+            "facts": [
+                {
+                    "label": "Categoria provisória",
+                    "value": "área municipal oficialmente reservada."
+                },
+                {
+                    "label": "Cronologia confirmada",
+                    "value": "iniciativa cívica em 1975; decisão/inauguração em 15 de agosto de 1976; materializações posteriores em 2006/2010/2016 segundo turismo local. Há divergência sobre o ano da estela (1996 ou 2006)."
+                },
+                {
+                    "label": "Coordenadas",
+                    "value": "44.7608283, -1.1427497."
+                },
+                {
+                    "label": "Fato documentado",
+                    "value": "decisão do prefeito Christian Raymond, aprovada pelo conselho municipal, reservando o lugar."
+                },
+                {
+                    "label": "Fontes-chave",
+                    "value": "ares-tourism-ovniport, siba-ares-2011, telescope-ares-history."
+                },
+                {
+                    "label": "Confiança",
+                    "value": "A/B para a reserva e inauguração; C para detalhes do processo e da estela."
+                }
+            ],
+            "confidence": "A/B para a reserva e inauguração; C para detalhes do processo e da estela",
+            "seal": "A/B",
+            "coordinates": {
+                "lat": 44.7608283,
+                "lng": -1.1427497,
+                "approximate": false,
+                "note": "44.7608283, -1.1427497."
+            },
+            "claims": [],
+            "chronology": [],
+            "sources": [
+                "ares-tourism-ovniport",
+                "siba-ares-2011",
+                "telescope-ares-history"
+            ],
+            "openQuestions": [
+                "Obter ata do conselho municipal e decisão do prefeito Christian Raymond.",
+                "Resolver divergência da estela: 1996 em uma fonte impressa, 2006 no turismo local.",
+                "Identificar autores e licenças das esculturas de 2010 e 2016."
+            ]
+        },
+        {
+            "slug": "wycliffe-well",
+            "number": 4,
+            "name": "Wycliffe Well UFO Landing Pad",
+            "country": "Austrália",
+            "image": {
+                "file": "atlas-wycliffe-well",
+                "source": "image4.jpg",
+                "caption": "Edificação abandonada do complexo turístico de Wycliffe Well após a degradação do local.",
+                "author": "Wycliffewellvisitor",
+                "date": "2023-06-22 09:06:10",
+                "license": "CC0"
+            },
+            "facts": [
+                {
+                    "label": "Categoria provisória",
+                    "value": "atração turística privada/roadside attraction."
+                },
+                {
+                    "label": "Cronologia confirmada",
+                    "value": "compra por Lew Farkas em 1985; transformação ufológica no fim dos anos 1980; venda por volta de 2009–2010; enchente e abandono em 2022."
+                },
+                {
+                    "label": "Coordenadas",
+                    "value": "não confirmadas documentalmente para a plataforma específica."
+                },
+                {
+                    "label": "Fato documentado",
+                    "value": "houve uma pequena plataforma e um amplo complexo temático privado."
+                },
+                {
+                    "label": "Situação atual",
+                    "value": "complexo abandonado e vandalizado após a enchente."
+                },
+                {
+                    "label": "Fontes-chave",
+                    "value": "nt-tourism-wycliffe, abc-wycliffe-2024, ausgeo-wycliffe-2025, vice-wycliffe-2017."
+                },
+                {
+                    "label": "Confiança",
+                    "value": "B/C; data precisa da plataforma permanece F."
+                }
+            ],
+            "confidence": "B/C; data precisa da plataforma permanece F",
+            "seal": "B/C",
+            "coordinates": null,
+            "claims": [],
+            "chronology": [],
+            "sources": [
+                "nt-tourism-wycliffe",
+                "abc-wycliffe-2024",
+                "ausgeo-wycliffe-2025",
+                "vice-wycliffe-2017"
+            ],
+            "openQuestions": [
+                "Determinar quando Lew Farkas instalou a plataforma de pouso.",
+                "Confirmar coordenadas da plataforma específica e sua situação física após 2022.",
+                "Localizar a reportagem original do Tennant Times do fim dos anos 1980.",
+                "Verificar autoria e destino dos livros de registro de avistamentos."
+            ]
+        },
+        {
+            "slug": "green-river",
+            "number": 5,
+            "name": "Greater Green River Intergalactic Spaceport",
+            "country": "Estados Unidos",
+            "image": {
+                "file": "atlas-green-river",
+                "source": "image5.jpg",
+                "caption": "Localização de Green River em Sweetwater County. O mapa não representa uma intervenção física no aeroporto.",
+                "author": "DemocraticLuntz",
+                "date": "",
+                "license": "CC BY-SA 4.0"
+            },
+            "facts": [
+                {
+                    "label": "Categoria provisória",
+                    "value": "aeroporto público convencional renomeado simbolicamente."
+                },
+                {
+                    "label": "Cronologia confirmada",
+                    "value": "aeroporto ativado em 1963; Resolução R94-23 assinada em 5 de julho de 1994; resolução posterior R13-02 incluída no plano diretor."
+                },
+                {
+                    "label": "Coordenadas",
+                    "value": "41.4579556, -109.4901986 (registro aeronáutico derivado de dados FAA)."
+                },
+                {
+                    "label": "Fato documentado",
+                    "value": "nome oficial e propriedade municipal."
+                },
+                {
+                    "label": "Fontes-chave",
+                    "value": "green-river-master-plan, faa-48u-record."
+                },
+                {
+                    "label": "Confiança",
+                    "value": "A."
+                }
+            ],
+            "confidence": "A",
+            "seal": "A",
+            "coordinates": {
+                "lat": 41.4579556,
+                "lng": -109.4901986,
+                "approximate": true,
+                "note": "41.4579556, -109.4901986 (registro aeronáutico derivado de dados FAA)."
+            },
+            "claims": [],
+            "chronology": [],
+            "sources": [
+                "green-river-master-plan",
+                "faa-48u-record"
+            ],
+            "openQuestions": [
+                "Transcrever e catalogar integralmente as resoluções R94-23 e R13-02 do apêndice do plano diretor.",
+                "Confirmar se houve qualquer intervenção física além da renomeação do aeroporto."
+            ]
+        },
+        {
+            "slug": "barra-do-garcas",
+            "number": 6,
+            "name": "Discoporto de Barra do Garças",
+            "country": "Brasil",
+            "image": {
+                "file": "atlas-barra-do-garcas",
+                "source": "image6.jpg",
+                "caption": "Discoporto de Barra do Garças no Parque Estadual da Serra Azul, em registro de 2007.",
+                "author": "Adelano Lázaro",
+                "date": "2007",
+                "license": "Public domain"
+            },
+            "facts": [
+                {
+                    "label": "Categoria provisória",
+                    "value": "área reservada por legislação municipal e atração construída."
+                },
+                {
+                    "label": "Cronologia confirmada",
+                    "value": "Lei nº 1.840 de 5 de setembro de 1995; primeiros painéis/representação física em 1997; revitalização em 2022."
+                },
+                {
+                    "label": "Coordenadas de referência OSM",
+                    "value": "-15.85421, -52.26937; ainda requer confirmação municipal/cadastral."
+                },
+                {
+                    "label": "Fato documentado",
+                    "value": "reserva de área para aeródromo de pouso de OVNIs no Parque Estadual da Serra Azul."
+                },
+                {
+                    "label": "Fontes-chave",
+                    "value": "barra-law-1840, barra-prefeitura-2021, barra-prefeitura-2022."
+                },
+                {
+                    "label": "Confiança",
+                    "value": "A para lei; B para construção e reforma."
+                }
+            ],
+            "confidence": "A para lei; B para construção e reforma",
+            "seal": "A",
+            "coordinates": {
+                "lat": -15.85421,
+                "lng": -52.26937,
+                "approximate": true,
+                "note": "-15.85421, -52.26937; ainda requer confirmação municipal/cadastral."
+            },
+            "claims": [],
+            "chronology": [],
+            "sources": [
+                "barra-law-1840",
+                "barra-prefeitura-2021",
+                "barra-prefeitura-2022"
+            ],
+            "openQuestions": [
+                "Extrair e transcrever o PDF integral da Lei nº 1.840.",
+                "Localizar projeto de lei, ata de votação e sanção.",
+                "Confirmar dimensões e polígono oficial da área; a notícia de 2021 usa “aproximadamente 2,2 mil metros” sem unidade clara.",
+                "Documentar fotograficamente as fases de 1997, pré-reforma e 2022.",
+                "Confirmar autoria individual de cada elemento visual após a revitalização."
+            ]
+        },
+        {
+            "slug": "lajas",
+            "number": 7,
+            "name": "Ovnipuerto e Ruta Extraterrestre de Lajas",
+            "country": "Porto Rico",
+            "image": {
+                "file": "atlas-lajas",
+                "source": "image7.jpg",
+                "caption": "Sinalização contemporânea da Ruta Extraterrestre na região de Lajas, Porto Rico.",
+                "author": "Ligocsicnarf89",
+                "date": "2025-04-21 17:40:13",
+                "license": "CC BY 4.0"
+            },
+            "facts": [
+                {
+                    "label": "Categoria provisória",
+                    "value": "rota turística municipal e ovnipuerto proposto, não construído."
+                },
+                {
+                    "label": "Cronologia documentada",
+                    "value": "proclamação da rota em 9 de abril de 2005; proposta de aeroporto noticiada em setembro de 2005; em 2010 havia apenas placa coberta por vegetação."
+                },
+                {
+                    "label": "Coordenadas da placa",
+                    "value": "aproximadamente 17.984717, -67.105550, derivadas do waypoint publicado; não tratar como coordenada de uma pista inexistente."
+                },
+                {
+                    "label": "Fato documentado",
+                    "value": "a rota e a placa."
+                },
+                {
+                    "label": "Não confirmado",
+                    "value": "qualquer pista construída."
+                },
+                {
+                    "label": "Fontes-chave",
+                    "value": "cbs-ap-lajas-2005, primera-hora-lajas-2010."
+                },
+                {
+                    "label": "Confiança",
+                    "value": "B/C para rota e não construção; F para pista."
+                }
+            ],
+            "confidence": "B/C para rota e não construção; F para pista",
+            "seal": "B/C",
+            "coordinates": {
+                "lat": 17.984717,
+                "lng": -67.10555,
+                "approximate": true,
+                "note": "aproximadamente 17.984717, -67.105550, derivadas do waypoint publicado; não tratar como coordenada de uma pista inexistente."
+            },
+            "claims": [],
+            "chronology": [],
+            "sources": [
+                "cbs-ap-lajas-2005",
+                "primera-hora-lajas-2010"
+            ],
+            "openQuestions": [
+                "Obter a proclamação municipal de 9 de abril de 2005.",
+                "Localizar a documentação da recusa do DTOP em oficializar o nome da PR-303.",
+                "Identificar proponente, propriedade e desenho da pista anunciada em 2005.",
+                "Verificar situação atual da placa e da rota após furacões e mudanças viárias."
+            ]
+        },
+        {
+            "slug": "el-enladrillado",
+            "number": 8,
+            "name": "El Enladrillado e Ruta Ufológica",
+            "country": "Chile",
+            "image": {
+                "file": "atlas-el-enladrillado",
+                "source": "image8.jpg",
+                "caption": "El Enladrillado e o vulcão Descabezado Grande na Reserva Nacional Altos de Lircay.",
+                "author": "Natalia Reyes Escobar",
+                "date": "2017-04-17 13:51:16",
+                "license": "CC BY-SA 4.0"
+            },
+            "facts": [
+                {
+                    "label": "Categoria provisória",
+                    "value": "formação natural reinterpretada e rota turística."
+                },
+                {
+                    "label": "Cronologia",
+                    "value": "data de criação formal da rota não localizada nesta rodada."
+                },
+                {
+                    "label": "Coordenadas",
+                    "value": "não confirmadas nesta rodada."
+                },
+                {
+                    "label": "Fato documentado",
+                    "value": "a municipalidade promove uma Ruta Ufológica cujo destino é El Enladrillado."
+                },
+                {
+                    "label": "Tradição/interpretação",
+                    "value": "a formação seria pista de pouso extraterrestre."
+                },
+                {
+                    "label": "Fonte-chave",
+                    "value": "san-clemente-ruta-ufologica."
+                },
+                {
+                    "label": "Confiança",
+                    "value": "A/B para a rota turística; E para a interpretação extraterrestre."
+                }
+            ],
+            "confidence": "A/B para a rota turística; E para a interpretação extraterrestre",
+            "seal": "A/B",
+            "coordinates": null,
+            "claims": [],
+            "chronology": [],
+            "sources": [
+                "san-clemente-ruta-ufologica"
+            ],
+            "openQuestions": [
+                "Localizar data, ato administrativo e material inaugural da Ruta Ufológica.",
+                "Confirmar coordenadas do ponto natural chamado El Enladrillado em fonte cartográfica oficial.",
+                "Separar geologia/arquelogia documentada das tradições de “pista extraterrestre”."
+            ]
+        },
+        {
+            "slug": "cachi",
+            "number": 9,
+            "name": "Ovnipuerto de Cachi",
+            "country": "Argentina",
+            "image": {
+                "file": "cachi-aereo",
+                "source": "image9.jpg",
+                "caption": "Vista aérea do Ovnipuerto de Cachi, conhecida como Estrella de la Esperanza.",
+                "author": "nraliessi",
+                "date": "2014-03-20 01:11:36",
+                "license": "CC BY 2.0"
+            },
+            "facts": [
+                {
+                    "label": "Categoria provisória",
+                    "value": "land art territorial privada em terra fiscal, tornada atração turística."
+                },
+                {
+                    "label": "Cronologia",
+                    "value": "alegado encontro em 24 de novembro de 2008; construção iniciada em 2008 e continuada por aproximadamente quatro anos; saída em dezembro de 2013; retorno em julho de 2019; morte de Werner Jaisli em dezembro de 2021."
+                },
+                {
+                    "label": "Coordenadas",
+                    "value": "-25.098778, -66.171722 (Wikimedia/OpenStreetMap; confirmar por cadastro antes da publicação final)."
+                },
+                {
+                    "label": "Fato documentado",
+                    "value": "obra de doze estrelas, estrela principal de 36 pontas e 48 m segundo reportagem com testemunhos e fotografias; localização no Catastro 319, terra fiscal, segundo Diário de Sessões."
+                },
+                {
+                    "label": "Relato do protagonista",
+                    "value": "mensagem telepática e avistamentos."
+                },
+                {
+                    "label": "“O desaparecimento de Werner”",
+                    "value": "ausência local, não desaparecimento inexplicável; reapareceu em 2019 e depois retornou à Suíça, onde morreu."
+                },
+                {
+                    "label": "Proteção patrimonial",
+                    "value": "houve declaração de interesse/proposta de incorporação ao sistema de proteção; ato final de tombamento não localizado."
+                },
+                {
+                    "label": "Fontes-chave",
+                    "value": "visit-salta-cachi, la-nacion-cachi-2021, salta-legislature-cachi, el-tribuno-jaisli-death, radio-nacional-cachi."
+                },
+                {
+                    "label": "Confiança",
+                    "value": "B/C para obra e cronologia; D/E para contato alegado; A para o teor do debate legislativo."
+                }
+            ],
+            "confidence": "B/C para obra e cronologia; D/E para contato alegado; A para o teor do debate legislativo",
+            "seal": "B/C",
+            "coordinates": {
+                "lat": -25.098778,
+                "lng": -66.171722,
+                "approximate": true,
+                "note": "-25.098778, -66.171722 (Wikimedia/OpenStreetMap; confirmar por cadastro antes da publicação final)."
+            },
+            "claims": [
+                {
+                    "grade": "B",
+                    "kind": "documented fact",
+                    "text": "A Estrella de la Esperanza é uma intervenção de grande escala existente em Fuerte Alto e divulgada como atração turística de Cachi.",
+                    "sources": [
+                        "visit-salta-cachi",
+                        "la-nacion-cachi-2021"
+                    ]
+                },
+                {
+                    "grade": "C",
+                    "kind": "documented fact",
+                    "text": "A construção começou em 2008 e se estendeu por aproximadamente quatro anos.",
+                    "sources": [
+                        "la-nacion-cachi-2021",
+                        "radio-nacional-cachi"
+                    ]
+                },
+                {
+                    "grade": "C",
+                    "kind": "documented fact",
+                    "text": "A composição reúne doze estrelas; a principal é descrita como uma estrela de 36 pontas com cerca de 48 metros.",
+                    "sources": [
+                        "la-nacion-cachi-2021"
+                    ]
+                },
+                {
+                    "grade": "D",
+                    "kind": "protagonist account",
+                    "text": "Jaisli afirmou ter recebido uma mensagem telepática após avistar dois objetos luminosos em 24 de novembro de 2008.",
+                    "sources": [
+                        "la-nacion-cachi-2021"
+                    ]
+                },
+                {
+                    "grade": "A",
+                    "kind": "documented fact",
+                    "text": "O debate legislativo provincial identifica a implantação no Catastro 319 e descreve a área como terra fiscal.",
+                    "sources": [
+                        "salta-legislature-cachi"
+                    ]
+                },
+                {
+                    "grade": "C",
+                    "kind": "documented fact",
+                    "text": "Jaisli deixou Cachi em dezembro de 2013, voltou a ser localizado em julho de 2019 e posteriormente retornou à Suíça.",
+                    "sources": [
+                        "la-nacion-cachi-2021"
+                    ]
+                },
+                {
+                    "grade": "C",
+                    "kind": "documented fact",
+                    "text": "Werner Jaisli morreu na Suíça em dezembro de 2021.",
+                    "sources": [
+                        "el-tribuno-jaisli-death"
+                    ]
+                },
+                {
+                    "grade": "F",
+                    "kind": "unconfirmed",
+                    "text": "A incorporação definitiva da obra ao sistema provincial de proteção patrimonial não foi confirmada nesta pesquisa.",
+                    "sources": [
+                        "salta-legislature-cachi"
+                    ]
+                }
+            ],
+            "chronology": [
+                {
+                    "date": "2008-11-24",
+                    "event": "Experiência relatada por Jaisli. Data atribuída por Jaisli ao avistamento e à mensagem telepática que teria motivado a obra.",
+                    "kind": "protagonist account",
+                    "grade": "D"
+                },
+                {
+                    "date": "2008",
+                    "event": "Início da construção. Início informado para a disposição das pedras e formação das estrelas.",
+                    "kind": "documented fact",
+                    "grade": "C"
+                },
+                {
+                    "date": "2012",
+                    "event": "Conclusão aproximada do ciclo principal. A construção teria prosseguido por aproximadamente quatro anos.",
+                    "kind": "documented fact",
+                    "grade": "C"
+                },
+                {
+                    "date": "2013-12",
+                    "event": "Saída de Cachi. Jaisli deixou a região; a ausência posterior foi descrita na imprensa como desaparecimento.",
+                    "kind": "documented fact",
+                    "grade": "C"
+                },
+                {
+                    "date": "2019-07",
+                    "event": "Jaisli é localizado novamente. A reportagem registra seu retorno à área em julho de 2019.",
+                    "kind": "documented fact",
+                    "grade": "C"
+                },
+                {
+                    "date": "2020",
+                    "event": "Proteção debatida na legislatura. O registro legislativo documenta declaração de interesse e pedido de incorporação ao sistema de proteção, sem comprovar a conclusão do tombamento.",
+                    "kind": "documented fact",
+                    "grade": "A"
+                },
+                {
+                    "date": "2021-12",
+                    "event": "Morte de Werner Jaisli. A imprensa regional noticia sua morte na Suíça.",
+                    "kind": "documented fact",
+                    "grade": "C"
+                }
+            ],
+            "sources": [
+                "visit-salta-cachi",
+                "la-nacion-cachi-2021",
+                "salta-legislature-cachi",
+                "el-tribuno-jaisli-death",
+                "radio-nacional-cachi",
+                "commons-cachi-category"
+            ],
+            "openQuestions": [
+                "Obter vídeo original da entrevista de David Zuleta com Werner Jaisli.",
+                "Confirmar sobrenome e papel de cada colaborador: David/Antonio Zuleta, Jorge/Luis Reyes e José Miguel.",
+                "Localizar planta cadastral 319 e situação dominial atual.",
+                "Confirmar se o projeto de proteção de 2020 resultou em lei, decreto ou apenas declaração de interesse.",
+                "Obter data e local exatos do falecimento de Werner na Suíça por registro civil ou obituário primário.",
+                "Montar série histórica de imagens aéreas 2008–2026 com direitos adequados.",
+                "Confirmar administração/manutenção atual sem depender de reportagem de 2021."
+            ]
+        },
+        {
+            "slug": "emilcin",
+            "number": 10,
+            "name": "Emilcin UFO Memorial",
+            "country": "Polônia",
+            "image": {
+                "file": "atlas-emilcin",
+                "source": "image10.jpg",
+                "caption": "Monumento de Emilcin, instalado em 2005 para recordar o relato de 1978.",
+                "author": "Lukke at Polish Wikipedia",
+                "date": "28 July 2006 (original upload date)",
+                "license": "CC BY-SA 2.5"
+            },
+            "facts": [
+                {
+                    "label": "Categoria provisória",
+                    "value": "monumento associado a encontro/abdução alegada."
+                },
+                {
+                    "label": "Cronologia",
+                    "value": "alegação em 10 de maio de 1978; monumento erguido em 2005 por iniciativa da Fundação Nautilus; inauguração em outubro segundo imprensa regional."
+                },
+                {
+                    "label": "Coordenadas",
+                    "value": "não confirmadas com fonte municipal nesta rodada."
+                },
+                {
+                    "label": "Fato documentado",
+                    "value": "monumento e uso turístico."
+                },
+                {
+                    "label": "Alegação",
+                    "value": "encontro e exame de Jan Wolski por seres não humanos."
+                },
+                {
+                    "label": "Fontes-chave",
+                    "value": "opole-municipal-emilcin, lubelskie-tourism-emilcin."
+                },
+                {
+                    "label": "Confiança",
+                    "value": "A/B para monumento; D/E para o encontro."
+                }
+            ],
+            "confidence": "A/B para monumento; D/E para o encontro",
+            "seal": "A/B",
+            "coordinates": null,
+            "claims": [],
+            "chronology": [],
+            "sources": [
+                "opole-municipal-emilcin",
+                "lubelskie-tourism-emilcin"
+            ],
+            "openQuestions": [
+                "Obter ata/licença de implantação do monumento e autoria do projeto.",
+                "Confirmar coordenadas oficiais.",
+                "Localizar imprensa contemporânea de 1978 e distinguir investigação jornalística, ufológica e oficial."
+            ]
+        },
+        {
+            "slug": "carbondale",
+            "number": 11,
+            "name": "Carbondale UFO Incident",
+            "country": "Estados Unidos",
+            "image": {
+                "file": "atlas-carbondale",
+                "source": "image11.jpg",
+                "caption": "Localização de Carbondale em Lackawanna County. O ponto exato do antigo silt pond permanece em pesquisa.",
+                "author": "DemocraticLuntz",
+                "date": "",
+                "license": "CC BY-SA 4.0"
+            },
+            "facts": [
+                {
+                    "label": "Categoria provisória",
+                    "value": "local de incidente reinterpretado como patrimônio turístico, com placa e festival."
+                },
+                {
+                    "label": "Cronologia",
+                    "value": "episódio de 9 a 11 de novembro de 1974; placa existente ao menos em 2019; festival de 50 anos em 2024; mural em 2025."
+                },
+                {
+                    "label": "Coordenadas",
+                    "value": "não confirmadas nesta rodada para o ponto exato do antigo silt pond."
+                },
+                {
+                    "label": "Fato documentado",
+                    "value": "relatos de jovens, mobilização pública e recuperação de lampião ferroviário."
+                },
+                {
+                    "label": "Questão interpretativa",
+                    "value": "testemunhas contestaram a conclusão de fraude; não há prova de nave extraterrestre."
+                },
+                {
+                    "label": "Fontes-chave",
+                    "value": "visitnepa-carbondale, pbs-wvia-carbondale, carbondale-news-1974."
+                },
+                {
+                    "label": "Confiança",
+                    "value": "B/C para evento e recuperação; D/E para interpretações extraterrestres."
+                }
+            ],
+            "confidence": "B/C para evento e recuperação; D/E para interpretações extraterrestres",
+            "seal": "B/C",
+            "coordinates": null,
+            "claims": [],
+            "chronology": [],
+            "sources": [
+                "visitnepa-carbondale",
+                "pbs-wvia-carbondale",
+                "carbondale-news-1974"
+            ],
+            "openQuestions": [
+                "Determinar data e responsável pela instalação da placa em McCawley Park.",
+                "Localizar edições originais de Scranton Times, Scranton Tribune e Carbondale News de novembro de 1974.",
+                "Confirmar localização exata do antigo silt pond e mudanças posteriores na paisagem.",
+                "Documentar início formal do Carbondalien Festival e autoria do mural de 2025."
+            ]
+        },
+        {
+            "slug": "lages",
+            "number": 12,
+            "name": "OVNIPORTO Lages",
+            "country": "Brasil",
+            "image": {
+                "file": "atlas-lages",
+                "source": "image12.jpg",
+                "caption": "Localização da região de Lages em Santa Catarina. Não foi localizada imagem de uma estrutura denominada OVNIPORTO Lages.",
+                "author": "Marcos Elias de Oliveira Júnior",
+                "date": "2011-07-01",
+                "license": "CC BY 2.5"
+            },
+            "facts": [
+                {
+                    "label": "Categoria provisória",
+                    "value": "projeto contemporâneo ainda não documentado publicamente."
+                },
+                {
+                    "label": "Cronologia",
+                    "value": "“2026 em diante” aparece apenas no briefing fornecido."
+                },
+                {
+                    "label": "Coordenadas",
+                    "value": "não localizadas."
+                },
+                {
+                    "label": "Autoria, proponente, propriedade, estágio, renderizações e atos oficiais",
+                    "value": "não localizados."
+                },
+                {
+                    "label": "Regra editorial",
+                    "value": "não apresentar como construído, aprovado, financiado ou localizado até receber documentos verificáveis."
+                },
+                {
+                    "label": "Confiança",
+                    "value": "F."
+                }
+            ],
+            "confidence": "F",
+            "seal": "F",
+            "coordinates": null,
+            "claims": [],
+            "chronology": [],
+            "sources": [],
+            "openQuestions": [
+                "Quem é o proponente legal e editorial do projeto?",
+                "Qual é a localização e a situação fundiária?",
+                "Existem memorial descritivo, renders, plantas, orçamento, cronograma ou autorizações?",
+                "O projeto é público, privado, artístico, turístico ou híbrido?",
+                "Que documentos comprovam a relação declarada com Cachi?",
+                "Quais imagens são próprias e podem ser publicadas?"
+            ]
+        }
+    ],
+    "comparativeTimeline": [
+        {
+            "date": "1967-06-03",
+            "place": "St. Paul",
+            "event": "inauguração da plataforma pública"
+        },
+        {
+            "date": "1972-09",
+            "place": "Ängelholm",
+            "event": "monumento erguido"
+        },
+        {
+            "date": "1976-08-15",
+            "place": "Arès",
+            "event": "área reservada/inaugurada"
+        },
+        {
+            "date": "fim dos anos 1980",
+            "place": "Wycliffe Well",
+            "event": "consolidação da atração ufológica privada"
+        },
+        {
+            "date": "1994-07-05",
+            "place": "Green River",
+            "event": "Resolução R94-23"
+        },
+        {
+            "date": "1995-09-05",
+            "place": "Barra do Garças",
+            "event": "Lei nº 1.840"
+        },
+        {
+            "date": "1997",
+            "place": "Barra do Garças",
+            "event": "primeiros elementos físicos"
+        },
+        {
+            "date": "2003",
+            "place": "Houten (candidato)",
+            "event": "obra pública concluída"
+        },
+        {
+            "date": "2005",
+            "place": "Lajas",
+            "event": "rota proclamada e ovnipuerto proposto"
+        },
+        {
+            "date": "2005",
+            "place": "Emilcin",
+            "event": "monumento erguido"
+        },
+        {
+            "date": "2008",
+            "place": "Cachi",
+            "event": "início da obra territorial"
+        },
+        {
+            "date": "data não localizada",
+            "place": "San Clemente",
+            "event": "criação da Ruta Ufológica"
+        },
+        {
+            "date": "2026 em diante",
+            "place": "Lages",
+            "event": "apenas conceito no briefing; não confirmado"
+        }
+    ],
+    "timelineNote": "A tabela reúne os marcos documentais disponíveis. Ela não reduz cada caso a um único ano: quando necessário, distingue relato, decisão, construção, inauguração, reforma e abandono.",
+    "crossQuestions": [
+        "Quais documentos municipais originais registram a decisão de Arès em 1976? Localizar ata e deliberação, não apenas a inscrição posterior.",
+        "Quais casos devem contar na cronologia pela data da ideia, da decisão, da construção ou da inauguração? O modelo deverá armazenar todas as datas, sem forçar um único “ano”.",
+        "Quais locais ainda existem fisicamente e em que estado, verificado por fonte recente ou vistoria?",
+        "Quais coordenadas podem ser publicadas com precisão sem depender apenas de bases colaborativas?",
+        "Quais fotografias institucionais possuem autorização explícita de reutilização?"
+    ],
+    "candidatesNote": "Três casos apareceram durante a pesquisa, mas permanecem fora do recorte principal. A inclusão depende de documentação adicional e de decisão curatorial.",
+    "candidates": [
+        {
+            "name": "Elmwood UFO Landing Pad — projeto não construído",
+            "facts": [
+                {
+                    "label": "País",
+                    "value": "Estados Unidos"
+                },
+                {
+                    "label": "Localidade",
+                    "value": "Elmwood, Wisconsin"
+                },
+                {
+                    "label": "Coordenadas da cidade",
+                    "value": "44.77889, -92.14917; não representam um local de obra"
+                },
+                {
+                    "label": "Data aproximada",
+                    "value": "proposta após relatos de 1975–1976; festival local desde 1978 segundo fonte secundária"
+                },
+                {
+                    "label": "Tipo",
+                    "value": "projeto proposto e não construído"
+                },
+                {
+                    "label": "Situação",
+                    "value": "não realizado"
+                }
+            ],
+            "description": "Uma fonte recente afirma que moradores organizaram um comitê e propuseram uma plataforma com torre, luzes e centro de recepção, estimada em US$ 50 milhões, mas a obra permaneceu no papel.",
+            "sources": [
+                "elmwood-proposal — fonte secundária recente; confiança F até confirmação."
+            ],
+            "reason": "Se confirmado, oferece paralelo útil com Lajas: projeto de ovnipuerto não materializado que contribuiu para identidade/festival local.",
+            "reliability": "Baixa. Nenhuma ata, notícia contemporânea ou documento do comitê foi localizado nesta rodada.",
+            "decision": "Não incluir sem confirmação por jornal local, arquivo municipal ou documentação do festival."
+        },
+        {
+            "name": "Landingsbaan voor buitenaardse culturen — Houten",
+            "facts": [
+                {
+                    "label": "País",
+                    "value": "Países Baixos"
+                },
+                {
+                    "label": "Localidade",
+                    "value": "Houten, Utrecht, acesso A27/De Staart"
+                },
+                {
+                    "label": "Coordenadas",
+                    "value": "52.0252129, 5.1328605"
+                },
+                {
+                    "label": "Data aproximada",
+                    "value": "projeto/conclusão em 2003"
+                },
+                {
+                    "label": "Tipo",
+                    "value": "arte pública e infraestrutura viária reinterpretada como pista extraterrestre"
+                },
+                {
+                    "label": "Situação",
+                    "value": "construída; estado atual precisa de vistoria"
+                }
+            ],
+            "description": "Obra de Martin e Inge Riebeek formada por duas rotatórias e a via de aproximadamente 500 m entre elas. Uma rotatória contém plataforma marcada com “U”; a outra, uma torre de controle. Iluminação lateral sugere uma pista. O inventário municipal informa que a obra foi encomendada em 2003.",
+            "sources": [
+                "houten-municipal-art — inventário da coleção municipal, confiança A/B.",
+                "houten-public-art — catálogo local de arte pública, confiança B."
+            ],
+            "reason": "É um caso forte de obra de arte pública contemporânea que transforma infraestrutura cotidiana em “pista para culturas extraterrestres”. Amplia a tipologia para além de monumentos isolados e atrações ufológicas.",
+            "reliability": "Alta para autoria, data, componentes e vínculo municipal. Pendente confirmar inauguração exata, orçamento, manutenção e alterações posteriores.",
+            "decision": "Não incluído automaticamente no Atlas. Recomenda-se forte prioridade na próxima curadoria."
+        },
+        {
+            "name": "UFO Landing Port — Poland/Eaton, Wisconsin",
+            "facts": [
+                {
+                    "label": "País",
+                    "value": "Estados Unidos"
+                },
+                {
+                    "label": "Localidade",
+                    "value": "comunidade de Poland, Town of Eaton, Brown County, Wisconsin"
+                },
+                {
+                    "label": "Endereço publicado",
+                    "value": "4885 State Road 29, Poland, WI"
+                },
+                {
+                    "label": "Coordenadas",
+                    "value": "44.44438, -87.83738 (OpenStreetMap/Mapcarta)"
+                },
+                {
+                    "label": "Data aproximada",
+                    "value": "década de 1990; ano exato não confirmado"
+                },
+                {
+                    "label": "Tipo",
+                    "value": "plataforma privada/atração rodoviária"
+                },
+                {
+                    "label": "Situação",
+                    "value": "existência atual precisa de verificação independente"
+                }
+            ],
+            "description": "Estrutura privada atribuída ao soldador Bob Tohak: um tanque vertical de aproximadamente 42 pés com plataforma e sinalização “U.F.O. Landing Port”.",
+            "sources": [
+                "poland-wi-roadside — reportagem de atração rodoviária com entrevista; confiança C/D.",
+                "poland-wi-map — coordenadas derivadas de OpenStreetMap; confiança C."
+            ],
+            "reason": "É comparável a Wycliffe Well como iniciativa privada, mas com forma arquitetônica específica e pequena escala industrial/vernacular.",
+            "reliability": "Média-baixa. A estrutura e o autor aparecem em fontes secundárias, mas faltam documento primário, data comprovada, situação de propriedade e confirmação recente.",
+            "decision": "Não incluído automaticamente. Exige imprensa local, registro de propriedade e documentação fotográfica licenciada."
+        }
+    ],
+    "sources": [
+        {
+            "id": "stpaul-town-landing-pad",
+            "title": "The Landing Pad",
+            "author": null,
+            "publisher": "Town of St. Paul",
+            "date": null,
+            "grade": "A",
+            "accessed": "2026-10-04",
+            "type": "official_municipal_webpage",
+            "language": "en",
+            "places": [
+                "st-paul"
+            ],
+            "linkStatus": "active",
+            "note": "Confirma proposta, construção e inauguração em 3 de junho de 1967; menciona centro de visitantes nos anos 1990.",
+            "url": "https://www.stpaul.ca/visitors/ufo-landing-pad"
+        },
+        {
+            "id": "stpaul-museum-centennial",
+            "title": "Centennial Projects",
+            "author": null,
+            "publisher": "St. Paul Museum",
+            "date": null,
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "museum_webpage",
+            "language": "en",
+            "places": [
+                "st-paul"
+            ],
+            "linkStatus": "active",
+            "note": "Contextualiza a plataforma entre os projetos do centenário da cidade.",
+            "url": "https://stpaulmuseum.ca/centennial-projects/"
+        },
+        {
+            "id": "trent-canada-ufo-history",
+            "title": "A History of Canada's UFO Investigation, 1950–1995",
+            "author": null,
+            "publisher": "Trent University Digital Collections",
+            "date": null,
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "academic_thesis",
+            "language": "en",
+            "places": [
+                "st-paul"
+            ],
+            "linkStatus": "active",
+            "note": "Cita o discurso de Paul Hellyer de 3 de junho de 1967 e sua referência arquivística.",
+            "url": "https://digitalcollections.trentu.ca/_flysystem/fedora/2022-04/A_History_of_Canada_s_UFO_Investigation_1950_1995.pdf"
+        },
+        {
+            "id": "ufo-sverige-gosta",
+            "title": "Gösta Carlsson",
+            "author": "Clas Svahn",
+            "publisher": "UFO-Sverige",
+            "date": null,
+            "grade": "C",
+            "accessed": "2026-10-04",
+            "type": "specialist_investigation",
+            "language": "sv",
+            "places": [
+                "angelholm"
+            ],
+            "linkStatus": "active",
+            "note": "Fonte ufológica, porém crítica; descreve monumento, inconsistências do relato e morte de Carlsson.",
+            "url": "https://www.ufo.se/index.php/fakta/arti/verkligheten-bakom-ufopodden-i-p3/1759-gostacarlsson"
+        },
+        {
+            "id": "sr-angelholm-repair",
+            "title": "Sponsrar lagning av ufo-monument",
+            "author": null,
+            "publisher": "Sveriges Radio",
+            "date": "2008-10-13",
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "public_radio_news",
+            "language": "sv",
+            "places": [
+                "angelholm"
+            ],
+            "linkStatus": "active",
+            "note": "Documenta vandalização e reparo do monumento em 2008.",
+            "url": "https://www.sverigesradio.se/artikel/2373639"
+        },
+        {
+            "id": "angelholm-municipality-gosta",
+            "title": "Tre kända Ängelholmare förevigas på Storgatan",
+            "author": "Ängelholms kommun",
+            "publisher": "Ängelholms kommun",
+            "date": "2022",
+            "grade": "A",
+            "accessed": "2026-10-04",
+            "type": "municipal_press_release",
+            "language": "sv",
+            "places": [
+                "angelholm"
+            ],
+            "linkStatus": "active",
+            "note": "Confirma dados biográficos básicos de Gösta Carlsson e a centralidade local da narrativa.",
+            "url": "https://www.mynewsdesk.com/se/engelholm/pressreleases/tre-kaenda-aengelholmare-foerevigades-paa-storgatan-3196483"
+        },
+        {
+            "id": "ares-tourism-ovniport",
+            "title": "L'OVNIport et la soucoupe",
+            "author": "Office de Tourisme d'Arès",
+            "publisher": "Office de Tourisme d'Arès",
+            "date": null,
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "official_tourism_listing",
+            "language": "fr",
+            "places": [
+                "ares"
+            ],
+            "linkStatus": "active",
+            "note": "Dado do turismo local hospedado no Cirkwi; fornece coordenadas e cronologia 1976/2006/2010/2016.",
+            "url": "https://www.cirkwi.com/fr/point-interet/3730310-l-ovniport-et-la-soucoupe"
+        },
+        {
+            "id": "siba-ares-2011",
+            "title": "Dossier de presse tourisme 2011",
+            "author": null,
+            "publisher": "SIBA Bassin d'Arcachon",
+            "date": "2011",
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "institutional_press_kit",
+            "language": "fr",
+            "places": [
+                "ares"
+            ],
+            "linkStatus": "active",
+            "note": "Reproduz a inscrição e confirma a inauguração em 15 de agosto de 1976.",
+            "url": "https://www.siba-bassin-arcachon.fr/sites/siba/files/dossier_de_presse_tourisme_2011.pdf"
+        },
+        {
+            "id": "telescope-ares-history",
+            "title": "À Arès, un ovniport attend son premier ovni depuis 1976",
+            "author": null,
+            "publisher": "Telescope Magazine",
+            "date": "2024-01-31",
+            "grade": "C",
+            "accessed": "2026-10-04",
+            "type": "journalism",
+            "language": "fr",
+            "places": [
+                "ares"
+            ],
+            "linkStatus": "active",
+            "note": "Entrevista ex-integrante do governo local e cita cobertura do Sud Ouest de 17 de agosto de 1976.",
+            "url": "https://telescopemag.fr/a-ares-un-ovniport-attend-son-premier-ovni-depuis-1976/"
+        },
+        {
+            "id": "nt-tourism-wycliffe",
+            "title": "Wycliffe Well",
+            "author": null,
+            "publisher": "Tourism Northern Territory",
+            "date": null,
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "official_tourism_webpage",
+            "language": "en",
+            "places": [
+                "wycliffe-well"
+            ],
+            "linkStatus": "active",
+            "note": "Contextualiza a origem do assentamento como horta de abastecimento militar.",
+            "url": "https://preview.northernterritory.com/tennant-creek-and-barkly-region/destinations/wycliffe-well"
+        },
+        {
+            "id": "abc-wycliffe-2024",
+            "title": "How a tiny outback NT roadhouse went from Australia's UFO capital to abandoned motel",
+            "author": "Myles Houlbrook-Walk",
+            "publisher": "ABC News Australia",
+            "date": "2024-07-22",
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "public_broadcaster_news",
+            "language": "en",
+            "places": [
+                "wycliffe-well"
+            ],
+            "linkStatus": "active",
+            "note": "Principal fonte para história recente, enchente de 2022 e abandono.",
+            "url": "https://www.abc.net.au/news/2024-07-22/wycliffe-well-alien-roadhouse-stuart-highway-ufo-capital/104102510"
+        },
+        {
+            "id": "ausgeo-wycliffe-2025",
+            "title": "Wycliffe Well: Australia's outback UFO hotspot",
+            "author": "Tim the Yowie Man",
+            "publisher": "Australian Geographic",
+            "date": "2025-06-19",
+            "grade": "C",
+            "accessed": "2026-10-04",
+            "type": "specialist_press",
+            "language": "en",
+            "places": [
+                "wycliffe-well"
+            ],
+            "linkStatus": "active",
+            "note": "Afirma que Farkas instalou uma plataforma; data precisa não informada.",
+            "url": "https://www.australiangeographic.com.au/blogs/tim-the-yowie-man/2025/06/wycliffe-well-australias-outback-ufo-hotspot/"
+        },
+        {
+            "id": "vice-wycliffe-2017",
+            "title": "The Strange Story of Australia's Outback UFO Capital",
+            "author": "Sami Emory",
+            "publisher": "VICE",
+            "date": "2017-09-21",
+            "grade": "C",
+            "accessed": "2026-10-04",
+            "type": "journalism_interview",
+            "language": "en",
+            "places": [
+                "wycliffe-well"
+            ],
+            "linkStatus": "active",
+            "note": "Entrevista direta com Lew Farkas; útil para distinguir memória do protagonista e fatos externos.",
+            "url": "https://www.vice.com/en/article/the-strange-story-of-australias-outback-ufo-capital/"
+        },
+        {
+            "id": "green-river-master-plan",
+            "title": "Greater Green River Intergalactic Spaceport Master Plan",
+            "author": null,
+            "publisher": "City of Green River, Wyoming",
+            "date": null,
+            "grade": "A",
+            "accessed": "2026-10-04",
+            "type": "municipal_master_plan",
+            "language": "en",
+            "places": [
+                "green-river"
+            ],
+            "linkStatus": "active_reader_issue",
+            "note": "Apêndice contém as resoluções R94-23 e R13-02; R94-23 foi assinada em 5 de julho de 1994.",
+            "url": "https://www.grwyo.org/DocumentCenter/View/2559"
+        },
+        {
+            "id": "faa-48u-record",
+            "title": "Airport Master Record — 48U",
+            "author": "Federal Aviation Administration",
+            "publisher": "FAA (reproduzido por GCR)",
+            "date": "2026-05-20",
+            "grade": "A",
+            "accessed": "2026-10-04",
+            "type": "aviation_record",
+            "language": "en",
+            "places": [
+                "green-river"
+            ],
+            "linkStatus": "active",
+            "note": "Confirma nome aeronáutico, propriedade municipal, coordenadas, pista e uso público.",
+            "url": "https://www.gcr1.com/5010ReportRouter/48U.pdf"
+        },
+        {
+            "id": "barra-law-1840",
+            "title": "Lei nº 1.840 de 05 de setembro de 1995",
+            "author": "Município de Barra do Garças",
+            "publisher": "Câmara Municipal de Barra do Garças",
+            "date": "1995-09-05",
+            "grade": "A",
+            "accessed": "2026-10-04",
+            "type": "municipal_law",
+            "language": "pt-BR",
+            "places": [
+                "barra-do-garcas"
+            ],
+            "linkStatus": "active",
+            "note": "Cria reserva de área para aeródromo de pousos de OVNI; PDF original está anexado à página.",
+            "url": "https://www.barradogarcas.mt.leg.br/leis/leis-ordinarias/leis-ordinarias-1995/lei-1-840.pdf/view"
+        },
+        {
+            "id": "barra-prefeitura-2021",
+            "title": "Dia 11 de Julho é o dia do ET em Barra do Garças, e a revitalização do Discoporto é anunciada",
+            "author": null,
+            "publisher": "Prefeitura Municipal de Barra do Garças",
+            "date": "2021-07-12",
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "municipal_news",
+            "language": "pt-BR",
+            "places": [
+                "barra-do-garcas"
+            ],
+            "linkStatus": "active",
+            "note": "Descreve origem, área aproximada, materiais, autores locais e plano de revitalização.",
+            "url": "https://www.barradogarcas.mt.gov.br/Imprensa/Turismo-Agenda/Dia-11-de-julho-e-o-dia-do-et-em-barra-do-garcas-e-a-revitalizacao-do-discoporto-e-anunciada-6/"
+        },
+        {
+            "id": "barra-prefeitura-2022",
+            "title": "Após reforma, Barra do Garças reinaugura o primeiro discoporto do mundo em setembro",
+            "author": null,
+            "publisher": "Prefeitura Municipal de Barra do Garças",
+            "date": "2022",
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "municipal_news",
+            "language": "pt-BR",
+            "places": [
+                "barra-do-garcas"
+            ],
+            "linkStatus": "active",
+            "note": "Separa lei de 1995, instalação de painéis/representação em 1997 e reforma de 2022.",
+            "url": "https://www.barradogarcas.mt.gov.br/Imprensa/Noticias/Apos-reforma-barra-do-garcas-reinaugura-o-primeiro-discoporto-do-mundo-em-setembro-3464"
+        },
+        {
+            "id": "cbs-ap-lajas-2005",
+            "title": "If He Builds It, Will They Come?",
+            "author": "Associated Press",
+            "publisher": "CBS News",
+            "date": "2005-09-29",
+            "grade": "C",
+            "accessed": "2026-10-04",
+            "type": "contemporary_news_wire",
+            "language": "en",
+            "places": [
+                "lajas"
+            ],
+            "linkStatus": "active",
+            "note": "Fonte contemporânea à proposta de construir aeroporto para OVNIs em Lajas.",
+            "url": "https://www.cbsnews.com/news/if-he-builds-it-will-they-come/"
+        },
+        {
+            "id": "primera-hora-lajas-2010",
+            "title": "Ovnipuerto es sólo un rotulito con una nave",
+            "author": null,
+            "publisher": "Primera Hora",
+            "date": "2010-12-07",
+            "grade": "C",
+            "accessed": "2026-10-04",
+            "type": "journalism",
+            "language": "es",
+            "places": [
+                "lajas"
+            ],
+            "linkStatus": "active",
+            "note": "Documenta que o ovnipuerto não se materializou como terreno preparado; havia uma placa na PR-303.",
+            "url": "https://www.primerahora.com/noticias/puerto-rico/notas/ovnipuerto-es-solo-un-rotulito-con-una-nave/"
+        },
+        {
+            "id": "san-clemente-ruta-ufologica",
+            "title": "Ruta Ufológica",
+            "author": "Departamento de Turismo",
+            "publisher": "Ilustre Municipalidad de San Clemente",
+            "date": null,
+            "grade": "A",
+            "accessed": "2026-10-04",
+            "type": "official_municipal_tourism",
+            "language": "es",
+            "places": [
+                "el-enladrillado"
+            ],
+            "linkStatus": "active",
+            "note": "Confirma promoção municipal da primeira Ruta Ufológica do Chile até El Enladrillado.",
+            "url": "https://www.sanclemente.cl/turismo/rutas/"
+        },
+        {
+            "id": "visit-salta-cachi",
+            "title": "Cachi",
+            "author": null,
+            "publisher": "Visit Salta — Ministerio de Turismo y Deportes",
+            "date": null,
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "official_provincial_tourism",
+            "language": "es",
+            "places": [
+                "cachi"
+            ],
+            "linkStatus": "active",
+            "note": "Classifica a Estrella de la Esperanza como intervenção artística de grande escala e atração turística.",
+            "url": "https://visitsalta.ar/valles-calchaquies/cachi/"
+        },
+        {
+            "id": "la-nacion-cachi-2021",
+            "title": "Cachi. El misterio del suizo que construyó un ovnipuerto y desapareció",
+            "author": "María José Lucesole",
+            "publisher": "La Nación — Revista Lugares",
+            "date": "2021-06-10",
+            "grade": "C",
+            "accessed": "2026-10-04",
+            "type": "journalism_interviews",
+            "language": "es",
+            "places": [
+                "cachi"
+            ],
+            "linkStatus": "active",
+            "note": "Fonte detalhada para dimensões, cronologia, colaboradores, relatos e reaparição em 2019; distinguir depoimentos de fatos independentes.",
+            "url": "https://www.lanacion.com.ar/revista-lugares/cachi-el-misterio-del-suizo-que-construyo-un-ovnipuerto-y-desaparecio-nid09062021/"
+        },
+        {
+            "id": "salta-legislature-cachi",
+            "title": "Diario de Sesiones — debate sobre el Ovnipuerto de Cachi",
+            "author": "Cámara de Diputados de la Provincia de Salta",
+            "publisher": "Cámara de Diputados de Salta",
+            "date": "2020",
+            "grade": "A",
+            "accessed": "2026-10-04",
+            "type": "legislative_record",
+            "language": "es",
+            "places": [
+                "cachi"
+            ],
+            "linkStatus": "active",
+            "note": "Registra Catastro 319, terras fiscais e pedido de incorporação ao sistema provincial de proteção; não prova sozinho que o tombamento foi concluído.",
+            "url": "https://leg.diputadosalta.gob.ar/documentos_legislativos/1544/download_file"
+        },
+        {
+            "id": "el-tribuno-jaisli-death",
+            "title": "Falleció el suizo Terry Jaisli, creador del ovnipuerto de Cachi",
+            "author": null,
+            "publisher": "El Tribuno",
+            "date": "2021-12-27",
+            "grade": "C",
+            "accessed": "2026-10-04",
+            "type": "regional_news",
+            "language": "es",
+            "places": [
+                "cachi"
+            ],
+            "linkStatus": "active",
+            "note": "Noticia a morte de Jaisli na Suíça, aos 72 anos, às vésperas do Natal de 2021.",
+            "url": "https://www.eltribuno.com/nota/2021-12-27-9-36-0-fallecio-el-suizo-terry-jaisli-creador-el-ovnipuerto-de-cachi-un-hombre-que-dejo-su-huella-en-salta"
+        },
+        {
+            "id": "radio-nacional-cachi",
+            "title": "La misteriosa historia del suizo que creó el primer ovnipuerto en Cachi",
+            "author": null,
+            "publisher": "Radio Nacional Argentina",
+            "date": "2023",
+            "grade": "C",
+            "accessed": "2026-10-04",
+            "type": "public_radio_interview",
+            "language": "es",
+            "places": [
+                "cachi"
+            ],
+            "linkStatus": "active",
+            "note": "Entrevista o fotojornalista Javier Corbalán e registra construção de 2008 a 2012.",
+            "url": "https://cdn02.radionacional.com.ar/la-misteriosa-historia-del-suizo-que-creo-el-primer-ovnipuerto-en-cachi/"
+        },
+        {
+            "id": "opole-municipal-emilcin",
+            "title": "Folder turístico — Emilcin, przystanek szósty",
+            "author": null,
+            "publisher": "Urząd Miejski w Opolu Lubelskim",
+            "date": null,
+            "grade": "A",
+            "accessed": "2026-10-04",
+            "type": "municipal_tourism_brochure",
+            "language": "pl",
+            "places": [
+                "emilcin"
+            ],
+            "linkStatus": "active",
+            "note": "Confirma monumento de 2005 por iniciativa da Fundação Nautilus e reproduz sua inscrição.",
+            "url": "https://opolelubelskie.pl/sites/default/files/folder_do_dotkniecia.pdf"
+        },
+        {
+            "id": "lubelskie-tourism-emilcin",
+            "title": "Lubelskie — tajemnicze miejsca",
+            "author": null,
+            "publisher": "Lubelskie Travel",
+            "date": null,
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "official_regional_tourism",
+            "language": "pl",
+            "places": [
+                "emilcin"
+            ],
+            "linkStatus": "active",
+            "note": "Fonte institucional para uso turístico; sua apresentação do encontro é promocional e deve ser rotulada como narrativa.",
+            "url": "https://lubelskie.travel/en/regiony/lubelskie/lubelskie-co-robic/lubelskie-tajemnicze-miejsca"
+        },
+        {
+            "id": "visitnepa-carbondale",
+            "title": "Roadside Attractions & Unique Things to Do — UFO Legends & Alien Art in Carbondale",
+            "author": null,
+            "publisher": "Lackawanna County Visitors Bureau",
+            "date": null,
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "official_regional_tourism",
+            "language": "en",
+            "places": [
+                "carbondale"
+            ],
+            "linkStatus": "active",
+            "note": "Documenta placa moderna e mural de 2025 como apropriações turísticas do episódio.",
+            "url": "https://www.visitnepa.org/things-to-do/unique-activities/"
+        },
+        {
+            "id": "pbs-wvia-carbondale",
+            "title": "The Day Carbondale Stood Still",
+            "author": "WVIA",
+            "publisher": "PBS / WVIA",
+            "date": "2025",
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "public_television_documentary",
+            "language": "en",
+            "places": [
+                "carbondale"
+            ],
+            "linkStatus": "active",
+            "note": "Vídeo com testemunhos e contextualização; adequado para embed se os termos permitirem.",
+            "url": "https://www.pbs.org/video/the-day-carbondale-stood-still-pzrrpk/"
+        },
+        {
+            "id": "carbondale-news-1974",
+            "title": "UFO witnesses stick to their original stories",
+            "author": "Tom Moylan",
+            "publisher": "Carbondale News (transcrição em RR0)",
+            "date": "1974-11-14",
+            "grade": "C",
+            "accessed": "2026-10-04",
+            "type": "contemporary_newspaper_transcription",
+            "language": "en",
+            "places": [
+                "carbondale"
+            ],
+            "linkStatus": "active",
+            "note": "Transcrição útil, mas o exemplar original deve ser localizado antes de citação definitiva.",
+            "url": "https://rr0.org/time/1/9/7/4/11/14/UfoWitnessesStickToTheirOriginalStories_Moylan/index.html"
+        },
+        {
+            "id": "commons-stpaul-image",
+            "title": "UFO Landing Pad St. Paul.jpg",
+            "author": "Line Fault",
+            "publisher": "Wikimedia Commons",
+            "date": "2015-07-11",
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "licensed_photograph",
+            "language": "en",
+            "places": [
+                "st-paul"
+            ],
+            "linkStatus": "active",
+            "note": "Licença CC BY-SA 4.0; fotografia panorâmica atual.",
+            "url": "https://commons.wikimedia.org/wiki/File:UFO_Landing_Pad_St._Paul.jpg"
+        },
+        {
+            "id": "commons-angelholm-category",
+            "title": "Category: Ängelholm UFO Monument",
+            "author": "Multiple",
+            "publisher": "Wikimedia Commons",
+            "date": null,
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "licensed_media_collection",
+            "language": "mul",
+            "places": [
+                "angelholm"
+            ],
+            "linkStatus": "active",
+            "note": "Conjunto com 12 arquivos; verificar licença e atribuição de cada item antes do uso.",
+            "url": "https://commons.wikimedia.org/wiki/Category:%C3%84ngelholm_UFO_Monument"
+        },
+        {
+            "id": "commons-cachi-category",
+            "title": "Category: Ovnipuerto de Cachi",
+            "author": "Multiple",
+            "publisher": "Wikimedia Commons",
+            "date": null,
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "licensed_media_collection",
+            "language": "mul",
+            "places": [
+                "cachi"
+            ],
+            "linkStatus": "active",
+            "note": "Três fotografias, incluindo vista aérea; verificar arquivo a arquivo.",
+            "url": "https://commons.wikimedia.org/wiki/Category:Ovnipuerto_de_Cachi"
+        },
+        {
+            "id": "houten-municipal-art",
+            "title": "Kerncollectie gemeente Houten",
+            "author": "Gemeente Houten",
+            "publisher": "Gemeente Houten",
+            "date": null,
+            "grade": "A",
+            "accessed": "2026-10-04",
+            "type": "municipal_collection_catalog",
+            "language": "nl",
+            "places": [
+                "candidate-houten"
+            ],
+            "linkStatus": "active",
+            "note": "Confirma encomenda, artistas, data de 2003 e componentes da obra.",
+            "url": "https://houten.bestuurlijkeinformatie.nl/Document/View/d62438d5-53c9-4acf-85f2-24964f5a0ebd"
+        },
+        {
+            "id": "houten-public-art",
+            "title": "UFO landingsplaats",
+            "author": "Kunst om de Hoek",
+            "publisher": "Kunst om de Hoek",
+            "date": null,
+            "grade": "B",
+            "accessed": "2026-10-04",
+            "type": "public_art_catalog",
+            "language": "nl",
+            "places": [
+                "candidate-houten"
+            ],
+            "linkStatus": "active",
+            "note": "Título oficial, materiais, localização e funcionamento simbólico.",
+            "url": "https://www.kodh.nl/openbare-kunstwerken/ufo-landingsplaats/"
+        },
+        {
+            "id": "poland-wi-roadside",
+            "title": "UFO Landing Port, Poland, Wisconsin",
+            "author": null,
+            "publisher": "Roadside America",
+            "date": null,
+            "grade": "C",
+            "accessed": "2026-10-04",
+            "type": "roadside_attraction_report",
+            "language": "en",
+            "places": [
+                "candidate-poland-wisconsin"
+            ],
+            "linkStatus": "active",
+            "note": "Descreve estrutura, sinalização, proprietário e endereço; requer confirmação local.",
+            "url": "https://www.roadsideamerica.com/story/12256"
+        },
+        {
+            "id": "poland-wi-map",
+            "title": "UFO Landing Port Map",
+            "author": "OpenStreetMap contributors",
+            "publisher": "Mapcarta / OpenStreetMap",
+            "date": null,
+            "grade": "C",
+            "accessed": "2026-10-04",
+            "type": "collaborative_map",
+            "language": "en",
+            "places": [
+                "candidate-poland-wisconsin"
+            ],
+            "linkStatus": "active",
+            "note": "Fornece coordenadas e OSM node 4661421736; confirmar em fonte cadastral.",
+            "url": "https://mapcarta.com/N4661421736"
+        },
+        {
+            "id": "elmwood-proposal",
+            "title": "Elmwood and the Landing Pad That Was Never Built",
+            "author": null,
+            "publisher": "Urban Legends",
+            "date": "2026-09-01",
+            "grade": "F",
+            "accessed": "2026-10-04",
+            "type": "secondary_web_article",
+            "language": "en",
+            "places": [
+                "candidate-elmwood-wisconsin"
+            ],
+            "linkStatus": "active",
+            "note": "Pista de descoberta apenas; proposta nunca construída precisa de confirmação contemporânea.",
+            "url": "https://urblegends.com/en/legends/elmwood-wisconsin"
+        }
+    ],
+    "credits": [
+        {
+            "case": "st-paul",
+            "file": "UFO Landing Pad St. Paul.jpg",
+            "author": "Line Fault",
+            "license": "CC BY-SA 4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:UFO_Landing_Pad_St._Paul.jpg"
+        },
+        {
+            "case": "angelholm",
+            "file": "UFO memorial.jpg",
+            "author": "ShwSie (talk)",
+            "license": "CC BY 3.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:UFO_memorial.jpg"
+        },
+        {
+            "case": "ares",
+            "file": "Arès 33 Ovniport1.jpg",
+            "author": "Henry SALOMÉ",
+            "license": "CC BY-SA 4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ar%C3%A8s_33_Ovniport1.jpg"
+        },
+        {
+            "case": "wycliffe-well",
+            "file": "Wycliffe well abandoned restaurant.jpg",
+            "author": "Wycliffewellvisitor",
+            "license": "CC0",
+            "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wycliffe_well_abandoned_restaurant.jpg"
+        },
+        {
+            "case": "green-river",
+            "file": "Sweetwater County Wyoming Incorporated and Unincorporated areas Green River Highlighted 5633740.svg",
+            "author": "DemocraticLuntz",
+            "license": "CC BY-SA 4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sweetwater_County_Wyoming_Incorporated_and_Unincorporated_areas_Green_River_Highlighted_5633740.svg"
+        },
+        {
+            "case": "barra-do-garcas",
+            "file": "Discoportobarragarcas.jpg",
+            "author": "Adelano Lázaro",
+            "license": "Public domain",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Discoportobarragarcas.jpg"
+        },
+        {
+            "case": "lajas",
+            "file": "Ruta Extraterrestre de Puerto Rico (2025)-1.jpg",
+            "author": "Ligocsicnarf89",
+            "license": "CC BY 4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ruta_Extraterrestre_de_Puerto_Rico_(2025)-1.jpg"
+        },
+        {
+            "case": "el-enladrillado",
+            "file": "Enladrillado Reserva Nacional Altos de Lircay 10.jpg",
+            "author": "Natalia Reyes Escobar",
+            "license": "CC BY-SA 4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Enladrillado_Reserva_Nacional_Altos_de_Lircay_10.jpg"
+        },
+        {
+            "case": "cachi",
+            "file": "Ovnipuerto de Cachi desde el aire.jpg",
+            "author": "nraliessi",
+            "license": "CC BY 2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ovnipuerto_de_Cachi_desde_el_aire.jpg"
+        },
+        {
+            "case": "emilcin",
+            "file": "Emilcin-pomnik.jpg",
+            "author": "Lukke at Polish Wikipedia",
+            "license": "CC BY-SA 2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Emilcin-pomnik.jpg"
+        },
+        {
+            "case": "carbondale",
+            "file": "Lackawanna County Pennsylvania Incorporated and Unincorporated areas Carbondale Highlighted.svg",
+            "author": "DemocraticLuntz",
+            "license": "CC BY-SA 4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lackawanna_County_Pennsylvania_Incorporated_and_Unincorporated_areas_Carbondale_Highlighted.svg"
+        },
+        {
+            "case": "lages",
+            "file": "SantaCatarina RM Lages.svg",
+            "author": "Marcos Elias de Oliveira Júnior",
+            "license": "CC BY 2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:SantaCatarina_RM_Lages.svg"
+        }
+    ],
+    "limitations": [
+        "Não foram feitas solicitações formais a arquivos públicos nesta rodada.",
+        "As bases pagas de jornais não foram adquiridas.",
+        "URLs arquivadas ainda não foram verificadas item por item no Internet Archive.",
+        "Algumas coordenadas dependem de bases colaborativas e permanecem assinaladas como provisórias.",
+        "As imagens de Green River, Carbondale e Lages são mapas de localização, não fotografias do objeto pesquisado.",
+        "Nenhuma fonte pública específica confirmou, até esta revisão, uma estrutura construída denominada OVNIPORTO Lages."
+    ]
+}

@@ -1,0 +1,179 @@
+{
+    "cachi-aereo": {
+        "width": 1320,
+        "height": 766,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAABQAwCdASoUAAwAPu1iqU2ppaQiMAgBMB2JZwC/OAapIOyN6AD51qdep+YQwderSkJS3IqVKdwS8AAA"
+    },
+    "cachi-2009": {
+        "width": 1920,
+        "height": 1440,
+        "widths": [
+            400,
+            800,
+            1200,
+            1600
+        ],
+        "lqip": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAACwAwCdASoUAA8APu1iqU2ppaOiMAgBMB2JZwCsAA085/iWvurQwAD+v8MBohAYZQya0yZD0QIuPiaK1zJwRn+yWdxXIiHql5KK9t+Fby3HB5oSAAA="
+    },
+    "cachi-estrella": {
+        "width": 1229,
+        "height": 922,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAACwAwCdASoUAA8APu1kqU2ppaOiMAgBMB2JQBdgBDrimzRYqChmgAD944k8r7/2nOQKA3q36dhBnahG6KXcwLbuo5D5etDIwe6/l/jwoaB60xqgzjpGzlIATYBCXunF2UiKRAAA"
+    },
+    "recta-tin-tin": {
+        "width": 1600,
+        "height": 1200,
+        "widths": [
+            400,
+            800,
+            1200,
+            1600
+        ],
+        "lqip": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAwCdASoUAA8APu1orU6ppiSiMAgBMB2JQBOgBDv/i4v/ecb4tQAA/pA+CNJOGTOdGQdNGqWNQFDxlI2hA65IrfJ8W5l6L37fwdYAAAA="
+    },
+    "nevado-de-cachi": {
+        "width": 1910,
+        "height": 1117,
+        "widths": [
+            400,
+            800,
+            1200,
+            1600
+        ],
+        "lqip": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAwCdASoUAAwAPu1kqU4ppaOiMAgBMB2JagCdMoADThD8+SAwbv2AAP3ilMLHyxjzu2+oe4cEXv/Zo17rrM8LFYhB1mezA5Ojsgt8FUiHDVN2hFt8JrFejAA="
+    },
+    "cachi-paisagem": {
+        "width": 1920,
+        "height": 1280,
+        "widths": [
+            400,
+            800,
+            1200,
+            1600
+        ],
+        "lqip": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAACwBACdASoUAA0APu1iqU2ppaOiMAgBMB2JaACdMoR3Ff/gQHDGTuhHBDGq0LzgAPzLvp4dv8lhxR2hH015UVLurDJmVGtrqMOCnV18ZLDZuRgXEDDa1zXdWcEWQ9g4Hu4/eNAq9PckiamE4GvOqqVjxvTW/NXUBYzRDWbRcZs2ftEAAAA="
+    },
+    "atlas-st-paul": {
+        "width": 1600,
+        "height": 422,
+        "widths": [
+            400,
+            800,
+            1200,
+            1600
+        ],
+        "lqip": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAAAwAwCdASoUAAUAPu1kqU2ppaOiMAgBMB2JYgAASFDMEWIAAP66JK55h3ip82KnAxj3SIOZzAofunx47B5ibNIwDv2TukpYVLIzg0u9J1+35QCAAAA="
+    },
+    "atlas-angelholm": {
+        "width": 576,
+        "height": 864,
+        "widths": [
+            400
+        ],
+        "lqip": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAAAQBQCdASoUAB4APu1sq1EppaOiqAqpMB2JQBOgAb8Z9DU78i+wL/PpC+oFxLazF4fAAP7fEh6Q5VX9Kkr5kbBUpJ6/pg0g63Fomuqrie0KWOA4g9HNTZ+kL3QEijmNi6vAsxXQwwq6s4cr8MdKxCL6E+6HJHiaO7FyV7hJJ7cV/ree5Jcop8VAeUYoGQQ2RDwfZZxhXVT9RcwNsA/gOzjtRQ4f5UAA"
+    },
+    "atlas-ares": {
+        "width": 1272,
+        "height": 1600,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRr4AAABXRUJQVlA4ILIAAAAQBQCdASoUABkAPu1irE4ppaSiKA1RMB2JYgCsAYx2cCx2zgBXJYHFQS5V6fct3+QAAP7Dmz3uviWdDvcuXyMiI0Eo2O/DAcKOFjhTkZX69O/+QaeGVypBY3HeCcvMn7P6EZIS732HC3axOhS7fbUtuMP1wx5c/Pvvp9b3KLldAPmx/snKY0hNcB6YyDrUZdX4UG9tBpbn6BtVZEswN2hiSde3k9htddRvTumrN1zVqgAA"
+    },
+    "atlas-wycliffe-well": {
+        "width": 1600,
+        "height": 1067,
+        "widths": [
+            400,
+            800,
+            1200,
+            1600
+        ],
+        "lqip": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBACdASoUAA0APu1kqU2ppaQiMAgBMB2JYgCdMoMYADt164JHxOitwAD+kJEUtD/neRnwahoDVcRteqhCUrEu/nHD470i/eIEcX9Fp7HO6smOgZTtOUUz0DvLax34dBQh9AZMLri/T2cW9H75B+ObnEO0QAAA"
+    },
+    "atlas-green-river": {
+        "width": 1354,
+        "height": 1600,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAADQBACdASoUABgAPu1iqE2ppaOiMAgBMB2JZQBTAAexTcLomFK38N56nrzp8bkFwAD+78SIFv2UBJTThGmTa1JjzoxQc66wC+FQjA2bZQCbkEotgFHBV310xjYYl8C7yAAAAA=="
+    },
+    "atlas-barra-do-garcas": {
+        "width": 1545,
+        "height": 1024,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAACwAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JZAC7ACESxBA7SWKuoAD+tC8qejR7c3LGjuA8QufTTw2lBdtdNx6MiLkewyrMT/aW1ePhORWFZROZlqf5MmIG2AOp/RWAAAA="
+    },
+    "atlas-lajas": {
+        "width": 1600,
+        "height": 1054,
+        "widths": [
+            400,
+            800,
+            1200,
+            1600
+        ],
+        "lqip": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADwAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JbACdICXCFQsoOPhZsgqwAPyN35r9rBqJ7i0XaJkdQA3F4WuwBa/hFHse2wt4MRr59abLUoAJyenmQVMmHImX6Nzrs5HOY9FR0ooPI3Qq/dAvH4Wf54g6DfV5b5+4AAA="
+    },
+    "atlas-el-enladrillado": {
+        "width": 1600,
+        "height": 1200,
+        "widths": [
+            400,
+            800,
+            1200,
+            1600
+        ],
+        "lqip": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAACQBACdASoUAA8APu1iqU2ppaQiMAgBMB2JQBOiP/wHlf0prc8IkK6Y3fJTZgAA/llcJQmfnv53o7aRPIJ0kRX4szApI3lgIEkUdbhSDLnXUzlPDerQAz47r2XYT4rJME20MBaDtmOGAA=="
+    },
+    "atlas-emilcin": {
+        "width": 818,
+        "height": 1228,
+        "widths": [
+            400,
+            800
+        ],
+        "lqip": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4INQAAAAwBQCdASoUAB4APu1qsFAppaSiqAqpMB2JZgC1FzwCm278zpQgoQ73EefLTYjyVyLUuAD+qDMyDIpXsTUwXDTWiin00T8OmUR3XJL+Yl9udqXU6v+1Hj/Xi1xNWqcprWx+bOZcOSLFpcEz13xeV4Pqb0/4oue6WxOmcnE31OaDykZlxiOoDKW9kIT8DkEnbi8uEzdGpH1h0JMn3CMeWGpJdMuCvgtp034hAmtl5X9UgQq3qbP9VrUM/dxP6ntjHBulJyHHt5e9julSfHK0kwDyLSAAAA=="
+    },
+    "atlas-carbondale": {
+        "width": 1600,
+        "height": 1161,
+        "widths": [
+            400,
+            800,
+            1200,
+            1600
+        ],
+        "lqip": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAABwAwCdASoUAA8APu1iqU2ppaQiMAgBMB2JZwAAWqGLrDJQvgAA/vA1auLvGe2dfUWtS1nNVfjzhG5aFKi/RGp9VeFLf0qbe84qVsGU8K6la2a7KIlHAAAA"
+    },
+    "atlas-lages": {
+        "width": 1600,
+        "height": 1070,
+        "widths": [
+            400,
+            800,
+            1200,
+            1600
+        ],
+        "lqip": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAwBACdASoUAA0APu1kqk4ppaQiMAgBMB2JbACdMoADTt1mmjPp9edG8gAA/uFIsp+EOi+RY3NpXMRmgpesJOOOtA51i7f6oWWydpVBQO5hwEWJEcSe5hS1IV3AAA=="
+    }
+}

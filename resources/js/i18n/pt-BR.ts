@@ -165,6 +165,9 @@ export const t = {
         copied: 'Link copiado.',
         shareText: (url: string) => `Olha o que estão fazendo no céu de Lages: ${url}`,
     },
+    origin: {
+        conceptPending: 'Conceito em produção',
+    },
     legendPage: {
         eyebrow: 'Como tudo começou',
         title: 'A lenda',
