@@ -112,7 +112,7 @@ export default function Logbook({ filters, total, pins, cards, page, hasMore }: 
                     onRetry={list.retry}
                     isEmpty={cards.length === 0}
                     placeholderClassName="aspect-[4/5] rounded-[6px]"
-                    className="mt-12 grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 lg:grid-cols-4"
+                    className="mt-12 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 sm:gap-x-8 lg:grid-cols-4"
                     empty={
                         <div className="mt-10 rounded-[22px] border-2 border-dashed border-moonlight/20 p-10 text-center">
                             <p className="font-script text-2xl text-beam-glow">{copy.empty}</p>
@@ -122,7 +122,7 @@ export default function Logbook({ filters, total, pins, cards, page, hasMore }: 
                         </div>
                     }
                 >
-                    <ul className="mt-12 grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 lg:grid-cols-4">
+                    <ul className="mt-12 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 sm:gap-x-8 lg:grid-cols-4">
                         {cards.map((sighting, i) => (
                             <li key={sighting.id}>
                                 <SightingPolaroid

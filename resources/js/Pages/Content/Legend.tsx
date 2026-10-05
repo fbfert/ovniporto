@@ -136,7 +136,7 @@ export default function Legend({ legendHtml }: { legendHtml: string | null }) {
                         </div>
                         <CachiTimeline />
                     </Reveal>
-                    <div className="relative mx-auto grid w-full max-w-md grid-cols-2 gap-6 pt-4 lg:mx-0">
+                    <div className="relative mx-auto grid w-full max-w-md grid-cols-2 items-start gap-6 pt-4 lg:mx-0">
                         <Polaroid
                             rotate={-4}
                             tape="top"

@@ -25,8 +25,8 @@ export function Footer() {
                     {t.brand.signoff}
                 </Eyebrow>
 
-                <div className="mt-16 grid gap-12 border-t border-moonlight/12 pt-12 md:grid-cols-[1.4fr_1fr_1fr]">
-                    <div className="flex items-start gap-4">
+                <div className="mt-16 grid gap-12 border-t border-moonlight/12 pt-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+                    <div className="flex items-start gap-4 md:col-span-2 lg:col-span-1">
                         <Seal size="md" className="size-20! shrink-0" />
                         <div>
                             <p className="font-display text-xl font-extrabold tracking-[0.04em] uppercase">
@@ -63,7 +63,7 @@ export function Footer() {
                                     {channel.href ? (
                                         <a
                                             href={channel.href}
-                                            className="inline-flex min-h-9 items-center gap-2 break-all hover:text-beam-glow"
+                                            className="inline-flex min-h-9 items-center gap-2 [overflow-wrap:anywhere] hover:text-beam-glow sm:[overflow-wrap:normal]"
                                         >
                                             {channel.icon}
                                             {channel.label}
@@ -87,7 +87,7 @@ export function Footer() {
                             href={MAP_URL}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="underline decoration-moonlight/40 underline-offset-4 hover:text-beam-glow"
+                            className="whitespace-nowrap underline decoration-moonlight/40 underline-offset-4 hover:text-beam-glow"
                         >
                             {t.footer.map}
                         </a>

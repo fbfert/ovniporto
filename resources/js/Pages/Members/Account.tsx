@@ -307,8 +307,8 @@ export default function Account({
                     </p>
                 )}
 
-                <nav aria-label={copy.accountTitle} className="-mx-5 mt-10 overflow-x-auto px-5 sm:mx-0 sm:px-0">
-                    <ul className="flex gap-2 border-b-2 border-dashed border-night/15 pb-3">
+                <nav aria-label={copy.accountTitle} className="mt-10">
+                    <ul className="flex flex-wrap gap-2 border-b-2 border-dashed border-night/15 pb-3">
                         {TABS.map((key) => (
                             <li key={key}>
                                 <Link

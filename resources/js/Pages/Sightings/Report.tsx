@@ -209,7 +209,7 @@ export default function Report({ nickname, today, lages, limits, editing }: Prop
                 </ol>
             </header>
 
-            <main className="relative z-10 mx-auto max-w-2xl px-5 pt-6 pb-36">
+            <main className="relative z-10 mx-auto box-content max-w-2xl px-5 pt-6 pb-36">
                 {editing && draft.step === 1 && (
                     <aside className="mb-6 rounded-[22px] bg-car px-5 py-4 text-night">
                         <p className="font-display text-sm font-extrabold tracking-[0.06em] uppercase">

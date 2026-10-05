@@ -18,7 +18,7 @@ export function NightBanner({ children, size = 'default' }: { children: ReactNod
                 aria-hidden
                 viewBox="0 600 1600 400"
                 preserveAspectRatio="xMidYMax slice"
-                className="absolute inset-x-0 bottom-0 h-[38%] w-full"
+                className="absolute inset-x-0 bottom-0 aspect-[4/1] min-h-[38%] w-full"
             >
                 <path d={SERRA.far} fill="var(--color-night-blue)" />
                 <path d={SERRA.near} fill="var(--color-night)" />

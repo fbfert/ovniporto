@@ -2,6 +2,7 @@ import { Link } from '@inertiajs/react';
 import { AraucariaShape } from '@/Components/Scene/Art';
 import { Button } from '@/Components/Ui/Button';
 import { ContentImage } from '@/Components/Ui/Picture';
+import { NightSkyArt } from '@/Components/Ui/Polaroid';
 import { Reveal, RevealItem } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
 import { Badge, Display, Eyebrow } from '@/Components/Ui/Typography';
@@ -34,14 +35,16 @@ export function RegionSection({ partners, contactEmail }: { partners: PartnerCar
                                 href={`/regiao#${partner.slug}`}
                                 className="group flex items-center gap-4 rounded-[22px] bg-moonlight p-3 ring-1 ring-night/10 transition-shadow duration-300 ease-snap hover:shadow-lift"
                             >
-                                <div className="size-24 shrink-0 overflow-hidden rounded-2xl bg-night-blue">
-                                    {partner.cover && (
+                                <div className="relative size-24 shrink-0 overflow-hidden rounded-2xl bg-night-blue">
+                                    {partner.cover ? (
                                         <ContentImage
                                             src={partner.cover}
                                             alt=""
                                             sizes="6rem"
                                             className="h-full w-full"
                                         />
+                                    ) : (
+                                        <NightSkyArt seed={partner.slug.length} />
                                     )}
                                 </div>
                                 <div className="min-w-0">

@@ -7,6 +7,7 @@ import { Section } from '@/Components/Ui/Section';
 import { TicketCard } from '@/Components/Ui/TicketCard';
 import { Display, Eyebrow } from '@/Components/Ui/Typography';
 import { money, t } from '@/i18n/pt-BR';
+import { ProductStub } from '@/Components/Store/ProductStub';
 import type { ProductCard } from '@/types';
 
 const SLOTS = 3;
@@ -73,18 +74,7 @@ export function SouvenirsSection({ lead, products }: { lead: string; products: P
                         />
                     </RevealItem>
                 ))}
-                {Array.from({ length: stubs }, (_, i) => (
-                    <RevealItem as="li" key={`stub-${i}`} className={i > 0 ? 'hidden lg:block' : ''}>
-                        <div className="flex h-full min-h-72 flex-col items-center justify-center gap-2 rounded-[18px] border-2 border-dashed border-moonlight/20 p-8 text-center">
-                            <p className="font-script text-2xl text-beam-glow">
-                                {products.length === 0 ? t.store.empty : t.storePage.nextStub}
-                            </p>
-                            <p className="text-sm text-moonlight/60">
-                                Camiseta, caneca e Kit Abdução, feitos sob pedido.
-                            </p>
-                        </div>
-                    </RevealItem>
-                ))}
+                <ProductStub freeSlots={stubs} storeEmpty={products.length === 0} />
             </Reveal>
         </Section>
     );

@@ -16,7 +16,7 @@ export function Eyebrow({
 }) {
     return (
         <Tag
-            className={`-rotate-2 font-script text-[clamp(1.5rem,1.2rem+1.2vw,2.1rem)] leading-none font-semibold ${
+            className={`-rotate-2 font-script text-[clamp(1.5rem,1.2rem+1.2vw,2.1rem)] leading-[1.15] font-semibold ${
                 tone === 'dark' ? 'text-beam-glow' : 'text-horizon'
             } ${className}`}
         >
@@ -26,9 +26,9 @@ export function Eyebrow({
 }
 
 const displaySizes = {
-    h1: 'text-[clamp(2rem,9.4vw,9rem)] leading-[0.92]',
-    h2: 'text-[clamp(1.6rem,0.6rem+4.4vw,4.6rem)] leading-[0.95]',
-    h3: 'text-[clamp(1.6rem,1rem+3vw,3.6rem)] leading-[1]',
+    h1: 'text-[clamp(2rem,9.4vw,9rem)] leading-[1.02]',
+    h2: 'text-[clamp(1.6rem,0.6rem+4.4vw,4.6rem)] leading-[1.04]',
+    h3: 'text-[clamp(1.6rem,1rem+3vw,3.6rem)] leading-[1.06]',
 } as const;
 
 /** Wide geometric display type, uppercase, as on the printed sticker. */

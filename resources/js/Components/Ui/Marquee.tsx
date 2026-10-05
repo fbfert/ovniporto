@@ -86,9 +86,14 @@ export function Marquee({
                     {run}
                     {run}
                 </div>
-                <p className="hidden px-6 text-center font-display font-bold tracking-[0.06em] uppercase motion-reduce:block">
-                    {items.join(' ✦ ')}
-                </p>
+                {/* Still version: whole items per line (never a word stranded), clear of the tilted edges. */}
+                <ul className="hidden flex-wrap justify-center gap-x-5 gap-y-1 px-[calc(5vw+1.5rem)] font-display text-[clamp(0.85rem,0.7rem+0.6vw,1.1rem)] font-bold tracking-[0.06em] uppercase motion-reduce:flex">
+                    {items.map((item) => (
+                        <li key={item} className="whitespace-nowrap">
+                            {item}
+                        </li>
+                    ))}
+                </ul>
                 <button
                     type="button"
                     aria-pressed={paused}

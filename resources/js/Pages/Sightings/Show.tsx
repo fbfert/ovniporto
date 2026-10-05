@@ -126,11 +126,17 @@ export default function Show({
                     </p>
                 )}
                 <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-16">
-                    <Gallery sighting={sighting} />
+                    {/* Photo stays in view while the longer story card scrolls past it. */}
+                    <div className="self-start lg:sticky lg:top-28">
+                        <Gallery sighting={sighting} />
+                    </div>
 
                     <article className="relative self-start rounded-[26px] bg-night-blue p-6 ring-1 ring-moonlight/10 sm:p-8">
                         {sighting.status === 'approved' && sighting.publishedAt && (
-                            <TowerStamp date={sighting.publishedAt} className="absolute -top-10 -right-4 sm:-right-8" />
+                            <TowerStamp
+                                date={sighting.publishedAt}
+                                className="absolute -top-10 -right-1 sm:-right-6 lg:-right-8"
+                            />
                         )}
                         <Eyebrow tone="dark">
                             {copy.by}: {sighting.nickname}

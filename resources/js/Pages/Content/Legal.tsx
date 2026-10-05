@@ -33,7 +33,7 @@ function Practices({ title, items, draft }: { title: string; items: string[]; dr
                 {title}
             </h2>
             {draft && <p className="mt-2 font-script text-xl text-horizon">{copy.practicesNote}</p>}
-            <ul className="mt-6 max-w-[68ch] divide-y divide-night/10 border-y border-night/10">
+            <ul className="mt-6 max-w-[38rem] divide-y divide-night/10 border-y border-night/10">
                 {items.map((item) => (
                     <li key={item} className="flex gap-4 py-4 leading-relaxed text-night/85">
                         <BeamIcon size="1.25rem" className="mt-0.5 shrink-0 text-beam" />
@@ -60,7 +60,7 @@ export default function Legal({ kind, html, toc, updatedAt, draft, practices }: 
                 {draft && (
                     <div
                         role="note"
-                        className="mb-14 flex max-w-4xl items-start gap-4 rounded-[22px] border-2 border-dashed border-car bg-car/15 p-5 sm:p-6"
+                        className={`mb-14 flex max-w-[38rem] items-start gap-4 rounded-[22px] ${toc.length > 0 ? 'lg:ml-[20rem]' : ''} border-2 border-dashed border-car bg-car/15 p-5 sm:p-6`}
                     >
                         <StampIcon size="1.75rem" className="mt-0.5 text-night" />
                         <div>
@@ -78,12 +78,12 @@ export default function Legal({ kind, html, toc, updatedAt, draft, practices }: 
                             <p className="text-[0.7rem] font-semibold tracking-[0.12em] text-night/60 uppercase">
                                 {copy.toc}
                             </p>
-                            <ol className="mt-4 space-y-1 border-l-2 border-dashed border-night/15">
+                            <ol className="mt-4 border-l-2 border-dashed border-night/15 sm:columns-2 sm:gap-8 lg:columns-1">
                                 {toc.map((item) => (
                                     <li key={item.id}>
                                         <a
                                             href={`#${item.id}`}
-                                            className="-ml-0.5 block border-l-2 border-transparent py-1.5 pl-4 text-[0.95rem] text-night/75 transition-colors duration-150 hover:border-horizon hover:text-night"
+                                            className="-ml-0.5 flex min-h-11 break-inside-avoid items-center border-l-2 border-transparent py-1 pl-4 text-[0.95rem] text-night/75 transition-colors duration-150 hover:border-horizon hover:text-night"
                                         >
                                             {item.title}
                                         </a>
@@ -94,7 +94,7 @@ export default function Legal({ kind, html, toc, updatedAt, draft, practices }: 
                     )}
                     <div>
                         {practices && <Practices title={practices.title} items={practices.items} draft={draft} />}
-                        <Prose html={html} className="text-night/85" />
+                        <Prose html={html} className="text-night/85 [&_h2]:text-night [&_h3]:text-night" />
                     </div>
                 </div>
             </Section>

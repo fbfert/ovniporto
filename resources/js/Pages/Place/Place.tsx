@@ -101,7 +101,7 @@ function PhaseTimeline({ spaces }: { spaces: PlaceSpace[] }) {
                         <Reveal
                             stagger
                             as="ul"
-                            className={`mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 ${first ? '-mx-3 rounded-[28px] bg-beam/10 p-3 ring-1 ring-beam/40 sm:-mx-4 sm:p-4' : ''}`}
+                            className={`mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 ${first ? 'rounded-[28px] bg-beam/10 p-3 ring-1 ring-beam/40 sm:p-4' : ''}`}
                         >
                             {inPhase.map((space) => (
                                 <RevealItem as="li" key={space.slug}>
@@ -155,7 +155,7 @@ export default function Place({
                 </Display>
                 <div className="mt-10 grid gap-8 md:grid-cols-2">
                     <figure>
-                        <SitePhotos photos={photos} className="min-h-64 md:aspect-[16/10]" />
+                        <SitePhotos photos={photos} className="aspect-[16/10] min-h-64 md:min-h-0" />
                         <figcaption className="mt-3 px-1 text-sm font-semibold">{copy.today}</figcaption>
                     </figure>
                     <figure>

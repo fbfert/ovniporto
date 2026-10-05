@@ -176,7 +176,7 @@ function Rewards() {
                         </div>
                         <div className="mx-5 border-t-2 border-dashed border-moonlight/15" />
                         <div className="flex-1 px-6 pt-5 pb-7">
-                            <h3 className="font-display text-lg leading-tight font-bold tracking-[0.03em] uppercase">
+                            <h3 className="font-display text-[clamp(0.95rem,0.75rem+0.6vw,1.125rem)] leading-tight font-bold tracking-[0.03em] [overflow-wrap:normal] hyphens-auto uppercase">
                                 {reward.title}
                             </h3>
                             <p className="mt-2 leading-relaxed text-moonlight/75">{reward.body}</p>
