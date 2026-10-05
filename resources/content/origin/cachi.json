@@ -4,6 +4,59 @@
     "lead": "Do relato de Werner Jaisli à Estrella de la Esperanza; das pedras em Fuerte Alto ao surgimento do Barrio Ovnipuerto. Uma história de céu, memória, turismo e território.",
     "quote": "Isso foi contado. Isto está documentado. E cabe a você olhar para o céu.",
     "cover": "cachi-aereo",
+    "reference": {
+        "name": "Ovnipuerto de Cachi",
+        "headline": "Ovnipuerto de Cachi: Werner Jaisli e a Estrella de la Esperanza",
+        "publishedAt": "2026-10-04",
+        "updatedAt": "2026-10-05",
+        "keywords": ["Ovnipuerto de Cachi", "Ovnipuerto", "Ovniporto", "OVNIPORTO", "Cachi", "Salta", "Argentina", "Werner Jaisli", "Terry Jaisli", "Estrella de la Esperanza", "Fuerte Alto", "Barrio Ovnipuerto", "Valles Calchaquíes", "Antonio Zuleta", "Recta del Tin Tin"],
+        "place": {
+            "alternateNames": ["Ovnipuerto", "Ovniporto de Cachi", "OVNI Puerto de Cachi", "Estrella de la Esperanza"],
+            "description": "Figura de pedras em forma de estrela, com 36 pontas e 48 metros de diâmetro, construída por Werner Jaisli a partir de 2008 em Fuerte Alto, perto de Cachi.",
+            "locality": "Cachi",
+            "area": "Fuerte Alto",
+            "region": "Salta",
+            "country": "AR"
+        },
+        "person": {
+            "name": "Werner Jaisli",
+            "alternateNames": ["Terry Jaisli", "Werner \"Terry\" Jaisli"],
+            "nationality": "Suíça",
+            "deathYear": "2021",
+            "deathPlace": "Suíça",
+            "description": "Suíço que construiu a Estrella de la Esperanza, o Ovnipuerto de Cachi, em Salta, na Argentina. Morreu na Suíça em 2021, aos 72 anos."
+        }
+    },
+    "summary": {
+        "eyebrow": "Em poucas palavras",
+        "title": "O que é o Ovnipuerto de Cachi",
+        "items": [
+            {
+                "question": "O que é o Ovnipuerto de Cachi?",
+                "answer": "É uma grande figura de pedras em forma de estrela, chamada Estrella de la Esperanza, construída a partir de 2008 em Fuerte Alto, a cerca de quatro quilômetros de Cachi, na província de Salta, Argentina. Seu criador, o suíço Werner Jaisli, dizia que ela era um sinal para o céu. Hoje é atração turística e deu nome ao Barrio Ovnipuerto."
+            },
+            {
+                "question": "Quem foi Werner Jaisli?",
+                "answer": "Werner “Terry” Jaisli foi o suíço que idealizou e construiu a Estrella de la Esperanza. Segundo o próprio relato, publicado pelo El Tribuno em 2011, na noite de 24 de novembro de 2008 ele viu dois objetos luminosos sobre o rio Calchaquí e recebeu em pensamento a ordem de construir um Ovnipuerto. Deixou Cachi em dezembro de 2013, voltou em 2019 e morreu na Suíça em 2021, aos 72 anos."
+            },
+            {
+                "question": "Qual o tamanho da Estrella de la Esperanza?",
+                "answer": "Segundo o Expediente 91-42.710/20 da Câmara de Deputados de Salta, a estrela principal tem 36 pontas e 48 metros de diâmetro, com uma estrela menor de 12 pontas no interior. Foi feita com pedras da região, em terras fiscais do Catastro nº 3019."
+            },
+            {
+                "question": "O Ovnipuerto é patrimônio protegido?",
+                "answer": "Desde 2017 a obra está sob os cuidados da Municipalidad de Cachi. Em 2020 a Câmara de Deputados de Salta aprovou uma declaração pedindo sua incorporação ao sistema provincial de proteção do patrimônio arquitetônico e urbanístico. O ato final de tombamento não foi localizado."
+            },
+            {
+                "question": "O que é o Barrio Ovnipuerto?",
+                "answer": "É o bairro que cresceu em volta da estrela. Em 2021 o Governo de Salta anunciou a rede elétrica de um loteamento no Barrio Ovnipuerto, para 92 famílias, e em 2026 Ovnipuerto aparece como localidade nas políticas habitacionais da província."
+            },
+            {
+                "question": "Ovnipuerto, ovniporto e OVNIPORTO: qual a relação?",
+                "answer": "Ovnipuerto é o nome em espanhol (OVNI + puerto, porto). Ovniporto é a forma em português. O OVNIPORTO Lages, de Santa Catarina, Brasil, é uma comunidade inspirada no Ovnipuerto de Cachi que planeja uma pista de pouso na Localidade Pedras Brancas, com meta para 2028. O lugar em Lages ainda não existe."
+            }
+        ]
+    },
     "chapters": [
         {
             "id": "prologo",

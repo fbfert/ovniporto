@@ -967,7 +967,7 @@
         {
             "date": "2026 em diante",
             "place": "Lages",
-            "event": "apenas conceito no briefing; não confirmado"
+            "event": "idealização, apoiadores e início do OVNIPORTO"
         }
     ],
     "timelineNote": "A tabela reúne os marcos documentais disponíveis. Ela não reduz cada caso a um único ano: quando necessário, distingue relato, decisão, construção, inauguração, reforma e abandono.",
@@ -1014,7 +1014,14 @@
             ],
             "reason": "Se confirmado, oferece paralelo útil com Lajas: projeto de ovnipuerto não materializado que contribuiu para identidade/festival local.",
             "reliability": "Baixa. Nenhuma ata, notícia contemporânea ou documento do comitê foi localizado nesta rodada.",
-            "decision": "Não incluir sem confirmação por jornal local, arquivo municipal ou documentação do festival."
+            "decision": "Não incluir sem confirmação por jornal local, arquivo municipal ou documentação do festival.",
+            "status": "unbuilt",
+            "pending": [
+                "A plataforma nunca foi construída: só existe como proposta.",
+                "Ata ou documento do comitê de moradores que fez a proposta.",
+                "Notícia contemporânea em jornal local.",
+                "Registro no arquivo municipal ou na documentação do festival."
+            ]
         },
         {
             "name": "Landingsbaan voor buitenaardse culturen — Houten",
@@ -1051,7 +1058,14 @@
             ],
             "reason": "É um caso forte de obra de arte pública contemporânea que transforma infraestrutura cotidiana em “pista para culturas extraterrestres”. Amplia a tipologia para além de monumentos isolados e atrações ufológicas.",
             "reliability": "Alta para autoria, data, componentes e vínculo municipal. Pendente confirmar inauguração exata, orçamento, manutenção e alterações posteriores.",
-            "decision": "Não incluído automaticamente no Atlas. Recomenda-se forte prioridade na próxima curadoria."
+            "decision": "Não incluído automaticamente no Atlas. Recomenda-se forte prioridade na próxima curadoria.",
+            "status": "inspection",
+            "pending": [
+                "Vistoria do estado atual das duas rotatórias, da plataforma e da torre.",
+                "Data exata de inauguração.",
+                "Orçamento e responsável pela manutenção.",
+                "Alterações feitas depois de 2003."
+            ]
         },
         {
             "name": "UFO Landing Port — Poland/Eaton, Wisconsin",
@@ -1092,7 +1106,15 @@
             ],
             "reason": "É comparável a Wycliffe Well como iniciativa privada, mas com forma arquitetônica específica e pequena escala industrial/vernacular.",
             "reliability": "Média-baixa. A estrutura e o autor aparecem em fontes secundárias, mas faltam documento primário, data comprovada, situação de propriedade e confirmação recente.",
-            "decision": "Não incluído automaticamente. Exige imprensa local, registro de propriedade e documentação fotográfica licenciada."
+            "decision": "Não incluído automaticamente. Exige imprensa local, registro de propriedade e documentação fotográfica licenciada.",
+            "status": "verification",
+            "pending": [
+                "Confirmação recente e independente de que a estrutura ainda existe.",
+                "Documento primário e ano exato da construção.",
+                "Situação de propriedade do terreno.",
+                "Reportagem de imprensa local.",
+                "Fotografia com licença aberta."
+            ]
         }
     ],
     "sources": [

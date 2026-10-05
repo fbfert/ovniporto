@@ -89,6 +89,15 @@ export interface CachiDossier {
     cover: string;
     chapters: CachiChapter[];
     epilogue: string[];
+    reference: { name: string };
+    summary: CachiSummary;
+}
+
+/** Short answers drawn from the dossier, mirrored as FAQPage structured data. */
+export interface CachiSummary {
+    eyebrow: string;
+    title: string;
+    items: { question: string; answer: string }[];
 }
 
 export interface Coordinates {
@@ -133,6 +142,9 @@ export interface AtlasCandidate {
     reason: string;
     reliability: string;
     decision: string;
+    /** Why it is still outside the Atlas: never built, built but needs an on-site check, or existence unverified. */
+    status: 'unbuilt' | 'inspection' | 'verification';
+    pending: string[];
 }
 
 export interface AtlasClaim {

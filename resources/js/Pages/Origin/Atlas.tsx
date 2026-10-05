@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { PageCover } from '@/Components/Content/PageCover';
 import { SeoHead } from '@/Components/Layout/SeoHead';
 import { LazyMap, OVNIPORTO_COORDS, type MapMarker } from '@/Components/Map/LazyMap';
+import { CollaboratorForm } from '@/Components/Origin/CollaboratorForm';
 import { CreditedImage } from '@/Components/Origin/CreditedImage';
 import { ConfidenceSeal } from '@/Components/Origin/SourceBadge';
 import { Timeline } from '@/Components/Origin/Timeline';
@@ -117,7 +118,12 @@ function SourceRow({ source }: { source: AtlasSource }) {
 function Candidate({ item }: { item: AtlasCandidate }) {
     return (
         <article className="flex h-full flex-col rounded-[22px] bg-night-blue p-6 text-moonlight">
-            <h3 className="font-display text-base leading-tight font-bold tracking-[0.03em] uppercase">{item.name}</h3>
+            <p className="self-start rounded-full border-2 border-dashed border-beam-glow/70 px-3 py-1 text-[0.8rem] font-semibold text-beam-glow">
+                {copy.candidateStatus[item.status]}
+            </p>
+            <h3 className="mt-4 font-display text-base leading-tight font-bold tracking-[0.03em] uppercase">
+                {item.name}
+            </h3>
             <dl className="mt-4 space-y-2 text-[0.9rem]">
                 {item.facts.map((fact) => (
                     <div key={fact.label}>
@@ -127,6 +133,21 @@ function Candidate({ item }: { item: AtlasCandidate }) {
                 ))}
             </dl>
             <p className="mt-4 leading-relaxed text-moonlight/80">{item.description}</p>
+            <div className="mt-5 rounded-[14px] bg-night/40 p-4">
+                <h4 className="text-[0.9rem] font-semibold text-beam-glow">{copy.pendingTitle}</h4>
+                <ul className="mt-3 space-y-2 text-[0.9rem] leading-snug text-moonlight/85">
+                    {item.pending.map((line) => (
+                        <li key={line} className="flex gap-3">
+                            {/* An empty box: still to be confirmed. */}
+                            <span
+                                aria-hidden
+                                className="mt-[0.2em] size-3.5 shrink-0 rounded-[3px] border-2 border-moonlight/50"
+                            />
+                            {line}
+                        </li>
+                    ))}
+                </ul>
+            </div>
             <p className="mt-4 text-[0.9rem] text-moonlight/70">
                 <span className="font-semibold text-beam-glow">{copy.reliability}: </span>
                 {item.reliability}
@@ -221,7 +242,7 @@ export default function Atlas(props: Props) {
             </Section>
 
             <Section tone="light" labelledBy="cronologia">
-                <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+                <div className="grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
                     <div>
                         <Eyebrow>{copy.timelineEyebrow}</Eyebrow>
                         <Display as="h2" id="cronologia" className="mt-3">
@@ -331,6 +352,7 @@ export default function Atlas(props: Props) {
                                 </li>
                             ))}
                         </ul>
+                        <CollaboratorForm />
                     </div>
                 </div>
             </Section>

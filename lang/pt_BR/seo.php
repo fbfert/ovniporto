@@ -11,6 +11,13 @@ return [
     'home_title' => 'OVNIPORTO Lages · A pista de pouso do planalto',
     'default_description' => 'Astroturismo na Serra Catarinense: comunidade, Livro de avistamentos e lembranças do OVNIPORTO, a futura pista de pouso de Lages, SC.',
 
+    'breadcrumb_home' => 'Início',
+
+    'llms' => [
+        'about' => 'O OVNIPORTO Lages é uma comunidade de astroturismo de Lages, Santa Catarina, Brasil, inspirada no Ovnipuerto de Cachi, na Argentina. Planeja uma pista de pouso na Localidade Pedras Brancas, com meta para 2028; o lugar ainda não existe. O site mantém em português um dossiê com fontes sobre o Ovnipuerto de Cachi e seu criador, Werner Jaisli, e um Atlas dos ovnipuertos do mundo.',
+        'pages' => 'Outras páginas',
+    ],
+
     'atlas_case_title' => ':name · Atlas dos Ovnipuertos',
 
     'pages' => [
@@ -21,8 +28,8 @@ return [
             'image' => '/origin/cachi-aereo.jpg',
         ],
         'origin.cachi' => [
-            'title' => 'Ovnipuerto de Cachi',
-            'description' => 'A história documentada do Ovnipuerto de Cachi, na Argentina: a noite de 2008, a Estrella de la Esperanza, os relatos, Werner Jaisli e o Barrio Ovnipuerto.',
+            'title' => 'Ovnipuerto de Cachi: Werner Jaisli e a Estrella de la Esperanza',
+            'description' => 'Dossiê com fontes do Ovnipuerto de Cachi, na Argentina: Werner “Terry” Jaisli, a noite de 2008, a Estrella de la Esperanza de 48 m e o Barrio Ovnipuerto.',
             'image' => '/origin/cachi-aereo.jpg',
         ],
         'origin.atlas' => [

@@ -49,3 +49,13 @@ it('renders the relato once the founders write it', function () {
         ->where('relatoHtml', fn (string $html) => str_contains($html, '<strong>subiu</strong>'))
     );
 });
+
+it('tells what is still missing for each candidate case', function () {
+    $this->get('/origem/atlas')->assertInertia(fn (Assert $page) => $page
+        ->where('candidates.0.status', 'unbuilt')
+        ->where('candidates.1.status', 'inspection')
+        ->where('candidates.2.status', 'verification')
+        ->where('candidates', fn ($candidates) => collect($candidates)->every(fn (array $c) => count($c['pending']) > 0))
+        ->etc()
+    );
+});

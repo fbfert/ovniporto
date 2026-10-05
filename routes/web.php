@@ -18,9 +18,11 @@ use App\Http\Controllers\Members\TermsAcceptanceController;
 use App\Http\Controllers\Members\WelcomeController;
 use App\Http\Controllers\Origin\AtlasController;
 use App\Http\Controllers\Origin\CachiController;
+use App\Http\Controllers\Origin\CollaboratorController;
 use App\Http\Controllers\Origin\OriginController;
 use App\Http\Controllers\Panel\AuditController;
 use App\Http\Controllers\Panel\CampaignAdminController;
+use App\Http\Controllers\Panel\CollaboratorAdminController;
 use App\Http\Controllers\Panel\ContentHubController;
 use App\Http\Controllers\Panel\MemberAdminController;
 use App\Http\Controllers\Panel\OrderAdminController;
@@ -200,6 +202,12 @@ Route::middleware(['auth', 'profile.complete', 'panel:inicio'])->prefix('painel'
             Route::get('/exportar', [CampaignAdminController::class, 'exportWaitlist'])->name('.export');
             Route::delete('/{subscriber}', [CampaignAdminController::class, 'removeSubscriber'])->whereNumber('subscriber')->name('.destroy');
         });
+
+        Route::prefix('colaboradores')->name('.collaborators')->group(function () {
+            Route::get('/', [CollaboratorAdminController::class, 'index']);
+            Route::get('/exportar', [CollaboratorAdminController::class, 'export'])->name('.export');
+            Route::delete('/{collaborator}', [CollaboratorAdminController::class, 'destroy'])->whereNumber('collaborator')->name('.destroy');
+        });
     });
 
     Route::middleware('panel:pedidos')->prefix('pedidos')->name('.orders')->group(function () {
@@ -265,6 +273,9 @@ Route::get('/fotos/relatos/{photo}/{width}/{format?}', SightingPhotoController::
 Route::post('/avise-me', [WaitlistController::class, 'store'])
     ->middleware('throttle:5,1')
     ->name('waitlist.store');
+Route::post('/colaborar', [CollaboratorController::class, 'store'])
+    ->middleware('throttle:5,10')
+    ->name('collaborators.store');
 Route::get('/avise-me/confirmar/{subscriber}', [WaitlistController::class, 'confirm'])
     ->whereNumber('subscriber')
     ->middleware('signed')
@@ -273,6 +284,7 @@ Route::get('/avise-me/confirmar/{subscriber}', [WaitlistController::class, 'conf
 Route::post('/csp-report', CspReportController::class)->middleware('throttle:60,1')->name('csp.report');
 Route::get('/sitemap.xml', [CrawlerController::class, 'sitemap'])->name('sitemap');
 Route::get('/robots.txt', [CrawlerController::class, 'robots'])->name('robots');
+Route::get('/llms.txt', [CrawlerController::class, 'llms'])->name('llms');
 
 // Link previews of public content (public/og/default.jpg is a static file and never reaches here).
 Route::get('/og/{kind}/{key}.{version}.jpg', OgImageController::class)

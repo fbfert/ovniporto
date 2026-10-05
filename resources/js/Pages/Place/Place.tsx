@@ -70,7 +70,8 @@ function SpaceCard({ space, number }: { space: PlaceSpace; number: number }) {
                         {space.name}
                     </h4>
                 </div>
-                <p className="mt-3 leading-relaxed text-night/75">{space.description ?? space.role}</p>
+                <p className="mt-2 font-script text-xl leading-snug text-horizon">{space.role}</p>
+                {space.description && <p className="mt-2 leading-relaxed text-night/75">{space.description}</p>}
                 <p className="mt-auto pt-5">
                     <Badge tone={space.status === 'building' ? 'car' : 'neutral'}>{t.place.status[space.status]}</Badge>
                 </p>
@@ -197,6 +198,16 @@ export default function Place({
                     {copy.phasesTitle}
                 </Display>
                 <PhaseTimeline spaces={spaces} />
+                <dl className="mt-14 grid gap-6 rounded-[22px] border-2 border-dashed border-night/20 p-6 sm:grid-cols-2 sm:p-8">
+                    {copy.visit.map((item) => (
+                        <div key={item.title}>
+                            <dt className="font-display text-base font-bold tracking-[0.03em] uppercase">
+                                {item.title}
+                            </dt>
+                            <dd className="mt-2 max-w-[48ch] leading-relaxed text-night/75">{item.body}</dd>
+                        </div>
+                    ))}
+                </dl>
             </Section>
 
             <Section tone="dark" pattern="stars" wave labelledBy="ceu-escuro">

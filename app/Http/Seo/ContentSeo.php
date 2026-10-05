@@ -95,7 +95,7 @@ final readonly class ContentSeo
     {
         $seo = Seo::forRoute('origin.cachi');
 
-        return $seo->withJsonLd(StructuredData::originArticle($seo->title ?? (string) $dossier['title'], $seo->description, $seo->image));
+        return new Seo($seo->title, $seo->description, $seo->image, 'article', jsonLd: [StructuredData::cachiReference($dossier, $seo->description, $seo->image)]);
     }
 
     /**

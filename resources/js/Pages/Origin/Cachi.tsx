@@ -16,7 +16,7 @@ import { Display, Eyebrow } from '@/Components/Ui/Typography';
 import manifest from '@/data/origin-images.json';
 import { t } from '@/i18n/pt-BR';
 import { PublicLayout } from '@/Layouts/PublicLayout';
-import type { CachiChapter, CachiDossier, ImageCredits } from '@/types/origin';
+import type { CachiChapter, CachiDossier, CachiSummary, ImageCredits } from '@/types/origin';
 
 const copy = t.origin.cachiPage;
 const entries: Record<string, ManifestEntry | undefined> = manifest;
@@ -50,7 +50,10 @@ function Cover({ dossier, images }: { dossier: CachiDossier; images: ImageCredit
             <div className="mx-auto w-full max-w-6xl px-5 pt-36 pb-16 sm:px-8 lg:pb-20">
                 <Eyebrow tone="dark">{dossier.kicker}</Eyebrow>
                 <Display as="h1" className="mt-4 max-w-[14ch] text-[clamp(2.2rem,1rem+6vw,6rem)]!">
-                    {dossier.title}
+                    <span className="mb-3 block text-[clamp(1.15rem,0.8rem+1.5vw,2rem)] leading-tight text-beam-glow">
+                        {dossier.reference.name}
+                    </span>
+                    <span className="block">{dossier.title}</span>
                 </Display>
                 <p className="mt-6 max-w-[56ch] text-lg leading-relaxed text-moonlight/85">{dossier.lead}</p>
                 <blockquote className="mt-10 max-w-[44ch] border-l-4 border-beam pl-5 font-script text-[clamp(1.5rem,1.2rem+1vw,2rem)] leading-snug text-beam-glow">
@@ -69,6 +72,30 @@ function Cover({ dossier, images }: { dossier: CachiDossier; images: ImageCredit
                         </a>
                     </p>
                 )}
+            </div>
+        </section>
+    );
+}
+
+/** The dossier in six answers: what a search engine or an assistant quotes when someone asks. */
+function Summary({ summary }: { summary: CachiSummary }) {
+    return (
+        <section aria-labelledby="em-poucas-palavras-titulo" id="em-poucas-palavras" className="scroll-mt-28">
+            <Eyebrow>{summary.eyebrow}</Eyebrow>
+            <Display
+                as="h2"
+                id="em-poucas-palavras-titulo"
+                className="mt-3 max-w-[20ch] text-[clamp(1.6rem,0.9rem+3vw,3.4rem)]!"
+            >
+                {summary.title}
+            </Display>
+            <div className="mt-8 rounded-[22px] border-2 border-dashed border-horizon/40 bg-horizon/6 px-6 sm:px-8">
+                {summary.items.map((item) => (
+                    <div key={item.question} className="border-b border-dashed border-night/15 py-6 last:border-b-0">
+                        <h3 className="text-lg leading-snug font-semibold text-horizon">{item.question}</h3>
+                        <p className="mt-2 max-w-[62ch] leading-relaxed text-night/80">{item.answer}</p>
+                    </div>
+                ))}
             </div>
         </section>
     );
@@ -309,6 +336,7 @@ export default function Cachi({ dossier, images }: { dossier: CachiDossier; imag
                 <div className="grid gap-12 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-16">
                     <ChapterIndex chapters={dossier.chapters.map((c) => ({ id: c.id, title: c.title }))} />
                     <div className="flex flex-col gap-24">
+                        <Summary summary={dossier.summary} />
                         {dossier.chapters.map((chapter) => (
                             <section
                                 key={chapter.id}

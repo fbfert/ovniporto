@@ -17,6 +17,9 @@ final class JsonOriginLibrary implements OriginLibrary
 {
     private const TTL = 86400;
 
+    /** Why a candidate is still outside the Atlas: never built, needs an on-site check, or existence unverified. */
+    private const CANDIDATE_STATUSES = ['unbuilt', 'inspection', 'verification'];
+
     /** @var array<string, array<mixed>> */
     private array $loaded = [];
 
@@ -25,7 +28,11 @@ final class JsonOriginLibrary implements OriginLibrary
     public function cachi(): array
     {
         return $this->load('cachi', function (array $data): void {
-            $this->requireKeys($data, ['title', 'chapters'], 'cachi');
+            $this->requireKeys($data, ['title', 'chapters', 'reference', 'summary'], 'cachi');
+            $this->requireKeys($data['reference'], ['name', 'headline', 'publishedAt', 'updatedAt', 'keywords', 'place', 'person'], 'cachi.reference');
+            foreach ($data['summary']['items'] ?? [] as $i => $item) {
+                $this->requireKeys($item, ['question', 'answer'], "cachi.summary.items[{$i}]");
+            }
             foreach ($data['chapters'] as $i => $chapter) {
                 $this->requireKeys($chapter, ['id', 'eyebrow', 'title', 'body'], "cachi.chapters[{$i}]");
             }
@@ -39,6 +46,12 @@ final class JsonOriginLibrary implements OriginLibrary
             foreach ($data['cases'] as $i => $case) {
                 $this->requireKeys($case, ['slug', 'number', 'name', 'country', 'seal', 'facts', 'sources', 'openQuestions'], "atlas.cases[{$i}]");
                 ConfidenceGrade::parseSeal((string) $case['seal']);
+            }
+            foreach ($data['candidates'] as $i => $candidate) {
+                $this->requireKeys($candidate, ['name', 'status', 'pending'], "atlas.candidates[{$i}]");
+                if (! in_array($candidate['status'], self::CANDIDATE_STATUSES, true)) {
+                    throw new InvalidOriginData("atlas.candidates[{$i}].status inválido: {$candidate['status']}");
+                }
             }
         });
     }

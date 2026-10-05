@@ -90,17 +90,148 @@ final class StructuredData
         ];
     }
 
-    /** @return array<string, mixed> */
-    public static function originArticle(string $title, string $description, string $image): array
+    /**
+     * The Cachi dossier as a reference: the article, what it is about (the place and Werner Jaisli),
+     * the people it mentions, every source it cites, the breadcrumb and the visible summary as FAQ.
+     * The place has no coordinates while the dossier only has approximate ones.
+     *
+     * @param  array<string, mixed>  $dossier
+     * @return array<string, mixed>
+     */
+    public static function cachiReference(array $dossier, string $description, string $image): array
     {
+        $reference = $dossier['reference'];
+        $url = Seo::appUrl().'/origem/cachi';
+        $chapters = array_column($dossier['chapters'], null, 'id');
+
         return [
             '@context' => self::CONTEXT,
-            '@type' => 'Article',
-            'headline' => $title,
-            'description' => $description,
-            'image' => Seo::appUrl().$image,
-            'inLanguage' => 'pt-BR',
-            'publisher' => ['@type' => 'Organization', 'name' => (string) Seo::text('site_name')],
+            '@graph' => [
+                [
+                    '@type' => 'Article',
+                    '@id' => "{$url}#article",
+                    'url' => $url,
+                    'mainEntityOfPage' => $url,
+                    'headline' => $reference['headline'],
+                    'alternativeHeadline' => $dossier['title'],
+                    'description' => $description,
+                    'image' => Seo::appUrl().$image,
+                    'inLanguage' => 'pt-BR',
+                    'datePublished' => $reference['publishedAt'],
+                    'dateModified' => $reference['updatedAt'],
+                    'author' => ['@id' => self::organizationId()],
+                    'publisher' => ['@id' => self::organizationId()],
+                    'isPartOf' => ['@id' => Seo::appUrl().'/#website'],
+                    'about' => [['@id' => "{$url}#place"], ['@id' => "{$url}#werner"]],
+                    'mentions' => self::cachiMentions($chapters['personagens']['people'] ?? [], $reference['person']['name']),
+                    'keywords' => implode(', ', $reference['keywords']),
+                    'citation' => array_map(self::citation(...), $chapters['fontes']['sources'] ?? []),
+                ],
+                self::cachiPlace($reference, $url),
+                self::cachiPerson($reference['person'], $url),
+                ['@id' => self::organizationId(), ...array_diff_key(self::organization(), ['@context' => true])],
+                ['@type' => 'WebSite', '@id' => Seo::appUrl().'/#website', 'name' => (string) Seo::text('site_name'), 'url' => Seo::appUrl(), 'inLanguage' => 'pt-BR'],
+                self::breadcrumb([
+                    [(string) Seo::text('breadcrumb_home'), Seo::appUrl()],
+                    [(string) Seo::text('pages.origin.title'), Seo::appUrl().'/origem'],
+                    [$reference['name'], $url],
+                ]),
+                ['@id' => "{$url}#faq", ...array_diff_key(self::faqPage(array_map(
+                    fn (array $item) => ['question' => $item['question'], 'answerHtml' => $item['answer']],
+                    $dossier['summary']['items'],
+                )), ['@context' => true])],
+            ],
+        ];
+    }
+
+    private static function organizationId(): string
+    {
+        return Seo::appUrl().'/#organization';
+    }
+
+    /**
+     * @param  list<array{name: string, role: string}>  $people
+     * @return list<array<string, string>>
+     */
+    private static function cachiMentions(array $people, string $subject): array
+    {
+        return array_values(array_map(
+            fn (array $person) => ['@type' => 'Person', 'name' => $person['name'], 'description' => $person['role']],
+            array_filter($people, fn (array $person) => $person['name'] !== $subject),
+        ));
+    }
+
+    /**
+     * @param  array{title: string, publisher: string, date: string, url: string}  $source
+     * @return array<string, mixed>
+     */
+    private static function citation(array $source): array
+    {
+        return array_filter([
+            '@type' => 'CreativeWork',
+            'name' => $source['title'],
+            'url' => $source['url'],
+            'datePublished' => $source['date'] ?: null,
+            'publisher' => ['@type' => 'Organization', 'name' => $source['publisher']],
+        ]);
+    }
+
+    /**
+     * @param  array<string, mixed>  $reference
+     * @return array<string, mixed>
+     */
+    private static function cachiPlace(array $reference, string $url): array
+    {
+        $place = $reference['place'];
+
+        return [
+            '@type' => ['Place', 'TouristAttraction'],
+            '@id' => "{$url}#place",
+            'name' => $reference['name'],
+            'alternateName' => $place['alternateNames'],
+            'description' => $place['description'],
+            'url' => $url,
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => $place['area'],
+                'addressLocality' => $place['locality'],
+                'addressRegion' => $place['region'],
+                'addressCountry' => $place['country'],
+            ],
+        ];
+    }
+
+    /**
+     * @param  array<string, mixed>  $person
+     * @return array<string, mixed>
+     */
+    private static function cachiPerson(array $person, string $url): array
+    {
+        return [
+            '@type' => 'Person',
+            '@id' => "{$url}#werner",
+            'name' => $person['name'],
+            'alternateName' => $person['alternateNames'],
+            'nationality' => ['@type' => 'Country', 'name' => $person['nationality']],
+            'deathDate' => $person['deathYear'],
+            'deathPlace' => ['@type' => 'Country', 'name' => $person['deathPlace']],
+            'description' => $person['description'],
+        ];
+    }
+
+    /**
+     * @param  list<array{0: string, 1: string}>  $crumbs  name and absolute URL, from the root down
+     * @return array<string, mixed>
+     */
+    private static function breadcrumb(array $crumbs): array
+    {
+        return [
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => array_map(
+                fn (array $crumb, int $i) => ['@type' => 'ListItem', 'position' => $i + 1, 'name' => $crumb[0], 'item' => $crumb[1]],
+                $crumbs,
+                array_keys($crumbs),
+            ),
         ];
     }
 

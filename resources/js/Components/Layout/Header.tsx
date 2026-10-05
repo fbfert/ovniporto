@@ -1,7 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
 import { motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
-import { Seal } from '@/Components/Brand/Seal';
 import { useAuthMember } from '@/Components/Members/auth';
 import { JoinButton } from '@/Components/Members/JoinButton';
 import { MemberMenu } from '@/Components/Members/MemberMenu';
@@ -63,9 +62,17 @@ export function Header() {
             >
                 <nav
                     aria-label={t.nav.primary}
-                    className={`mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center rounded-full border px-2 backdrop-blur-[12px] transition-colors duration-300 ease-snap lg:px-3 ${toneClasses}`}
+                    className={`mx-auto grid h-16 max-w-6xl grid-cols-[auto_1fr_auto] items-center gap-2 rounded-full border px-2 backdrop-blur-[12px] transition-colors duration-300 ease-snap xl:px-3 ${toneClasses}`}
                 >
-                    <ul className="hidden items-center gap-1 lg:flex">
+                    <Link
+                        href="/"
+                        aria-label={t.nav.home}
+                        className="inline-flex h-11 items-center rounded-full px-3 font-display text-[0.95rem] font-extrabold tracking-[0.04em] uppercase"
+                    >
+                        {t.brand.name}
+                    </Link>
+
+                    <ul className="hidden items-center gap-0.5 xl:flex">
                         {primaryLinks.map((link) => (
                             <li key={link.href}>
                                 <Link
@@ -82,15 +89,7 @@ export function Header() {
                             </li>
                         ))}
                     </ul>
-                    <span className="lg:hidden" />
-
-                    <Link
-                        href="/"
-                        aria-label={t.nav.home}
-                        className="press rounded-full transition-transform duration-500 ease-snap [@media(hover:hover)]:hover:rotate-[-12deg]"
-                    >
-                        <Seal size="sm" />
-                    </Link>
+                    <span className="xl:hidden" />
 
                     <div className="flex items-center justify-end gap-2">
                         <CartButton />
@@ -107,7 +106,7 @@ export function Header() {
                             aria-controls="mobile-menu"
                             aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}
                             onClick={() => setMenuOpen(true)}
-                            className="inline-flex size-11 press items-center justify-center rounded-full lg:hidden"
+                            className="inline-flex size-11 press items-center justify-center rounded-full xl:hidden"
                             id="menu-trigger"
                         >
                             <svg viewBox="0 0 24 24" className="size-6" fill="none" aria-hidden>

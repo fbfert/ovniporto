@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Content;
 
+use App\Application\Content\UseCases\BuildLlmsText;
 use App\Http\Controllers\Controller;
 use App\Infrastructure\Content\SitemapFile;
 use Illuminate\Http\Response;
@@ -30,6 +31,15 @@ class CrawlerController extends Controller
 
         return response(implode("\n", ['User-agent: *', ...$rules, '', "Sitemap: {$sitemap}", '']), 200, [
             'Content-Type' => 'text/plain; charset=UTF-8',
+        ]);
+    }
+
+    /** Plain-text guide for AI assistants, led by the Cachi dossier. */
+    public function llms(BuildLlmsText $llms): Response
+    {
+        return response($llms->execute(rtrim((string) config('app.url'), '/')), 200, [
+            'Content-Type' => 'text/plain; charset=UTF-8',
+            'Cache-Control' => 'public, max-age=3600',
         ]);
     }
 }

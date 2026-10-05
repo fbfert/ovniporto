@@ -29,6 +29,8 @@ use App\Domain\Orders\Contracts\OrderAdminRepository;
 use App\Domain\Orders\Contracts\OrderNotifier;
 use App\Domain\Orders\Contracts\OrderRepository;
 use App\Domain\Orders\Contracts\ProductionDocument;
+use App\Domain\Origin\Contracts\CollaboratorNotifier;
+use App\Domain\Origin\Contracts\CollaboratorRepository;
 use App\Domain\Origin\Contracts\OriginLibrary;
 use App\Domain\Panel\Contracts\DashboardRepository;
 use App\Domain\Payments\Contracts\PaymentGateway;
@@ -62,9 +64,12 @@ use App\Infrastructure\Identity\GoogleIdentityProvider;
 use App\Infrastructure\Images\GdImageProcessor;
 use App\Infrastructure\Images\PrivatePhotoStorage;
 use App\Infrastructure\Images\PublicImageLibrary;
+use App\Infrastructure\Mail\MailCollaboratorNotifier;
 use App\Infrastructure\Mail\MailOrderNotifier;
 use App\Infrastructure\Mail\MailSightingNotifier;
 use App\Infrastructure\Mail\MailWaitlistNotifier;
+use App\Infrastructure\Members\CollaboratorContentEraser;
+use App\Infrastructure\Members\CollaboratorDataSource;
 use App\Infrastructure\Members\ConsentsContentEraser;
 use App\Infrastructure\Members\ConsentsDataSource;
 use App\Infrastructure\Members\OrdersContentEraser;
@@ -80,6 +85,7 @@ use App\Infrastructure\Payments\UnconfiguredPaymentGateway;
 use App\Infrastructure\Persistence\Eloquent\EloquentCampaignAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentCampaignRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentCartRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentCollaboratorRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentConstructionPostRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentContentAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentContentBlockRepository;
@@ -123,10 +129,10 @@ class DomainServiceProvider extends ServiceProvider
      * Modules that erase their part when a member deletes the account.
      * Orders are anonymized instead of deleted (tax law keeps them).
      */
-    private const MEMBER_ERASERS = [SightingsContentEraser::class, OrdersContentEraser::class, WaitlistContentEraser::class, ConsentsContentEraser::class];
+    private const MEMBER_ERASERS = [SightingsContentEraser::class, OrdersContentEraser::class, WaitlistContentEraser::class, CollaboratorContentEraser::class, ConsentsContentEraser::class];
 
     /** Modules that contribute a section to "Baixar meus dados". */
-    private const MEMBER_DATA_SOURCES = [SightingsDataSource::class, OrdersDataSource::class, WaitlistDataSource::class, ConsentsDataSource::class];
+    private const MEMBER_DATA_SOURCES = [SightingsDataSource::class, OrdersDataSource::class, WaitlistDataSource::class, CollaboratorDataSource::class, ConsentsDataSource::class];
 
     /** @var array<class-string, class-string> */
     public array $bindings = [
@@ -172,6 +178,8 @@ class DomainServiceProvider extends ServiceProvider
         RegionPartnerRepository::class => EloquentRegionPartnerRepository::class,
         WaitlistRepository::class => EloquentWaitlistRepository::class,
         WaitlistNotifier::class => MailWaitlistNotifier::class,
+        CollaboratorRepository::class => EloquentCollaboratorRepository::class,
+        CollaboratorNotifier::class => MailCollaboratorNotifier::class,
     ];
 
     public function register(): void

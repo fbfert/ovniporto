@@ -38,7 +38,7 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                     animate={{ clipPath: `circle(150% at ${ORIGIN})` }}
                     exit={{ clipPath: `circle(0% at ${ORIGIN})` }}
                     transition={{ duration: 0.5, ease: ease.drawer }}
-                    className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-night text-moonlight lg:hidden"
+                    className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-night text-moonlight xl:hidden"
                 >
                     <Starfield className="absolute inset-0" density="low" />
                     <div className="relative flex items-center justify-between px-6 pt-6">

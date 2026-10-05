@@ -200,5 +200,5 @@ it('marks up only Atlas cases whose coordinates are confirmed as places', functi
 it('gives the origin pages their own preview and an article for Cachi', function () {
     expect(previewTags($this->get('/origem')->getContent())['og:image'])->toBe('https://ovniporto.test/origin/cachi-aereo.jpg')
         ->and(previewTags($this->get('/origem/atlas')->getContent())['title'])->toBe('Atlas Mundial dos Ovnipuertos · OVNIPORTO Lages')
-        ->and(collect(jsonLd($this->get('/origem/cachi')->getContent()))->firstWhere('@type', 'Article')['headline'])->toBe('Ovnipuerto de Cachi');
+        ->and(collect(jsonLd($this->get('/origem/cachi')->getContent())[0]['@graph'])->firstWhere('@type', 'Article')['headline'])->toBe('Ovnipuerto de Cachi: Werner Jaisli e a Estrella de la Esperanza');
 });

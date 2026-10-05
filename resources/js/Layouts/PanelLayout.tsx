@@ -10,7 +10,7 @@ const copy = t.panel;
 const hrefOf = (area: string) => (area === 'inicio' ? '/painel' : `/painel/${area}`);
 
 /** Content screens live at their own paths but belong to the "conteudo" area. */
-const CONTENT_PATHS = ['configuracoes', 'lugar', 'obra', 'regiao', 'campanha', 'avise-me'];
+const CONTENT_PATHS = ['configuracoes', 'lugar', 'obra', 'regiao', 'campanha', 'avise-me', 'colaboradores'];
 
 /** Which area the current URL belongs to: "/painel/relatos/12" → "relatos". */
 function activeArea(url: string): string {
