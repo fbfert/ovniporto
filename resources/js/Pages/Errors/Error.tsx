@@ -18,8 +18,8 @@ export default function Error({ status }: { status: number }) {
                 <NightBanner size="tall">
                     <svg
                         aria-hidden
-                        viewBox="-90 -80 180 90"
-                        className="mx-auto w-40 -rotate-[24deg] animate-hover-bob motion-reduce:animate-none"
+                        viewBox="-80 -80 210 90"
+                        className="mx-auto w-48 -rotate-[24deg] animate-hover-bob motion-reduce:animate-none"
                     >
                         <YellowCarShape headlights />
                     </svg>

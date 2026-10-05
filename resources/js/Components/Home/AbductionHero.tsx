@@ -199,7 +199,7 @@ function Scene({ p }: { p: MotionValue<number> }) {
                     cy={1}
                     rx={66}
                     ry={6}
-                    fill="#000"
+                    fill="var(--color-night)"
                     style={{ scaleX: shadowScale, opacity: shadowOpacity }}
                 />
                 <motion.g style={{ y: carY, scale: carScale, rotate: carRotate, opacity: carOpacity }}>

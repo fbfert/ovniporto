@@ -4,6 +4,8 @@
  * Colors are brand tokens only.
  */
 
+import { useId } from 'react';
+
 const C = {
     moonlight: 'var(--color-moonlight)',
     night: 'var(--color-night)',
@@ -15,87 +17,118 @@ const C = {
 } as const;
 
 /**
- * The yellow car of the legend: a 3-door Lada Niva, side view, facing right.
- * Boxy body, near-upright windshield, flat roof with a rack, vertical tailgate,
- * tall glasshouse, squared wheel arches and black bumpers. Origin = ground, center. Width ≈ 140.
+ * The yellow car of the legend: a 3-door Lada Niva (VAZ-2121), side view, facing right.
+ * Drawn to the real proportions (3.72 m long, 1.64 m tall, 2.20 m wheelbase, 1 unit ≈ 26.6 mm):
+ * wheels close to the corners, short flat hood, blunt vertical nose, upright windshield,
+ * tall glasshouse with a long door and vent pane, wide C-pillar, slab sides with one crease,
+ * small steel wheels and a lot of ground clearance. Origin = ground, center. Width ≈ 140.
  */
 export function YellowCarShape({ headlights = false }: { headlights?: boolean }) {
+    const wheels = [-41.5, 41.5];
+    const beam = useId();
     return (
         <g>
             {headlights && (
-                <path d="M66 -31 L150 -50 L150 -8 Z" fill={C.car} opacity={0.18} style={{ mixBlendMode: 'screen' }} />
+                <>
+                    <defs>
+                        <linearGradient id={beam} x1="0" x2="1" y1="0" y2="0">
+                            <stop offset="0" stopColor={C.car} stopOpacity={0.55} />
+                            <stop offset="1" stopColor={C.car} stopOpacity={0} />
+                        </linearGradient>
+                    </defs>
+                    <path d="M70 -33.5 L128 -46 L128 -16 Z" fill={`url(#${beam})`} />
+                </>
             )}
-            {/* roof rack: two rails on three feet */}
-            <rect x={-60} y={-70} width={66} height={2.6} rx={1.3} fill={C.night} opacity={0.75} />
-            {[-56, -26, 2].map((x) => (
-                <rect key={x} x={x} y={-68} width={2.4} height={4.5} fill={C.night} opacity={0.75} />
-            ))}
-            {/* wheel wells, behind the body */}
-            <path d="M-60 -12 L-60 -19 Q-60 -29.5 -50 -29.5 L-38 -29.5 Q-28 -29.5 -28 -19 L-28 -12 Z" fill={C.night} />
-            <path d="M28 -12 L28 -19 Q28 -29.5 38 -29.5 L50 -29.5 Q60 -29.5 60 -19 L60 -12 Z" fill={C.night} />
-            {/* body: flat roof, upright tailgate, short hood */}
+            {/* shadow of the underbody, seen through the high clearance */}
+            <rect x={-56} y={-12} width={112} height={4} rx={2} fill={C.night} opacity={0.6} />
+            {/* body: vertical tailgate, flat roof, upright windshield, short flat hood, blunt nose */}
             <path
-                d="M-68 -14 L-68 -60 Q-68 -64 -64 -64 L7 -64 Q10.5 -64 12 -61 L25 -42 L61 -38.5 Q67 -38 67 -32 L67 -14
-                   L62 -14 L62 -19 Q62 -31.5 50 -31.5 L38 -31.5 Q26 -31.5 26 -19 L26 -14 L-26 -14 L-26 -19 Q-26 -31.5 -38 -31.5
-                   L-50 -31.5 Q-62 -31.5 -62 -19 L-62 -14 Z"
+                d="M-68 -12 L-68 -56 Q-68 -61.5 -62.5 -61.5 L10 -61.5 Q12.5 -61.5 13.6 -59.4 L24.5 -40.5
+                   L67.5 -37.6 Q70 -37.4 70 -35 L70 -12
+                   L57 -12 A15.5 15.5 0 0 0 26 -12 L-26 -12 A15.5 15.5 0 0 0 -57 -12 Z"
                 fill={C.car}
             />
-            {/* roof and hood shine */}
+            {/* lower body below the crease, a shade darker: the slab-sided look */}
             <path
-                d="M-56 -61.5 L-4 -61.5"
+                d="M-68 -12 L-68 -27 L70 -27 L70 -12 L57 -12 A15.5 15.5 0 0 0 26 -12 L-26 -12 A15.5 15.5 0 0 0 -57 -12 Z"
+                fill={C.night}
+                opacity={0.07}
+            />
+            <path d="M-68 -27.5 L70 -27.5" stroke={C.moonlight} strokeOpacity={0.35} strokeWidth={0.9} />
+            {/* rain gutter and hood shine */}
+            <path d="M-62 -58.6 L9 -58.6" stroke={C.night} strokeOpacity={0.25} strokeWidth={0.9} />
+            <path
+                d="M-58 -60 L4 -60"
                 stroke={C.moonlight}
-                strokeOpacity={0.55}
-                strokeWidth={2.2}
+                strokeOpacity={0.5}
+                strokeWidth={1.6}
                 strokeLinecap="round"
             />
             <path
-                d="M32 -39.5 L56 -37.5"
+                d="M30 -38.6 L62 -36.6"
                 stroke={C.moonlight}
                 strokeOpacity={0.4}
-                strokeWidth={1.6}
+                strokeWidth={1.3}
                 strokeLinecap="round"
             />
-            {/* glasshouse: rear quarter window, door window with the little vent pane */}
-            <path d="M-64 -42 L-64 -57 Q-64 -60 -61 -60 L-31 -60 L-31 -42 Z" fill={C.nightBlue} />
-            <path d="M-26 -42 L-26 -60 L6 -60 L19 -42 Z" fill={C.nightBlue} />
-            <path d="M5 -60 L10 -42" stroke={C.car} strokeWidth={1.6} />
+            {/* glasshouse: big rear side window with its rounded corner, wide C-pillar,
+                long door window with the vent pane, thin pillars */}
+            <path d="M-58 -41 L-58 -51 Q-58 -57 -52 -57 L-27 -57 L-27 -41 Z" fill={C.nightBlue} />
+            <path d="M-23 -41 L-23 -57 L9.5 -57 L21 -41 Z" fill={C.nightBlue} />
+            <path d="M8 -57 L12.5 -41" stroke={C.car} strokeWidth={1.4} />
             <path
-                d="M-58 -46 L-50 -56"
+                d="M-52 -45 L-45 -54"
                 stroke={C.beamGlow}
                 strokeOpacity={0.35}
-                strokeWidth={2}
+                strokeWidth={1.8}
                 strokeLinecap="round"
             />
             <path
-                d="M-18 -46 L-10 -56"
+                d="M-15 -45 L-8 -54"
                 stroke={C.beamGlow}
                 strokeOpacity={0.35}
-                strokeWidth={2}
+                strokeWidth={1.8}
                 strokeLinecap="round"
             />
-            {/* side mirror */}
-            <rect x={18} y={-46} width={5} height={4} rx={1} fill={C.night} opacity={0.7} />
-            {/* the long door: shut lines, handle; body side molding */}
-            <path d="M-28 -42 L-28 -15 M22 -41 L22 -21" stroke={C.night} strokeOpacity={0.35} strokeWidth={1.4} />
-            <rect x={-22} y={-38} width={8} height={2.2} rx={1.1} fill={C.night} opacity={0.55} />
+            {/* the long door: shut lines, handle at the rear of the door, small mirror */}
             <path
-                d="M-67 -27 L-62 -27 M-26 -27 L26 -27 M62 -27 L66 -27"
+                d="M-25 -41 L-25 -15.5 M24 -40 L24 -16"
                 stroke={C.night}
-                strokeOpacity={0.3}
-                strokeWidth={1.6}
+                strokeOpacity={0.35}
+                strokeWidth={1.1}
+                fill="none"
             />
-            {/* black bumpers, tail light, round headlight in the square grille */}
-            <rect x={-71} y={-21} width={9} height={6} rx={2} fill={C.night} />
-            <rect x={62} y={-21} width={9} height={6} rx={2} fill={C.night} />
-            <rect x={-68} y={-38} width={3} height={8} rx={1} fill={C.night} opacity={0.6} />
-            <rect x={63.5} y={-36} width={3.5} height={11} rx={1} fill={C.night} opacity={0.35} />
-            <circle cx={65} cy={-31} r={3.4} fill={C.moonlight} />
-            {/* chunky wheels with high clearance */}
-            {[-44, 44].map((cx) => (
+            <rect x={-21} y={-38.2} width={6.5} height={1.8} rx={0.9} fill={C.night} opacity={0.55} />
+            <path d="M20.5 -44 L24.5 -44 L24.5 -40.5 L21.5 -40.5 Z" fill={C.night} opacity={0.75} />
+            {/* fender repeater, tall tail light, headlight edge on the blunt nose */}
+            <rect x={58} y={-33} width={3} height={1.6} rx={0.8} fill={C.night} opacity={0.45} />
+            <rect x={-68} y={-40} width={2.2} height={9} rx={0.8} fill={C.night} opacity={0.6} />
+            <rect x={68.8} y={-34.5} width={1.8} height={4.6} rx={0.9} fill={C.moonlight} />
+            {/* thin dark bumpers, proud of the body */}
+            <rect x={-70.5} y={-20} width={6} height={4} rx={1} fill={C.night} />
+            <rect x={65.5} y={-21} width={7} height={4} rx={1} fill={C.night} />
+            {/* round wheel arches with a lip, small 16" steel wheels */}
+            {wheels.map((cx) => (
                 <g key={cx}>
-                    <circle cx={cx} cy={-10} r={13.5} fill={C.night} />
-                    <circle cx={cx} cy={-10} r={6} fill={C.moonlight} opacity={0.75} />
-                    <circle cx={cx} cy={-10} r={2} fill={C.night} opacity={0.8} />
+                    <path
+                        d={`M${cx - 15.5} -12 A15.5 15.5 0 0 1 ${cx + 15.5} -12`}
+                        stroke={C.night}
+                        strokeOpacity={0.4}
+                        strokeWidth={1.2}
+                        fill="none"
+                    />
+                    <circle cx={cx} cy={-12.9} r={12.9} fill={C.night} />
+                    <circle cx={cx} cy={-12.9} r={7.4} fill={C.moonlight} opacity={0.8} />
+                    <circle
+                        cx={cx}
+                        cy={-12.9}
+                        r={5.2}
+                        fill="none"
+                        stroke={C.night}
+                        strokeOpacity={0.3}
+                        strokeWidth={0.8}
+                    />
+                    <circle cx={cx} cy={-12.9} r={2.4} fill={C.night} opacity={0.75} />
                 </g>
             ))}
         </g>
