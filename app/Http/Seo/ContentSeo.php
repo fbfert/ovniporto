@@ -98,6 +98,21 @@ final readonly class ContentSeo
         return new Seo($seo->title, $seo->description, $seo->image, 'article', jsonLd: [StructuredData::cachiReference($dossier, $seo->description, $seo->image)]);
     }
 
+    /**
+     * A historical case: its title, its summary and its illustration (never presented as a photo).
+     *
+     * @param  array<string, mixed>  $case
+     */
+    public function historicalCase(array $case): Seo
+    {
+        return new Seo(
+            title: (string) Seo::text('historical_case_title', ['title' => (string) $case['title']]),
+            description: $this->excerpt((string) $case['summary']),
+            image: "/concept/{$case['image']}.jpg",
+            type: 'article',
+        );
+    }
+
     /** The relato is a story told by Julean, never presented as a document. */
     public function relato(): Seo
     {

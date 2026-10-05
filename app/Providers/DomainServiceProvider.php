@@ -46,6 +46,7 @@ use App\Domain\Region\Contracts\RegionAdminRepository;
 use App\Domain\Region\Contracts\RegionPartnerRepository;
 use App\Domain\Shipping\Contracts\AddressLookup;
 use App\Domain\Shipping\Contracts\ShippingProvider;
+use App\Domain\Sightings\Contracts\HistoricalCaseLibrary;
 use App\Domain\Sightings\Contracts\ImageProcessor;
 use App\Domain\Sightings\Contracts\MemberSightingRepository;
 use App\Domain\Sightings\Contracts\ModerationRepository;
@@ -116,6 +117,7 @@ use App\Infrastructure\Region\PrivateConsentProofStorage;
 use App\Infrastructure\Shipping\MelhorEnvioShippingProvider;
 use App\Infrastructure\Shipping\SimulatedShippingProvider;
 use App\Infrastructure\Shipping\ViaCepAddressLookup;
+use App\Infrastructure\Sightings\JsonHistoricalCaseLibrary;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Support\ServiceProvider;
 
@@ -192,6 +194,7 @@ class DomainServiceProvider extends ServiceProvider
 
         $this->app->singleton(ShippingProvider::class, fn () => $this->shippingProvider());
         $this->app->singleton(OriginLibrary::class, fn () => new JsonOriginLibrary(resource_path('content/origin')));
+        $this->app->singleton(HistoricalCaseLibrary::class, fn () => new JsonHistoricalCaseLibrary(resource_path('content/sightings/historical-cases.json')));
         $this->app->singleton(PaymentGateway::class, fn () => $this->paymentGateway());
 
         $this->app->when(ManagePlace::class)->needs('$embedHosts')->give(fn () => (array) config('ovniporto.embed_hosts'));

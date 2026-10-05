@@ -19,6 +19,7 @@ return [
     ],
 
     'atlas_case_title' => ':name · Atlas dos Ovnipuertos',
+    'historical_case_title' => ':title · Casos históricos',
 
     'pages' => [
         'home' => ['title' => null],

@@ -5,6 +5,7 @@ namespace App\Application\Content\UseCases;
 use App\Domain\Content\Contracts\PublishedContentIndex;
 use App\Domain\Content\Sharing\SitemapEntry;
 use App\Domain\Origin\Contracts\OriginLibrary;
+use App\Domain\Sightings\Contracts\HistoricalCaseLibrary;
 use DateTimeImmutable;
 
 final readonly class BuildSitemap
@@ -18,6 +19,7 @@ final readonly class BuildSitemap
     public function __construct(
         private PublishedContentIndex $content,
         private OriginLibrary $origin,
+        private HistoricalCaseLibrary $historical,
     ) {}
 
     /** @return list<SitemapEntry> */
@@ -26,6 +28,7 @@ final readonly class BuildSitemap
         return [
             ...array_map(fn (string $path) => new SitemapEntry($path, $this->lastModified($path)), self::PAGES),
             ...array_map(fn (string $slug) => new SitemapEntry("/origem/atlas/{$slug}"), $this->origin->caseSlugs()),
+            ...array_map(fn (string $slug) => new SitemapEntry("/mapa/casos/{$slug}"), $this->historical->slugs()),
             ...$this->content->entries(),
         ];
     }

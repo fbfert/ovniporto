@@ -212,6 +212,17 @@
         opacity: 0.4;
     }
 }
+/* A historical case: a lilac diamond without the halo, so it never reads as a live report. */
+.historical-dot {
+    display: block;
+    width: 13px;
+    height: 13px;
+    transform: rotate(45deg);
+    border-radius: 2px;
+    background: var(--color-horizon);
+    border: 2px solid var(--color-moonlight);
+    box-shadow: 0 0 8px 1px rgb(73 67 131 / 0.7);
+}
 .sighting-cluster {
     display: flex;
     align-items: center;

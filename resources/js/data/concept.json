@@ -288,5 +288,125 @@
             1200
         ],
         "lqip": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAACQAwCdASoUAA8APu1iqU2ppaOiMAgBMB2JZQCsACHe2IdSkSvAAP7uhTk1RthX/QAoVm148OZD8FKNrXDEpQmKxWHlxnhri666UEKEAAA="
+    },
+    "caso-florianopolis-1981": {
+        "width": 1536,
+        "height": 1024,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAACwAwCdASoUAA0APu1iqk2ppaQiMAgBMB2JZwAAW+3Yl327TDm3oAD+6/QsyKgd9jI6X8Y4p6pD06gxi+jlXcj7DHbTrzFV/hLwnh8OPmS3oifwPXHFJ+pj+4BcQaptAAA="
+    },
+    "caso-picarras-2017": {
+        "width": 1536,
+        "height": 1024,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACwAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JZwAAUrlR3+LF2FAuAAD+6UOo8Zso5fzH1suVwVdvrlgqdwXxiG6T+5oSEgzKLhmjQJgA"
+    },
+    "caso-itapoa-2018": {
+        "width": 1536,
+        "height": 1024,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAACwAwCdASoUAA0APu1kqU2ppaQiMAgBMB2JZwAAUqvQjikeSZ2EgAD+6QZlwsh/QEhPlur4In7nrCV+h+MqZjYjhwaSPj3LScDgAA=="
+    },
+    "caso-voo-santa-catarina-2022": {
+        "width": 1536,
+        "height": 1024,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JZwDCgCHfLdVfCiLVwAAA/vDTQlOrmCC8Sh3XdeSX1uPDzltjTjaXz9EADbYqDHUiYXDoAAA="
+    },
+    "caso-barra-da-tijuca-1952": {
+        "width": 1536,
+        "height": 1024,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAADwAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JYwCw7YxY7ceSvlp5OZeAAP7cvcMAGjaZaedeDBHzb8+dLbUgEpbaJ0hIlSjHJm9eJZ8xLuqHqN6cVheAfnuDo60srxBYTx0qm8ts66Cgue73YDO4O8qAtFYsEU2gA34AMU0Fn3rnLgAA"
+    },
+    "caso-gravatai-1954": {
+        "width": 1536,
+        "height": 1024,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABQBACdASoUAA0APu1kqU2ppaOiMAgBMB2JQBdmUGZnz/gKI2PaJJv67pIAAP5VHr6h5HuZpxRAkPYheljJybVMXu+iMqWTzG4rHfUf8Mo2yfn6i/2+eo1rFOTzviZgCC9wejnf2t6Dr6PTVEAAAA=="
+    },
+    "caso-colares-1977": {
+        "width": 1536,
+        "height": 1024,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAABwAwCdASoUAA0APu1iqU2ppaQiMAgBMB2JZQC/ODKK1KjdFgAA/u+EX38l5EQvL59euXc60qhZQX8YqXE7O0vU0h7LCAt8CwCA2QLHXvToAAAA"
+    },
+    "caso-noite-oficial-1986": {
+        "width": 1536,
+        "height": 1024,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAwCdASoUAA0APu1kqk4ppaQiMAgBMB2JZwDE2CHf3nlRU5p+gZJgAP7sOkz+vWsIZxABMMttNE3VQvEN7Go+AAA="
+    },
+    "caso-valensole-1965": {
+        "width": 1536,
+        "height": 1024,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAACQAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JYwCdACHHdYi70h6uAM3rEoLCiDWhQHkGrxmAKj3VCezDBdT1KDRT7ZefmB+YYjC8JFKF+H3SCpWz/hAAAA=="
+    },
+    "caso-rendlesham-1980": {
+        "width": 1536,
+        "height": 1024,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADQAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JZQDLLCHfJuVKOzF+PcAA/uy4oLGhXYth6DJwOe8UPLbkgKc0bmrlPYuYYOPmzGLYAA=="
+    },
+    "caso-trans-en-provence-1981": {
+        "width": 1536,
+        "height": 1024,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAABQBACdASoUAA0APu1iqU2ppaOiMAgBMB2JYwCdIIjDBCrLtVekPJLAzzm4AP0p+BhjCyCdvYRXbQQziRyVKFzazF9SJs++K6sKzrMhGNuDQymR0bW3SLDZPjoQYQWg5o55ICNYwAA="
+    },
+    "caso-gofast-2015": {
+        "width": 1536,
+        "height": 1024,
+        "widths": [
+            400,
+            800,
+            1200
+        ],
+        "lqip": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAACQAwCdASoUAA0APu1kqU2ppaOiMAgBMB2JaQAAUnStkeF8F6UAAP6KCZxeMEad+ODjOc7rRfgtIKLo/iVW9zIuqCRyrXxpa5tNcue1nBrfn9xgGg9dCgAA"
     }
 }

@@ -1,0 +1,183 @@
+{
+    "title": "Casos históricos",
+    "eyebrow": "Antes do Livro",
+    "intro": "Doze casos de Santa Catarina, do Brasil e do mundo, pesquisados pela equipe em 5 de outubro de 2026. Cada um traz o que a documentação diz e o que ela não diz: um relato ou um documento oficial não comprova origem extraterrestre.",
+    "note": "Os casos classificados como D pelo GEIPAN aparecem como o órgão os cadastra; essa classificação não comprova origem extraterrestre. Barra da Tijuca entra como episódio histórico descrito como fraude pelo Arquivo Nacional. GoFast inclui a análise de 2025 do AARO, que não identificou o objeto em definitivo, mas concluiu que não houve desempenho anômalo demonstrado.",
+    "regions": {
+        "sc": "Santa Catarina",
+        "brasil": "Brasil, outros estados",
+        "mundo": "Mundo"
+    },
+    "cases": [
+        {
+            "slug": "florianopolis-1981",
+            "region": "sc",
+            "title": "A torre de controle de Florianópolis",
+            "date": "16/12/1981",
+            "dateNote": "data registrada no expediente",
+            "place": "Florianópolis, Santa Catarina, Brasil",
+            "summary": "Operadores da torre de controle relataram uma luz intensa, amarelo-prateada, com deslocamento lento e sem ruído percebido. A ocorrência foi encaminhada à Aeronáutica.",
+            "documentation": "Documento oficial registra o relato; não determina a natureza do objeto.",
+            "sources": [
+                { "label": "Arquivo Nacional", "url": "https://imagem.sian.an.gov.br/acervo/derivadas/BR_DFANBSB_ARX/0/0/0215/BR_DFANBSB_ARX_0_0_0215_d0001de0001.pdf" }
+            ],
+            "image": "caso-florianopolis-1981",
+            "coordinates": { "lat": -27.5954, "lng": -48.548 }
+        },
+        {
+            "slug": "picarras-2017",
+            "region": "sc",
+            "title": "Uma luz sobre o mar de Piçarras",
+            "date": "20/10/2017",
+            "place": "Balneário Piçarras, Santa Catarina, Brasil",
+            "summary": "Segundo o GPUSC, duas testemunhas relataram uma esfera vermelha sobre o mar e, depois, um objeto triangular. O grupo informa que recebeu fotografia da esfera.",
+            "documentation": "Relato de entidade ufológica; sem confirmação independente nas fontes consultadas.",
+            "sources": [
+                { "label": "GPUSC", "url": "https://gpusc.com/2019/03/12/triangulos-voadores/" }
+            ],
+            "image": "caso-picarras-2017",
+            "coordinates": { "lat": -26.764, "lng": -48.6717 }
+        },
+        {
+            "slug": "itapoa-2018",
+            "region": "sc",
+            "title": "Três luzes sobre a Babitonga",
+            "date": "08/11/2018",
+            "place": "Itapoá e Baía da Babitonga, Santa Catarina, Brasil",
+            "summary": "Pescadores teriam observado, por volta das 2h, um objeto triangular silencioso, com uma luz em cada ponta, seguindo em direção a Joinville.",
+            "documentation": "Relato testemunhal divulgado pelo GPUSC.",
+            "sources": [
+                { "label": "GPUSC", "url": "https://gpusc.com/2019/03/12/triangulos-voadores/" }
+            ],
+            "image": "caso-itapoa-2018",
+            "coordinates": { "lat": -26.117, "lng": -48.616 }
+        },
+        {
+            "slug": "voo-santa-catarina-2022",
+            "region": "sc",
+            "title": "A luz que os pilotos viram",
+            "date": "22/10/2022",
+            "place": "Espaço aéreo sobre Santa Catarina, Brasil",
+            "summary": "Pilotos de um voo comercial entre São Paulo e Porto Alegre comunicaram uma luz estranha ao controle de tráfego aéreo.",
+            "documentation": "Há cobertura jornalística e trechos da comunicação; as fontes consultadas não estabelecem a identificação da luz.",
+            "sources": [
+                { "label": "UOL", "url": "https://www.uol.com.br/tilt/noticias/redacao/2022/10/24/ovni-em-santa-catarina-pilotos-da-azul-relatam-luz-estranha-durante-voo.amp.htm" },
+                { "label": "Metrópoles (vídeo)", "url": "https://www.youtube.com/watch?v=Wr0WL4Spou0" }
+            ],
+            "image": "caso-voo-santa-catarina-2022",
+            "coordinates": { "lat": -27.25, "lng": -50.35, "region": true }
+        },
+        {
+            "slug": "barra-da-tijuca-1952",
+            "region": "brasil",
+            "title": "As fotografias da Barra da Tijuca",
+            "date": "07/05/1952",
+            "place": "Barra da Tijuca, Rio de Janeiro, Brasil",
+            "summary": "Jornalistas da revista O Cruzeiro apresentaram cinco fotografias de um suposto disco voador. O episódio teve grande repercussão.",
+            "documentation": "O Arquivo Nacional descreve o caso como fraude, com base em análises posteriores e depoimentos.",
+            "sources": [
+                { "label": "Arquivo Nacional", "url": "https://querepublicaeessa.an.gov.br/index.php/que-republica-e-essa/assuntos/temas/302-os-ovnis-no-arquivo-nacional" }
+            ],
+            "image": "caso-barra-da-tijuca-1952",
+            "coordinates": { "lat": -23.0004, "lng": -43.3659 }
+        },
+        {
+            "slug": "gravatai-1954",
+            "region": "brasil",
+            "title": "Objetos sobre a Base Aérea de Porto Alegre",
+            "date": "24/10/1954",
+            "place": "Gravataí, Rio Grande do Sul, Brasil",
+            "summary": "Oficiais relataram objetos circulares, de aparência prateada, sobrevoando a base.",
+            "documentation": "A manifestação militar da época reconheceu dados insuficientes para uma conclusão segura. Segundo o Arquivo Nacional, os relatórios mencionados não estão disponíveis em seu acervo.",
+            "sources": [
+                { "label": "Arquivo Nacional", "url": "https://querepublicaeessa.an.gov.br/index.php/que-republica-e-essa/assuntos/temas/302-os-ovnis-no-arquivo-nacional" }
+            ],
+            "image": "caso-gravatai-1954",
+            "coordinates": { "lat": -29.9441, "lng": -50.9919 }
+        },
+        {
+            "slug": "colares-1977",
+            "region": "brasil",
+            "title": "Colares e a Operação Prato",
+            "date": "1977–1978",
+            "place": "Colares e região, Pará, Brasil",
+            "summary": "Moradores relataram luzes misteriosas, o que levou a uma investigação militar. O acervo inclui relatos, registros de observação e fotografias.",
+            "documentation": "A operação está documentada; isso não comprova visitantes extraterrestres.",
+            "sources": [
+                { "label": "Arquivo Nacional", "url": "https://querepublicaeessa.an.gov.br/index.php/que-republica-e-essa/assuntos/temas/302-os-ovnis-no-arquivo-nacional" }
+            ],
+            "image": "caso-colares-1977",
+            "coordinates": { "lat": -0.9367, "lng": -48.2803 }
+        },
+        {
+            "slug": "noite-oficial-1986",
+            "region": "brasil",
+            "title": "A Noite Oficial dos OVNIs",
+            "date": "19 e 20/05/1986",
+            "place": "São Paulo e outras regiões do Brasil",
+            "summary": "Luzes e contatos de radar motivaram o acionamento de caças da Força Aérea Brasileira.",
+            "documentation": "Existem relatórios e gravações das comunicações entre pilotos e controladores. A existência dos registros não determina origem extraterrestre.",
+            "sources": [
+                { "label": "Arquivo Nacional", "url": "https://www.gov.br/arquivonacional/pt-br/canais_atendimento/imprensa/noticias/serie-relatos-extraterrestres/" }
+            ],
+            "image": "caso-noite-oficial-1986",
+            "coordinates": { "lat": -23.5505, "lng": -46.6333, "region": true }
+        },
+        {
+            "slug": "valensole-1965",
+            "region": "mundo",
+            "title": "Valensole: um relato numa plantação",
+            "date": "01/07/1965",
+            "place": "Valensole, França",
+            "summary": "Um agricultor relatou um aparelho pousado em sua plantação, duas figuras próximas e marcas no terreno.",
+            "documentation": "O GEIPAN mantém o caso na categoria D, de fenômeno não identificado. Registra uma única testemunha e ausência de investigação aprofundada posterior pelo órgão.",
+            "sources": [
+                { "label": "GEIPAN / CNES", "url": "https://geipan.fr/fr/node/46692" }
+            ],
+            "image": "caso-valensole-1965",
+            "coordinates": { "lat": 43.8379, "lng": 5.9837 }
+        },
+        {
+            "slug": "rendlesham-1980",
+            "region": "mundo",
+            "title": "Luzes na floresta de Rendlesham",
+            "date": "Dezembro de 1980",
+            "place": "Suffolk, Reino Unido",
+            "summary": "Militares norte-americanos relataram luzes próximas à base RAF Woodbridge e na floresta.",
+            "documentation": "Há memorando e correspondências oficiais. O Ministério da Defesa britânico declarou não haver interesse de defesa nem ameaça à segurança nacional no episódio.",
+            "sources": [
+                { "label": "The National Archives", "url": "https://www.nationalarchives.gov.uk/explore-the-collection/explore-by-time-period/postwar/ufo-reports/" }
+            ],
+            "image": "caso-rendlesham-1980",
+            "coordinates": { "lat": 52.087, "lng": 1.434 }
+        },
+        {
+            "slug": "trans-en-provence-1981",
+            "region": "mundo",
+            "title": "Trans-en-Provence: marcas no solo",
+            "date": "08/01/1981",
+            "place": "Trans-en-Provence, França",
+            "summary": "Uma testemunha relatou a breve aterrissagem de um objeto, seguida da descoberta de marcas no solo. Houve coleta e análise de solo e vegetação.",
+            "documentation": "O GEIPAN classifica o caso como D. As análises não comprovam integralmente a narrativa da única testemunha.",
+            "sources": [
+                { "label": "GEIPAN / CNES", "url": "https://www.geipan.fr/fr/node/48918" }
+            ],
+            "image": "caso-trans-en-provence-1981",
+            "coordinates": { "lat": 43.505, "lng": 6.4847 }
+        },
+        {
+            "slug": "gofast-2015",
+            "region": "mundo",
+            "title": "GoFast: um objeto no sensor",
+            "date": "Janeiro de 2015",
+            "place": "Costa da Flórida, Estados Unidos",
+            "summary": "Um sensor de um avião da Marinha dos Estados Unidos registrou um objeto que aparentava grande velocidade sobre o mar.",
+            "documentation": "Em 2025, o AARO concluiu que não houve desempenho anômalo demonstrado, embora não tenha identificado o objeto em definitivo.",
+            "sources": [
+                { "label": "AARO", "url": "https://www.aaro.mil/Portals/136/PDFs/case_resolution_reports/AARO_GoFast_Case_Resolution_Card_Methodology_Final.pdf" }
+            ],
+            "image": "caso-gofast-2015",
+            "coordinates": { "lat": 30.3, "lng": -80.6, "region": true }
+        }
+    ]
+}

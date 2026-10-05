@@ -142,6 +142,30 @@ export const t = {
                 'Ilustração de Emilcin: um pequeno monumento de pedra na beira de uma estrada de terra com bétulas, entre campos arados, ao entardecer.',
             'atlas-ill-carbondale':
                 'Ilustração de Carbondale em 1974: uma luz brilhando debaixo da água de um lago escuro, com silhuetas de pessoas e um carro de polícia na margem.',
+            'caso-florianopolis-1981':
+                'Reconstituição artística: dois controladores de costas na torre de controle, com radar e equipamentos analógicos, olhando uma luz amarelo-prateada sobre os morros da ilha.',
+            'caso-picarras-2017':
+                'Reconstituição artística: duas silhuetas na praia à noite olhando uma pequena esfera vermelha sobre o mar e três luzes fracas mais acima.',
+            'caso-itapoa-2018':
+                'Reconstituição artística: dois pescadores num barco pequeno na baía, à noite, e três luzes formando um triângulo no céu.',
+            'caso-voo-santa-catarina-2022':
+                'Reconstituição artística: dois pilotos de costas na cabine de um avião à noite, com o painel aceso e uma pequena luz branca adiante.',
+            'caso-barra-da-tijuca-1952':
+                'Reconstituição artística: uma câmera antiga, uma lupa e cópias em preto e branco de fotos de um disco sobre a praia, numa mesa com vista para o Rio.',
+            'caso-gravatai-1954':
+                'Reconstituição artística: oficiais de uniforme, de costas, olhando pontos prateados no céu sobre os hangares de uma base aérea dos anos 1950.',
+            'caso-colares-1977':
+                'Reconstituição artística: militares com binóculos e câmera numa margem com palmeiras e casas de madeira, observando luzes alaranjadas sobre a água à noite.',
+            'caso-noite-oficial-1986':
+                'Reconstituição artística: um caça em voo noturno sobre as luzes de uma cidade, com pontos coloridos de luz mais adiante no céu.',
+            'caso-valensole-1965':
+                'Reconstituição artística: um agricultor de costas num campo de lavanda ao amanhecer, com uma forma baixa e duas figuras pequenas ao longe, na névoa.',
+            'caso-rendlesham-1980':
+                'Reconstituição artística: dois militares com lanternas entre os pinheiros de uma floresta à noite, com luzes alaranjadas ao fundo.',
+            'caso-trans-en-provence-1981':
+                'Reconstituição artística: investigadores coletando amostras e fotografando uma marca circular no chão de um terraço de pedra, com a vila provençal ao fundo.',
+            'caso-gofast-2015':
+                'Reconstituição artística: vista em tons de cinza do alto, sobre o mar, com uma pequena mancha clara dentro de uma mira de sensor.',
         },
     },
     store: {
@@ -726,6 +750,26 @@ export const t = {
         reportLong: 'Relatar avistamento',
         seeReport: 'Ver relato',
         by: (nickname: string) => `por ${nickname}`,
+        legendReport: 'Relato da comunidade',
+        legendHistorical: 'Caso histórico (posição aproximada)',
+    },
+    historical: {
+        illustrationNote:
+            'As imagens são reconstituições artísticas geradas por IA, inspiradas nos relatos. Não são fotografias nem provas dos eventos.',
+        caption: 'Reconstituição artística gerada por IA; não é registro nem prova do evento.',
+        seeCase: 'Ver o caso',
+        place: 'Onde',
+        when: 'Quando',
+        documentation: 'O que a documentação diz',
+        sources: 'Fontes',
+        approximate: 'O ponto no mapa marca a cidade ou a região, não o local exato.',
+        position: (n: number, total: number) => `Caso ${String(n).padStart(2, '0')} de ${total}`,
+        back: 'Voltar ao Livro de avistamentos',
+        previous: 'Caso anterior',
+        next: 'Próximo caso',
+        reportTitle: 'Viu alguma coisa parecida no céu da serra?',
+        report: 'Relatar avistamento',
+        count: (n: number) => (n === 1 ? '1 caso' : `${n} casos`),
     },
     sightingPage: {
         typeLabel: 'Tipo',

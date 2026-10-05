@@ -2,6 +2,7 @@ import type { LayerGroup, Map as LeafletMap } from 'leaflet';
 import { useEffect, useRef, useState } from 'react';
 import { OVNIPORTO_COORDS } from '@/Components/Map/LazyMap';
 import { shortDate, t } from '@/i18n/pt-BR';
+import type { HistoricalPin } from '@/types/historical';
 
 export interface SightingPin {
     id: number;
@@ -28,14 +29,32 @@ function popupHtml(pin: SightingPin): string {
 <a href="/relatos/${pin.id}" style="display:block;margin:0 0 6px;padding:8px 0;border-radius:999px;background:#54C933;color:#061121;font-weight:600;font-size:13px;text-align:center;text-decoration:none">${escapeHtml(t.logbookPage.seeReport)}</a>`;
 }
 
+/** A historical case: title, date and the link to its page; no photo, it is not a member's report. */
+function historicalPopupHtml(pin: HistoricalPin): string {
+    return `<p style="margin:4px 0 0;font-family:Caveat,cursive;font-size:18px;line-height:1.1;text-align:center;color:#494383">${escapeHtml(pin.date)}</p>
+<p style="margin:4px 0 8px;font-weight:600;font-size:13px;line-height:1.3;text-align:center">${escapeHtml(pin.title)}</p>
+<a href="/mapa/casos/${escapeHtml(pin.slug)}" style="display:block;margin:0 0 6px;padding:8px 0;border-radius:999px;background:#494383;color:#F4F5E8;font-weight:600;font-size:13px;text-align:center;text-decoration:none">${escapeHtml(t.historical.seeCase)}</a>`;
+}
+
 /**
  * Full-width night map of the approved reports, clustered. Leaflet and the
- * cluster plugin load in the browser only. Pins follow the filters (prop).
+ * cluster plugin load in the browser only. Pins follow the filters (prop). Historical cases sit on
+ * their own layer (lilac diamonds): never clustered with the reports and never used to frame the
+ * map, so the view stays on the serra while the world's cases wait for a zoom out.
  */
-export function SightingsMap({ pins, className = '' }: { pins: SightingPin[]; className?: string }) {
+export function SightingsMap({
+    pins,
+    historical = [],
+    className = '',
+}: {
+    pins: SightingPin[];
+    historical?: HistoricalPin[];
+    className?: string;
+}) {
     const containerRef = useRef<HTMLDivElement>(null);
     const mapRef = useRef<LeafletMap | null>(null);
     const clusterRef = useRef<LayerGroup | null>(null);
+    const historicalRef = useRef<LayerGroup | null>(null);
     const [ready, setReady] = useState(false);
 
     useEffect(() => {
@@ -63,6 +82,7 @@ export function SightingsMap({ pins, className = '' }: { pins: SightingPin[]; cl
                         iconSize: [44, 44],
                     }),
             }).addTo(map);
+            historicalRef.current = L.layerGroup().addTo(map);
             mapRef.current = map;
             setReady(true);
         })();
@@ -101,6 +121,32 @@ export function SightingsMap({ pins, className = '' }: { pins: SightingPin[]; cl
             cancelled = true;
         };
     }, [ready, pins]);
+
+    useEffect(() => {
+        const layer = historicalRef.current;
+        if (!ready || !layer) return;
+        let cancelled = false;
+        import('leaflet').then(({ default: L }) => {
+            if (cancelled) return;
+            layer.clearLayers();
+            for (const pin of historical) {
+                L.marker([pin.lat, pin.lng], {
+                    icon: L.divIcon({
+                        html: '<span class="historical-dot"></span>',
+                        className: '',
+                        iconSize: [14, 14],
+                    }),
+                    title: `${pin.title} · ${pin.date}`,
+                    zIndexOffset: -100,
+                })
+                    .bindPopup(historicalPopupHtml(pin), { closeButton: true, maxWidth: 200 })
+                    .addTo(layer);
+            }
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, [ready, historical]);
 
     return (
         <div

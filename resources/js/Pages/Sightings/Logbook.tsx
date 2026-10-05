@@ -2,6 +2,7 @@ import { router } from '@inertiajs/react';
 import type { ReactNode } from 'react';
 import { PageCover } from '@/Components/Content/PageCover';
 import { SeoHead } from '@/Components/Layout/SeoHead';
+import { HistoricalCases } from '@/Components/Sightings/HistoricalCases';
 import { LoadMore } from '@/Components/Sightings/LoadMore';
 import { SightingPolaroid } from '@/Components/Sightings/SightingPolaroid';
 import { SightingsMap, type SightingPin } from '@/Components/Sightings/SightingsMap';
@@ -14,6 +15,7 @@ import { useListRequest } from '@/hooks/useListRequest';
 import { t } from '@/i18n/pt-BR';
 import { PublicLayout } from '@/Layouts/PublicLayout';
 import type { SightingCard } from '@/types';
+import type { HistoricalSection } from '@/types/historical';
 
 const copy = t.logbookPage;
 const ALL = 'all';
@@ -30,9 +32,10 @@ interface Props {
     cards: SightingCard[];
     page: number;
     hasMore: boolean;
+    historical: HistoricalSection;
 }
 
-export default function Logbook({ filters, total, pins, cards, page, hasMore }: Props) {
+export default function Logbook({ filters, total, pins, cards, page, hasMore, historical }: Props) {
     const list = useListRequest();
     const more = useListRequest();
 
@@ -94,7 +97,17 @@ export default function Logbook({ filters, total, pins, cards, page, hasMore }: 
                         className="rounded-[26px] bg-night/80 p-1.5 backdrop-blur-[8px]"
                     />
                 </div>
-                <SightingsMap pins={pins} className="h-[70svh] min-h-[420px] w-full" />
+                <SightingsMap pins={pins} historical={historical.pins} className="h-[70svh] min-h-[420px] w-full" />
+                <ul className="mx-auto flex max-w-[84rem] flex-wrap gap-x-6 gap-y-2 px-5 py-4 text-[0.85rem] text-moonlight/75 sm:px-8">
+                    <li className="flex items-center gap-2">
+                        <span aria-hidden className="sighting-dot scale-75" />
+                        {copy.legendReport}
+                    </li>
+                    <li className="flex items-center gap-2">
+                        <span aria-hidden className="historical-dot scale-90" />
+                        {copy.legendHistorical}
+                    </li>
+                </ul>
                 {pins.length === 0 && (
                     <p className="pointer-events-none absolute inset-x-0 bottom-10 z-[600] text-center font-script text-2xl text-beam-glow">
                         {copy.mapEmpty}
@@ -142,6 +155,8 @@ export default function Logbook({ filters, total, pins, cards, page, hasMore }: 
                     <LoadMore page={page} hasMore={hasMore} onLoad={loadMore} />
                 )}
             </Section>
+
+            <HistoricalCases section={historical} />
 
             <div className="fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 lg:hidden">
                 <Button href="/relatar" size="lg" className="h-14 shadow-beam">

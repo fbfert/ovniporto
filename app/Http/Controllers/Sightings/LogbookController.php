@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sightings;
 
 use App\Application\Sightings\UseCases\GetSightingPage;
+use App\Application\Sightings\UseCases\ListHistoricalCases;
 use App\Application\Sightings\UseCases\ListPublicSightings;
 use App\Domain\Sightings\Data\SightingFilters;
 use App\Http\Controllers\Controller;
@@ -14,7 +15,7 @@ use Inertia\Response;
 class LogbookController extends Controller
 {
     /** /mapa: filters live in the URL (?periodo=&tipo=), pages are merged by "Carregar mais". */
-    public function index(Request $request, ListPublicSightings $list): Response
+    public function index(Request $request, ListPublicSightings $list, ListHistoricalCases $historical): Response
     {
         $filters = SightingFilters::from($request->query('periodo'), $request->query('tipo'));
         $page = max(1, (int) $request->query('pagina', 1));
@@ -27,6 +28,8 @@ class LogbookController extends Controller
             'cards' => Inertia::merge($cards),
             'page' => $page,
             'hasMore' => $hasMore,
+            // Fixed researched content: never reloaded by the filters or by "Carregar mais".
+            'historical' => fn () => $historical->execute(),
         ]);
     }
 

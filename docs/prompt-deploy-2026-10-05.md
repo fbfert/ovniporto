@@ -2,8 +2,11 @@
 
 Cole o bloco abaixo no Claude Code rodando na VPS. Ele publica o topo de `main`
 (Cachi como referência, colaboradores do Atlas, menu novo, espaços de /o-lugar, a página
-do relato do carro amarelo, a verificação do Google e as novas ilustrações da origem, do
-lugar e do Atlas).
+do relato do carro amarelo, a verificação do Google, as novas ilustrações da origem, do
+lugar e do Atlas e os casos históricos do Livro de avistamentos).
+
+Se a versão bf9611c já está no ar (deploy anterior de 05/10), esta rodada publica só o
+commit dos casos históricos: as conferências 1 a 10f continuam valendo e a 10g é a nova.
 
 ---
 
@@ -21,7 +24,8 @@ espere meu "ok" antes da próxima.
   ele volta sozinho para a versão anterior.
 - Commits desta versão em origin/main, do mais antigo ao mais novo: 5ddfce6 (Cachi,
   colaboradores, espaços), e09f89c (página do relato), 358aaae (arquivo de verificação do
-  Google) e, no topo, o commit das ilustrações do Atlas e da origem.
+  Google), bf9611c (ilustrações do Atlas e da origem) e, no topo, o commit dos casos
+  históricos do Livro de avistamentos.
 - O que muda nesta versão:
   1. /origem/cachi: título e descrição novos, seção "Em poucas palavras", JSON-LD em
      grafo (Article, Place, Person, BreadcrumbList, FAQPage) e lastmod no sitemap.
@@ -44,6 +48,9 @@ espere meu "ok" antes da próxima.
        2026_10_05_140000_fill_place_space_illustrations liga as duas imagens aos espaços,
        só onde a ilustração ainda está vazia);
      - Atlas: um cartão-postal ilustrado por caso, na lista e no topo de cada página de caso.
+  9. Livro de avistamentos: 12 casos históricos pesquisados (resources/content/sightings/
+     historical-cases.json), numa seção própria de /mapa, com página em /mapa/casos/{slug},
+     marcador lilás no mapa e 12 ilustrações novas (public/concept/caso-*). Sem migration.
 - Migrations novas: 2026_10_05_000200_create_research_collaborators_table,
   2026_10_05_120000_fill_place_spaces_from_plan, 2026_10_05_130000_fill_yellow_car_relato e
   2026_10_05_140000_fill_place_space_illustrations (e qualquer outra pendente, como
@@ -60,7 +67,8 @@ espere meu "ok" antes da próxima.
 ## Fase 1: Conferência antes (somente leitura)
 
 - `cd /srv/ovniporto && git fetch origin && git log --oneline -3 origin/main`:
-  confirme que o commit das ilustrações está no topo, seguido de 358aaae, e09f89c e 5ddfce6.
+  confirme que o commit dos casos históricos está no topo, seguido de bf9611c, 358aaae,
+  e09f89c e 5ddfce6.
 - Versão em produção agora: `cat .deploy/current`.
 - Estado dos containers: `docker compose -f docker-compose.prod.yml ps`.
 - Migrations pendentes:
@@ -118,6 +126,11 @@ Rode e mostre o resultado de cada item:
     com image/avif. `curl -s https://ovniporto.tars.art.br/origem/atlas` contém
     "atlas-ill-st-paul" e "ilustração"; `curl -s https://ovniporto.tars.art.br/o-lugar`
     contém "/concept/hangar-".
+10g. Casos históricos: `curl -s https://ovniporto.tars.art.br/mapa` contém "Casos históricos"
+    e "/mapa/casos/florianopolis-1981"; `curl -s -o /dev/null -w '%{http_code}'
+    https://ovniporto.tars.art.br/mapa/casos/gofast-2015` responde 200 e
+    `.../mapa/casos/nao-existe` responde 404; `curl -sI https://ovniporto.tars.art.br/concept/caso-colares-1977-800.avif`
+    responde 200 com image/avif; o sitemap contém "/mapa/casos/rendlesham-1980".
 10f. Espaços com imagem: `App\Models\PlaceSpace::whereNull('concept_image_path')->count()`
     deve ser 0.
 11. Formulário de colaborador: NÃO envie um formulário real. Só confirme que

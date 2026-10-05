@@ -45,6 +45,19 @@ class ImportConceptIllustrations extends Command
         'Atlas El Enladrillado.png' => 'atlas-ill-el-enladrillado',
         'Atlas Emilcin.png' => 'atlas-ill-emilcin',
         'Atlas Carbondale.png' => 'atlas-ill-carbondale',
+        // Historical cases of the Livro de avistamentos (Dropbox livro-de-avistamentos/avistamentos/imagens).
+        '01-florianopolis-1981.png' => 'caso-florianopolis-1981',
+        '02-picarras-2017.png' => 'caso-picarras-2017',
+        '03-itapoa-2018.png' => 'caso-itapoa-2018',
+        '04-voo-sc-2022.png' => 'caso-voo-santa-catarina-2022',
+        '05-barra-1952.png' => 'caso-barra-da-tijuca-1952',
+        '06-gravatai-1954.png' => 'caso-gravatai-1954',
+        '07-colares-1977.png' => 'caso-colares-1977',
+        '08-noite-1986.png' => 'caso-noite-oficial-1986',
+        '09-valensole-1965.png' => 'caso-valensole-1965',
+        '10-rendlesham-1980.png' => 'caso-rendlesham-1980',
+        '11-trans-1981.png' => 'caso-trans-en-provence-1981',
+        '12-gofast-2015.png' => 'caso-gofast-2015',
     ];
 
     public function handle(): int

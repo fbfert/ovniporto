@@ -37,6 +37,7 @@ use App\Http\Controllers\Place\ConstructionDiaryController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Place\SupportController;
 use App\Http\Controllers\Region\RegionController;
+use App\Http\Controllers\Sightings\HistoricalCaseController;
 use App\Http\Controllers\Sightings\LogbookController;
 use App\Http\Controllers\Sightings\ReportController;
 use App\Http\Controllers\Sightings\SightingPhotoController;
@@ -264,6 +265,7 @@ Route::post('/webhooks/paypal', [PaymentController::class, 'webhook'])->middlewa
 // Livro de avistamentos: only approved reports are public.
 Route::get('/mapa', [LogbookController::class, 'index'])->name('logbook');
 Route::get('/relatos/{sighting}', [LogbookController::class, 'show'])->whereNumber('sighting')->name('sightings.show');
+Route::get('/mapa/casos/{slug}', HistoricalCaseController::class)->where('slug', '[a-z0-9-]+')->name('logbook.historical');
 Route::get('/api/sightings', SightingsApiController::class)->middleware('throttle:60,1')->name('api.sightings');
 
 // Report photos: approved ones are public; pending ones need a signed URL and the author or a moderator.
