@@ -39,9 +39,11 @@ export function ConfidenceSeal({ seal, size = 'md' }: { seal: GradeMeaning[]; si
             title={description}
             className={`relative inline-flex shrink-0 -rotate-6 flex-col items-center justify-center rounded-full border-2 border-dashed border-horizon font-display font-extrabold tracking-[0.04em] text-horizon ${dimensions}`}
         >
-            <span aria-hidden className="text-[0.5rem] font-bold tracking-[0.16em] uppercase">
-                {t.origin.confidence}
-            </span>
+            {size === 'md' && (
+                <span aria-hidden className="text-[0.42rem] font-bold tracking-[0.08em] uppercase">
+                    {t.origin.confidence}
+                </span>
+            )}
             <span aria-hidden className="leading-none">
                 {grades}
             </span>

@@ -18,12 +18,13 @@ export type OriginConceptSlug = (typeof ORIGIN_CONCEPTS)[number];
 
 /**
  * A concept scene of the origin pages: the illustration once it is in the concept manifest, until
- * then a night-sky frame that says "conceito em produção". Never shown as a photo.
+ * then a night-sky frame that says "conceito em produção". Never shown as a photo. Positioning comes
+ * from `className` (relative by default, or absolute inset-0 inside a sized frame).
  */
 export function OriginConcept({
     slug,
     sizes,
-    className = '',
+    className = 'relative',
 }: {
     slug: OriginConceptSlug;
     sizes?: string;
@@ -34,7 +35,7 @@ export function OriginConcept({
     }
 
     return (
-        <div role="img" aria-label={t.origin.conceptPending} className={`relative overflow-hidden ${className}`}>
+        <div role="img" aria-label={t.origin.conceptPending} className={`overflow-hidden ${className}`}>
             <NightSkyArt seed={slug.length} />
             <p className="absolute inset-x-0 bottom-0 p-5 font-script text-2xl text-moonlight/85">
                 {t.origin.conceptPending}

@@ -4,7 +4,8 @@
 Site real de uma marca e comunidade de Lages, SC, inspirada no Ovnipuerto de Cachi (Argentina).
 Hoje: comunidade, "Livro de avistamentos" (relatos com mapa), loja de produtos.
 Futuro: uma "pista de pouso" física na Localidade Pedras Brancas (Lages, SC), meta 2028.
-Tom: astroturismo de verdade com uma camada de lenda e humor. A lenda é criada e o site não finge o contrário.
+Tom: astroturismo de verdade com uma camada de relato e humor. O relato do carro amarelo (o Lada Niva do Julean) é contado como relato ("segundo contam..."), nunca como documento.
+Vocabulário: o site não usa a palavra "lenda" nos próprios textos. A página é "A origem" (/origem) e a história do carro é "o relato". A palavra só aparece nos dados históricos de Cachi e do Atlas, onde descreve a lenda local desses lugares.
 O lugar físico ainda NÃO existe: o site nunca fala dele como se já funcionasse.
 Nenhuma arrecadação de dinheiro para a obra antes de existir orçamento: /apoie fica em modo "em planejamento".
 
@@ -71,7 +72,8 @@ Mobile first: tudo é desenhado primeiro para 390px de largura.
 - Minha conta: baixar meus dados e excluir conta. Sem cookies de terceiros. Métrica sem cookie (Umami self-hosted).
 
 ## Conteúdo ainda inexistente (usar placeholder marcado, nunca inventar)
-- A lenda: página mostra "aguardando conteúdo".
+- O relato do carro amarelo: em /origem, "Ainda estamos capturando o relato do Julean que foi abduzido." com o Avise-me, até o texto existir no painel.
+- A origem (/origem, /origem/cachi, /origem/atlas): conteúdo documentado em resources/content/origin/*.json. Fotos de terceiros só com licença aberta e crédito visível; mapas de localização sempre identificados como mapa; cada informação com o tipo de fonte ou o grau de confiança (A–F) do dossiê.
 - Fotos reais do terreno, mapa 3D, ilustrações: placeholders com o aviso "conceito".
 - Parceiros da região: lista vazia com estado vazio bonito.
 - Orçamento da obra: "em planejamento".

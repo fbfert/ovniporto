@@ -77,14 +77,17 @@ export function YellowCarShape({ headlights = false }: { headlights?: boolean })
                     strokeWidth={5}
                     strokeLinecap="round"
                 />
-                <path d="M82 240 L170 230" stroke={C.moonlight} strokeOpacity={0.4} strokeWidth={4} strokeLinecap="round" />
+                <path
+                    d="M82 240 L170 230"
+                    stroke={C.moonlight}
+                    strokeOpacity={0.4}
+                    strokeWidth={4}
+                    strokeLinecap="round"
+                />
                 {/* windows: door window with the vent pane, B-pillar, big rear quarter window */}
                 <path d="M200 226 L246 172 Q248 170 252 170 L328 170 L328 226 Z" fill={C.nightBlue} />
                 <path d="M228 226 L240 176" stroke={C.car} strokeWidth={5} />
-                <path
-                    d="M340 170 L446 170 Q462 170 466 186 L470 214 Q471 226 459 226 L340 226 Z"
-                    fill={C.nightBlue}
-                />
+                <path d="M340 170 L446 170 Q462 170 466 186 L470 214 Q471 226 459 226 L340 226 Z" fill={C.nightBlue} />
                 <path
                     d="M262 214 L288 180 M372 214 L398 180"
                     stroke={C.beamGlow}

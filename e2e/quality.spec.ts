@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 import { MEMBERS, signInAs } from './support/members';
 
-const PAGES = ['/', '/mapa', '/loja', '/o-lugar', '/relatar'];
+const PAGES = ['/', '/mapa', '/loja', '/o-lugar', '/relatar', '/origem', '/origem/cachi', '/origem/atlas', '/origem/atlas/lages'];
 
 for (const path of PAGES) {
     test(`axe-core finds no critical violation on ${path}`, async ({ page }) => {
