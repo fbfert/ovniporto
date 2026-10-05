@@ -72,7 +72,7 @@ Mobile first: tudo é desenhado primeiro para 390px de largura.
 - Minha conta: baixar meus dados e excluir conta. Sem cookies de terceiros. Métrica sem cookie (Umami self-hosted).
 
 ## Conteúdo ainda inexistente (usar placeholder marcado, nunca inventar)
-- O relato do carro amarelo: em /origem, "Ainda estamos capturando o relato do Julean que foi abduzido." com o Avise-me, até o texto existir no painel.
+- O relato do carro amarelo: o texto enviado pelo Julean está em /origem/relato (bloco `legend_body`, editável no painel); a home e /origem mostram só a abertura e levam para lá. Se o bloco ficar vazio, volta o aviso "Ainda estamos capturando o relato do Julean que foi abduzido." com o Avise-me.
 - A origem (/origem, /origem/cachi, /origem/atlas): conteúdo documentado em resources/content/origin/*.json. Fotos de terceiros só com licença aberta e crédito visível; mapas de localização sempre identificados como mapa; cada informação com o tipo de fonte ou o grau de confiança (A–F) do dossiê.
 - Fotos reais do terreno, mapa 3D, ilustrações: placeholders com o aviso "conceito".
 - Parceiros da região: lista vazia com estado vazio bonito.

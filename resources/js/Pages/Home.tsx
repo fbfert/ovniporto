@@ -5,6 +5,7 @@ import { CommunitySection } from '@/Components/Home/CommunitySection';
 import { OriginSection } from '@/Components/Home/OriginSection';
 import { LogbookSection } from '@/Components/Home/LogbookSection';
 import { PlaceSection } from '@/Components/Home/PlaceSection';
+import { RelatoSection } from '@/Components/Home/RelatoSection';
 import { RegionSection } from '@/Components/Home/RegionSection';
 import { SouvenirsSection } from '@/Components/Home/SouvenirsSection';
 import { WelcomeSection } from '@/Components/Home/WelcomeSection';
@@ -14,7 +15,16 @@ import { t } from '@/i18n/pt-BR';
 import { PublicLayout } from '@/Layouts/PublicLayout';
 import type { HomeProps, SharedProps } from '@/types';
 
-export default function Home({ counters, content, sightings, products, spaces, partners }: HomeProps) {
+export default function Home({
+    counters,
+    content,
+    sightings,
+    products,
+    spaces,
+    partners,
+    relatoOpening,
+    cachiCover,
+}: HomeProps) {
     const { community } = usePage<SharedProps>().props;
     return (
         <>
@@ -32,12 +42,14 @@ export default function Home({ counters, content, sightings, products, spaces, p
             {/* 06 */}
             <SouvenirsSection lead={content.home_store} products={products} />
             {/* 07 */}
-            <OriginSection teaser={content.home_legend} />
+            <OriginSection teaser={content.home_legend} cover={cachiCover} />
             {/* 08 */}
-            <RegionSection partners={partners} contactEmail={community.email} />
+            <RelatoSection opening={relatoOpening} />
             {/* 09 */}
+            <RegionSection partners={partners} contactEmail={community.email} />
+            {/* 10 */}
             <CommunitySection />
-            {/* 10: footer lives in the layout */}
+            {/* 11: footer lives in the layout */}
         </>
     );
 }

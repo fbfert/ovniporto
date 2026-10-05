@@ -105,6 +105,10 @@ export const t = {
             'museum-path':
                 'Ilustração conceitual do museu ao ar livre: trilha de pedra com placas baixas iluminadas, uma com a estrela de Cachi.',
             'museum-path-alt': 'Ilustração conceitual: trilha astronômica com placas iluminadas sob a Via Láctea.',
+            'niva-roadside':
+                'Ilustração do relato: o Niva amarelo parado na beira da estrada molhada, de capô aberto, com um homem olhando o motor sob um feixe de luz branca que desce de um disco entre as araucárias.',
+            'niva-roadside-tall':
+                'Ilustração do relato: à noite, na estrada molhada entre araucárias e postes, um feixe de luz branca desce do céu sobre o Niva amarelo de capô aberto.',
         },
     },
     store: {
@@ -119,7 +123,18 @@ export const t = {
         eyebrow: 'De Cachi a Lages',
         title: 'A origem',
         cta: 'Conhecer a origem',
-        polaroid: 'O carro amarelo do Julean',
+        polaroid: 'Ovnipuerto Cachi',
+        photoCredit: 'Foto',
+        creditSource: 'origem e licença',
+    },
+    relatoSection: {
+        eyebrow: 'Segundo contam',
+        title: 'O carro amarelo do Julean',
+        cta: 'Ler o relato inteiro',
+        polaroid: 'O Niva amarelo',
+        illustration: 'ilustração',
+        pending: 'Ainda estamos capturando o relato do Julean que foi abduzido.',
+        pendingCta: 'Ver a origem',
     },
     region: {
         eyebrow: 'Fique mais um dia',
@@ -195,6 +210,19 @@ export const t = {
                 'Cachi não é o único lugar que guardou uma pista para o céu. O Atlas reúne doze, com o grau de confiança de cada informação.',
             nextCta: 'Abrir o Atlas',
         },
+        relatoPage: {
+            eyebrow: 'Segundo contam',
+            title: 'O relato do carro amarelo do Julean',
+            lead: 'De Lages a Curitibanos, tarde da noite, num Niva amarelo.',
+            framing: 'Contado pelo Julean, do jeito que ele contou. É relato, não documento.',
+            signature: 'Julean',
+            polaroid: 'O Niva amarelo',
+            endTitle: 'E você, já viu alguma coisa no céu da serra?',
+            endBody: 'Todo relato começa com alguém que resolveu contar. O Livro de avistamentos está aberto.',
+            report: 'Relatar avistamento',
+            toOrigin: 'Voltar para a origem',
+            toCachi: 'Ler a história de Cachi',
+        },
         atlasPage: {
             mapTitle: 'Doze pontos no mapa',
             mapLead:
@@ -265,6 +293,7 @@ export const t = {
             ],
             relatoEyebrow: 'O relato do',
             relatoTitle: 'O carro amarelo',
+            relatoCta: 'Ler o relato inteiro',
             relatoPending:
                 'Ainda estamos capturando o relato do Julean que foi abduzido. Deixe o e-mail e a torre de controle avisa quando sair.',
             notify: 'Me avise quando sair',

@@ -108,5 +108,25 @@
             1200
         ],
         "lqip": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADwAwCdASoUAA8APu1iqU2ppaOiMAgBMB2JQBadBH/8TvO3I/vCL51wAP7uokZApYh+CnOUBplMuBcvCxTSLnH9/cy4NgZ1Fzc+zsJmfvlh5Ob1GmgBwO9TKrpwAA=="
+    },
+    "niva-roadside": {
+        "width": 1672,
+        "height": 941,
+        "widths": [
+            400,
+            800,
+            1200,
+            1600
+        ],
+        "lqip": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAACwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JZQAARhwhjnSqH2WiAAD+8N92rnD+EnfRjbpUFt1n8Aj/QTJCoXknTeY8M7OY6ohuiyJjpDlMeW3jhCXjnOZMwAA="
+    },
+    "niva-roadside-tall": {
+        "width": 941,
+        "height": 1672,
+        "widths": [
+            400,
+            800
+        ],
+        "lqip": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4ILQAAADQBQCdASoUACQAPu1uslKppiSipWmZMB2JYwDKACMT+ujYsy86VfUPtzIdQukSiw9RyhahwBjAAP7zIFTuYtKHrxOzMM2n2XFyTM1qPzKMy41trCCzchkUaKhCG3l91QzZ3ZUOXs2sk9H7WH9jkM0lkmCxIPLxWchD7Dcudpy+rDl233/QTi+ch2+a79hxCywrq4GQeaUxIHF9QrLf04CY+CfF8YFAvgrfBpbcNfvBE3UAAAA="
     }
 }

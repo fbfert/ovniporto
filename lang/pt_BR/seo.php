@@ -32,6 +32,11 @@ return [
             'description' => 'Dossiê com fontes do Ovnipuerto de Cachi, na Argentina: Werner “Terry” Jaisli, a noite de 2008, a Estrella de la Esperanza de 48 m e o Barrio Ovnipuerto.',
             'image' => '/origin/cachi-aereo.jpg',
         ],
+        'origin.relato' => [
+            'title' => 'O relato do carro amarelo do Julean',
+            'description' => 'Uma noite na estrada de Lages a Curitibanos, um Niva amarelo, os postes que se apagaram e a luz. O relato que deu origem ao OVNIPORTO, contado pelo Julean.',
+            'image' => '/concept/yellow-car.jpg',
+        ],
         'origin.atlas' => [
             'title' => 'Atlas Mundial dos Ovnipuertos',
             'description' => 'Doze lugares do mundo ligados à ideia de uma pista para discos voadores, com fontes, grau de confiança e o que ainda está em aberto.',

@@ -13,6 +13,7 @@ final readonly class BuildLlmsText
     /** Other pages worth reading, by route name. */
     private const PAGES = [
         'origin' => '/origem',
+        'origin.relato' => '/origem/relato',
         'origin.atlas' => '/origem/atlas',
         'place' => '/o-lugar',
         'faq' => '/faq',

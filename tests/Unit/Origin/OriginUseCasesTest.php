@@ -3,40 +3,58 @@
 use App\Application\Content\UseCases\RenderContentBlocks;
 use App\Application\Origin\UseCases\GetAtlas;
 use App\Application\Origin\UseCases\GetAtlasCase;
+use App\Application\Origin\UseCases\GetCachiCover;
 use App\Application\Origin\UseCases\GetCachiDossier;
 use App\Application\Origin\UseCases\GetOriginHub;
+use App\Application\Origin\UseCases\GetRelato;
 use App\Domain\Content\Contracts\ContentBlockRepository;
 use App\Infrastructure\Content\CommonMarkRenderer;
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Cache\Repository;
 use Tests\Support\FakeOriginLibrary;
 
-function originHub(?string $relato): GetOriginHub
+function relato(?string $markdown): GetRelato
 {
-    $blocks = new class($relato) implements ContentBlockRepository
+    $blocks = new class($markdown) implements ContentBlockRepository
     {
-        public function __construct(private ?string $relato) {}
+        public function __construct(private ?string $markdown) {}
 
         public function values(array $keys): array
         {
-            return array_fill_keys($keys, $this->relato);
+            return array_fill_keys($keys, $this->markdown);
         }
     };
 
-    return new GetOriginHub(new RenderContentBlocks($blocks, new CommonMarkRenderer, new Repository(new ArrayStore)), new FakeOriginLibrary);
+    return new GetRelato(new RenderContentBlocks($blocks, new CommonMarkRenderer, new Repository(new ArrayStore)));
+}
+
+function originHub(?string $relato): GetOriginHub
+{
+    return new GetOriginHub(relato($relato), new GetCachiCover(new FakeOriginLibrary), new FakeOriginLibrary);
 }
 
 it('keeps the yellow car relato empty until it is written, and counts what the doors lead to', function () {
     $hub = originHub(null)->execute();
 
-    expect($hub['relatoHtml'])->toBeNull()
+    expect($hub['relatoOpening'])->toBeNull()
         ->and($hub['cachi'])->toMatchArray(['chapters' => 2])
         ->and($hub['cachi']['cover']['slug'])->toBe('cachi-aereo')
         ->and($hub['atlas'])->toBe(['cases' => 3, 'countries' => 3, 'sources' => 2]);
 });
 
-it('renders the relato once the founders write it', function () {
-    expect(originHub('O Niva **subiu**.')->execute()['relatoHtml'])->toContain('<strong>subiu</strong>');
+it('opens the hub with the first paragraphs of the relato once it is written', function () {
+    expect(originHub("O Niva **subiu**.\n\nUm.\n\nDois.\n\nTrês.")->execute()['relatoOpening'])->toBe(['O Niva subiu.', 'Um.', 'Dois.']);
+});
+
+it('marks the short paragraphs of the relato as beats and leaves the long ones alone', function () {
+    $html = relato("Era tarde da noite, e as pedras brancas da estrada pareciam engolir meu Niva amarelo.\n\nNada.")->execute()['html'];
+
+    expect($html)->toContain('<p class="relato-beat">Nada.</p>')
+        ->and($html)->toContain('<p>Era tarde da noite');
+});
+
+it('returns nothing while the relato is not written', function () {
+    expect(relato('  ')->execute())->toBe(['html' => null, 'opening' => null]);
 });
 
 it('spells out the source kind of every Cachi statement and credits its photos', function () {

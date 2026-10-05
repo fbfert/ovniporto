@@ -1,7 +1,6 @@
 import { Link } from '@inertiajs/react';
 import type { ReactNode } from 'react';
 import { PageCover } from '@/Components/Content/PageCover';
-import { Prose } from '@/Components/Content/Prose';
 import { SeoHead } from '@/Components/Layout/SeoHead';
 import { CreditedImage } from '@/Components/Origin/CreditedImage';
 import { OriginConcept, type OriginConceptSlug } from '@/Components/Origin/OriginConcept';
@@ -9,7 +8,8 @@ import { Button } from '@/Components/Ui/Button';
 import { Polaroid } from '@/Components/Ui/Polaroid';
 import { Reveal } from '@/Components/Ui/Reveal';
 import { Section } from '@/Components/Ui/Section';
-import { Display, Eyebrow } from '@/Components/Ui/Typography';
+import { Badge, Display, Eyebrow } from '@/Components/Ui/Typography';
+import { Picture } from '@/Components/Ui/Picture';
 import { WaitlistForm } from '@/Components/Home/WaitlistForm';
 import { t } from '@/i18n/pt-BR';
 import { PublicLayout } from '@/Layouts/PublicLayout';
@@ -18,7 +18,7 @@ import type { ImageCredit } from '@/types/origin';
 const copy = t.origin.hub;
 
 interface Props {
-    relatoHtml: string | null;
+    relatoOpening: string[] | null;
     cachi: { chapters: number; cover: ImageCredit | null };
     atlas: { cases: number; countries: number; sources: number };
 }
@@ -55,7 +55,7 @@ function Story({ cover }: { cover: ImageCredit | null }) {
 }
 
 /** "O relato do / O carro amarelo": the founders' text once it exists, an honest wait until then. */
-function Relato({ html }: { html: string | null }) {
+function Relato({ opening }: { opening: string[] | null }) {
     return (
         <Section tone="dark" pattern="stars" wave labelledBy="carro-amarelo">
             <div className="grid items-center gap-14 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-24">
@@ -65,13 +65,21 @@ function Relato({ html }: { html: string | null }) {
                         tape="top"
                         imageClassName="aspect-[4/5]"
                         art={
-                            <OriginConcept
-                                slug="niva-abduction"
-                                sizes="(min-width: 768px) 24rem, 85vw"
-                                className="absolute inset-0"
-                            />
+                            <div className="absolute inset-0">
+                                <Picture
+                                    slug="niva-roadside-tall"
+                                    alt={t.concept.alt['niva-roadside-tall']}
+                                    sizes="(min-width: 768px) 24rem, 85vw"
+                                    className="h-full w-full"
+                                    imgClassName="h-full w-full object-cover object-[50%_68%]"
+                                />
+                                <Badge tone="horizon" className="absolute bottom-3 left-3">
+                                    {t.relatoSection.illustration}
+                                </Badge>
+                            </div>
                         }
-                        caption={t.originSection.polaroid}
+                        caption={t.origin.relatoPage.polaroid}
+                        href={opening ? '/origem/relato' : undefined}
                     />
                 </Reveal>
                 <Reveal>
@@ -79,8 +87,19 @@ function Relato({ html }: { html: string | null }) {
                     <Display as="h2" id="carro-amarelo" className="mt-3">
                         {copy.relatoTitle}
                     </Display>
-                    {html ? (
-                        <Prose html={html} className="mt-8 text-moonlight/90" />
+                    {opening ? (
+                        <>
+                            <div className="mt-8 max-w-[50ch] space-y-5 text-lg leading-relaxed text-moonlight/85">
+                                {opening.map((paragraph) => (
+                                    <p key={paragraph}>{paragraph}</p>
+                                ))}
+                            </div>
+                            <div className="mt-10">
+                                <Button href="/origem/relato" iconRight={<span aria-hidden>→</span>}>
+                                    {copy.relatoCta}
+                                </Button>
+                            </div>
+                        </>
                     ) : (
                         <>
                             <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-moonlight/80">
@@ -173,13 +192,13 @@ function Doors({ cachi, atlas }: Pick<Props, 'cachi' | 'atlas'>) {
     );
 }
 
-export default function Hub({ relatoHtml, cachi, atlas }: Props) {
+export default function Hub({ relatoOpening, cachi, atlas }: Props) {
     return (
         <>
             <SeoHead />
             <PageCover eyebrow={copy.eyebrow} title={copy.title} lead={copy.lead} />
             <Story cover={cachi.cover} />
-            <Relato html={relatoHtml} />
+            <Relato opening={relatoOpening} />
             <Doors cachi={cachi} atlas={atlas} />
             <Section tone="light" labelledBy="relatar">
                 <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">

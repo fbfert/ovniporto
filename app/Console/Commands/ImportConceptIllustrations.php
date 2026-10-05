@@ -25,6 +25,9 @@ class ImportConceptIllustrations extends Command
         'Observatório Rural sob a Via Láctea.png' => 'overview',
         'Trilha Estelar sob a Via Láctea.png' => 'museum-path',
         'Trilha Astronômica sob a Via Láctea.png' => 'museum-path-alt',
+        // The relato of the yellow car (Dropbox OVNIPORTO root, not the Ilustrações folder).
+        'nivaamarelo.png' => 'niva-roadside',
+        'nivaamarelo2.png' => 'niva-roadside-tall',
     ];
 
     public function handle(): int
@@ -35,7 +38,9 @@ class ImportConceptIllustrations extends Command
 
         File::ensureDirectoryExists($output);
         $builder = new ConceptImageBuilder($output);
-        $manifest = [];
+        // The illustrations arrive in more than one folder: entries built from another folder are kept.
+        $manifest = is_file($manifestPath) ? (array) json_decode((string) File::get($manifestPath), true) : [];
+        $built = 0;
 
         foreach (self::FILES as $file => $slug) {
             $path = "{$source}/{$file}";
@@ -45,10 +50,11 @@ class ImportConceptIllustrations extends Command
                 continue;
             }
             $manifest[$slug] = $builder->build($path, $slug);
+            $built++;
             $this->line("{$slug} ← {$file}");
         }
 
-        if ($manifest === []) {
+        if ($built === 0) {
             $this->error('Nenhuma ilustração encontrada em '.$source);
 
             return self::FAILURE;
@@ -56,7 +62,7 @@ class ImportConceptIllustrations extends Command
 
         File::ensureDirectoryExists(dirname($manifestPath));
         File::put($manifestPath, json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)."\n");
-        $this->info(count($manifest).' ilustrações processadas.');
+        $this->info("{$built} ilustrações processadas.");
 
         return self::SUCCESS;
     }

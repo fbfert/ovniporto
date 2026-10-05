@@ -1,4 +1,5 @@
 import type { PhotoSources } from '@/Components/Ui/Picture';
+import type { ImageCredit } from '@/types/origin';
 
 export type SightingTypeValue = 'light' | 'object' | 'trail' | 'other';
 
@@ -61,6 +62,9 @@ export interface HomeProps {
     products: ProductCard[];
     spaces: PlaceSpace[];
     partners: PartnerCard[];
+    /** First paragraphs of the yellow car relato; null while it is not written. */
+    relatoOpening: string[] | null;
+    cachiCover: ImageCredit | null;
 }
 
 export interface CommunityLinks {

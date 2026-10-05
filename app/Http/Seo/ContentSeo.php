@@ -98,6 +98,14 @@ final readonly class ContentSeo
         return new Seo($seo->title, $seo->description, $seo->image, 'article', jsonLd: [StructuredData::cachiReference($dossier, $seo->description, $seo->image)]);
     }
 
+    /** The relato is a story told by Julean, never presented as a document. */
+    public function relato(): Seo
+    {
+        $seo = Seo::forRoute('origin.relato');
+
+        return new Seo($seo->title, $seo->description, $seo->image, 'article', jsonLd: [StructuredData::relato((string) $seo->title, $seo->description, $seo->image)]);
+    }
+
     /**
      * Title, description and the case's own photo; a Place with coordinates only when they are not provisional.
      *

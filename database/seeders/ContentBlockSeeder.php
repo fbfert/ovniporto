@@ -70,7 +70,7 @@ class ContentBlockSeeder extends Seeder
             'home_place' => 'Uma pista de pouso de pedra, construída em fases, na Localidade Pedras Brancas. Hoje é terreno, céu escuro e muita vontade.',
             'home_store' => 'Adesivo na mão, pista no céu.',
             'home_legend' => 'O OVNIPORTO nasceu de uma viagem ao Ovnipuerto de Cachi, na Argentina, uma pista de pouso para discos voadores desenhada com pedras. A pergunta veio junto: e por que não na serra de Lages?',
-            'legend_body' => '',
+            'legend_body' => (string) file_get_contents(database_path('data/relato-carro-amarelo.md')),
             'link_whatsapp' => '',
             'link_instagram' => '',
             'contact_email' => 'contato@ovniporto.tars.art.br',

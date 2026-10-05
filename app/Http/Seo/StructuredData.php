@@ -144,6 +144,28 @@ final class StructuredData
         ];
     }
 
+    /**
+     * The yellow car relato as a short story told in the first person by Julean.
+     *
+     * @return array<string, mixed>
+     */
+    public static function relato(string $title, string $description, string $image): array
+    {
+        return [
+            '@context' => self::CONTEXT,
+            '@type' => 'ShortStory',
+            'name' => $title,
+            'description' => $description,
+            'image' => Seo::appUrl().$image,
+            'url' => Seo::appUrl().'/origem/relato',
+            'inLanguage' => 'pt-BR',
+            'genre' => 'relato',
+            'author' => ['@type' => 'Person', 'name' => 'Julean'],
+            'publisher' => ['@type' => 'Organization', 'name' => (string) Seo::text('site_name'), 'url' => Seo::appUrl()],
+            'isPartOf' => ['@type' => 'WebSite', 'name' => (string) Seo::text('site_name'), 'url' => Seo::appUrl()],
+        ];
+    }
+
     private static function organizationId(): string
     {
         return Seo::appUrl().'/#organization';

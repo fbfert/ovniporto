@@ -11,7 +11,7 @@ final readonly class BuildSitemap
 {
     /** Fixed public pages. Members' area, panel, checkout and orders never enter the sitemap. */
     public const PAGES = [
-        '/', '/origem', '/origem/cachi', '/origem/atlas', '/faq', '/comunidade', '/o-lugar', '/apoie', '/regiao', '/obra',
+        '/', '/origem', '/origem/relato', '/origem/cachi', '/origem/atlas', '/faq', '/comunidade', '/o-lugar', '/apoie', '/regiao', '/obra',
         '/mapa', '/loja', '/postal', '/privacidade', '/termos',
     ];
 

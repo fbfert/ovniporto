@@ -14,7 +14,8 @@ it('renders the home with the brand name and shared metadata', function () {
         ->assertInertia(fn (Assert $page) => $page
             ->component('Home')
             ->has('content.home_intro')
-            ->where('content.legend_body', null)
+            ->where('relatoOpening.0', fn (string $p) => str_starts_with($p, 'Era tarde da noite'))
+            ->where('cachiCover.slug', 'cachi-aereo')
             ->has('spaces', 9)
             ->where('spaces.0.status', 'planning')
         );
