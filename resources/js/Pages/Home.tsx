@@ -2,7 +2,7 @@ import { usePage } from '@inertiajs/react';
 import type { ReactNode } from 'react';
 import { AbductionHero } from '@/Components/Home/AbductionHero';
 import { CommunitySection } from '@/Components/Home/CommunitySection';
-import { LegendSection } from '@/Components/Home/LegendSection';
+import { OriginSection } from '@/Components/Home/OriginSection';
 import { LogbookSection } from '@/Components/Home/LogbookSection';
 import { PlaceSection } from '@/Components/Home/PlaceSection';
 import { RegionSection } from '@/Components/Home/RegionSection';
@@ -32,7 +32,7 @@ export default function Home({ counters, content, sightings, products, spaces, p
             {/* 06 */}
             <SouvenirsSection lead={content.home_store} products={products} />
             {/* 07 */}
-            <LegendSection teaser={content.home_legend} pending={content.legend_body === null} />
+            <OriginSection teaser={content.home_legend} />
             {/* 08 */}
             <RegionSection partners={partners} contactEmail={community.email} />
             {/* 09 */}

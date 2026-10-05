@@ -10,7 +10,7 @@ export const primaryLinks = [
 export const allLinks = [
     ...primaryLinks,
     { href: '/relatar', label: t.nav.report },
-    { href: '/lenda', label: t.nav.legend },
+    { href: '/origem', label: t.nav.origin },
     { href: '/apoie', label: t.nav.support },
     { href: '/obra', label: t.nav.diary },
     { href: '/comunidade', label: t.nav.community },

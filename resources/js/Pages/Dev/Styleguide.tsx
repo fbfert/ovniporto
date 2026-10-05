@@ -124,7 +124,7 @@ function Kit({ tone }: { tone: 'light' | 'dark' }) {
                     Ver o mapa
                 </Button>
                 <Button variant="ghost" tone={tone}>
-                    Ler a lenda
+                    Conhecer a origem
                 </Button>
                 <Button variant="car">Ver a loja</Button>
                 <Button loading>Enviando</Button>

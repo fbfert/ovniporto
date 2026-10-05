@@ -11,11 +11,24 @@ return [
     'home_title' => 'OVNIPORTO Lages · A pista de pouso do planalto',
     'default_description' => 'Astroturismo na Serra Catarinense: comunidade, Livro de avistamentos e lembranças do OVNIPORTO, a futura pista de pouso de Lages, SC.',
 
+    'atlas_case_title' => ':name · Atlas dos Ovnipuertos',
+
     'pages' => [
         'home' => ['title' => null],
-        'legend' => [
-            'title' => 'A lenda',
-            'description' => 'Uma pista de pouso de verdade, com uma lenda inventada por cima. A gente conta qual é qual.',
+        'origin' => [
+            'title' => 'A origem',
+            'description' => 'De Cachi a Lages: como nasceu o OVNIPORTO, o relato do carro amarelo e as portas para a história de Cachi e o Atlas dos Ovnipuertos.',
+            'image' => '/origin/cachi-aereo.jpg',
+        ],
+        'origin.cachi' => [
+            'title' => 'Ovnipuerto de Cachi',
+            'description' => 'A história documentada do Ovnipuerto de Cachi, na Argentina: a noite de 2008, a Estrella de la Esperanza, os relatos, Werner Jaisli e o Barrio Ovnipuerto.',
+            'image' => '/origin/cachi-aereo.jpg',
+        ],
+        'origin.atlas' => [
+            'title' => 'Atlas Mundial dos Ovnipuertos',
+            'description' => 'Doze lugares do mundo ligados à ideia de uma pista para discos voadores, com fontes, grau de confiança e o que ainda está em aberto.',
+            'image' => '/origin/atlas-st-paul.jpg',
         ],
         'faq' => [
             'title' => 'Perguntas frequentes',

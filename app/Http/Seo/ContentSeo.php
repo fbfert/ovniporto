@@ -90,6 +90,35 @@ final readonly class ContentSeo
         return Seo::forRoute('place')->withJsonLd(StructuredData::place());
     }
 
+    /** @param array<string, mixed> $dossier */
+    public function cachi(array $dossier): Seo
+    {
+        $seo = Seo::forRoute('origin.cachi');
+
+        return $seo->withJsonLd(StructuredData::originArticle($seo->title ?? (string) $dossier['title'], $seo->description, $seo->image));
+    }
+
+    /**
+     * Title, description and the case's own photo; a Place with coordinates only when they are not provisional.
+     *
+     * @param  array<string, mixed>  $case
+     */
+    public function atlasCase(array $case): Seo
+    {
+        $image = isset($case['image']['file']) ? "/origin/{$case['image']['file']}.jpg" : Seo::DEFAULT_IMAGE;
+        $seo = new Seo(
+            title: (string) Seo::text('atlas_case_title', ['name' => (string) $case['name']]),
+            description: Str::limit(trim(implode(' · ', array_filter([(string) $case['country'], (string) ($case['category'] ?? '')]))), self::DESCRIPTION_LIMIT),
+            image: $image,
+            type: 'article',
+        );
+        $coordinates = $case['coordinates'] ?? null;
+
+        return is_array($coordinates) && ! ($coordinates['approximate'] ?? true)
+            ? $seo->withJsonLd(StructuredData::atlasPlace((string) $case['name'], (string) $case['slug'], (float) $coordinates['lat'], (float) $coordinates['lng']))
+            : $seo;
+    }
+
     public function order(string $number): Seo
     {
         return new Seo(title: (string) Seo::text('order_title', ['number' => $number]), description: Seo::forRoute(null)->description, indexable: false);

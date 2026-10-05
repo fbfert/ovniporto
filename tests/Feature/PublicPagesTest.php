@@ -38,7 +38,7 @@ it('emits sharing metadata from the server', function () {
 it('shares the community links with every page, null while not registered', function () {
     ContentBlock::query()->updateOrCreate(['key' => 'link_whatsapp'], ['value' => 'https://chat.whatsapp.com/vigilia']);
 
-    $this->get('/lenda')->assertInertia(fn (Assert $page) => $page
+    $this->get('/origem')->assertInertia(fn (Assert $page) => $page
         ->where('community.whatsapp', 'https://chat.whatsapp.com/vigilia')
         ->where('community.instagram', null)
         ->where('community.email', GetCommunityLinks::FALLBACK_EMAIL)

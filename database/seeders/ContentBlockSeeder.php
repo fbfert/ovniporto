@@ -69,7 +69,7 @@ class ContentBlockSeeder extends Seeder
             'home_intro' => 'No alto da Serra Catarinense, na Localidade Pedras Brancas, uma comunidade mantém o céu sob vigilância. O Livro de avistamentos está aberto, a loja já vende lembranças e a pista de pouso tem meta: 2028. Quase toda noite alguém jura ter visto algo.',
             'home_place' => 'Uma pista de pouso de pedra, construída em fases, na Localidade Pedras Brancas. Hoje é terreno, céu escuro e muita vontade.',
             'home_store' => 'Adesivo na mão, pista no céu.',
-            'home_legend' => 'Em Cachi, na Argentina, um campo de pedras virou pista de pouso para discos voadores. Em Lages, a história do carro amarelo está sendo escrita.',
+            'home_legend' => 'O OVNIPORTO nasceu de uma viagem ao Ovnipuerto de Cachi, na Argentina, uma pista de pouso para discos voadores desenhada com pedras. A pergunta veio junto: e por que não na serra de Lages?',
             'legend_body' => '',
             'link_whatsapp' => '',
             'link_instagram' => '',

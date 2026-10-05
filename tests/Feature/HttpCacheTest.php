@@ -26,9 +26,9 @@ it('answers 304 when the page did not change, 200 with a new ETag when it did', 
 
 it('revalidates Inertia visits too', function () {
     $headers = ['X-Inertia' => 'true', 'X-Inertia-Version' => (string) app(HandleInertiaRequests::class)->version(request())];
-    $etag = $this->withHeaders($headers)->get('/lenda')->assertOk()->headers->get('ETag');
+    $etag = $this->withHeaders($headers)->get('/origem')->assertOk()->headers->get('ETag');
 
-    $this->withHeaders([...$headers, 'If-None-Match' => $etag])->get('/lenda')->assertStatus(304);
+    $this->withHeaders([...$headers, 'If-None-Match' => $etag])->get('/origem')->assertStatus(304);
 });
 
 it('keeps the caching chosen by public resources', function () {

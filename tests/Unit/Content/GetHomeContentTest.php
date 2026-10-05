@@ -24,13 +24,13 @@ it('returns every home key, with empty strings for missing blocks', function () 
         ->and($content['home_place'])->toBe('');
 });
 
-it('keeps the legend null while it is not written, so the page shows "aguardando conteúdo"', function () {
+it('keeps the yellow car relato null while it is not written', function () {
     $content = (new GetHomeContent(contentRepository(['legend_body' => '   '])))->execute();
 
     expect($content['legend_body'])->toBeNull();
 });
 
-it('returns the legend once it exists', function () {
+it('returns the relato once it exists', function () {
     $content = (new GetHomeContent(contentRepository(['legend_body' => 'Era uma vez um carro amarelo.'])))->execute();
 
     expect($content['legend_body'])->toBe('Era uma vez um carro amarelo.');

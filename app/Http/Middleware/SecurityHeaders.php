@@ -57,7 +57,9 @@ class SecurityHeaders
             'img-src' => ["'self'", 'data:', 'blob:', 'https://tile.openstreetmap.org', ...$paypal],
             'font-src' => ["'self'"],
             'connect-src' => ["'self'", ...$paypal, ...$metric],
-            'frame-src' => [...$paypal, ...$embeds],
+            // Origin videos load only after a click. Allowed site-wide because Inertia keeps the CSP of
+            // the first document across client-side visits.
+            'frame-src' => [...$paypal, 'https://www.youtube-nocookie.com', ...$embeds],
             'worker-src' => ["'self'"],
             'manifest-src' => ["'self'"],
             'object-src' => ["'none'"],

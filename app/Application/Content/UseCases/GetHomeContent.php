@@ -6,7 +6,7 @@ use App\Domain\Content\Contracts\ContentBlockRepository;
 
 /**
  * Editable texts of the home page. Blocks that were never written fall back to an
- * empty string, except the legend, which stays null so the UI can show "aguardando conteúdo".
+ * empty string, except the yellow car relato, which stays null while it is not written.
  */
 final readonly class GetHomeContent
 {

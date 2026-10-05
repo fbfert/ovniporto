@@ -19,7 +19,7 @@ const COVER_FADE = [0.06, 0.26];
 /**
  * Section 01. One orchestrated moment, driven by scroll rather than time:
  * the seal lifts away, the saucer comes down the faint beam, the green light
- * opens and the yellow car of the legend goes up. Scrolling back reverses it.
+ * opens and the yellow car goes up. Scrolling back reverses it.
  * The first frame is the concept illustration of the runway; it fades out as
  * the story starts so the drawn saucer never shares the sky with the painted one.
  * Reduced motion: the illustration alone, still, no pinning.

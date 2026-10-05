@@ -75,7 +75,7 @@ Alternativa: um mapa-múndi em SVG próprio. É bonito e leve, mas duplica a pil
 ### 5. Vídeos: fachada local e CSP só nas páginas de origem
 O componente `VideoFacade` mostra uma capa local gerada por nós: um quadro night com título e selo, sem miniatura do `i.ytimg.com`, porque essa miniatura já seria uma requisição a terceiros. No clique, ele insere o `iframe` de `https://www.youtube-nocookie.com/embed/{id}?autoplay=1` e move o foco.
 
-O `SecurityHeaders` passa a acrescentar `https://www.youtube-nocookie.com` ao `frame-src` só para rotas `origem/*`, mantendo o CSP global mínimo.
+O `SecurityHeaders` acrescenta `https://www.youtube-nocookie.com` ao `frame-src` no site todo. Liberar só nas rotas `origem/*` não funciona: o Inertia navega sem recarregar o documento, então quem chega pela home continua com o CSP da home. A permissão de frame não faz requisição nenhuma; o player só carrega depois do clique.
 
 Vídeos fora do YouTube viram cartões-link que abrem em nova aba, sem player no site. São eles a reportagem do Telenoche (Dailymotion, que não tem modo sem cookies) e o trailer de "Al centro de la Tierra" (Vimeo). Essa foi a decisão do usuário.
 
@@ -95,7 +95,7 @@ Renomeações:
 As chaves internas `legend_body` e `home_legend` dos blocos editáveis são mantidas. Renomeá-las exigiria uma migração de dados sem ganho visível; o rótulo no painel passa a ser "Origem: o relato do carro amarelo" e "Página inicial: a origem".
 
 ### 7. SEO e OG
-Entradas novas em `lang/pt_BR/seo.php` por nome de rota. O título e a descrição dos casos vêm de `atlas.json` via `ContentSeo`. Os OG cards seguem `OgCard`/`OgKind` com um novo `OgKind::AtlasCase = 'atlas'`, que usa a foto do caso; as páginas de hub usam o card padrão. `StructuredData` ganha um `Article` para Cachi e um `Place` com `geo` para os casos com coordenada não provisória. O sitemap ganha as 3 páginas e os 12 casos.
+Entradas novas em `lang/pt_BR/seo.php` por nome de rota. O título e a descrição dos casos vêm de `atlas.json` via `ContentSeo`. A imagem de compartilhamento de cada caso é a própria foto em JPG (`/origin/{arquivo}.jpg`, 1200 px, gerada pelo pipeline). Não houve um `OgKind` novo, porque o repositório de cards é Eloquent e os dados da origem vêm de arquivos. O hub e Cachi usam a foto aérea, e o Atlas usa a foto de St. Paul. `StructuredData` ganha um `Article` para Cachi e um `Place` com `geo` para os casos com coordenada não provisória. O sitemap ganha as 3 páginas e os 12 casos.
 
 ### 8. Layout editorial
 O tom visual vem das marcas do projeto, e não da página HTML de origem (Georgia e dourado ficam de fora):

@@ -89,4 +89,34 @@ final class StructuredData
             'addressCountry' => 'BR',
         ];
     }
+
+    /** @return array<string, mixed> */
+    public static function originArticle(string $title, string $description, string $image): array
+    {
+        return [
+            '@context' => self::CONTEXT,
+            '@type' => 'Article',
+            'headline' => $title,
+            'description' => $description,
+            'image' => Seo::appUrl().$image,
+            'inLanguage' => 'pt-BR',
+            'publisher' => ['@type' => 'Organization', 'name' => (string) Seo::text('site_name')],
+        ];
+    }
+
+    /**
+     * An ovnipuerto of the Atlas, with confirmed coordinates only.
+     *
+     * @return array<string, mixed>
+     */
+    public static function atlasPlace(string $name, string $slug, float $lat, float $lng): array
+    {
+        return [
+            '@context' => self::CONTEXT,
+            '@type' => 'Place',
+            'name' => $name,
+            'url' => route('origin.atlas.case', $slug),
+            'geo' => ['@type' => 'GeoCoordinates', 'latitude' => $lat, 'longitude' => $lng],
+        ];
+    }
 }

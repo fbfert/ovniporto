@@ -16,18 +16,18 @@
 
 ## 3. Rotas, renomeação e SEO
 
-- [ ] 3.1 Trocar `/lenda` por `Route::redirect` 301 e criar as rotas `origin`, `origin.cachi`, `origin.atlas` e `origin.atlas.case` (com `whereIn` sobre os slugs), com controllers finos. Verificar com testes de feature:
+- [x] 3.1 Trocar `/lenda` por `Route::redirect` 301 e criar as rotas `origin`, `origin.cachi`, `origin.atlas` e `origin.atlas.case` (com `whereIn` sobre os slugs), com controllers finos. Verificar com testes de feature:
   - 301 de `/lenda`;
   - 200 nas 3 páginas e em todos os 12 casos;
   - 404 em caso inexistente.
-- [ ] 3.2 Tirar "lenda" dos textos do OVNIPORTO: o nome da página vira "origem" e a história do carro vira "relato". Os dados históricos de Cachi e do Atlas ficam como estão. A troca cobre:
+- [x] 3.2 Tirar "lenda" dos textos do OVNIPORTO: o nome da página vira "origem" e a história do carro vira "relato". Os dados históricos de Cachi e do Atlas ficam como estão. A troca cobre:
   - `nav.ts`, rodapé, `pt-BR.ts`, rótulos do painel para `legend_body` e `home_legend`;
   - `Checkout`, `Styleguide` e `Review`, onde houver link;
   - testes existentes.
 
   Verificar com `grep -ri "lenda" resources/js app lang routes database resources/views` sem resultados, exceto o redirect, o teste dele e `resources/content/origin/`.
-- [ ] 3.3 Acrescentar ao `seo.php` as entradas das novas rotas, criar `OgKind::AtlasCase`, adicionar `Article` e `Place` ao `StructuredData` e as 15 URLs ao `BuildSitemap` (retirando `/lenda`). Verificar com testes de feature de título, descrição, canonical e `og:image` em `/origem/atlas/cachi`, e com o teste do sitemap.
-- [ ] 3.4 Acrescentar `https://www.youtube-nocookie.com` ao `frame-src` do `SecurityHeaders` só nas rotas `origem/*`. Verificar com teste de feature: o cabeçalho está presente em `/origem/cachi` e ausente em `/`.
+- [x] 3.3 Acrescentar ao `seo.php` as entradas das novas rotas, usar como imagem de compartilhamento de cada caso a própria foto em JPG (`/origin/{arquivo}.jpg`), adicionar `Article` e `Place` ao `StructuredData` e as 15 URLs ao `BuildSitemap` (retirando `/lenda`). Verificar com testes de feature de título, descrição, canonical e `og:image` em `/origem/atlas/cachi`, e com o teste do sitemap.
+- [x] 3.4 Acrescentar `https://www.youtube-nocookie.com` ao `frame-src` do `SecurityHeaders` no site todo (o Inertia mantém o CSP do primeiro documento nas visitas seguintes), e nenhum outro domínio do YouTube; verificar com teste de feature em `/` e em `/origem/cachi`.
 
 ## 4. Componentes da origem
 

@@ -7,7 +7,6 @@ use App\Http\Controllers\Content\CrawlerController;
 use App\Http\Controllers\Content\CspReportController;
 use App\Http\Controllers\Content\FaqController;
 use App\Http\Controllers\Content\LegalPageController;
-use App\Http\Controllers\Content\LegendController;
 use App\Http\Controllers\Content\OgImageController;
 use App\Http\Controllers\Content\PostcardController;
 use App\Http\Controllers\Dev\SignInAsController;
@@ -17,6 +16,9 @@ use App\Http\Controllers\Members\AccountController;
 use App\Http\Controllers\Members\GoogleAuthController;
 use App\Http\Controllers\Members\TermsAcceptanceController;
 use App\Http\Controllers\Members\WelcomeController;
+use App\Http\Controllers\Origin\AtlasController;
+use App\Http\Controllers\Origin\CachiController;
+use App\Http\Controllers\Origin\OriginController;
 use App\Http\Controllers\Panel\AuditController;
 use App\Http\Controllers\Panel\CampaignAdminController;
 use App\Http\Controllers\Panel\ContentHubController;
@@ -44,7 +46,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 
-Route::get('/lenda', LegendController::class)->name('legend');
+// The former /lenda page is now the origin; links shared before keep working.
+Route::permanentRedirect('/lenda', '/origem');
+Route::get('/origem', OriginController::class)->name('origin');
+Route::get('/origem/cachi', CachiController::class)->name('origin.cachi');
+Route::get('/origem/atlas', [AtlasController::class, 'index'])->name('origin.atlas');
+Route::get('/origem/atlas/{slug}', [AtlasController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('origin.atlas.case');
 Route::get('/faq', FaqController::class)->name('faq');
 Route::get('/comunidade', CommunityController::class)->name('community');
 Route::get('/postal', PostcardController::class)->name('postcard');

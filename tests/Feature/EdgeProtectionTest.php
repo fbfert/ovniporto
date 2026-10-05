@@ -115,3 +115,15 @@ it('limits sign-in attempts, checkout and the public API', function (string $met
     'checkout' => ['POST', '/checkout', 10],
     'API' => ['GET', '/api/sightings', 60],
 ]);
+
+it('lets the origin videos play after a click, from the no-cookie player only', function () {
+    config(['ovniporto.csp' => 'enforce']);
+
+    foreach (['/', '/origem/cachi'] as $path) {
+        $frames = policyOf($this->get($path))['frame-src'];
+
+        expect($frames)->toContain('https://www.youtube-nocookie.com')
+            ->not->toContain('https://www.youtube.com')
+            ->not->toContain('https://*.youtube.com');
+    }
+});

@@ -15,7 +15,7 @@ class CommunityRuleSeeder extends Seeder
             ['Sem dados de terceiros', 'Não publique nome, telefone, endereço ou placa de carro de ninguém.'],
             ['Foto de gente só com autorização', 'Rosto de alguém só aparece se a pessoa concordou. Na dúvida, corte ou não envie.'],
             ['Sem spam', 'Nada de corrente, propaganda ou link suspeito. O grupo é para o céu.'],
-            ['Humor sim, mentira não', 'Pode brincar com a lenda à vontade. Relato inventado apresentado como verdade sai do Livro.'],
+            ['Humor sim, mentira não', 'Pode brincar com o carro amarelo à vontade. Relato inventado apresentado como verdade sai do Livro.'],
         ];
 
         foreach ($rules as $order => [$title, $body]) {

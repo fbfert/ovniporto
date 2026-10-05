@@ -27,24 +27,11 @@ it('serves every content page to anonymous visitors', function (string $path, st
         ->assertOk()
         ->assertInertia(fn (Assert $page) => $page->component($component));
 })->with([
-    ['/lenda', 'Content/Legend'],
     ['/faq', 'Content/Faq'],
     ['/comunidade', 'Content/Community'],
     ['/privacidade', 'Content/Legal'],
     ['/termos', 'Content/Legal'],
 ]);
-
-it('keeps the legend "aguardando conteúdo" while its text is empty', function () {
-    $this->get('/lenda')->assertInertia(fn (Assert $page) => $page->where('legendHtml', null));
-});
-
-it('renders the legend once it is written', function () {
-    ContentBlock::query()->where('key', 'legend_body')->update(['value' => 'Numa noite de **geada**...']);
-
-    $this->get('/lenda')->assertInertia(fn (Assert $page) => $page
-        ->where('legendHtml', fn (string $html) => str_contains($html, '<strong>geada</strong>'))
-    );
-});
 
 it('lists the questions in order with rendered answers', function () {
     $this->get('/faq')->assertInertia(fn (Assert $page) => $page

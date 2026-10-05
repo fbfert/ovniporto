@@ -47,25 +47,25 @@ it('fails when the page has no preview image', function () {
 });
 
 it('fails when the preview image does not open', function () {
-    $html = $this->get('/lenda')->getContent();
+    $html = $this->get('/faq')->getContent();
     Http::fake([
-        'ovniporto.test/lenda' => Http::response($html),
+        'ovniporto.test/faq' => Http::response($html),
         'ovniporto.test/og/*' => Http::response('', 404),
     ]);
 
-    $this->artisan('og:check', ['url' => 'https://ovniporto.test/lenda'])
+    $this->artisan('og:check', ['url' => 'https://ovniporto.test/faq'])
         ->expectsOutputToContain('A imagem não abre')
         ->assertFailed();
 });
 
 it('warns about an image off the 1200×630 format', function () {
-    $html = $this->get('/lenda')->getContent();
+    $html = $this->get('/faq')->getContent();
     Http::fake([
-        'ovniporto.test/lenda' => Http::response($html),
+        'ovniporto.test/faq' => Http::response($html),
         'ovniporto.test/og/*' => Http::response(blankJpeg(800, 800)),
     ]);
 
-    $this->artisan('og:check', ['url' => 'https://ovniporto.test/lenda'])
+    $this->artisan('og:check', ['url' => 'https://ovniporto.test/faq'])
         ->expectsOutputToContain('800×800')
         ->assertSuccessful();
 });

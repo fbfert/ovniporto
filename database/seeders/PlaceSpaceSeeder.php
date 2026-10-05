@@ -13,7 +13,7 @@ class PlaceSpaceSeeder extends Seeder
             // [slug, name, role, phase, concept illustration slug (public/concept) or null]
             ['pista-de-pouso', 'Pista de pouso', 'O coração do lugar: estrelas de pedra no chão, apontadas para o céu.', 1, 'cover-alt'],
             ['area-de-vigilia', 'Área de vigília', 'Bancos baixos e luz vermelha para olhar o céu a noite inteira.', 1, 'vigil'],
-            ['carro-amarelo', 'Carro amarelo abduzido', 'A lenda em escala real, suspensa no meio do caminho.', 1, 'yellow-car-sculpture'],
+            ['carro-amarelo', 'Carro amarelo abduzido', 'O carro do relato em escala real, suspenso no meio do caminho.', 1, 'yellow-car-sculpture'],
             ['hangar', 'Hangar', 'Estacionamento para naves terrestres.', 1, null],
             ['museu-ao-ar-livre', 'Museu ao ar livre', 'Placas com QR ao longo da trilha contando as histórias do céu da serra.', 1, 'museum-path'],
             ['aduana-e-loja', 'Aduana interplanetária e loja', 'Carimbo no passaporte e lembranças para levar.', 2, 'customs-shop'],

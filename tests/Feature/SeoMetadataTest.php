@@ -61,7 +61,7 @@ it('prints title, unique description, canonical and preview image on every publi
 
     $pages = [
         '/' => 'OVNIPORTO Lages · A pista de pouso do planalto',
-        '/lenda' => 'A lenda · OVNIPORTO Lages',
+        '/origem' => 'A origem · OVNIPORTO Lages',
         '/faq' => 'Perguntas frequentes · OVNIPORTO Lages',
         '/comunidade' => 'Comunidade · OVNIPORTO Lages',
         '/privacidade' => 'Privacidade · OVNIPORTO Lages',
@@ -176,4 +176,29 @@ it('cannot be broken out of the JSON-LD script by content', function () {
     Faq::query()->create(['question' => '</script><script>alert(1)</script>', 'answer' => 'x', 'sort_order' => 0]);
 
     $this->get('/faq')->assertDontSee('</script><script>alert(1)', false);
+});
+
+it('describes each Atlas case with its own title, photo and canonical URL', function () {
+    $html = $this->get('/origem/atlas/cachi')->assertOk()->getContent();
+    $tags = previewTags($html);
+
+    expect($tags['title'])->toBe('Ovnipuerto de Cachi · Atlas dos Ovnipuertos · OVNIPORTO Lages')
+        ->and($tags['description'])->toContain('Argentina')
+        ->and($tags['og:image'])->toBe('https://ovniporto.test/origin/cachi-aereo.jpg')
+        ->and($tags['canonical'])->toBe('https://ovniporto.test/origem/atlas/cachi')
+        ->and($tags['robots'])->toBe('index, follow');
+});
+
+it('marks up only Atlas cases whose coordinates are confirmed as places', function () {
+    $angelholm = collect(jsonLd($this->get('/origem/atlas/angelholm')->getContent()))->firstWhere('@type', 'Place');
+    $cachi = collect(jsonLd($this->get('/origem/atlas/cachi')->getContent()))->firstWhere('@type', 'Place');
+
+    expect($angelholm['geo']['latitude'])->toBe(56.231944)
+        ->and($cachi)->toBeNull();
+});
+
+it('gives the origin pages their own preview and an article for Cachi', function () {
+    expect(previewTags($this->get('/origem')->getContent())['og:image'])->toBe('https://ovniporto.test/origin/cachi-aereo.jpg')
+        ->and(previewTags($this->get('/origem/atlas')->getContent())['title'])->toBe('Atlas Mundial dos Ovnipuertos · OVNIPORTO Lages')
+        ->and(collect(jsonLd($this->get('/origem/cachi')->getContent()))->firstWhere('@type', 'Article')['headline'])->toBe('Ovnipuerto de Cachi');
 });

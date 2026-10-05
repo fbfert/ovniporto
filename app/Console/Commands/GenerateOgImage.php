@@ -50,7 +50,7 @@ class GenerateOgImage extends Command
         $this->paintCar($canvas, 600, 552);
     }
 
-    /** The yellow beetle of the legend, side view, standing on ($x, $groundY). */
+    /** The yellow car, side view, standing on ($x, $groundY). */
     private function paintCar(NightCanvas $canvas, int $x, int $groundY): void
     {
         $car = $canvas->color(NightCanvas::CAR);
