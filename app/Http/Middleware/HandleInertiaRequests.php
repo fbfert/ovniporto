@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use App\Application\Content\UseCases\GetCommunityLinks;
 use App\Application\Manual\UseCases\FindManualSection;
-use App\Domain\Manual\InvalidManualData;
 use App\Application\Orders\UseCases\ManageCart;
+use App\Domain\Manual\InvalidManualData;
 use App\Domain\Panel\PanelArea;
 use App\Http\Seo\Seo;
 use App\Http\Support\CartOwners;

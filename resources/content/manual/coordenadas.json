@@ -1,0 +1,134 @@
+{
+    "slug": "coordenadas",
+    "area": "coordenadas",
+    "group": "backstage",
+    "order": 15,
+    "title": "Coordenadas",
+    "summary": "E-mail do site, destino dos alertas e remetente do frete, ajustados pelo painel sem mexer no servidor; e o estado das integrações que continuam no .env.",
+    "reviewedAt": "2026-10-07",
+    "routes": [
+        "panel.coordinates",
+        "panel.coordinates.update",
+        "panel.coordinates.password.destroy",
+        "panel.coordinates.test-mail",
+        "panel.coordinates.test-alert"
+    ],
+    "map": {
+        "label": "Coordenadas",
+        "children": [
+            {
+                "label": "Painel ou servidor",
+                "kind": "state",
+                "section": "regra",
+                "children": [
+                    { "label": "Preenchido aqui vale o daqui", "kind": "state", "section": "regra" },
+                    { "label": "Vazio volta ao .env", "kind": "state", "section": "regra" },
+                    { "label": "Vale sem reiniciar", "kind": "state", "section": "regra" },
+                    { "label": "Só admin", "kind": "care", "section": "regra" }
+                ]
+            },
+            {
+                "label": "Correio",
+                "kind": "screen",
+                "section": "correio",
+                "children": [
+                    { "label": "Servidor, porta, segurança", "kind": "action", "section": "correio" },
+                    { "label": "Remetente", "kind": "action", "section": "correio" },
+                    { "label": "Senha só de escrita", "kind": "care", "section": "senha" },
+                    { "label": "Remover senha", "kind": "action", "section": "senha" }
+                ]
+            },
+            {
+                "label": "E-mail de teste",
+                "kind": "action",
+                "section": "teste",
+                "children": [
+                    { "label": "Vai para o seu e-mail, sem fila", "kind": "state", "section": "teste" },
+                    { "label": "Login recusado (535)", "kind": "care", "section": "teste" },
+                    { "label": "Não conecta", "kind": "care", "section": "teste" },
+                    { "label": "5 por minuto", "kind": "state", "section": "teste" }
+                ]
+            },
+            {
+                "label": "Alertas",
+                "kind": "screen",
+                "section": "alertas",
+                "children": [
+                    { "label": "E-mail dos alertas", "kind": "action", "section": "alertas" },
+                    { "label": "Vazio: fila longa não avisa", "kind": "care", "section": "alertas" },
+                    { "label": "Alerta de teste", "kind": "action", "section": "alertas" }
+                ]
+            },
+            {
+                "label": "Frete",
+                "kind": "screen",
+                "section": "frete",
+                "children": [
+                    { "label": "Remetente da etiqueta", "kind": "action", "section": "frete" },
+                    { "label": "CPF ou CNPJ conferido", "kind": "care", "section": "frete" },
+                    { "label": "Embalagem padrão", "kind": "action", "section": "frete" }
+                ]
+            },
+            {
+                "label": "Integrações",
+                "kind": "state",
+                "section": "integracoes",
+                "children": [
+                    { "label": "Luz verde: no ar", "kind": "state", "section": "integracoes" },
+                    { "label": "Luz amarela: atenção", "kind": "care", "section": "integracoes" },
+                    { "label": "Chaves só no servidor", "kind": "care", "section": "integracoes" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "regra",
+            "title": "Painel ou servidor: qual valor vale",
+            "screen": "panel.coordinates",
+            "body": "Em **/painel/coordenadas** (só **admin**, item **Coordenadas** no menu) ficam as configurações que antes só mudavam no arquivo `.env` do servidor.\n\nA regra é uma só:\n\n- campo **preenchido** aqui vale no lugar do `.env`;\n- campo **vazio** usa o valor do `.env`.\n\nEmbaixo de cada campo, uma marca diz de onde vem o valor em uso: **definido aqui** (losango lilás), **do servidor** (losango vazado) ou **não definido**. Quando o valor vem do servidor, ele aparece apagado dentro do campo, como sugestão.\n\nCada bloco (Correio, Alertas, Frete) tem o próprio **Salvar** e vale **a partir do próximo clique**: o site lê o valor novo na próxima página, e os workers antes da próxima tarefa da fila. Não precisa reiniciar nada.\n\nPara desfazer uma mudança, apague o campo e salve: volta ao `.env`.\n\nToda alteração vai para a **Auditoria** como \"mudou as coordenadas\", com o antes e o depois."
+        },
+        {
+            "id": "correio",
+            "title": "Correio (SMTP)",
+            "screen": null,
+            "body": "O servidor que envia todos os e-mails do site: confirmação de pedido, relato aprovado, exportação de dados, alertas.\n\n- **Servidor SMTP**: só o nome, como `smtp.exemplo.com.br`.\n- **Porta** e **Segurança** andam juntas: **587 com STARTTLS** ou **465 com SSL/TLS**. A opção \"Usar a do servidor\" deixa a do `.env`.\n- **Usuário**: em geral, o próprio endereço da caixa.\n- **E-mail do remetente** e **Nome do remetente**: o que o cliente vê em \"De:\". Use um endereço do próprio domínio, senão o e-mail cai no spam ou é recusado.\n\nSe o `.env` diz para só registrar os e-mails em log (sem enviar), preencher o servidor aqui passa o site a enviar de verdade."
+        },
+        {
+            "id": "senha",
+            "title": "A senha do SMTP",
+            "screen": null,
+            "body": "A senha é **só de escrita**:\n\n- ela é guardada cifrada e **nunca volta para a tela**, nem para a Auditoria, nem para os logs;\n- a tela diz só se há senha (**\"Senha definida. Deixe em branco para manter.\"**) ou não;\n- salvar com o campo de senha **em branco mantém** a senha atual. Para trocar, digite a nova.\n\nPara apagar a senha salva aqui, use **Remover senha** e confirme. Se o `.env` tiver uma senha, ela volta a valer. Na Auditoria, a troca aparece só como \"senha: alterada\" ou \"removida\".\n\nNunca escreva a senha em chat, e-mail ou neste manual."
+        },
+        {
+            "id": "teste",
+            "title": "Enviar e-mail de teste",
+            "screen": null,
+            "body": "Depois de salvar o Correio, clique em **Enviar e-mail de teste**. A mensagem sai **na hora, sem passar pela fila**, para o **seu** e-mail de login, com o que está salvo.\n\nO resultado aparece logo abaixo do botão:\n\n- **Enviado para ...**: confira a caixa de entrada e o spam.\n- **O servidor recusou o usuário ou a senha**: é o erro **535**. Confira usuário e senha; se estiverem certos, o problema é na caixa de e-mail (conta bloqueada ou sem permissão de SMTP) e precisa ser resolvido no provedor de e-mail.\n- **Não deu para conectar**: servidor ou porta errados, ou a porta bloqueada.\n- **Problema de certificado**: troque entre STARTTLS e SSL/TLS (e a porta junto).\n- **O servidor recusou o remetente**: use um endereço do próprio domínio no remetente.\n\nEmbaixo vem a **resposta do servidor**, com usuário e senha trocados por `***`.\n\nO botão aceita **5 testes por minuto**. Cada teste vai para a Auditoria com o resultado. Se o último teste falhou, o início do painel mostra o cartão **Coordenadas** em amarelo até um teste passar.\n\nE-mails que falharam enquanto o SMTP estava errado ficam em **Filas → Failed**: depois de um teste que passa, use **Retry** neles (capítulo Monitoramento)."
+        },
+        {
+            "id": "alertas",
+            "title": "Alertas",
+            "screen": null,
+            "body": "**E-mail dos alertas** recebe os dois avisos automáticos: tarefa que falhou de vez e fila esperando mais de 60 segundos (capítulo Monitoramento).\n\nCom o campo vazio aqui **e** no `.env`, a tela mostra um aviso amarelo: tarefas que falham vão para todos os admins, e a fila esperando demais **não avisa ninguém**. O início do painel também mostra o cartão Coordenadas em amarelo.\n\n**Enviar alerta de teste** manda uma mensagem para o endereço em uso. Sem endereço, o teste pede para defini-lo antes.\n\nOs alertas saem pelo mesmo Correio: se o e-mail de teste falha, nenhum alerta chega."
+        },
+        {
+            "id": "frete",
+            "title": "Frete: remetente e embalagem",
+            "screen": null,
+            "body": "**Remetente** é quem aparece nas etiquetas do Melhor Envio: nome, CPF ou CNPJ, telefone com DDD, e-mail, CEP de origem e endereço.\n\n- O **CPF ou CNPJ** é conferido pelos dígitos: número errado não salva.\n- **UF** é a sigla, como SC.\n- O **CEP de origem** também é o ponto de partida da cotação de frete.\n\n**Embalagem padrão** é a caixa usada na cotação de todo pedido: comprimento, largura e altura em **centímetros inteiros**, de 1 a 100.\n\nA próxima etiqueta gerada já usa o remetente salvo. Etiquetas já compradas não mudam."
+        },
+        {
+            "id": "integracoes",
+            "title": "Integrações (só leitura)",
+            "screen": null,
+            "body": "O quadro escuro mostra as integrações que **continuam no servidor**: Login com Google, PayPal, Melhor Envio, Métricas (Umami) e Busca de endereço.\n\n- **Luz verde, \"no ar\"**: configurada.\n- **Luz apagada**: uma integração opcional que está desligada (como as Métricas). Não impede nada.\n- **Luz amarela**: precisa de atenção. Ou falta configurar, ou está em **sandbox (teste)** com o site em produção. Em sandbox, o PayPal não cobra de verdade e o Melhor Envio não compra etiqueta de verdade.\n\nO quadro **nunca mostra chaves**, e elas **não podem ser mudadas pelo painel**, de propósito: um erro nelas derruba o login ou o pagamento, e uma conta de admin invadida poderia desviar pagamentos. Para trocar uma chave, o admin com acesso à VPS edita o `.env` e faz o deploy (DEPLOY.md)."
+        },
+        {
+            "id": "cuidados",
+            "title": "Cuidados",
+            "screen": null,
+            "body": "- Quem pode mudar o Correio pode desviar os e-mails do site. Por isso a área é só de **admin** e tudo fica na Auditoria: confira de vez em quando as linhas \"mudou as coordenadas\".\n- Tenha **dois admins**, para um poder corrigir o outro.\n- Depois de mexer no Correio, **sempre** rode o e-mail de teste.\n- Na dúvida, apague os campos e salve: o site volta ao que está no `.env`."
+        }
+    ]
+}

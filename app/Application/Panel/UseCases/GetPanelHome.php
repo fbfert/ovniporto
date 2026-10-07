@@ -2,6 +2,7 @@
 
 namespace App\Application\Panel\UseCases;
 
+use App\Application\Settings\UseCases\ShowCoordinates;
 use App\Domain\Content\Contracts\ContentBlockRepository;
 use App\Domain\Panel\Contracts\DashboardRepository;
 use App\Domain\Panel\PanelArea;
@@ -31,6 +32,7 @@ final readonly class GetPanelHome
         private ModerationRepository $sightings,
         private DashboardRepository $dashboard,
         private ContentBlockRepository $blocks,
+        private ShowCoordinates $coordinates,
     ) {}
 
     /**
@@ -55,6 +57,8 @@ final readonly class GetPanelHome
             'weekly' => $this->dashboard->weekly($now, self::WEEKS),
             'needsYou' => $this->needsYou($seesSightings, $seesOrders, $now),
             'sightings' => $seesSightings ? $this->sightingsSummary($now) : null,
+            // Admin only: the card that points at a broken mailer or at alerts that reach nobody.
+            'coordinates' => in_array(PanelArea::Coordinates, $areas, true) ? $this->coordinates->health() : null,
         ];
     }
 

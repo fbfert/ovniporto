@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Domain\Panel\PanelArea;
 use App\Infrastructure\Monitoring\JobFailureAlert;
+use App\Infrastructure\Settings\OperationalSettingsApplier;
 use App\Models\ContentBlock;
 use App\Models\Member;
 use App\Models\PlaceSpace;
@@ -17,11 +18,13 @@ use App\Observers\HomeFragmentObserver;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\Events\JobFailed;
+use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Horizon\Events\MasterSupervisorLooped;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -48,6 +51,10 @@ class AppServiceProvider extends ServiceProvider
 
         // A job that fails for good e-mails the operators (Horizon covers queues that wait too long).
         Event::listen(JobFailed::class, JobFailureAlert::class);
+
+        // /painel/coordenadas in long-running processes: before every job, and on every loop of the
+        // Horizon master (which sends the long-wait alert itself).
+        Event::listen([JobProcessing::class, MasterSupervisorLooped::class], fn () => $this->app->make(OperationalSettingsApplier::class)->refresh());
 
         // Everything the home shows: a change to any of these makes the cached home stale.
         foreach (self::HOME_MODELS as $model) {

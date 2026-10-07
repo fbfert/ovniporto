@@ -26,12 +26,14 @@ interface Props {
         oldestPendingHours: number | null;
         overdue: boolean;
     } | null;
+    /** Admin only: what is wrong with the e-mail or the alerts, if anything. */
+    coordinates: { mailBroken: boolean; alertsMissing: boolean } | null;
 }
 
 const hrefFor = (item: Props['needsYou'][number]) =>
     item.kind === 'sighting' ? `/painel/relatos/${item.ref}` : `/painel/pedidos/${item.ref}`;
 
-export default function Home({ counts, goals, weekly, needsYou, sightings }: Props) {
+export default function Home({ counts, goals, weekly, needsYou, sightings, coordinates }: Props) {
     const tiles = [
         ['members', String(counts.members)],
         ['sightings', counts.sightings === null ? null : String(counts.sightings)],
@@ -145,6 +147,8 @@ export default function Home({ counts, goals, weekly, needsYou, sightings }: Pro
                 </Link>
             )}
 
+            {coordinates && <CoordinatesCard {...coordinates} />}
+
             <Link
                 href="/painel/manual"
                 className="mt-10 flex min-h-11 flex-wrap items-center gap-x-4 gap-y-1 rounded-[22px] border-2 border-dashed border-horizon/40 p-5 hover:border-horizon"
@@ -155,6 +159,31 @@ export default function Home({ counts, goals, weekly, needsYou, sightings }: Pro
                 <span className="text-night/70">{t.panel.manual.homeLead}</span>
             </Link>
         </>
+    );
+}
+
+/** The way to /painel/coordenadas; it turns car-yellow while the e-mail or the alerts need a look. */
+function CoordinatesCard({ mailBroken, alertsMissing }: NonNullable<Props['coordinates']>) {
+    const home = t.panel.coordinates.home;
+    const warnings: string[] = [];
+    if (mailBroken) warnings.push(home.mailBroken);
+    if (alertsMissing) warnings.push(home.alertsMissing);
+    const look =
+        warnings.length > 0
+            ? 'bg-car/25 ring-2 ring-car'
+            : 'border-2 border-dashed border-night/20 hover:border-night/50';
+    return (
+        <Link
+            href="/painel/coordenadas"
+            className={`mt-10 flex min-h-11 flex-wrap items-center gap-x-4 gap-y-1 rounded-[22px] p-5 ${look}`}
+        >
+            <span className="font-display text-sm font-bold tracking-[0.06em] uppercase">
+                {t.panel.coordinates.title}
+            </span>
+            <span className="text-night/80">
+                {warnings.length > 0 ? warnings.join(' ') : t.panel.coordinates.home.lead}
+            </span>
+        </Link>
     );
 }
 

@@ -17,6 +17,7 @@ enum PanelArea: string
     case Orders = 'pedidos';
     case Products = 'produtos';
     case Content = 'conteudo';
+    case Coordinates = 'coordenadas';
     case Audit = 'auditoria';
     case Manual = 'manual';
 

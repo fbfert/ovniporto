@@ -18,13 +18,14 @@ use App\Http\Controllers\Members\TermsAcceptanceController;
 use App\Http\Controllers\Members\WelcomeController;
 use App\Http\Controllers\Origin\AtlasController;
 use App\Http\Controllers\Origin\CachiController;
-use App\Http\Controllers\Origin\RelatoController;
 use App\Http\Controllers\Origin\CollaboratorController;
 use App\Http\Controllers\Origin\OriginController;
+use App\Http\Controllers\Origin\RelatoController;
 use App\Http\Controllers\Panel\AuditController;
 use App\Http\Controllers\Panel\CampaignAdminController;
 use App\Http\Controllers\Panel\CollaboratorAdminController;
 use App\Http\Controllers\Panel\ContentHubController;
+use App\Http\Controllers\Panel\CoordinatesController;
 use App\Http\Controllers\Panel\ManualController;
 use App\Http\Controllers\Panel\MemberAdminController;
 use App\Http\Controllers\Panel\OrderAdminController;
@@ -135,6 +136,15 @@ Route::middleware(['auth', 'profile.complete', 'panel:inicio'])->prefix('painel'
     Route::middleware('panel:manual')->prefix('manual')->name('.manual')->group(function () {
         Route::get('/', [ManualController::class, 'index']);
         Route::get('/{slug}', [ManualController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('.show');
+    });
+
+    // Coordenadas: the settings that used to need the .env on the VPS (admin only, PanelArea::Coordinates).
+    Route::middleware('panel:coordenadas')->prefix('coordenadas')->name('.coordinates')->group(function () {
+        Route::get('/', [CoordinatesController::class, 'show']);
+        Route::put('/{group}', [CoordinatesController::class, 'update'])->whereIn('group', ['correio', 'alertas', 'frete'])->name('.update');
+        Route::delete('/senha-smtp', [CoordinatesController::class, 'removePassword'])->name('.password.destroy');
+        Route::post('/teste-email', [CoordinatesController::class, 'testMail'])->middleware('throttle:5,1')->name('.test-mail');
+        Route::post('/teste-alerta', [CoordinatesController::class, 'testAlert'])->middleware('throttle:5,1')->name('.test-alert');
     });
 
     // Areas whose tools arrive with later changes; the role check already applies.

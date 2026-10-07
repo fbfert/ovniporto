@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\ApplyOperationalSettings;
 use App\Http\Middleware\EnsureNotBlocked;
 use App\Http\Middleware\EnsurePanelArea;
 use App\Http\Middleware\EnsureProfileCompleted;
@@ -21,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [
+            ApplyOperationalSettings::class,
             HandleInertiaRequests::class,
             SecurityHeaders::class,
         ]);

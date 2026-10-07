@@ -20,6 +20,7 @@ use App\Domain\Content\Contracts\MarkdownRenderer;
 use App\Domain\Content\Contracts\OgCardRepository;
 use App\Domain\Content\Contracts\OgImageRenderer;
 use App\Domain\Content\Contracts\PublishedContentIndex;
+use App\Domain\Manual\Contracts\ManualLibrary;
 use App\Domain\Map\Contracts\Geocoder;
 use App\Domain\Members\Contracts\IdentityProvider;
 use App\Domain\Members\Contracts\MemberAdminRepository;
@@ -31,7 +32,6 @@ use App\Domain\Orders\Contracts\OrderRepository;
 use App\Domain\Orders\Contracts\ProductionDocument;
 use App\Domain\Origin\Contracts\CollaboratorNotifier;
 use App\Domain\Origin\Contracts\CollaboratorRepository;
-use App\Domain\Manual\Contracts\ManualLibrary;
 use App\Domain\Origin\Contracts\OriginLibrary;
 use App\Domain\Panel\Contracts\DashboardRepository;
 use App\Domain\Payments\Contracts\PaymentGateway;
@@ -45,6 +45,10 @@ use App\Domain\Privacy\Contracts\PrivacyPractices;
 use App\Domain\Region\Contracts\ConsentProofStorage;
 use App\Domain\Region\Contracts\RegionAdminRepository;
 use App\Domain\Region\Contracts\RegionPartnerRepository;
+use App\Domain\Settings\Contracts\IntegrationDirectory;
+use App\Domain\Settings\Contracts\MailTester;
+use App\Domain\Settings\Contracts\OperationalSettingsRepository;
+use App\Domain\Settings\Contracts\SettingsBaseline;
 use App\Domain\Shipping\Contracts\AddressLookup;
 use App\Domain\Shipping\Contracts\ShippingProvider;
 use App\Domain\Sightings\Contracts\HistoricalCaseLibrary;
@@ -70,6 +74,7 @@ use App\Infrastructure\Mail\MailCollaboratorNotifier;
 use App\Infrastructure\Mail\MailOrderNotifier;
 use App\Infrastructure\Mail\MailSightingNotifier;
 use App\Infrastructure\Mail\MailWaitlistNotifier;
+use App\Infrastructure\Manual\JsonManualLibrary;
 use App\Infrastructure\Members\CollaboratorContentEraser;
 use App\Infrastructure\Members\CollaboratorDataSource;
 use App\Infrastructure\Members\ConsentsContentEraser;
@@ -80,7 +85,6 @@ use App\Infrastructure\Members\SightingsContentEraser;
 use App\Infrastructure\Members\SightingsDataSource;
 use App\Infrastructure\Members\WaitlistContentEraser;
 use App\Infrastructure\Members\WaitlistDataSource;
-use App\Infrastructure\Manual\JsonManualLibrary;
 use App\Infrastructure\Origin\JsonOriginLibrary;
 use App\Infrastructure\Payments\PayPalGateway;
 use App\Infrastructure\Payments\SimulatedPaymentGateway;
@@ -116,6 +120,10 @@ use App\Infrastructure\Persistence\Eloquent\EloquentWaitlistRepository;
 use App\Infrastructure\Privacy\CodePrivacyPractices;
 use App\Infrastructure\Privacy\DatabaseConsentLedger;
 use App\Infrastructure\Region\PrivateConsentProofStorage;
+use App\Infrastructure\Settings\ConfigIntegrationDirectory;
+use App\Infrastructure\Settings\EloquentOperationalSettingsRepository;
+use App\Infrastructure\Settings\OperationalSettingsApplier;
+use App\Infrastructure\Settings\SmtpMailTester;
 use App\Infrastructure\Shipping\MelhorEnvioShippingProvider;
 use App\Infrastructure\Shipping\SimulatedShippingProvider;
 use App\Infrastructure\Shipping\ViaCepAddressLookup;
@@ -183,6 +191,8 @@ class DomainServiceProvider extends ServiceProvider
         WaitlistRepository::class => EloquentWaitlistRepository::class,
         WaitlistNotifier::class => MailWaitlistNotifier::class,
         CollaboratorRepository::class => EloquentCollaboratorRepository::class,
+        OperationalSettingsRepository::class => EloquentOperationalSettingsRepository::class,
+        MailTester::class => SmtpMailTester::class,
         CollaboratorNotifier::class => MailCollaboratorNotifier::class,
     ];
 
@@ -195,6 +205,9 @@ class DomainServiceProvider extends ServiceProvider
         $this->app->when(BuildMemberExport::class)->needs('$sources')->giveTagged('member.data-sources');
 
         $this->app->singleton(ShippingProvider::class, fn () => $this->shippingProvider());
+        $this->app->singleton(OperationalSettingsApplier::class);
+        $this->app->alias(OperationalSettingsApplier::class, SettingsBaseline::class);
+        $this->app->bind(IntegrationDirectory::class, fn () => new ConfigIntegrationDirectory($this->app->make('config'), $this->app->environment('production')));
         $this->app->singleton(OriginLibrary::class, fn () => new JsonOriginLibrary(resource_path('content/origin')));
         $this->app->singleton(ManualLibrary::class, fn () => new JsonManualLibrary(resource_path('content/manual'), $this->app->make(MarkdownRenderer::class)));
         $this->app->singleton(HistoricalCaseLibrary::class, fn () => new JsonHistoricalCaseLibrary(resource_path('content/sightings/historical-cases.json')));

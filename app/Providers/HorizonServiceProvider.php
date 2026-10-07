@@ -22,6 +22,7 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
         // Horizon opens to everyone in the local environment by default; here the gate always decides.
         Horizon::auth(fn ($request) => Gate::check('viewHorizon', [$request->user()]));
 
+        // The .env address; OperationalSettingsApplier swaps it for the one saved in /painel/coordenadas.
         $alerts = config('ovniporto.alerts_email');
         if (filled($alerts)) {
             Horizon::routeMailNotificationsTo((string) $alerts);

@@ -24,7 +24,7 @@ export default defineConfig({
     build: {
         rolldownOptions: {
             output: {
-                advancedChunks: {
+                codeSplitting: {
                     // What every public page loads (layout, primitives, icons, hooks, copy) travels as one
                     // file instead of ~20 tiny ones: fewer requests on a weak 4G signal. Page-specific
                     // components and the map (dynamic import) keep their own chunks.

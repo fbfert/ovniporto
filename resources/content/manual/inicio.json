@@ -53,12 +53,13 @@
                 ]
             },
             {
-                "label": "Cartão da fila",
+                "label": "Cartões do fim",
                 "kind": "screen",
                 "section": "fila",
                 "children": [
-                    { "label": "Passou de 48 h", "kind": "state", "section": "fila" },
-                    { "label": "Ajuste pedido", "kind": "state", "section": "fila" }
+                    { "label": "Fila: passou de 48 h", "kind": "state", "section": "fila" },
+                    { "label": "Fila: ajuste pedido", "kind": "state", "section": "fila" },
+                    { "label": "Coordenadas em amarelo", "kind": "care", "section": "coordenadas" }
                 ]
             },
             {
@@ -120,10 +121,16 @@
             "body": "No fim da página, quem abre **Relatos** vê um cartão escuro que leva à fila (**/painel/relatos**):\n\n- o número grande em verde é quantos relatos estão em análise, com \"N relatos esperando a torre\" (ou \"Nada esperando. Céu limpo na torre.\" quando é zero);\n- \"o mais antigo chegou há ...\" diz quanto tempo o relato mais antigo espera (em horas até 48 h, depois em dias);\n- a etiqueta amarela **\"passou de 48 h\"** aparece quando esse relato mais antigo já esperou mais de 48 horas;\n- \"N relatos com ajuste pedido\" conta os que voltaram para o autor e aguardam o reenvio dele.\n\nA loja não vê esse cartão."
         },
         {
+            "id": "coordenadas",
+            "title": "O cartão Coordenadas",
+            "screen": null,
+            "body": "Só o **admin** vê, antes do link do manual, o cartão **Coordenadas**, que leva a **/painel/coordenadas**.\n\n- Com tudo certo, ele é tracejado e diz \"E-mail, alertas e frete, sem precisar do servidor.\"\n- Fica **amarelo** quando algo pede atenção:\n  - **\"O último teste de e-mail falhou.\"**: o último **Enviar e-mail de teste** não passou. Some quando um teste passar;\n  - **\"Os alertas não têm destino.\"**: não há e-mail de alertas nem no painel nem no servidor.\n\nO que fazer em cada caso está no capítulo [Coordenadas](/painel/manual/coordenadas)."
+        },
+        {
             "id": "papeis",
             "title": "O que cada papel vê",
             "screen": "panel",
-            "body": "| Parte da tela | Admin | Moderação | Loja |\n|---|---|---|---|\n| membros, no Avise-me | sim | sim | sim |\n| relatos publicados | sim | sim | não |\n| pedidos vendidos, faturado no mês | sim | não | sim |\n| Precisa de você: relatos | sim | sim | não |\n| Precisa de você: pedidos | sim | não | sim |\n| Últimas 12 semanas | sim | sim | sim |\n| Metas | sim | sim | sim |\n| Cartão da fila | sim | sim | não |\n\nUma conta de **membro** comum não abre o Início: recebe \"Área restrita da torre.\""
+            "body": "| Parte da tela | Admin | Moderação | Loja |\n|---|---|---|---|\n| membros, no Avise-me | sim | sim | sim |\n| relatos publicados | sim | sim | não |\n| pedidos vendidos, faturado no mês | sim | não | sim |\n| Precisa de você: relatos | sim | sim | não |\n| Precisa de você: pedidos | sim | não | sim |\n| Últimas 12 semanas | sim | sim | sim |\n| Metas | sim | sim | sim |\n| Cartão da fila | sim | sim | não |\n| Cartão Coordenadas | sim | não | não |\n\nUma conta de **membro** comum não abre o Início: recebe \"Área restrita da torre.\""
         },
         {
             "id": "cuidados",

@@ -186,14 +186,40 @@ Registre a restauração completa em `openspec/changes/add-production-deploy/evi
   - Filas (Horizon): `/painel/filas`.
   - Saúde (Pulse): `/painel/saude`.
 - **Alertas por e-mail:**
-  - Um job que falha 3 vezes envia e-mail para `ALERTS_EMAIL`; se estiver vazio, vai para todos os admins.
-  - Espera longa na fila (mais de 60 s) gera aviso pelo Horizon, mas só para `ALERTS_EMAIL`: com a variável vazia, esse aviso não vai para ninguém.
+  - Um job que falha 3 vezes envia e-mail para o endereço de alertas; sem endereço, vai para todos os admins.
+  - Espera longa na fila (mais de 60 s) gera aviso pelo Horizon, mas só para o endereço de alertas: sem ele, esse aviso não vai para ninguém.
+  - O endereço de alertas é o de **Painel → Coordenadas → Alertas**; vazio lá, vale o `ALERTS_EMAIL` do `.env`.
+  - Os dois alertas saem pelo SMTP do site: se o envio não funciona, nenhum alerta chega, e o uptime externo abaixo é o único aviso que sai do servidor. Confira com **Enviar alerta de teste** nas Coordenadas.
 - **Uptime externo:**
   - Cadastre `https://ovniporto.tars.art.br/up` num monitor externo (UptimeRobot, Better Stack ou Healthchecks), conferindo a cada 5 minutos, com alerta por e-mail.
   - Teste no staging parando o web (`docker compose -f docker-compose.prod.yml stop web`) e confirme que o alerta chegou.
 - **Logs:**
   - `docker compose -f docker-compose.prod.yml logs -f app worker`.
   - nginx no volume `nginx-logs`, com rotação de 6 meses.
+
+## Coordenadas (configuração pelo painel)
+
+Em `/painel/coordenadas` (só admin) ficam configurações que antes exigiam editar o `.env`:
+
+| Bloco | Substitui no `.env` |
+|---|---|
+| Correio | `MAIL_HOST`, `MAIL_PORT`, `MAIL_SCHEME`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_FROM_ADDRESS`, `MAIL_FROM_NAME` |
+| Alertas | `ALERTS_EMAIL` |
+| Frete | `SHIPPING_SENDER_*`, `MELHOR_ENVIO_FROM_POSTAL_CODE`, `SHIPPING_PACKAGE_*` |
+
+- **Regra:** o valor salvo no painel vale no lugar do `.env`; campo vazio volta ao `.env`. Com nada salvo, o site se comporta exatamente como antes. O `.env` continua sendo o valor de reserva: não apague essas chaves.
+- Valem sem reiniciar: o site aplica a cada requisição; os workers antes de cada tarefa; o mestre do Horizon a cada volta. Nada disso entra no `config:cache` (a senha nunca vai para `bootstrap/cache`).
+- A senha do SMTP fica na tabela `operational_settings`, cifrada com a `APP_KEY`. **Trocar a `APP_KEY` torna essa senha ilegível:** depois de uma troca, salve a senha de novo no painel. O backup do banco leva a senha cifrada, mas não o `.env`: ao restaurar com outra `APP_KEY`, salve a senha de novo no painel.
+- Com servidor SMTP salvo no painel e `MAIL_MAILER=log` no `.env`, o site passa a enviar por SMTP.
+- Continuam **só** no `.env`: `APP_KEY`, banco, Redis, Google, PayPal, Melhor Envio (token e ambiente), Umami e `CSP_MODE`. A tela mostra o estado dessas integrações (configurada, sandbox ou produção) sem valores.
+- Toda alteração vai para a Auditoria ("mudou as coordenadas"), com a senha só como "alterada". Tenha **dois admins**: quem muda o Correio pode desviar os e-mails do site.
+
+### SMTP parado (login recusado)
+
+1. Em **Coordenadas → Correio**, confira servidor, porta e segurança (587 com STARTTLS ou 465 com SSL/TLS), usuário e senha. Salve.
+2. Clique em **Enviar e-mail de teste**. A tela mostra a resposta do servidor (sem usuário nem senha).
+3. Se vier **535** (login recusado) com usuário e senha conferidos, o problema está na caixa de e-mail, no servidor de e-mail (por exemplo, o Dovecot recusando o login ou a conta sem permissão de SMTP), e não no site.
+4. Quando o teste passar, reenvie as tarefas de e-mail que falharam em `/painel/filas` (**Failed → Retry**).
 
 ## Manual do painel
 
@@ -225,7 +251,7 @@ Marque cada item com data e evidência (print, saída de comando ou link).
 | 6 | Google OAuth: URI de retorno `https://ovniporto.tars.art.br/auth/google/callback` no console do Google | entrar no site | |
 | 7 | PayPal live: credenciais, webhook `https://ovniporto.tars.art.br/webhooks/paypal` e `PAYPAL_WEBHOOK_ID` | pedido real de valor baixo e estorno | |
 | 8 | Melhor Envio produção: token e CEP de origem | cotação no carrinho | |
-| 9 | SMTP: SPF, DKIM e DMARC do domínio de envio | e-mail de pedido chega fora do spam | |
+| 9 | SMTP: SPF, DKIM e DMARC do domínio de envio | **Enviar e-mail de teste** em Coordenadas passa, e o e-mail de pedido chega fora do spam | |
 | 10 | Umami: senha trocada, site cadastrado, eventos chegando | painel da métrica | |
 | 11 | Backup: primeiro envio ao Drive e restauração completa registrada | `evidence/restore.md` | |
 | 12 | Uptime externo ativo e alerta testado | e-mail do monitor | |
@@ -233,5 +259,6 @@ Marque cada item com data e evidência (print, saída de comando ou link).
 | 14 | CSP aplicada sem violações legítimas | logs | |
 | 15 | Lighthouse no celular (home, /mapa, /loja) com LCP < 2,5 s | relatório salvo | |
 | 16 | Primeiro admin criado; Horizon e Pulse abrem só para ele | `/painel/filas` deslogado → 403 | |
+| 17 | Alertas com destino | **Enviar alerta de teste** em Coordenadas chega | |
 
 Assinado por: ______________________ Data: ____/____/______

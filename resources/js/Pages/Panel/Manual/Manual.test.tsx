@@ -107,6 +107,7 @@ describe('panel home', () => {
                 weekly={[]}
                 needsYou={[]}
                 sightings={null}
+                coordinates={null}
             />,
         );
 
