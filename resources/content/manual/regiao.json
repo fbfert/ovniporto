@@ -1,0 +1,148 @@
+{
+    "slug": "regiao",
+    "area": "conteudo",
+    "group": "site",
+    "order": 30,
+    "title": "Parceiros da região",
+    "summary": "Cadastrar pousadas, passeios, produtores e comida da serra, guardar o consentimento de cada um e decidir quem vai ao ar em /regiao.",
+    "reviewedAt": "2026-10-07",
+    "routes": [
+        "panel.region",
+        "panel.region.create",
+        "panel.region.store",
+        "panel.region.locate",
+        "panel.region.edit",
+        "panel.region.update",
+        "panel.region.publish",
+        "panel.region.unpublish",
+        "panel.region.proof",
+        "panel.region.destroy"
+    ],
+    "map": {
+        "label": "Região",
+        "children": [
+            {
+                "label": "Lista",
+                "kind": "screen",
+                "section": "lista",
+                "children": [
+                    { "label": "no ar ou rascunho", "kind": "state", "section": "lista" },
+                    { "label": "sem consentimento", "kind": "state", "section": "lista" },
+                    { "label": "exemplo", "kind": "state", "section": "lista" }
+                ]
+            },
+            {
+                "label": "Novo parceiro",
+                "kind": "screen",
+                "section": "cadastro",
+                "children": [
+                    { "label": "Salvar (nasce rascunho)", "kind": "action", "section": "cadastro" },
+                    { "label": "Tipo e cidade", "kind": "action", "section": "cadastro" },
+                    { "label": "Contatos e destaque", "kind": "action", "section": "contatos" },
+                    { "label": "Foto de capa", "kind": "action", "section": "contatos" }
+                ]
+            },
+            {
+                "label": "Ponto no mapa",
+                "kind": "screen",
+                "section": "mapa",
+                "children": [
+                    { "label": "Achar no mapa", "kind": "action", "section": "mapa" },
+                    { "label": "Ajustar tocando no mapa", "kind": "action", "section": "mapa" },
+                    { "label": "Endereço não encontrado", "kind": "state", "section": "mapa" },
+                    { "label": "Limite de buscas (OpenStreetMap)", "kind": "care", "section": "mapa" }
+                ]
+            },
+            {
+                "label": "Consentimento",
+                "kind": "screen",
+                "section": "consentimento",
+                "children": [
+                    { "label": "Consentimento recebido em", "kind": "action", "section": "consentimento" },
+                    { "label": "Comprovante privado", "kind": "care", "section": "consentimento" },
+                    { "label": "Baixar comprovante", "kind": "action", "section": "consentimento" },
+                    { "label": "Livro de consentimentos", "kind": "care", "section": "consentimento" }
+                ]
+            },
+            {
+                "label": "Publicação",
+                "kind": "screen",
+                "section": "publicar",
+                "children": [
+                    { "label": "Publicar", "kind": "action", "section": "publicar" },
+                    { "label": "Bloqueado sem a data", "kind": "state", "section": "publicar" },
+                    { "label": "Tirar do site", "kind": "action", "section": "publicar" },
+                    { "label": "Apagar a data tira do ar", "kind": "care", "section": "publicar" }
+                ]
+            },
+            {
+                "label": "Remover parceiro",
+                "kind": "action",
+                "section": "remover",
+                "children": [
+                    { "label": "Apaga capa e comprovante", "kind": "care", "section": "remover" }
+                ]
+            },
+            {
+                "label": "Cuidados",
+                "kind": "care",
+                "section": "cuidados",
+                "children": [
+                    { "label": "Tudo vai para a auditoria", "kind": "care", "section": "cuidados" },
+                    { "label": "Nunca inventar parceiro", "kind": "care", "section": "cuidados" },
+                    { "label": "Endereço da página não muda", "kind": "care", "section": "cuidados" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "lista",
+            "title": "A lista de parceiros",
+            "screen": "panel.region",
+            "body": "Em **/painel/regiao** ficam todos os parceiros da serra, publicados ou não, na ordem em que foram cadastrados. Cada linha mostra o nome, o tipo (Pousada, Passeio, Produtor, Comida ou Outro), a cidade e as etiquetas:\n\n- **no ar**: o parceiro está publicado e aparece em /regiao.\n- **rascunho**: está guardado, mas não aparece no site.\n- **sem consentimento**: ainda não há data de consentimento registrada. Enquanto essa etiqueta estiver lá, o parceiro não pode ser publicado.\n- **exemplo**: parceiro de demonstração, criado só para testar o site. Não é um parceiro real.\n\nQuem abre: só **admin** (a área Conteúdo). Moderação e loja não veem esta tela.\n\nO botão **Novo parceiro** abre o cadastro; clicar num parceiro abre a ficha dele. Sem nenhum parceiro, a lista mostra \"Nenhum parceiro ainda.\" e o site público mostra o estado vazio \"A lista está sendo montada com as pousadas e produtores da região.\" com o botão **Quero aparecer aqui**, que leva ao e-mail de contato. Isso é o esperado: a lista pode ficar vazia."
+        },
+        {
+            "id": "cadastro",
+            "title": "Cadastrar um parceiro",
+            "screen": "panel.region.create",
+            "body": "Em **/painel/regiao/novo** você preenche:\n\n- **Nome** (obrigatório, até 120 caracteres). Sem ele aparece \"Dê o nome do parceiro.\"\n- **Tipo**: Pousada, Passeio, Produtor, Comida ou Outro. É o que alimenta o filtro de /regiao.\n- **Descrição curta** (até 255 caracteres): a frase do cartão.\n- **Endereço** (até 255) e **Cidade** (obrigatória, até 80; vem preenchida com \"Lages\"). Sem cidade aparece \"Diga a cidade.\"\n\nAo clicar em **Salvar**, o parceiro é criado como **rascunho**, aparece o aviso \"Parceiro salvo como rascunho.\" e você vai para a ficha dele. O botão **Publicar** e o link do comprovante só existem na ficha, depois do primeiro salvamento.\n\nNa ficha de um parceiro que já existe, **Salvar** grava as mudanças e mostra \"Parceiro salvo.\""
+        },
+        {
+            "id": "mapa",
+            "title": "Ponto no mapa e busca de endereço",
+            "screen": "panel.region.edit",
+            "body": "O ponto no mapa é o que coloca o parceiro no mapa de /regiao e calcula a distância até o OVNIPORTO mostrada no cartão.\n\n- **Achar no mapa** junta o **Endereço** e a **Cidade** e procura no OpenStreetMap (serviço Nominatim), só dentro do Brasil. Se achar, o ponto aparece no mapa. O botão fica desligado enquanto Endereço e Cidade estiverem vazios.\n- Se não achar, aparece \"Endereço não encontrado. Marque o ponto no mapa.\" Então toque no mapa para marcar o ponto à mão.\n- Mesmo quando a busca acha, **confira o ponto e ajuste tocando no mapa** (\"Toque no mapa para ajustar o ponto.\"). A busca devolve só o primeiro resultado e pode cair no centro da rua ou do bairro.\n- O mapa abre centrado no ponto do OVNIPORTO quando ainda não há ponto.\n- O ponto só é gravado quando você clica em **Salvar**.\n\nLimites da busca, para respeitar as regras do OpenStreetMap: cada endereço achado fica guardado por um dia (procurar de novo o mesmo endereço não consulta o serviço) e o painel aceita no máximo **30 buscas por minuto**. Passou disso (ou se o OpenStreetMap estiver fora do ar), a tela mostra o mesmo aviso \"Endereço não encontrado\": espere um minuto e tente de novo, ou marque o ponto à mão. O crédito \"Busca de endereço: dados © OpenStreetMap\" fica embaixo do mapa e não deve ser removido."
+        },
+        {
+            "id": "contatos",
+            "title": "Contatos, destaque e foto de capa",
+            "screen": "panel.region.edit",
+            "body": "- **Telefone** e **WhatsApp** (até 30 caracteres cada), **Instagram** (até 60) e **Site** (um endereço completo começando com http:// ou https://). Todos são opcionais: na página pública do parceiro só aparecem os botões dos campos preenchidos.\n- **Destaque na página inicial**: a home mostra até **3** parceiros marcados como destaque, e só entre os que estão no ar.\n- **Foto de capa**: imagem de até 8 MB. Se o arquivo não puder ser lido, aparece \"Não deu para ler essa imagem. Envie JPG, PNG ou WebP.\" Enviar outra foto troca a anterior, que é apagada. A capa só é enviada quando você clica em **Salvar**.\n\nUse foto do próprio parceiro, com autorização. Foto de terceiros só com licença aberta e crédito."
+        },
+        {
+            "id": "consentimento",
+            "title": "Consentimento e comprovante",
+            "screen": "panel.region.edit",
+            "body": "Nenhum parceiro vai ao ar sem ter dito sim. O quadro **Consentimento** guarda essa prova.\n\n- **Consentimento recebido em**: a data em que o parceiro autorizou aparecer no site (por e-mail, WhatsApp, papel assinado). Não aceita data futura. Sem essa data, o parceiro não pode ser publicado.\n- **Comprovante (PDF ou imagem)** (opcional): o print da conversa, o e-mail ou o termo assinado. Aceita PDF, JPG, PNG ou WebP de até 8 MB. O arquivo fica num disco **privado**, sem endereço público: só o admin baixa pelo painel. Depois de salvo aparece \"Comprovante guardado (privado)\" e o link **Baixar comprovante**, que baixa o arquivo como `consentimento-<número>`. Enviar outro comprovante troca o anterior, que é apagado.\n\n**Por que guardar:** se o parceiro, alguém em nome dele ou a autoridade de proteção de dados (LGPD) perguntar por que ele está no site, a resposta é a data e o comprovante. Sempre que a data é registrada ou muda, o sistema também anota no **livro de consentimentos** (tipo \"listagem_parceiro\") a data informada, a versão do texto e o IP e o navegador de **quem cadastrou** (não do parceiro).\n\nSe o parceiro pedir para sair, use **Tirar do site** ou **Remover parceiro** (veja abaixo)."
+        },
+        {
+            "id": "publicar",
+            "title": "Publicar e tirar do site",
+            "screen": "panel.region.edit",
+            "body": "O botão **Publicar** fica no quadro Consentimento da ficha.\n\n- Ele só funciona com a data do consentimento **já salva**. Sem ela, o botão fica desligado e aparece \"Sem a data do consentimento recebido, o parceiro não vai para o site.\" Se você acabou de preencher a data, clique em **Salvar** antes. O servidor também recusa a publicação sem a data, venha de onde vier o pedido.\n- Publicado, aparece \"Parceiro publicado em /regiao.\" e a etiqueta **no ar**. O parceiro entra na lista e no mapa de /regiao, ganha a página /regiao/<endereço> e, se estiver marcado como destaque, pode ir para a home.\n- **Tirar do site** volta o parceiro para rascunho (\"Parceiro saiu do site.\"). Os dados, a capa e o comprovante continuam guardados; dá para publicar de novo depois.\n- **Apagar a data do consentimento e salvar tira o parceiro do ar na hora**, mesmo sem clicar em Tirar do site."
+        },
+        {
+            "id": "remover",
+            "title": "Remover um parceiro",
+            "screen": "panel.region.edit",
+            "body": "**Remover parceiro** pede confirmação (\"Remover de vez?\") e apaga o parceiro, a **foto de capa** e o **arquivo do comprovante**. Aparece \"Parceiro removido.\" e você volta para a lista. Não há como desfazer.\n\nO registro no livro de consentimentos continua (ele diz que houve um sim naquela data). Se a ideia é só pausar, prefira **Tirar do site**."
+        },
+        {
+            "id": "cuidados",
+            "title": "Cuidados",
+            "screen": null,
+            "body": "- **Tudo vai para a auditoria**: criar, salvar, trocar capa, enviar comprovante, publicar, tirar do site e remover geram um registro com quem fez e quando. O admin vê em /painel/auditoria.\n- **Nunca invente parceiro.** Só cadastre quem existe e autorizou. Lista vazia é melhor do que lista inventada.\n- Os parceiros com etiqueta **exemplo** vêm dos dados de demonstração e não podem ficar no site de verdade: peça à equipe técnica para limpá-los antes de divulgar /regiao.\n- **O endereço da página do parceiro (/regiao/<nome>) nasce do nome no cadastro e não muda depois**, mesmo que você renomeie o parceiro. Se o nome estiver errado, corrija antes do primeiro **Salvar**.\n- O lugar físico do OVNIPORTO ainda não existe: na descrição do parceiro, não escreva como se a pista já funcionasse (\"a 12 km de onde vai ficar o OVNIPORTO\", não \"a 12 km do OVNIPORTO\")."
+        }
+    ]
+}

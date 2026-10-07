@@ -1,0 +1,171 @@
+{
+    "slug": "campanha",
+    "area": "conteudo",
+    "group": "site",
+    "order": 40,
+    "title": "Campanha, Avise-me e colaboradores",
+    "summary": "O estado da campanha da pista, apoiadores e patrocinadores, a lista do Avise-me e as ofertas de ajuda na pesquisa da origem.",
+    "reviewedAt": "2026-10-07",
+    "routes": [
+        "panel.campaign",
+        "panel.campaign.update",
+        "panel.campaign.supporters.store",
+        "panel.campaign.supporters.import",
+        "panel.campaign.supporters.destroy",
+        "panel.campaign.sponsors.store",
+        "panel.campaign.sponsors.destroy",
+        "panel.waitlist",
+        "panel.waitlist.export",
+        "panel.waitlist.destroy",
+        "panel.collaborators",
+        "panel.collaborators.export",
+        "panel.collaborators.destroy"
+    ],
+    "map": {
+        "label": "Campanha",
+        "children": [
+            {
+                "label": "Estado da campanha",
+                "kind": "screen",
+                "section": "estado",
+                "children": [
+                    { "label": "Em planejamento (hoje)", "kind": "state", "section": "estado" },
+                    { "label": "Aberta", "kind": "state", "section": "estado" },
+                    { "label": "Encerrada", "kind": "state", "section": "estado" },
+                    { "label": "Meta, arrecadado e link", "kind": "action", "section": "estado" },
+                    { "label": "Percentual da loja", "kind": "action", "section": "estado" },
+                    { "label": "Sem orçamento, não abrir", "kind": "care", "section": "estado" }
+                ]
+            },
+            {
+                "label": "Apoiadores",
+                "kind": "screen",
+                "section": "apoiadores",
+                "children": [
+                    { "label": "Adicionar apoiador", "kind": "action", "section": "apoiadores" },
+                    { "label": "nome público ou privado", "kind": "state", "section": "apoiadores" },
+                    { "label": "Remover", "kind": "action", "section": "apoiadores" }
+                ]
+            },
+            {
+                "label": "Importar planilha (CSV)",
+                "kind": "action",
+                "section": "importar",
+                "children": [
+                    { "label": "Colunas e formatos", "kind": "care", "section": "importar" },
+                    { "label": "Só \"sim\" publica o nome", "kind": "care", "section": "importar" },
+                    { "label": "Tudo ou nada", "kind": "state", "section": "importar" }
+                ]
+            },
+            {
+                "label": "Patrocinadores",
+                "kind": "screen",
+                "section": "patrocinadores",
+                "children": [
+                    { "label": "Adicionar patrocinador", "kind": "action", "section": "patrocinadores" },
+                    { "label": "Cota, site e logo", "kind": "action", "section": "patrocinadores" },
+                    { "label": "Remover", "kind": "action", "section": "patrocinadores" }
+                ]
+            },
+            {
+                "label": "Avise-me",
+                "kind": "screen",
+                "section": "avise-me",
+                "children": [
+                    { "label": "confirmado ou aguardando", "kind": "state", "section": "avise-me" },
+                    { "label": "E-mail de confirmação", "kind": "care", "section": "avise-me" },
+                    { "label": "Exportar CSV", "kind": "action", "section": "avise-me-exportar" },
+                    { "label": "Remover (LGPD)", "kind": "action", "section": "avise-me-remover" }
+                ]
+            },
+            {
+                "label": "Colaboradores",
+                "kind": "screen",
+                "section": "colaboradores",
+                "children": [
+                    { "label": "Ofertas do Atlas", "kind": "state", "section": "colaboradores" },
+                    { "label": "E-mails enviados", "kind": "care", "section": "colaboradores-emails" },
+                    { "label": "Exportar CSV", "kind": "action", "section": "colaboradores-exportar" },
+                    { "label": "Remover (LGPD)", "kind": "action", "section": "colaboradores-exportar" }
+                ]
+            },
+            {
+                "label": "Cuidados",
+                "kind": "care",
+                "section": "cuidados",
+                "children": [
+                    { "label": "Tudo vai para a auditoria", "kind": "care", "section": "cuidados" },
+                    { "label": "Planilhas com dados pessoais", "kind": "care", "section": "cuidados" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "estado",
+            "title": "O estado da campanha",
+            "screen": "panel.campaign",
+            "body": "Em **/painel/campanha** fica o controle da página pública **/apoie**. Quem abre: só **admin** (área Conteúdo).\n\nNo topo, fixa, está a faixa amarela **\"Não abra a campanha sem orçamento aprovado.\"** É a regra do projeto: nenhum dinheiro é pedido para a obra antes de existir orçamento. O painel não bloqueia a troca de estado: quem garante a regra é você.\n\nO campo **Estado** tem três opções:\n\n- **Em planejamento** (o estado de hoje): /apoie explica que o orçamento está sendo feito, mostra o selo \"orçamento em planejamento\" e o Avise-me. **Não mostra placar, valores, apoiadores, patrocinadores nem o link da campanha**, mesmo que esses campos estejam preenchidos aqui.\n- **Aberta**: /apoie mostra o placar com **Arrecadado (R$)** e **Meta (R$)**, o botão \"Apoiar no …\" (o nome da plataforma é tirado do link, ex.: catarse.me vira \"Apoiar no Catarse\"), o muro de apoiadores e a faixa de patrocinadores. Com Arrecadado vazio, o placar mostra zero.\n- **Encerrada**: /apoie mostra \"campanha encerrada\" e \"A campanha terminou. Obrigado a quem segurou uma pedra.\", sem valores.\n\nOs outros campos:\n\n- **Meta (R$)** e **Arrecadado (R$)**: números em reais, sem ponto de milhar (ex.: `150000` ou `1500.50`). O Arrecadado é atualizado à mão, copiando da plataforma.\n- **Link da campanha (Catarse, Benfeitoria…)**: precisa começar com https://.\n- **Percentual da loja para a pista (%)**: de 0 a 100. Preenchido, /apoie e /loja mostram \"X% de cada venda da loja vai para a pista.\" **Vazio esconde a frase no site.** Só preencha quando esse compromisso existir de verdade.\n\n**Salvar** grava tudo e mostra \"Campanha salva.\""
+        },
+        {
+            "id": "apoiadores",
+            "title": "Apoiadores",
+            "screen": "panel.campaign",
+            "body": "O quadro **Apoiadores** é o muro de quem apoiou pela plataforma de financiamento. A lista do painel mostra todos, do apoio mais recente para o mais antigo, com valor, recompensa e data, e a etiqueta:\n\n- **nome público**: a pessoa autorizou; o nome aparece no muro de /apoie quando a campanha estiver **Aberta**.\n- **nome privado**: fica só no painel. Nunca aparece no site.\n\nPara incluir um por um, preencha **Nome** (obrigatório, até 120 caracteres), **Valor (R$)**, **Recompensa** (até 120), **Data do apoio** e marque **Autorizou publicar o nome** só se a pessoa autorizou. Clique em **Adicionar apoiador** (\"Apoiador adicionado.\").\n\n**Remover** pede confirmação (\"Remover de vez?\") e apaga o apoiador (\"Apoiador removido.\"). Não há botão de editar: para corrigir, remova e adicione de novo.\n\nNo muro público só aparecem os nomes, na ordem do apoio; valores individuais nunca vão para o site."
+        },
+        {
+            "id": "importar",
+            "title": "Importar a planilha de apoiadores",
+            "screen": "panel.campaign",
+            "body": "Em **Importar planilha (CSV)** você sobe de uma vez a lista exportada da plataforma de financiamento, depois de deixá-la neste formato:\n\n- A **primeira linha é o cabeçalho**, com estas colunas (a ordem não importa; colunas a mais são ignoradas): `nome`, `valor`, `recompensa`, `publicar_nome`, `data`. Só `nome` é obrigatória.\n- Separador: vírgula ou ponto e vírgula (o sistema descobre sozinho pelo cabeçalho).\n- **valor**: aceita `1.234,56`, `1234.56` ou `R$ 50`. Vazio é permitido.\n- **publicar_nome**: só `sim` (ou `s`, `yes`, `y`, `1`, `true`) publica o nome. **Qualquer outra coisa, inclusive vazio, deixa o nome privado.**\n- **data**: `2027-03-01` ou `01/03/2027`. Vazio é permitido.\n- Arquivo `.csv` ou `.txt` de até 2 MB. Nomes e recompensas com mais de 120 caracteres são cortados.\n\nExemplo:\n\n```\nnome;valor;recompensa;publicar_nome;data\nMaria Souza;50,00;Adesivo;sim;01/03/2027\nJoão Lima;120;Camiseta;não;02/03/2027\n```\n\nClique em **Importar**. Deu certo: \"N apoiadores importados.\" **É tudo ou nada**: se uma linha tiver problema, nada é importado e o painel diz qual linha corrigir, por exemplo \"Linha 4: falta o nome.\", \"Linha 7: valor inválido.\" ou \"Linha 9: data inválida (use 2027-03-01 ou 01/03/2027).\" Outros avisos: \"O arquivo está vazio.\" e \"A primeira linha precisa ter a coluna \"nome\".\"\n\n**Cuidado:** a importação não reconhece repetidos. Importar a mesma planilha duas vezes duplica os apoiadores. Para atualizar a lista, importe só as linhas novas."
+        },
+        {
+            "id": "patrocinadores",
+            "title": "Patrocinadores",
+            "screen": "panel.campaign",
+            "body": "O quadro **Patrocinadores** alimenta a faixa de marcas em /apoie, que só aparece com a campanha **Aberta**.\n\n- **Nome** (obrigatório, até 120 caracteres).\n- **Cota** (até 60): o nível do patrocínio, aparece como etiqueta.\n- **Site**: endereço começando com https://.\n- **Logo**: imagem de até 4 MB. Se não puder ser lida: \"Não deu para ler essa imagem. Envie PNG, JPG ou WebP.\"\n\n**Adicionar patrocinador** inclui no fim da faixa (\"Patrocinador adicionado.\"). **Remover** pede confirmação e apaga o patrocinador e o logo (\"Patrocinador removido.\"). Não há edição: para trocar algo, remova e adicione de novo.\n\nSó cadastre patrocínio que exista e esteja combinado. Lista vazia mostra \"Nenhum patrocinador ainda.\""
+        },
+        {
+            "id": "avise-me",
+            "title": "A lista do Avise-me",
+            "screen": "panel.waitlist",
+            "body": "Em **/painel/avise-me** está quem deixou o e-mail para saber quando a campanha da pista abrir. As pessoas se inscrevem nos formulários Avise-me da home, de /comunidade, de /origem, de /origem/relato, de /o-lugar e de /apoie, marcando o consentimento. O topo mostra o total, por exemplo \"12 inscritos, 9 confirmados.\"\n\nCada linha mostra o e-mail, a **origem** (de qual página veio: `home`, `comunidade`, `origem`, `o-lugar` ou `apoie`), a data do consentimento e a etiqueta:\n\n- **aguardando confirmação**: a pessoa se inscreveu, mas ainda não clicou no e-mail de confirmação.\n- **confirmado**: clicou no link.\n\n**O e-mail de confirmação** (\"Confirme: avise-me quando a pista abrir\") sai sozinho logo após a inscrição, pela fila. O botão **Confirmar e-mail** vale por **7 dias**; depois disso o link não funciona mais. Inscrever de novo o mesmo e-mail não cria registro repetido e **não reenvia** o e-mail de confirmação.\n\nO site **não envia sozinho** o aviso de abertura da campanha: quando houver campanha aprovada, o envio é feito pela equipe a partir da exportação, **só para os confirmados**."
+        },
+        {
+            "id": "avise-me-exportar",
+            "title": "Exportar o Avise-me",
+            "screen": "panel.waitlist",
+            "body": "**Exportar CSV** baixa o arquivo `avise-me-AAAA-MM-DD.csv` com todos os inscritos, do mais novo para o mais antigo. O arquivo abre direto no Excel ou no Google Planilhas com acentos certos (UTF-8, separado por ponto e vírgula).\n\nColunas:\n\n- `email`\n- `origem`: a página onde a pessoa se inscreveu.\n- `consentiu_em`: data e hora do consentimento.\n- `confirmou_em`: data e hora da confirmação; **vazio para quem não confirmou**. Filtre por essa coluna antes de qualquer envio."
+        },
+        {
+            "id": "avise-me-remover",
+            "title": "Remover um inscrito (LGPD)",
+            "screen": "panel.waitlist",
+            "body": "Quando alguém pedir para sair da lista ou pedir a exclusão dos dados, use **Remover** na linha do e-mail. O painel pede confirmação (\"Remover de vez?\", mostrando o e-mail) e apaga a inscrição (\"Inscrito removido.\").\n\n- A auditoria registra que houve uma remoção e quem fez, **sem o e-mail**: apagar é o objetivo.\n- O registro do sim no livro de consentimentos não é apagado por este botão.\n- Se a pessoa for membro e usar **Excluir conta** em Minha conta, a inscrição com o e-mail da conta é apagada sozinha; **Baixar meus dados** também inclui a inscrição.\n- Lembre de apagar o e-mail também das planilhas exportadas que estiverem guardadas."
+        },
+        {
+            "id": "colaboradores",
+            "title": "Colaboradores da pesquisa da origem",
+            "screen": "panel.collaborators",
+            "body": "Em **/painel/colaboradores** chegam as ofertas de ajuda enviadas pelo formulário **Seja colaborador** de /origem/atlas (link \"Quero colaborar com a pesquisa\", abaixo de \"Limites desta pesquisa\"). O topo mostra o total, por exemplo \"3 ofertas de ajuda.\"\n\nCada oferta, da mais nova para a mais antiga, mostra: nome, e-mail (clique para escrever), cidade e país, a data do consentimento, as formas de ajudar marcadas (**Pesquisa e fontes**, **Tradução**, **Fotos com licença aberta**, **Vistoria em campo**, **Outra forma**) e a mensagem.\n\nPara enviar, a pessoa precisa marcar ao menos uma forma de ajudar, escrever uma mensagem de 10 a 2.000 caracteres e aceitar o consentimento (\"Autorizo o OVNIPORTO a guardar estes dados e a me escrever sobre a pesquisa da origem. Posso pedir a exclusão a qualquer momento.\"). O formulário aceita no máximo 5 envios a cada 10 minutos por conexão e descarta envios de robôs sem guardar nada.\n\nResponda às ofertas pelo seu e-mail; o painel não envia respostas."
+        },
+        {
+            "id": "colaboradores-emails",
+            "title": "Os e-mails das ofertas",
+            "screen": null,
+            "body": "Cada oferta aceita dispara dois e-mails pela fila:\n\n- **Para a pessoa**: \"Recebemos sua oferta de ajuda na pesquisa\". Agradece, diz que a equipe lê cada mensagem e responde quando houver uma tarefa que combine, e que basta responder pedindo a exclusão dos dados.\n- **Para cada admin**: \"Nova oferta de colaboração #N\", com o botão **Abrir no painel**. Esse aviso leva **só o número da oferta**: nome, e-mail e mensagem ficam atrás do login do painel. Para ver a oferta, abra /painel/colaboradores.\n\nSe a pessoa responder pedindo exclusão, siga a seção seguinte."
+        },
+        {
+            "id": "colaboradores-exportar",
+            "title": "Exportar e remover colaboradores",
+            "screen": "panel.collaborators",
+            "body": "**Exportar CSV** baixa `colaboradores-AAAA-MM-DD.csv` (UTF-8, separado por ponto e vírgula) com as colunas:\n\n- `nome`, `email`, `cidade_pais`\n- `como_ajudar`: as formas marcadas, separadas por vírgula (pelo código: `pesquisa`, `traducao`, `fotos`, `vistoria`, `outro`).\n- `mensagem`\n- `consentiu_em`: data e hora do consentimento.\n\n**Remover** pede confirmação (\"Remover de vez?\", mostrando o e-mail) e apaga a oferta (\"Colaborador removido.\"). A auditoria registra a remoção **sem nome e sem e-mail**. Use quando a pessoa pedir a exclusão (LGPD) ou quando a oferta for claramente lixo.\n\nSe a pessoa for membro, **Excluir conta** apaga sozinho as ofertas enviadas com o e-mail da conta, e **Baixar meus dados** as inclui."
+        },
+        {
+            "id": "cuidados",
+            "title": "Cuidados",
+            "screen": null,
+            "body": "- **Não abra a campanha sem orçamento aprovado.** Enquanto não houver orçamento, o Estado fica em **Em planejamento** e /apoie não pede dinheiro. O lugar físico ainda não existe: nenhum texto pode falar dele como se já funcionasse.\n- **Tudo vai para a auditoria**: salvar a campanha, adicionar, importar e remover apoiadores, adicionar e remover patrocinadores, remover inscritos e colaboradores. O admin vê em /painel/auditoria. As exportações não ficam registradas lá.\n- **As planilhas exportadas têm dados pessoais** (e-mails, nomes, mensagens). Baixe só quando for usar, não mande por grupo de WhatsApp e apague do computador depois do uso.\n- Nome de apoiador só vai para o site com autorização expressa (**Autorizou publicar o nome** ou `sim` na planilha). Na dúvida, deixe privado."
+        }
+    ]
+}

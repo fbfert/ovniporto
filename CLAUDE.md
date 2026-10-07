@@ -83,6 +83,7 @@ Mobile first: tudo é desenhado primeiro para 390px de largura.
 - Toda mudança de comportamento nasce como uma change em `openspec/changes/<nome>/` (proposal, specs, design, tasks).
 - Comandos: `/opsx:explore`, `/opsx:propose`, `/opsx:apply`, `/opsx:archive`. CLI: `openspec list`, `openspec validate --strict`.
 - O plano completo em 26 prompts está em `docs/ovniporto-prompts-construcao-site.md`; o roadmap por fase está em `openspec/changes/`.
+- Manual do painel (`/painel/manual`, conteúdo em `resources/content/manual/*.json`): toda mudança que toca o painel (rotas, telas, ações, e-mails, papéis) atualiza o capítulo da área e o `reviewedAt` no mesmo commit, escrito a partir do código real. O `PanelManualTest` falha se uma rota ou tela do painel ficar sem capítulo; o hook `.claude/hooks/manual-reminder.mjs` lembra qual capítulo revisar a cada edição e antes de encerrar.
 
 ## Skills de design e animação instaladas (.claude/skills)
 Antes de criar ou mexer em UI, carregue as skills de design/animação listadas em `.claude/skills/README.md`.

@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use App\Application\Content\UseCases\GetCommunityLinks;
+use App\Application\Manual\UseCases\FindManualSection;
+use App\Domain\Manual\InvalidManualData;
 use App\Application\Orders\UseCases\ManageCart;
 use App\Domain\Panel\PanelArea;
 use App\Http\Seo\Seo;
@@ -34,6 +36,8 @@ class HandleInertiaRequests extends Middleware
             'auth' => fn () => ['member' => $this->member($request)],
             // Panel menu: the areas this role may open (the server checks each one again).
             'panelAreas' => fn () => $this->panelAreas($request),
+            // "Como funciona": the manual section about the current panel screen (none on the manual itself).
+            'manualLink' => fn () => $this->manualLink($request),
             // The drawer and the header counter, priced by the server on every visit.
             'cart' => fn () => $this->cart($request),
             'flash' => [
@@ -62,6 +66,24 @@ class HandleInertiaRequests extends Middleware
         }
 
         return array_map(fn (PanelArea $area) => $area->value, PanelArea::openTo($member->role));
+    }
+
+    private function manualLink(Request $request): ?string
+    {
+        $member = $request->user();
+        $route = (string) $request->route()?->getName();
+        if (! $member instanceof Member || ! $request->routeIs('panel', 'panel.*') || $request->routeIs('panel.manual*')) {
+            return null;
+        }
+
+        try {
+            return app(FindManualSection::class)->execute($member->role, $route);
+        } catch (InvalidManualData $e) {
+            // A broken chapter must not take the whole panel down: log it and drop the link.
+            report($e);
+
+            return null;
+        }
     }
 
     /** @return array{nickname: ?string, avatarUrl: ?string, canOpenPanel: bool, complete: bool, blocked: bool}|null */

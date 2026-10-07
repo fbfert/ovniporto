@@ -11,7 +11,8 @@ export default defineConfig({
     },
     test: {
         environment: 'jsdom',
-        include: ['resources/js/**/*.test.{ts,tsx}'],
+        // The manual reminder hook (.claude/hooks) is plain Node, tested here too.
+        include: ['resources/js/**/*.test.{ts,tsx}', '.claude/hooks/**/*.test.mjs'],
         restoreMocks: true,
         setupFiles: ['resources/js/test/setup.ts'],
     },

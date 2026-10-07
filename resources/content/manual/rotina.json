@@ -1,0 +1,121 @@
+{
+    "slug": "rotina",
+    "area": null,
+    "group": "start",
+    "order": 30,
+    "title": "Rotina da torre",
+    "summary": "O que olhar todo dia e toda semana, o que o sistema faz sozinho e quais e-mails pedem ação.",
+    "reviewedAt": "2026-10-07",
+    "routes": [],
+    "map": {
+        "label": "Rotina",
+        "children": [
+            {
+                "label": "Todo dia",
+                "kind": "action",
+                "section": "todo-dia",
+                "children": [
+                    { "label": "Abrir o Início", "kind": "screen", "section": "todo-dia" },
+                    { "label": "Precisa de você", "kind": "screen", "section": "precisa" }
+                ]
+            },
+            {
+                "label": "Moderação",
+                "kind": "action",
+                "section": "fila",
+                "children": [
+                    { "label": "Fila de relatos", "kind": "screen", "section": "fila" },
+                    { "label": "Alerta de 48 h", "kind": "state", "section": "fila" }
+                ]
+            },
+            {
+                "label": "Loja",
+                "kind": "action",
+                "section": "pedidos",
+                "children": [
+                    { "label": "Pago sem produção: 2 dias", "kind": "state", "section": "pedidos" },
+                    { "label": "Sem rastreio: 7 dias", "kind": "state", "section": "pedidos" },
+                    { "label": "Sem e-mail por pedido pago", "kind": "care", "section": "pedidos" }
+                ]
+            },
+            {
+                "label": "Toda semana",
+                "kind": "action",
+                "section": "semana",
+                "children": [
+                    { "label": "Avise-me", "kind": "screen", "section": "semana" },
+                    { "label": "Metas", "kind": "state", "section": "semana" },
+                    { "label": "Auditoria", "kind": "screen", "section": "semana" },
+                    { "label": "Filas e Saúde", "kind": "screen", "section": "semana" }
+                ]
+            },
+            {
+                "label": "Sozinho",
+                "kind": "state",
+                "section": "automatico",
+                "children": [
+                    { "label": "Cancela não pagos (2 h)", "kind": "state", "section": "automatico" },
+                    { "label": "Confere entregas", "kind": "state", "section": "automatico" },
+                    { "label": "Limpa fotos soltas", "kind": "state", "section": "automatico" },
+                    { "label": "Sitemap", "kind": "state", "section": "automatico" },
+                    { "label": "Apaga pedidos retidos", "kind": "state", "section": "automatico" },
+                    { "label": "Horário em UTC", "kind": "care", "section": "automatico" }
+                ]
+            },
+            {
+                "label": "E-mails de alerta",
+                "kind": "care",
+                "section": "emails",
+                "children": [
+                    { "label": "Relato novo", "kind": "state", "section": "emails" },
+                    { "label": "Pagamento a conferir", "kind": "state", "section": "emails" },
+                    { "label": "Tarefa falhou", "kind": "state", "section": "emails" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "todo-dia",
+            "title": "Todo dia: comece pelo Início",
+            "screen": "panel",
+            "body": "A rotina cabe em poucos minutos se começar sempre pelo mesmo lugar:\n\n1. Abra **/painel** (o **Início**).\n2. Leia **Precisa de você**. Se aparecer \"Nada esperando. Céu limpo na torre.\", não há nada atrasado nas suas áreas.\n3. Se houver itens, toque em cada um: ele abre direto o relato ou o pedido.\n4. Depois, passe pela sua área do dia a dia: **Relatos** (moderação) ou **Pedidos** (loja). \"Precisa de você\" mostra só o que já está atrasado; o que chegou hoje está na fila e na lista de pedidos.\n\nCada papel vê só os avisos das áreas que abre: a moderação não vê pedidos e a loja não vê relatos. O admin vê tudo."
+        },
+        {
+            "id": "precisa",
+            "title": "O que entra em \"Precisa de você\"",
+            "screen": "panel",
+            "body": "A lista junta três tipos de atraso, cada um marcado com um ponto amarelo:\n\n- **\"Relato #N esperando há mais de 48 h\"**: relato na fila (em análise) enviado há mais de 48 horas. Só para quem abre **Relatos**.\n- **\"OVP-... pago há mais de 2 dias, ainda sem produção\"**: pedido com pagamento confirmado há mais de 2 dias e que ainda não foi marcado em produção. Só para quem abre **Pedidos**.\n- **\"OVP-... sem rastreio há mais de 7 dias\"**: pedido pago (ou em produção) **para envio pelo correio** (retirada em Lages não conta), sem código de rastreio, pago há mais de 7 dias. Só para quem abre **Pedidos**.\n\nCada tipo mostra até 10 itens, do mais antigo para o mais novo. Se você resolveu os 10 e ainda houver atrasados, eles aparecem ao recarregar.\n\nO item sai da lista sozinho quando a situação muda: o relato foi decidido, o pedido foi marcado em produção, ou ganhou rastreio (pela etiqueta gerada no painel ou pelo código informado ao marcar como enviado)."
+        },
+        {
+            "id": "fila",
+            "title": "Moderação: a fila de relatos",
+            "screen": "panel.sightings",
+            "body": "- Cada relato enviado gera um e-mail \"Novo relato #N na fila da torre\" para a moderação e para os admins. O e-mail não traz o conteúdo: abra o painel para ler.\n- O combinado é decidir cada relato **em até 48 horas**. Passou disso, o relato entra em \"Precisa de você\" e o cartão escuro da fila, no fim do **Início**, ganha a etiqueta amarela **\"passou de 48 h\"**.\n- O mesmo cartão diz quantos relatos esperam, há quanto tempo chegou o mais antigo e quantos estão com ajuste pedido (esses esperam o autor, não você).\n\nComo decidir cada relato está no capítulo de relatos."
+        },
+        {
+            "id": "pedidos",
+            "title": "Loja: pedidos pagos e envios",
+            "screen": "panel.orders",
+            "body": "- **Não chega e-mail para cada pedido pago.** A loja descobre os pedidos novos abrindo **Pedidos** no painel, por isso a visita é diária.\n- Pedido pago entra em produção: marque **Marcar em produção** assim que começar. Com mais de 2 dias pago sem isso, ele aparece em \"Precisa de você\".\n- Pedido para envio precisa de rastreio: gere a etiqueta pelo painel ou informe o código ao marcar como enviado. Com mais de 7 dias pago sem rastreio, ele aparece em \"Precisa de você\".\n- Pedido de **retirada** em Lages não entra no alerta de rastreio.\n\nOs passos de cada pedido estão no capítulo de pedidos."
+        },
+        {
+            "id": "semana",
+            "title": "Toda semana",
+            "screen": null,
+            "body": "Uma passada semanal, de preferência no mesmo dia:\n\n- **Início** (todos): o gráfico das **últimas 12 semanas** mostra se os relatos e as vendas estão subindo ou caindo, e as **metas** mostram quanto falta até o prazo de 6 meses.\n- **Avise-me** (admin, em **Conteúdo → Avise-me**): quem se inscreveu para ser avisado. O número \"no Avise-me\" do **Início** conta só quem **confirmou** o e-mail. A lista pode ser exportada em CSV.\n- **Membros** (admin e moderação): os bloqueados (filtro **Situação → Bloqueados**) e se algum bloqueio já pode ser retirado.\n- **Auditoria** (admin): o que foi alterado no painel e por quem. Vale olhar mudanças de papel, exclusões de conta e reembolsos.\n- **Filas** e **Saúde** (admin, `/painel/filas` e `/painel/saude`): se há tarefas falhando ou fila parada.\n\nO backup do banco e das fotos roda fora do painel, num agendamento da VPS; quem cuida do servidor confere que ele chegou (veja o `DEPLOY.md`)."
+        },
+        {
+            "id": "automatico",
+            "title": "O que o sistema faz sozinho",
+            "screen": null,
+            "body": "Um contêiner do servidor (o agendador) roda estas tarefas sem ninguém pedir:\n\n| Quando | O que faz | O que você vê |\n|---|---|---|\n| A cada 10 minutos | Cancela pedidos que esperam pagamento há mais de **2 horas**. O estoque nunca chegou a ser baixado. | O pedido passa a **cancelado**, com a nota \"Pagamento não concluído em 2 horas.\" no histórico. Nenhum e-mail é enviado ao cliente. |\n| Todo dia às 07:00 (UTC) | Pergunta à transportadora quais pedidos enviados já foram entregues. | O pedido passa a **entregue** e o cliente recebe o e-mail \"Entregue · OVP-...\". |\n| A cada hora | Apaga fotos de relato enviadas há mais de 24 h que nenhum relato usou. | Nada: são arquivos temporários de relatos abandonados no meio. |\n| A cada hora | Refaz o `sitemap.xml` com o que está publicado. | Páginas novas chegam aos buscadores. |\n| Todo dia às 03:30 (UTC) | Apaga de vez os pedidos anonimizados de contas excluídas, quando acaba o prazo de guarda fiscal. | Esses pedidos somem da lista. |\n\n**Horário:** o servidor está configurado em **UTC**. 07:00 UTC são 04:00 em Brasília, e 03:30 UTC são 00:30. Por isso as entregas aparecem logo no começo da manhã.\n\nA entrega automática depende da integração com a transportadora estar configurada em produção; sem ela, marque **Marcar como entregue** à mão."
+        },
+        {
+            "id": "emails",
+            "title": "E-mails que pedem ação",
+            "screen": null,
+            "body": "Os e-mails do painel vão para o endereço da conta Google de cada pessoa da equipe:\n\n- **\"Novo relato #N na fila da torre\"** → moderação e admins. Ação: abrir a fila e decidir.\n- **\"Atenção no pedido OVP-...\"** (título \"Pedido precisa de você\", com o botão **Abrir o painel**) → loja e admins. Enviado quando um **pagamento precisa de conferência manual**. Ação: abrir o pedido e ver o histórico antes de produzir.\n- **\"Torre: tarefa ... falhou 3 vezes\"** (por exemplo, um e-mail ou uma etiqueta que não saiu) → o endereço de alertas configurado no servidor (`ALERTS_EMAIL`) ou, se ele estiver vazio, todos os admins. Ação: abrir **Filas** e avisar quem cuida do servidor.\n\nTodos os e-mails saem por fila: se o servidor de e-mail estiver fora, eles atrasam, mas não travam o painel. Se um e-mail esperado não chegou, olhe **Filas** primeiro."
+        }
+    ]
+}

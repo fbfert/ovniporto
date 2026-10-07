@@ -37,8 +37,10 @@ class ProductAdminController extends Controller
     public function store(Request $request, ManageProducts $products): RedirectResponse
     {
         $id = $products->create($this->actorId($request), $this->draft($request));
+        // "Salvar e voltar" goes back to the list; plain "Salvar" stays to add photos and variants.
+        $next = $request->boolean('returnToList') ? redirect()->route('panel.products') : redirect()->route('panel.products.edit', $id);
 
-        return redirect()->route('panel.products.edit', $id)->with('toast', 'Produto criado (inativo até você ativar).');
+        return $next->with('toast', 'Produto criado (inativo até você ativar).');
     }
 
     public function update(Request $request, ManageProducts $products, int $product): RedirectResponse
@@ -117,13 +119,20 @@ class ProductAdminController extends Controller
             'madeToOrder' => ['boolean'],
             'productionDays' => ['nullable', 'integer', 'min:0', 'max:120'],
             'weightGrams' => ['required', 'integer', 'min:1', 'max:30000'],
-            'length' => ['nullable', 'integer', 'min:1', 'max:100'],
-            'width' => ['nullable', 'integer', 'min:1', 'max:100'],
-            'height' => ['nullable', 'integer', 'min:1', 'max:100'],
+            'length' => ['nullable', 'numeric', 'decimal:0,2', 'min:0.01', 'max:100'],
+            'width' => ['nullable', 'numeric', 'decimal:0,2', 'min:0.01', 'max:100'],
+            'height' => ['nullable', 'numeric', 'decimal:0,2', 'min:0.01', 'max:100'],
             'label' => ['nullable', 'string', 'max:30'],
             'active' => ['boolean'],
             'featured' => ['boolean'],
-        ], ['name.required' => 'Dê um nome ao produto.', 'weightGrams.required' => 'O peso é usado no frete.']);
+        ], [
+            'name.required' => 'Dê um nome ao produto.',
+            'weightGrams.required' => 'O peso é usado no frete.',
+            '*.decimal' => 'Use no máximo duas casas: 0,01 cm é um décimo de milímetro.',
+            'length.min' => 'A medida mínima é 0,01 cm.',
+            'width.min' => 'A medida mínima é 0,01 cm.',
+            'height.min' => 'A medida mínima é 0,01 cm.',
+        ]);
 
         $hasDimensions = isset($d['length'], $d['width'], $d['height']);
 
@@ -136,7 +145,7 @@ class ProductAdminController extends Controller
             madeToOrder: (bool) ($d['madeToOrder'] ?? false),
             productionDays: (int) ($d['productionDays'] ?? 0),
             weightGrams: (int) $d['weightGrams'],
-            dimensions: $hasDimensions ? ['length' => (int) $d['length'], 'width' => (int) $d['width'], 'height' => (int) $d['height']] : null,
+            dimensions: $hasDimensions ? ['length' => self::centimetres($d['length']), 'width' => self::centimetres($d['width']), 'height' => self::centimetres($d['height'])] : null,
             label: isset($d['label']) ? mb_strtoupper($d['label']) : null,
             active: (bool) ($d['active'] ?? false),
             featured: (bool) ($d['featured'] ?? false),
@@ -171,6 +180,12 @@ class ProductAdminController extends Controller
     }
 
     /** "12.5" reais → 1250 cents, through a string so no float rounding sneaks in. */
+    /** Package side in cm, kept to 0.01 cm (a tenth of a millimetre). */
+    private static function centimetres(mixed $value): float
+    {
+        return round((float) $value, 2);
+    }
+
     private static function cents(mixed $reais): int
     {
         $value = number_format((float) $reais, 2, '.', '');

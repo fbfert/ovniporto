@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $kind
  * @property int $production_days
  * @property int $weight_grams
- * @property array<string, int>|null $dimensions
+ * @property array<string, int|float>|null $dimensions
  * @property bool $is_active
  * @property bool $is_featured
  * @property string|null $label

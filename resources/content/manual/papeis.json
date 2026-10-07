@@ -1,0 +1,125 @@
+{
+    "slug": "papeis",
+    "area": null,
+    "group": "start",
+    "order": 20,
+    "title": "Papéis e acessos",
+    "summary": "Admin, moderação, loja e membro: o que cada papel abre, como dar ou tirar um papel e o que é recusado.",
+    "reviewedAt": "2026-10-07",
+    "routes": [],
+    "map": {
+        "label": "Papéis",
+        "children": [
+            {
+                "label": "Admin",
+                "kind": "state",
+                "section": "admin",
+                "children": [
+                    { "label": "Todas as áreas", "kind": "screen", "section": "admin" },
+                    { "label": "Filas e Saúde", "kind": "screen", "section": "admin" },
+                    { "label": "Muda papéis e exclui contas", "kind": "action", "section": "admin" }
+                ]
+            },
+            {
+                "label": "Moderação",
+                "kind": "state",
+                "section": "moderacao",
+                "children": [
+                    { "label": "Relatos", "kind": "screen", "section": "moderacao" },
+                    { "label": "Membros: ver e bloquear", "kind": "screen", "section": "moderacao" },
+                    { "label": "E-mail de relato novo", "kind": "state", "section": "moderacao" }
+                ]
+            },
+            {
+                "label": "Loja",
+                "kind": "state",
+                "section": "loja",
+                "children": [
+                    { "label": "Pedidos", "kind": "screen", "section": "loja" },
+                    { "label": "Produtos", "kind": "screen", "section": "loja" },
+                    { "label": "E-mail de pagamento a conferir", "kind": "state", "section": "loja" }
+                ]
+            },
+            {
+                "label": "Membro",
+                "kind": "state",
+                "section": "membro",
+                "children": [
+                    { "label": "Sem painel", "kind": "state", "section": "membro" }
+                ]
+            },
+            { "label": "Tabela de áreas", "kind": "screen", "section": "tabela", "children": [] },
+            {
+                "label": "Mudar um papel",
+                "kind": "action",
+                "section": "mudar",
+                "children": [
+                    { "label": "Salvar papel", "kind": "action", "section": "mudar" },
+                    { "label": "Nunca na própria conta", "kind": "care", "section": "mudar" },
+                    { "label": "Vai para a auditoria", "kind": "care", "section": "mudar" },
+                    { "label": "Tirar o acesso", "kind": "action", "section": "tirar" }
+                ]
+            },
+            {
+                "label": "Recusas",
+                "kind": "care",
+                "section": "recusas",
+                "children": [
+                    { "label": "403 Área restrita", "kind": "state", "section": "recusas" },
+                    { "label": "Capítulo fechado: 404", "kind": "state", "section": "recusas" },
+                    { "label": "Só o admin muda papéis", "kind": "state", "section": "recusas" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "tabela",
+            "title": "Quem abre o quê",
+            "screen": null,
+            "body": "Cada conta tem **um único papel**. O papel decide quais áreas do painel abrem, e essa regra é conferida **no servidor a cada página e a cada ação**, não só no menu.\n\n| Área | Admin | Moderação | Loja | Membro |\n|---|---|---|---|---|\n| Início | sim | sim | sim | não |\n| Relatos | sim | sim | não | não |\n| Membros | sim | sim | não | não |\n| Pedidos | sim | não | sim | não |\n| Produtos | sim | não | sim | não |\n| Conteúdo (configurações, lugar, obra, região, campanha, Avise-me, colaboradores) | sim | não | não | não |\n| Auditoria | sim | não | não | não |\n| Manual | sim | sim | sim | não |\n| Filas e Saúde | sim | não | não | não |\n\nNa tela de membros, o papel aparece com estes nomes: **Admin**, **Moderação**, **Loja** e **Membro**."
+        },
+        {
+            "id": "admin",
+            "title": "Admin",
+            "screen": null,
+            "body": "Abre **todas as áreas** do painel, inclusive as que só ele vê: **Conteúdo** (todos os textos e páginas do site e do projeto do lugar), **Auditoria** e os painéis técnicos **Filas** (`/painel/filas`) e **Saúde** (`/painel/saude`), que não aparecem no menu.\n\nSó o admin:\n\n- **muda o papel** de outras contas;\n- **exclui contas** pelo painel.\n\nE-mails que o admin recebe:\n\n- \"Novo relato #N na fila da torre\", a cada relato enviado (junto com a moderação);\n- \"Atenção no pedido ...\", quando um pagamento precisa de conferência manual (junto com a loja);\n- o alerta de tarefa que falhou 3 vezes, **quando o servidor não tem um e-mail de alertas configurado** (`ALERTS_EMAIL`). Se tiver, o alerta vai só para esse endereço.\n\nDê o papel de admin a poucas pessoas: ele vê dados pessoais de todos e pode apagar contas."
+        },
+        {
+            "id": "moderacao",
+            "title": "Moderação",
+            "screen": null,
+            "body": "Para quem cuida do **Livro de avistamentos**. Abre **Início**, **Relatos**, **Membros** e **Manual**.\n\n- Em **Relatos**: a fila e todas as decisões sobre um relato (aprovar, pedir ajuste, rejeitar, despublicar).\n- Em **Membros**: buscar, ver o perfil e o histórico de uma conta, **bloquear** e **retirar bloqueio** de membros comuns. No lugar do formulário de papel aparece \"Só o admin muda papéis.\", e o cartão **Excluir conta** não aparece.\n- No **Início**: vê a contagem de relatos publicados, o cartão da fila e os relatos parados há mais de 48 h. Não vê pedidos nem faturamento.\n\nA cada relato enviado, a moderação (e o admin) recebe por e-mail \"Novo relato #N na fila da torre\". O e-mail traz só o número do relato: o conteúdo fica atrás do login do painel."
+        },
+        {
+            "id": "loja",
+            "title": "Loja",
+            "screen": null,
+            "body": "Para quem produz e envia os pedidos. Abre **Início**, **Pedidos**, **Produtos** e **Manual**.\n\n- Em **Pedidos**: lista, detalhe, produção, etiqueta, envio, entrega, cancelamento, reembolso e exportação.\n- Em **Produtos**: cadastro, variantes, estoque e fotos.\n- No **Início**: vê pedidos vendidos, o faturado no mês e os pedidos parados (pagos sem produção há mais de 2 dias, sem rastreio há mais de 7 dias). Não vê a fila de relatos.\n\nA loja (e o admin) recebe por e-mail \"Atenção no pedido ...\" quando um pagamento precisa de conferência manual. **Não há e-mail para cada pedido pago**: os pedidos novos aparecem no painel, então a rotina é abrir **Pedidos** todo dia (veja [Rotina](/painel/manual/rotina))."
+        },
+        {
+            "id": "membro",
+            "title": "Membro",
+            "screen": null,
+            "body": "É o papel de toda conta nova, inclusive de quem vai operar o painel. Um membro usa o site normalmente (relatar, comprar, **Minha conta**), mas **não abre nenhuma área do painel**: o item **Painel** nem aparece no menu da conta, e **/painel** responde \"Área restrita da torre.\""
+        },
+        {
+            "id": "mudar",
+            "title": "Dar ou mudar um papel",
+            "screen": "panel.members.show",
+            "body": "Só um **admin** faz isso, em **/painel/membros**:\n\n1. Peça para a pessoa **entrar com o Google e completar o perfil** antes. Sem isso a conta não existe ou ainda está sem apelido.\n2. Em **Membros**, busque por apelido, nome ou e-mail e abra a conta.\n3. No cartão **Papel no painel**, escolha o papel (**Membro**, **Moderação**, **Loja** ou **Admin**) e toque em **Salvar papel**. O botão só se ativa quando o papel escolhido é diferente do atual.\n4. Aparece \"Papel atualizado.\" A mudança vale na próxima página que a pessoa abrir: o menu dela já mostra as novas áreas.\n\nO que acontece por trás:\n\n- A mudança vai para a **auditoria** (\"mudou o papel de\"), com quem fez, quando e o papel antes e depois. Também aparece no **Histórico** da própria conta.\n- **Nenhum e-mail é enviado** à pessoa: avise você mesmo.\n- **Ninguém muda o próprio papel pelo painel.** Na sua conta aparece \"Esta é a sua conta: papel, bloqueio e exclusão não se mexem por aqui.\" Outro admin precisa fazer a mudança."
+        },
+        {
+            "id": "tirar",
+            "title": "Tirar o acesso de alguém",
+            "screen": "panel.members.show",
+            "body": "Para tirar alguém do painel, mude o papel para **Membro** e salve. A conta continua existindo no site, com os relatos e pedidos dela, mas o painel fecha na próxima página que a pessoa abrir.\n\nPara **bloquear** alguém que tem papel no painel, primeiro tire o papel: o painel recusa o bloqueio com \"Tire o papel no painel antes de bloquear.\"\n\nSe o único admin perder o acesso (por exemplo, apagou a conta Google), não há como dar um papel pelo painel: quem cuida do servidor repete o comando do primeiro admin (veja [Primeiros passos](/painel/manual/primeiros-passos#primeiro-admin)). Por isso, vale ter **pelo menos dois admins**."
+        },
+        {
+            "id": "recusas",
+            "title": "O que é recusado",
+            "screen": null,
+            "body": "- **Abrir uma área fechada ao seu papel** (pelo endereço ou por um link recebido) mostra a página **\"Área restrita da torre.\"** com \"Você não tem acesso a esta página.\" (erro 403). O mesmo vale para qualquer ação dessa área, mesmo enviada por fora do menu.\n- **Filas** e **Saúde** respondem 403 para quem não é admin.\n- **Um capítulo do manual de área fechada** responde \"página não encontrada\" (404), e não 403: assim o manual nem confirma que o capítulo existe.\n- **Moderação tentando mudar papel ou excluir conta** recebe a mensagem \"Só o admin muda papéis.\" ou \"Só o admin exclui contas pelo painel.\"; nada é alterado.\n- **Qualquer ação na própria conta** (papel, bloqueio, exclusão) é recusada com \"Isso não se faz na própria conta pelo painel.\"\n\nSe você deveria ter acesso e recebe 403, confira com um admin qual papel está na sua conta. Se nada mudou e o erro aparece, recarregue a página: o papel é lido de novo a cada página."
+        }
+    ]
+}

@@ -1,0 +1,181 @@
+{
+    "slug": "lugar-e-obra",
+    "area": "conteudo",
+    "group": "site",
+    "order": 20,
+    "title": "O lugar e a obra",
+    "summary": "Os espaços planejados, as ilustrações de conceito, as fotos do terreno, o mapa 3D e o diário da obra.",
+    "reviewedAt": "2026-10-07",
+    "routes": [
+        "panel.place",
+        "panel.place.spaces.update",
+        "panel.place.spaces.concept",
+        "panel.place.spaces.move",
+        "panel.place.photos.store",
+        "panel.place.photos.update",
+        "panel.place.photos.destroy",
+        "panel.place.photos.move",
+        "panel.place.map3d",
+        "panel.diary",
+        "panel.diary.create",
+        "panel.diary.store",
+        "panel.diary.edit",
+        "panel.diary.update",
+        "panel.diary.destroy"
+    ],
+    "map": {
+        "label": "Lugar e obra",
+        "children": [
+            {
+                "label": "Espaços planejados",
+                "kind": "screen",
+                "section": "espacos",
+                "children": [
+                    { "label": "Nome, papel e descrição", "kind": "action", "section": "espacos" },
+                    { "label": "Fase", "kind": "action", "section": "espacos" },
+                    { "label": "Em planejamento ou em obra", "kind": "state", "section": "espacos" },
+                    { "label": "Nunca \"aberto\"", "kind": "care", "section": "espacos" },
+                    { "label": "Subir e descer na fase", "kind": "action", "section": "ordem" }
+                ]
+            },
+            {
+                "label": "Ilustração de conceito",
+                "kind": "action",
+                "section": "conceito",
+                "children": [
+                    { "label": "Envia ao escolher o arquivo", "kind": "care", "section": "conceito" },
+                    { "label": "Selo \"conceito\" no site", "kind": "state", "section": "conceito" },
+                    { "label": "Substitui a anterior", "kind": "state", "section": "conceito" }
+                ]
+            },
+            {
+                "label": "Fotos do terreno hoje",
+                "kind": "screen",
+                "section": "fotos",
+                "children": [
+                    { "label": "Publicar foto", "kind": "action", "section": "fotos" },
+                    { "label": "Texto alternativo obrigatório", "kind": "care", "section": "fotos" },
+                    { "label": "Sem dados da câmera", "kind": "care", "section": "fotos" },
+                    { "label": "Ordem e remoção", "kind": "action", "section": "fotos" },
+                    { "label": "Vazio: \"em breve\"", "kind": "state", "section": "fotos" }
+                ]
+            },
+            {
+                "label": "Mapa 3D",
+                "kind": "screen",
+                "section": "mapa-3d",
+                "children": [
+                    { "label": "Link ou código do iframe", "kind": "action", "section": "mapa-3d" },
+                    { "label": "Só domínios aceitos", "kind": "care", "section": "mapa-3d" },
+                    { "label": "Vazio: em produção", "kind": "state", "section": "mapa-3d" }
+                ]
+            },
+            {
+                "label": "Diário da obra",
+                "kind": "screen",
+                "section": "diario",
+                "children": [
+                    { "label": "Rascunho", "kind": "state", "section": "diario" },
+                    { "label": "Agendado", "kind": "state", "section": "diario" },
+                    { "label": "Publicado", "kind": "state", "section": "diario" },
+                    { "label": "Novo post", "kind": "action", "section": "post" }
+                ]
+            },
+            {
+                "label": "Post",
+                "kind": "screen",
+                "section": "post",
+                "children": [
+                    { "label": "Título, resumo e texto", "kind": "action", "section": "post" },
+                    { "label": "Publicar em", "kind": "action", "section": "publicar" },
+                    { "label": "Capa e texto alternativo", "kind": "care", "section": "capa" },
+                    { "label": "Ver no site", "kind": "action", "section": "publicar" },
+                    { "label": "Remover post", "kind": "care", "section": "remover" }
+                ]
+            },
+            {
+                "label": "Cuidados",
+                "kind": "care",
+                "section": "cuidados",
+                "children": [
+                    { "label": "O lugar ainda não existe", "kind": "care", "section": "cuidados" },
+                    { "label": "Tudo vai para a auditoria", "kind": "care", "section": "cuidados" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "visao",
+            "title": "O que estas telas mudam no site",
+            "screen": null,
+            "body": "Duas telas da central de conteúdo cuidam do lugar planejado em Pedras Brancas:\n\n- **/painel/lugar** (**O lugar**): os espaços planejados, as ilustrações de conceito, as fotos do terreno e o mapa 3D. Muda a página pública **/o-lugar** e a seção do lugar na página inicial.\n- **/painel/obra** (**Diário da obra**): os posts do diário. Muda **/obra**, cada **/obra/...** e o feed **/obra.rss**.\n\nQuem abre: **só o admin**.\n\nO lugar **ainda não existe**: é um projeto com meta 2028. O topo de /painel/lugar lembra isso com o aviso \"O lugar ainda não existe: os espaços ficam \"em planejamento\" ou \"em obra\", nunca \"aberto\".\" Nada nestas telas deixa marcar o lugar como aberto, e nenhum texto escrito aqui deve dar a entender que ele já funciona."
+        },
+        {
+            "id": "espacos",
+            "title": "Espaços planejados",
+            "screen": "panel.place",
+            "body": "O bloco **Espaços planejados** lista os espaços do plano, agrupados por fase. Cada linha mostra a miniatura da ilustração (ou \"sem ilustração\"), o nome, a fase, a situação e o papel do espaço. Os espaços já vêm cadastrados: o painel edita e reordena, mas **não cria nem apaga** espaços.\n\nClique em **Editar** para abrir o formulário:\n\n- **Nome** (obrigatório, até 80 caracteres).\n- **Papel do espaço** (obrigatório, até 160): a linha curta que diz para que o espaço serve.\n- **Descrição** (opcional, até 2.000).\n- **Fase**: em que etapa da obra o espaço entra. A página /o-lugar mostra a linha do tempo das **fases 1 a 4**; a lista oferece também a Fase 5, mas um espaço na Fase 5 fica fora dessa linha do tempo. Use de 1 a 4.\n- **Situação**: **Em planejamento** ou **Em obra**. Não existe a opção \"aberto\", de propósito.\n\nClique em **Salvar**; aparece \"Espaço salvo.\" e o formulário fecha."
+        },
+        {
+            "id": "ordem",
+            "title": "Ordem dos espaços",
+            "screen": "panel.place",
+            "body": "As setas **Subir** e **Descer** trocam o espaço de lugar com o vizinho **dentro da mesma fase**. Um espaço não pula de uma fase para outra pelas setas: para isso, mude a **Fase** no formulário.\n\nA seta fica desligada no primeiro (subir) e no último (descer) espaço de cada fase. A ordem do painel é a ordem em que os espaços aparecem em /o-lugar."
+        },
+        {
+            "id": "conceito",
+            "title": "Ilustração de conceito de um espaço",
+            "screen": "panel.place",
+            "body": "Dentro do formulário de cada espaço (botão **Editar**) fica o campo **Ilustração de conceito**.\n\n- **O envio acontece assim que você escolhe o arquivo**: não precisa clicar em Salvar. Aparece \"Ilustração salva. Ela aparece com o selo \"conceito\".\"\n- Envie uma imagem de até 8 MB (JPG, PNG ou WebP). Se o arquivo não puder ser lido, a resposta é \"Não deu para ler essa imagem. Envie JPG, PNG ou WebP.\"\n- O servidor refaz a imagem a partir dos pixels, sem os dados da câmera, em formatos leves para celular.\n- A nova ilustração **substitui** a anterior, que é apagada. Não há botão para tirar a ilustração sem colocar outra.\n\nNo site, a ilustração de um espaço aparece **sempre com o selo \"conceito\"**: ela mostra como o OVNIPORTO vai ficar, não como ele é. Nunca envie aqui uma foto, nem uma imagem de outro lugar, como se fosse o lugar pronto. Espaço sem ilustração aparece no site sem imagem, sem quebrar o layout."
+        },
+        {
+            "id": "fotos",
+            "title": "Fotos do terreno hoje",
+            "screen": "panel.place",
+            "body": "O bloco **Fotos do terreno hoje** guarda fotos **reais** do terreno como ele está agora. Elas aparecem em /o-lugar, na parte \"O terreno hoje\".\n\n**Publicar uma foto**, no formulário no fim do bloco:\n\n- **Foto**: imagem de até 8 MB. O botão **Publicar foto** só liga depois de escolher o arquivo.\n- **Texto alternativo (o que aparece na foto)**: obrigatório, até 255 caracteres. Sem ele: \"Descreva a foto (texto alternativo).\" Ex.: \"Campo aberto com araucárias ao fundo, em Pedras Brancas\".\n- **Legenda** (opcional, até 255) e **Data da foto** (opcional, não pode ser no futuro).\n\nA foto vai **direto para o site** (aviso \"Foto do terreno publicada.\"). Como diz a dica da tela, ela é refeita a partir dos pixels: localização e dados da câmera não vão para o site.\n\n**Fotos já publicadas**: cada uma tem os mesmos campos (menos o arquivo) e **Salvar** (\"Foto salva.\"); **Subir** e **Descer** mudam a ordem da galeria; **Remover** pede confirmação (\"Remover de vez?\") e apaga a foto e o arquivo (\"Foto removida.\"). Para trocar a imagem, publique a nova e remova a antiga.\n\nSem nenhuma foto, o painel avisa \"Nenhuma foto do terreno ainda.\" e o site mostra \"Fotos do terreno em breve\" num quadro tracejado, sem usar imagem de outro lugar."
+        },
+        {
+            "id": "mapa-3d",
+            "title": "Mapa 3D",
+            "screen": "panel.place",
+            "body": "O bloco **Mapa 3D** recebe o visualizador 3D preparado pela arquiteta do projeto.\n\n- No campo **Link ou código do iframe do visualizador**, cole o link `https://...` do visualizador **ou** o código `<iframe ...>` inteiro: o painel tira o endereço de dentro do código sozinho.\n- Só são aceitos endereços **https** de domínios da lista mostrada na tela (\"Domínios aceitos: ...\"). Hoje a lista padrão é sketchfab.com, my.matterport.com, kuula.co e momento360.com (subdomínios deles também valem). A lista é configurada no servidor, não no painel.\n- Link sem https ou mal formado: \"Cole o link https do visualizador 3D (ou o código do iframe).\" Domínio fora da lista: \"O domínio ... não está na lista permitida: ...\"\n- Clique em **Salvar**; aparece \"Mapa 3D salvo.\"\n\n**Vazio**: apague o campo e salve para tirar o mapa. O painel avisa \"Vazio: o site mostra \"em produção pela arquiteta do projeto\".\", e /o-lugar mostra \"Em produção pela arquiteta do projeto\" no lugar do visualizador. O mapa 3D é sempre um conceito do projeto, não o lugar pronto."
+        },
+        {
+            "id": "diario",
+            "title": "A lista do diário da obra",
+            "screen": "panel.diary",
+            "body": "Em **/painel/obra** ficam todos os posts do diário, com capa, título, fase e o estado de cada um, decidido **só pela data em \"Publicar em\"**:\n\n- **rascunho**: sem data. Não aparece no site.\n- **agendado para ...**: data no futuro. Fica escondido até essa data e hora.\n- **publicado em ...**: data no passado. Está no site.\n\nOs rascunhos aparecem no topo da lista; depois, os demais do mais novo para o mais antigo. O botão **Novo post** abre um post em branco; clicar num post abre o post para editar. Sem nenhum post, a tela mostra \"Nenhum post ainda.\"\n\n**O que o público vê**: **/obra** lista só os posts publicados (data já passada), do mais novo para o mais antigo, com capa, título, fase e data; o mesmo vale para o feed **/obra.rss**. Post em rascunho ou agendado não aparece na lista, nem no feed, e a página dele responde \"não encontrada\". Sem post publicado, /obra mostra \"A obra ainda não começou. O primeiro post sai no dia em que a primeira pedra for colocada.\""
+        },
+        {
+            "id": "post",
+            "title": "Escrever um post",
+            "screen": ["panel.diary.create", "panel.diary.edit"],
+            "body": "O mesmo formulário serve para **Novo post** (/painel/obra/novo) e para editar um post existente:\n\n- **Título** (obrigatório, até 160 caracteres). Sem ele: \"Dê um título ao post.\"\n- **Resumo** (opcional, até 255): a frase curta da lista.\n- **Texto (markdown)** (obrigatório, até 60.000). Sem ele: \"Escreva o post.\" Use **Editar** e **Prévia** para conferir como o texto fica no site.\n- **Fase da obra**: de Fase 1 a Fase 5.\n\nClique em **Salvar**. Num post novo, você vai para a tela de edição dele, com o aviso \"Post salvo.\"; num post existente, fica na mesma tela.\n\nO endereço público do post (**/obra/...**) é criado **uma vez**, a partir do título, quando o post nasce. Mudar o título depois não muda o endereço: links já compartilhados continuam funcionando. Por isso, acerte o título antes do primeiro **Salvar**."
+        },
+        {
+            "id": "publicar",
+            "title": "Publicar, agendar e ver no site",
+            "screen": "panel.diary.edit",
+            "body": "O campo **Publicar em** (data e hora) decide quando o post vai ao ar. Como diz a dica: **vazio fica como rascunho; uma data futura agenda o post**.\n\n- Para publicar agora, ponha a data e hora de agora (ou um pouco antes) e salve.\n- Para agendar, ponha a data futura e salve: o post entra no site sozinho quando a hora chegar, sem ninguém precisar voltar ao painel.\n- Para tirar um post do ar sem apagar, apague a data e salve: ele volta a ser rascunho.\n- A hora digitada é a do relógio do seu computador ou celular.\n\nNum post já salvo, o link **Ver no site** abre a página pública numa aba nova. Para rascunho ou post agendado, essa página responde \"não encontrada\" até a data chegar: para conferir o texto antes, use a **Prévia**."
+        },
+        {
+            "id": "capa",
+            "title": "Capa do post",
+            "screen": "panel.diary.edit",
+            "body": "O bloco **Capa** tem o arquivo da imagem (até 8 MB) e o **Texto alternativo da capa** (até 255 caracteres).\n\n- A capa é opcional, mas **com capa o texto alternativo é obrigatório**: sem ele, aparece \"Descreva a capa (texto alternativo).\" Isso vale também quando o post já tem capa e você apaga o texto alternativo.\n- A imagem só vai junto quando você clica em **Salvar**.\n- Uma capa nova **substitui e apaga** a anterior. Não há botão para tirar a capa sem pôr outra.\n- Arquivo ilegível: \"Não deu para ler essa imagem. Envie JPG, PNG ou WebP.\"\n\nUse fotos reais da obra. O diário não põe selo \"conceito\" nas capas, então não use ilustração como capa; foto de terceiros só com licença aberta e crédito."
+        },
+        {
+            "id": "remover",
+            "title": "Remover um post",
+            "screen": "panel.diary.edit",
+            "body": "Num post já salvo, o botão **Remover post** pede confirmação (\"Remover de vez?\"). Confirmado, o post e a capa são apagados, você volta para a lista e aparece \"Post removido.\"\n\nNão há lixeira. Se a ideia é só tirar do ar por um tempo, apague a data em **Publicar em** e salve: o post vira rascunho e continua guardado."
+        },
+        {
+            "id": "cuidados",
+            "title": "Cuidados",
+            "screen": null,
+            "body": "- **O lugar ainda não existe.** Espaços, descrições, posts e legendas falam de um projeto com meta 2028. Nada de horários, preços de entrada ou convites para visitar.\n- O diário só começa de verdade quando a obra começar: o primeiro post é o dia da primeira pedra. Não publique post inventado para preencher a página.\n- Toda ilustração vai com selo: \"conceito\" quando mostra como o OVNIPORTO vai ficar. Fotos de terceiros sem licença nunca são publicadas.\n- Fotos de pessoas só com autorização.\n- **Tudo vai para a auditoria**: editar e mover espaços, enviar ilustração, publicar, editar, mover e remover fotos, salvar o mapa 3D e criar, editar e remover posts geram um registro com quem fez e quando. O admin vê em /painel/auditoria."
+        }
+    ]
+}

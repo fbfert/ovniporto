@@ -1,0 +1,150 @@
+{
+    "slug": "privacidade",
+    "area": null,
+    "group": "reference",
+    "order": 10,
+    "title": "Privacidade no dia a dia",
+    "summary": "As regras fixas de privacidade aplicadas à operação: fotos, apelido, consentimento, pedidos de dados e o que nunca fazer.",
+    "reviewedAt": "2026-10-07",
+    "routes": [],
+    "map": {
+        "label": "Privacidade",
+        "children": [
+            {
+                "label": "Fotos de relato",
+                "kind": "care",
+                "section": "fotos",
+                "children": [
+                    { "label": "Opcionais", "kind": "state", "section": "fotos" },
+                    { "label": "Sem EXIF, GPS ou data", "kind": "care", "section": "fotos" },
+                    { "label": "Pendentes: link de 10 min", "kind": "care", "section": "pendentes" },
+                    { "label": "Loja não vê", "kind": "state", "section": "pendentes" }
+                ]
+            },
+            {
+                "label": "Quem aparece",
+                "kind": "care",
+                "section": "apelido",
+                "children": [
+                    { "label": "Só o apelido é público", "kind": "care", "section": "apelido" },
+                    { "label": "Autor: só a torre vê", "kind": "state", "section": "apelido" },
+                    { "label": "Rostos, placas, residência", "kind": "care", "section": "apelido" }
+                ]
+            },
+            {
+                "label": "Consentimento",
+                "kind": "state",
+                "section": "consentimento",
+                "children": [
+                    { "label": "Um por relato", "kind": "state", "section": "consentimento" },
+                    { "label": "Termos novos, novo aceite", "kind": "state", "section": "consentimento" },
+                    { "label": "Parceiros e apoiadores", "kind": "care", "section": "consentimento" }
+                ]
+            },
+            {
+                "label": "Minha conta",
+                "kind": "screen",
+                "section": "minha-conta",
+                "children": [
+                    { "label": "Baixar meus dados", "kind": "action", "section": "minha-conta" },
+                    { "label": "Excluir minha conta", "kind": "action", "section": "minha-conta" },
+                    { "label": "Pedidos ficam sem nome", "kind": "state", "section": "minha-conta" }
+                ]
+            },
+            {
+                "label": "Pedidos de dados",
+                "kind": "action",
+                "section": "pedidos-de-dados",
+                "children": [
+                    { "label": "Quem tem conta", "kind": "action", "section": "pedidos-de-dados" },
+                    { "label": "Admin exclui pelo painel", "kind": "action", "section": "pedidos-de-dados" },
+                    { "label": "Avise-me e colaboradores", "kind": "action", "section": "pedidos-de-dados" },
+                    { "label": "Encarregado de dados", "kind": "care", "section": "encarregado" }
+                ]
+            },
+            {
+                "label": "Sem rastreamento",
+                "kind": "state",
+                "section": "rastreamento",
+                "children": [
+                    { "label": "Só cookies de sessão", "kind": "state", "section": "rastreamento" },
+                    { "label": "Métrica sem cookie", "kind": "state", "section": "rastreamento" },
+                    { "label": "Logs: até 6 meses", "kind": "state", "section": "rastreamento" }
+                ]
+            },
+            {
+                "label": "Nunca faça",
+                "kind": "care",
+                "section": "nunca",
+                "children": [
+                    { "label": "Compartilhar CSV", "kind": "care", "section": "nunca" },
+                    { "label": "Print de dados pessoais", "kind": "care", "section": "nunca" },
+                    { "label": "Mostrar CPF sem motivo", "kind": "care", "section": "nunca" },
+                    { "label": "Instalar pixel ou anúncio", "kind": "care", "section": "nunca" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "regras",
+            "title": "As regras que não mudam",
+            "screen": null,
+            "body": "O OVNIPORTO guarda o mínimo e mostra menos ainda. Estas regras valem para todo mundo que opera o painel, em qualquer papel:\n\n- Fotos de relato são **opcionais** e são gravadas **sem metadados**.\n- Fotos de relato **pendente** não têm endereço público.\n- Em público aparece **só o apelido**.\n- Cada relato tem **consentimento explícito** para ser publicado.\n- Cada membro pode **baixar os próprios dados** e **excluir a conta** sozinho, em Minha conta.\n- **Sem cookies de terceiros**, sem anúncio, sem pixel.\n- Os dados ficam numa VPS **no Brasil**.\n\nDo login com o Google o site guarda só nome, e-mail, foto de perfil e o identificador da conta. Os dados de cartão vão do navegador direto para o PayPal: nunca passam pelo nosso servidor.\n\nA página pública **/privacidade** traz a lista \"O que fazemos na prática\" com estas garantias em linguagem simples. Os números dela (10 minutos, 5 anos, 6 meses) saem do próprio código."
+        },
+        {
+            "id": "fotos",
+            "title": "Fotos de relato",
+            "screen": null,
+            "body": "- A foto é **opcional**: um relato sem foto vale igual.\n- O navegador da pessoa lê o local e a hora da foto **só para sugerir** o ponto e o horário. A pessoa confirma o ponto no mapa; nada é decidido pela foto.\n- No servidor, toda foto é **refeita a partir dos pixels**: GPS, data, modelo da câmera e qualquer outro metadado (EXIF, XMP, IPTC) somem, e o arquivo original enviado é apagado. Se o arquivo não puder ser lido, ele é apagado em vez de ficar guardado com os dados da câmera.\n- Fotos enviadas que nenhum relato usou são apagadas depois de **24 horas**.\n\nNa moderação, uma foto que ainda aparece como \"foto em processamento\" é porque essa limpeza ainda não rodou; veja o capítulo de problemas."
+        },
+        {
+            "id": "pendentes",
+            "title": "Fotos de relatos em análise",
+            "screen": null,
+            "body": "Enquanto o relato não é aprovado, as fotos dele:\n\n- respondem **\"página não encontrada\"** em qualquer endereço público;\n- só abrem por um **link assinado que vale 10 minutos**;\n- esse link só é emitido para **o autor, a moderação e o admin**. A equipe da **loja não vê**.\n\nNa prática: o link de uma foto que você copia da tela de moderação para de funcionar em 10 minutos. Não tente contornar isso salvando a foto para mandar a alguém; se outra pessoa da moderação precisa ver, ela abre o relato no próprio painel."
+        },
+        {
+            "id": "apelido",
+            "title": "Só o apelido é público",
+            "screen": null,
+            "body": "- No Livro de avistamentos, no mapa e em todo lugar público aparece **só o apelido**. Nome e e-mail nunca.\n- Na tela do relato, o campo **\"Autor (só a torre vê)\"** mostra quem enviou: é informação de operação, não de publicação.\n- A **cidade aproximada** que aparece na moderação serve só para a torre; nunca é mostrada em público.\n\nAntes de aprovar, a tela de moderação pede três conferências: **sem rostos identificáveis**, **sem placas de carro** e **o ponto não parece uma residência**. Se algum falhar, peça ajuste em vez de aprovar."
+        },
+        {
+            "id": "consentimento",
+            "title": "Consentimento",
+            "screen": null,
+            "body": "Cada \"sim\" fica registrado com tipo, versão do texto, data, IP e navegador:\n\n- **aceite dos termos**;\n- **autorização para publicar cada relato**, registrada de novo quando o relato é reenviado depois de um ajuste;\n- **inscrição no Avise-me**, que ainda pede confirmação pelo link do e-mail;\n- **autorização dos parceiros da região** para aparecer no site. Sem a data do consentimento recebido, o parceiro não vai para o site; o comprovante fica numa área privada do painel.\n\nNa campanha, só os apoiadores marcados com **\"Autorizou publicar o nome\"** aparecem no muro.\n\n**Termos novos:** quando o texto de termos ou de privacidade é marcado como **final** em Conteúdo → Configurações, todos os membros precisam aceitar de novo no próximo acesso. Por isso, não marque como final sem o aval do encarregado de dados, e publique os dois textos juntos para pedir um único aceite."
+        },
+        {
+            "id": "minha-conta",
+            "title": "Baixar meus dados e excluir a conta",
+            "screen": null,
+            "body": "Os dois ficam em **Minha conta → Privacidade** e a pessoa faz sozinha.\n\n**Baixar meus dados** (botão \"Pedir meus dados\"): um arquivo JSON chega **no e-mail da conta** em alguns minutos, com perfil, relatos (com links das fotos), pedidos (CPF mascarado), inscrições e consentimentos. Só os dados dela. O arquivo é montado pela fila: se não chegar, veja o capítulo de problemas.\n\n**Excluir minha conta**: a pessoa confirma digitando o próprio apelido. Ao excluir:\n\n- perfil, relatos, fotos e todas as cópias das fotos são apagados na hora;\n- pedidos **pagos** ficam guardados sem nome, e-mail, telefone nem endereço (só cidade e UF), com o cliente marcado como **\"Titular excluído\"**, por causa da obrigação fiscal, e são apagados de vez quando o prazo de guarda vence (**5 anos após o pagamento**, a confirmar pelo encarregado);\n- pedidos não pagos são apagados na rotina diária seguinte;\n- consentimentos ficam só com tipo, versão e data, sem nada que aponte para a pessoa;\n- a inscrição no Avise-me e a oferta de colaboração com o mesmo e-mail também são apagadas;\n- a pessoa recebe um e-mail de despedida."
+        },
+        {
+            "id": "pedidos-de-dados",
+            "title": "Quando alguém pede os próprios dados",
+            "screen": null,
+            "body": "- **Quem tem conta** e quer uma cópia ou a exclusão: indique **Minha conta → Privacidade**. É o caminho mais seguro, porque a pessoa já está identificada pelo login do Google e o arquivo só vai para o e-mail da conta.\n- **Quem não consegue fazer sozinho**: o **admin** pode excluir a conta em **/painel/membros**, na ficha do membro (\"Excluir conta\"). O efeito é o mesmo da exclusão pela própria pessoa, sem a confirmação do apelido. Só o admin exclui, ninguém exclui a própria conta pelo painel, e a ação fica na auditoria. Confirme antes que o pedido veio do mesmo e-mail da conta.\n- **Inscritos no Avise-me** e **colaboradores** sem conta: a remoção é feita pelo botão **Remover** em /painel/avise-me e /painel/colaboradores.\n- **Qualquer outro pedido** (correção, dúvida sobre uso, pedido de quem comprou sem conta, pedido de autoridade): não responda por conta própria. Encaminhe ao **encarregado de dados**.\n\nNunca monte um arquivo de dados \"à mão\" para mandar por e-mail: a exportação existe para isso e só envia ao endereço da conta."
+        },
+        {
+            "id": "rastreamento",
+            "title": "Sem rastreamento",
+            "screen": null,
+            "body": "- O site cria só o cookie de **sessão** e o de **proteção de formulários**.\n- A contagem de visitas usa o **Umami** no nosso servidor, **sem cookie** e respeitando o \"Não rastrear\" do navegador.\n- As fontes do site são servidas pelo nosso servidor: abrir uma página não envia o IP do visitante a nenhuma empresa de fora.\n- Os registros de acesso do servidor, que contêm IP, são apagados depois de **no máximo 6 meses**.\n\nServiços externos que recebem dados, cada um só com o que precisa: Google (login), PayPal (pagamento), Melhor Envio (frete e etiqueta: nome, contato, CPF e endereço de quem compra), ViaCEP (endereço pelo CEP), OpenStreetMap/Nominatim (mapa e endereços) e o provedor de e-mail."
+        },
+        {
+            "id": "nunca",
+            "title": "O que nunca fazer",
+            "screen": null,
+            "body": "- **Compartilhar exportações.** Os CSV de pedidos, do Avise-me e de colaboradores trazem nome e e-mail. Baixe só quando precisar, use e apague; não suba em planilha compartilhada nem mande em grupo.\n- **Tirar print** de dados pessoais (ficha de membro, pedido, autor de relato, foto pendente, e-mails de clientes) para mandar fora do painel.\n- **Mostrar o CPF** de um pedido sem necessidade. O botão \"Mostrar CPF\" fica registrado na auditoria.\n- **Publicar** foto de relato com rosto identificável, placa de carro ou ponto que pareça uma casa.\n- **Instalar** pixel, anúncio, chat de terceiros ou outra métrica: o site promete não ter cookies de terceiros.\n- **Usar o nome** de alguém em público quando a pessoa só autorizou o apelido (relatos) ou não autorizou (apoiadores).\n- **Pedir dados a mais**: nada de pedir documento ou endereço por e-mail para \"confirmar\" quem é a pessoa."
+        },
+        {
+            "id": "encarregado",
+            "title": "Encarregado de dados",
+            "screen": null,
+            "body": "O encarregado de dados (LGPD) do OVNIPORTO é o **Felipe**. É ele quem:\n\n- escreve os textos finais de **/privacidade** e **/termos**, editados no painel em Conteúdo → Configurações;\n- confirma os prazos (guarda fiscal dos pedidos, retenção dos logs) e o tratamento dos consentimentos após a exclusão;\n- responde aos pedidos de dados que não se resolvem em Minha conta.\n\nO contato público dele entra no tópico **\"Contato do encarregado\"** da política de privacidade, quando o texto final for publicado. Enquanto as páginas estiverem com o aviso de rascunho, encaminhe os pedidos ao admin, que repassa ao encarregado."
+        }
+    ]
+}

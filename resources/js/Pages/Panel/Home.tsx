@@ -144,6 +144,16 @@ export default function Home({ counts, goals, weekly, needsYou, sightings }: Pro
                     </span>
                 </Link>
             )}
+
+            <Link
+                href="/painel/manual"
+                className="mt-10 flex min-h-11 flex-wrap items-center gap-x-4 gap-y-1 rounded-[22px] border-2 border-dashed border-horizon/40 p-5 hover:border-horizon"
+            >
+                <span className="font-display text-sm font-bold tracking-[0.06em] text-horizon uppercase">
+                    {t.panel.manual.title}
+                </span>
+                <span className="text-night/70">{t.panel.manual.homeLead}</span>
+            </Link>
         </>
     );
 }

@@ -93,6 +93,8 @@ export interface SharedProps {
     flash: { toast: string | null; cartOpen?: boolean };
     /** Panel areas the signed-in role may open; only on /painel pages. */
     panelAreas: string[] | null;
+    /** "Como funciona" on panel screens: the manual section about this page. */
+    manualLink?: string | null;
     cart: Cart;
     errors: Record<string, string>;
     [key: string]: unknown;

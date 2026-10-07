@@ -5,7 +5,7 @@ namespace App\Domain\Catalog\Data;
 /** A product as the panel form sends it; money already in cents. */
 final readonly class ProductDraft
 {
-    /** @param array{length: int, width: int, height: int}|null $dimensions cm */
+    /** @param array{length: float, width: float, height: float}|null $dimensions cm, down to 0.01 (a tenth of a millimetre) */
     public function __construct(
         public string $name,
         public ?string $shortDescription,

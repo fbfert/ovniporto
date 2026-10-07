@@ -184,6 +184,30 @@ it('creates a product, inactive, and edits it with a live price', function () {
     $this->get('/loja/'.$product->slug)->assertNotFound();
 });
 
+it('stays on the new product after "Salvar" and returns to the list after "Salvar e voltar"', function () {
+    $draft = ['price' => '19.90', 'weightGrams' => 20];
+
+    $stay = $this->actingAs($this->store)->post('/painel/produtos', [...$draft, 'name' => 'Ímã Torre']);
+    $stay->assertRedirect('/painel/produtos/'.Product::query()->where('name', 'Ímã Torre')->sole()->id);
+
+    $this->post('/painel/produtos', [...$draft, 'name' => 'Chaveiro Torre', 'returnToList' => true])
+        ->assertRedirect('/painel/produtos')
+        ->assertSessionHas('toast');
+    expect(Product::query()->where('name', 'Chaveiro Torre')->exists())->toBeTrue();
+});
+
+it('keeps package sides down to a tenth of a millimetre and refuses finer ones', function () {
+    $draft = ['name' => 'Adesivo grande', 'price' => '12.00', 'weightGrams' => 15];
+
+    $this->actingAs($this->store)->post('/painel/produtos', [...$draft, 'length' => '21.05', 'width' => '14.8', 'height' => '0.02'])
+        ->assertSessionHasNoErrors();
+    expect(Product::query()->where('name', 'Adesivo grande')->sole()->dimensions)
+        ->toBe(['length' => 21.05, 'width' => 14.8, 'height' => 0.02]);
+
+    $this->post('/painel/produtos', [...$draft, 'name' => 'Adesivo fino', 'length' => '21.055', 'width' => '14.8', 'height' => '0'])
+        ->assertSessionHasErrors(['length', 'height']);
+});
+
 it('refuses a product photo without alt text and crops the accepted ones square', function () {
     $product = Product::query()->where('slug', 'adesivo-ovniporto')->sole();
     $photo = fn () => UploadedFile::fake()->createWithContent('foto.jpg', JpegWithExif::make(1200, 800));

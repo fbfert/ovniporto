@@ -175,7 +175,7 @@ O arquivo é cifrado com `age` e enviado ao Google Drive com `rclone`. Cópias c
    - `/up`;
    - o mapa com os relatos;
    - a foto de um relato aprovado;
-   - um pedido em /admin;
+   - um pedido em /painel/pedidos;
    - a métrica.
 
 Registre a restauração completa em `openspec/changes/add-production-deploy/evidence/restore.md`, com data, arquivo usado e o que foi conferido.
@@ -187,13 +187,20 @@ Registre a restauração completa em `openspec/changes/add-production-deploy/evi
   - Saúde (Pulse): `/painel/saude`.
 - **Alertas por e-mail:**
   - Um job que falha 3 vezes envia e-mail para `ALERTS_EMAIL`; se estiver vazio, vai para todos os admins.
-  - Espera longa na fila também gera aviso pelo Horizon.
+  - Espera longa na fila (mais de 60 s) gera aviso pelo Horizon, mas só para `ALERTS_EMAIL`: com a variável vazia, esse aviso não vai para ninguém.
 - **Uptime externo:**
   - Cadastre `https://ovniporto.tars.art.br/up` num monitor externo (UptimeRobot, Better Stack ou Healthchecks), conferindo a cada 5 minutos, com alerta por e-mail.
   - Teste no staging parando o web (`docker compose -f docker-compose.prod.yml stop web`) e confirme que o alerta chegou.
 - **Logs:**
   - `docker compose -f docker-compose.prod.yml logs -f app worker`.
   - nginx no volume `nginx-logs`, com rotação de 6 meses.
+
+## Manual do painel
+
+- Fica em `/painel/manual`, aberto a admin, moderação e loja; cada papel vê só os capítulos das áreas que abre. Cada tela do painel tem o link **Como funciona** para a seção dela.
+- O conteúdo é versionado em `resources/content/manual/<capítulo>.json` (texto em Markdown, mapa mental, rotas citadas e `reviewedAt`) e vai para produção junto com o código, no deploy normal. Não há edição pelo painel.
+- **Toda mudança no painel atualiza o capítulo no mesmo commit.** O `PanelManualTest` falha se uma rota ou tela do painel ficar sem capítulo, ou se um capítulo citar rota que não existe; o hook `.claude/hooks/manual-reminder.mjs` (registrado em `.claude/settings.json`) lembra qual capítulo revisar.
+- Um capítulo quebrado é recusado com uma mensagem que nomeia o capítulo e o nó, e a suíte de testes acusa antes do deploy. Se mesmo assim chegar a produção, só o manual fica fora do ar e o link **Como funciona** some; o resto do painel continua, e o erro vai para o log.
 
 ## CSP
 

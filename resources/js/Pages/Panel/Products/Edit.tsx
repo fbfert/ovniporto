@@ -72,10 +72,17 @@ function ProductForm({ product }: { product: Product | null }) {
         featured: product?.featured ?? false,
     });
     const { data } = form;
-    const submit = (event: FormEvent) => {
+    const submit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (product) form.put(`/painel/produtos/${product.id}`, { preserveScroll: true });
-        else form.post('/painel/produtos');
+        if (product) {
+            form.put(`/painel/produtos/${product.id}`, { preserveScroll: true });
+            return;
+        }
+        // The submitter tells "Salvar" (stay and add photos) from "Salvar e voltar" (back to the list).
+        const submitter = (event.nativeEvent as SubmitEvent).submitter;
+        const returnToList = submitter?.getAttribute('name') === 'returnToList';
+        form.transform((values) => ({ ...values, returnToList }));
+        form.post('/painel/produtos');
     };
     const text = (key: 'name' | 'shortDescription' | 'label', label: string, max: number) => (
         <TextField
@@ -126,9 +133,9 @@ function ProductForm({ product }: { product: Product | null }) {
                 {data.madeToOrder ? number('productionDays', copy.productionDays) : <span />}
                 {number('weightGrams', copy.weight)}
                 {text('label', copy.label, 30)}
-                {number('length', copy.length)}
-                {number('width', copy.width)}
-                {number('height', copy.height)}
+                {number('length', copy.length, '0.01')}
+                {number('width', copy.width, '0.01')}
+                {number('height', copy.height, '0.01')}
                 <div className="sm:col-span-2">
                     <CheckboxField
                         label={copy.activeLabel}
@@ -141,10 +148,15 @@ function ProductForm({ product }: { product: Product | null }) {
                         onChange={(e) => form.setData('featured', e.target.checked)}
                     />
                 </div>
-                <div>
+                <div className="flex flex-wrap gap-3 sm:col-span-2">
                     <Button type="submit" loading={form.processing}>
                         {common.save}
                     </Button>
+                    {!product && (
+                        <Button type="submit" name="returnToList" variant="secondary" disabled={form.processing}>
+                            {copy.saveAndBack}
+                        </Button>
+                    )}
                 </div>
             </div>
 

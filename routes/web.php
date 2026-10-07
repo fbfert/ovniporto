@@ -25,6 +25,7 @@ use App\Http\Controllers\Panel\AuditController;
 use App\Http\Controllers\Panel\CampaignAdminController;
 use App\Http\Controllers\Panel\CollaboratorAdminController;
 use App\Http\Controllers\Panel\ContentHubController;
+use App\Http\Controllers\Panel\ManualController;
 use App\Http\Controllers\Panel\MemberAdminController;
 use App\Http\Controllers\Panel\OrderAdminController;
 use App\Http\Controllers\Panel\PanelHomeController;
@@ -129,6 +130,12 @@ Route::middleware(['auth', 'profile.complete', 'panel:inicio'])->prefix('painel'
     });
 
     Route::get('/auditoria', AuditController::class)->middleware('panel:auditoria')->name('.audit');
+
+    // The operations manual (resources/content/manual): every panel role, each chapter filtered by area.
+    Route::middleware('panel:manual')->prefix('manual')->name('.manual')->group(function () {
+        Route::get('/', [ManualController::class, 'index']);
+        Route::get('/{slug}', [ManualController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('.show');
+    });
 
     // Areas whose tools arrive with later changes; the role check already applies.
     Route::middleware('panel:membros')->prefix('membros')->name('.members')->group(function () {

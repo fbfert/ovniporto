@@ -1,0 +1,135 @@
+{
+    "slug": "inicio",
+    "area": "inicio",
+    "group": "start",
+    "order": 40,
+    "title": "Início do painel",
+    "summary": "A primeira tela: contagens, faturado no mês, Avise-me, metas de 6 meses, 12 semanas e \"Precisa de você\".",
+    "reviewedAt": "2026-10-07",
+    "routes": ["panel"],
+    "map": {
+        "label": "Início",
+        "children": [
+            {
+                "label": "Contagens",
+                "kind": "screen",
+                "section": "contagens",
+                "children": [
+                    { "label": "Membros", "kind": "state", "section": "contagens" },
+                    { "label": "Relatos publicados", "kind": "state", "section": "contagens" },
+                    { "label": "Pedidos vendidos", "kind": "state", "section": "contagens" },
+                    { "label": "Faturado no mês", "kind": "state", "section": "contagens" },
+                    { "label": "No Avise-me", "kind": "state", "section": "contagens" }
+                ]
+            },
+            {
+                "label": "Precisa de você",
+                "kind": "screen",
+                "section": "precisa",
+                "children": [
+                    { "label": "Relato há mais de 48 h", "kind": "state", "section": "precisa" },
+                    { "label": "Pago sem produção, 2 dias", "kind": "state", "section": "precisa" },
+                    { "label": "Sem rastreio, 7 dias", "kind": "state", "section": "precisa" },
+                    { "label": "Céu limpo", "kind": "state", "section": "precisa" }
+                ]
+            },
+            {
+                "label": "Últimas 12 semanas",
+                "kind": "screen",
+                "section": "grafico",
+                "children": [
+                    { "label": "Relatos enviados (verde)", "kind": "state", "section": "grafico" },
+                    { "label": "Pedidos pagos (amarelo)", "kind": "state", "section": "grafico" }
+                ]
+            },
+            {
+                "label": "Metas de 6 meses",
+                "kind": "screen",
+                "section": "metas",
+                "children": [
+                    { "label": "Data de lançamento", "kind": "action", "section": "metas" },
+                    { "label": "Sem metas definidas", "kind": "state", "section": "metas" },
+                    { "label": "Conta desde sempre", "kind": "care", "section": "metas" }
+                ]
+            },
+            {
+                "label": "Cartão da fila",
+                "kind": "screen",
+                "section": "fila",
+                "children": [
+                    { "label": "Passou de 48 h", "kind": "state", "section": "fila" },
+                    { "label": "Ajuste pedido", "kind": "state", "section": "fila" }
+                ]
+            },
+            {
+                "label": "Cada papel vê",
+                "kind": "state",
+                "section": "papeis",
+                "children": [
+                    { "label": "Admin", "kind": "state", "section": "papeis" },
+                    { "label": "Moderação", "kind": "state", "section": "papeis" },
+                    { "label": "Loja", "kind": "state", "section": "papeis" }
+                ]
+            },
+            {
+                "label": "Cuidados",
+                "kind": "care",
+                "section": "cuidados",
+                "children": [
+                    { "label": "Só leitura", "kind": "care", "section": "cuidados" },
+                    { "label": "Recarregue para atualizar", "kind": "care", "section": "cuidados" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "visao-geral",
+            "title": "Para que serve",
+            "screen": "panel",
+            "body": "**/painel** é a primeira tela do painel (pílula **Início**) e abre para **admin**, **moderação** e **loja**. É uma tela de leitura: mostra como a comunidade e a loja estão e o que está atrasado. Nada se altera daqui; cada item leva para a área onde se age.\n\nDe cima para baixo: a faixa de **contagens**, **Precisa de você**, o gráfico **Últimas 12 semanas** ao lado das **metas** e, para quem modera, o **cartão da fila** de relatos."
+        },
+        {
+            "id": "contagens",
+            "title": "As contagens",
+            "screen": "panel",
+            "body": "A faixa do topo traz números totais:\n\n- **membros**: contas que já aceitaram os termos, de qualquer papel (a equipe conta também) e inclusive as bloqueadas. Quem entrou com o Google mas não completou o perfil não conta.\n- **relatos publicados**: relatos aprovados e no ar no Livro. Relatos rejeitados ou despublicados (que voltam para análise) não contam.\n- **pedidos vendidos**: pedidos pagos, em produção, enviados ou entregues. Pedidos esperando pagamento, cancelados e reembolsados não contam.\n- **faturado no mês**: soma do valor total desses pedidos vendidos, pagos desde o dia 1 do mês corrente. Um pedido reembolsado sai da soma. O mês vira pelo relógio do servidor, que está em UTC (21h em Brasília do último dia).\n- **no Avise-me**: inscritos no Avise-me que **confirmaram** o e-mail. Quem se inscreveu e não clicou no link de confirmação não aparece aqui.\n\n**relatos publicados** só aparece para quem abre **Relatos**; **pedidos vendidos** e **faturado no mês**, só para quem abre **Pedidos**."
+        },
+        {
+            "id": "precisa",
+            "title": "Precisa de você",
+            "screen": "panel",
+            "body": "A lista dos atrasos das suas áreas. Cada linha é um link:\n\n- **\"Relato #N esperando há mais de 48 h\"**: relato em análise enviado há mais de 48 horas. Abre o relato na moderação.\n- **\"OVP-... pago há mais de 2 dias, ainda sem produção\"**: pedido pago há mais de 2 dias que não foi marcado em produção. Abre o pedido.\n- **\"OVP-... sem rastreio há mais de 7 dias\"**: pedido pago ou em produção, para envio (retirada não conta), sem código de rastreio e pago há mais de 7 dias. Abre o pedido.\n\nAparecem até 10 itens de cada tipo, do mais antigo para o mais novo. Sem nada atrasado, aparece **\"Nada esperando. Céu limpo na torre.\"**\n\nUm relato **despublicado** volta para análise com a data do envio original, então costuma entrar nesta lista na mesma hora, já como \"há mais de 48 h\". Isso é esperado: decida-o de novo na fila.\n\nO item some quando a causa é resolvida (relato decidido, pedido em produção, rastreio registrado) e você recarrega a página. Veja também [Rotina da torre](/painel/manual/rotina)."
+        },
+        {
+            "id": "grafico",
+            "title": "Últimas 12 semanas",
+            "screen": "panel",
+            "body": "Barras em pares, uma por semana (de segunda a domingo), terminando na semana atual, que ainda está em andamento:\n\n- **verde, relatos enviados**: todos os relatos criados na semana, qualquer que tenha sido a decisão depois (aprovados, rejeitados, em análise).\n- **amarelo, pedidos pagos**: pedidos pagos na semana que continuam vendidos. Se um pedido for reembolsado depois, ele sai da barra da semana em que foi pago.\n\nA data embaixo marca a segunda-feira, uma semana sim, outra não. Leitores de tela recebem os números de cada semana em texto (\"Semana de ...: N relatos, N pedidos\").\n\nO gráfico aparece para todos os papéis do painel, com as duas séries."
+        },
+        {
+            "id": "metas",
+            "title": "Metas de 6 meses",
+            "screen": "panel",
+            "body": "As metas medem o começo do OVNIPORTO: **6 meses a partir da data de lançamento**.\n\n- Quem define é o **admin**, em **Conteúdo → Configurações e textos → Lançamento e metas de 6 meses**: **Data de lançamento**, **Meta de membros**, **Meta de relatos** e **Meta de pedidos**.\n- Com a data preenchida, o título vira **\"Metas até ...\"** com a data final (lançamento + 6 meses).\n- Cada meta maior que zero ganha uma barra lilás com **atual / meta**. A barra para em 100% mesmo quando a meta é passada; o número continua contando.\n- Meta vazia ou zero não aparece.\n- Sem data de lançamento (ou sem nenhuma meta), o quadro se chama **Metas de 6 meses** e mostra \"Defina a data de lançamento e as metas em Conteúdo → Configurações e textos.\"\n\n**Cuidado:** o número atual é o **total de sempre** (os mesmos números das contagens: membros, relatos publicados, pedidos vendidos), não só o que entrou depois do lançamento. Relatos históricos e contas da equipe criadas antes contam. Leve isso em conta ao escolher as metas.\n\nAs metas aparecem para todos os papéis, inclusive a de pedidos para a moderação e a de relatos para a loja."
+        },
+        {
+            "id": "fila",
+            "title": "O cartão da fila de relatos",
+            "screen": "panel",
+            "body": "No fim da página, quem abre **Relatos** vê um cartão escuro que leva à fila (**/painel/relatos**):\n\n- o número grande em verde é quantos relatos estão em análise, com \"N relatos esperando a torre\" (ou \"Nada esperando. Céu limpo na torre.\" quando é zero);\n- \"o mais antigo chegou há ...\" diz quanto tempo o relato mais antigo espera (em horas até 48 h, depois em dias);\n- a etiqueta amarela **\"passou de 48 h\"** aparece quando esse relato mais antigo já esperou mais de 48 horas;\n- \"N relatos com ajuste pedido\" conta os que voltaram para o autor e aguardam o reenvio dele.\n\nA loja não vê esse cartão."
+        },
+        {
+            "id": "papeis",
+            "title": "O que cada papel vê",
+            "screen": "panel",
+            "body": "| Parte da tela | Admin | Moderação | Loja |\n|---|---|---|---|\n| membros, no Avise-me | sim | sim | sim |\n| relatos publicados | sim | sim | não |\n| pedidos vendidos, faturado no mês | sim | não | sim |\n| Precisa de você: relatos | sim | sim | não |\n| Precisa de você: pedidos | sim | não | sim |\n| Últimas 12 semanas | sim | sim | sim |\n| Metas | sim | sim | sim |\n| Cartão da fila | sim | sim | não |\n\nUma conta de **membro** comum não abre o Início: recebe \"Área restrita da torre.\""
+        },
+        {
+            "id": "cuidados",
+            "title": "Cuidados",
+            "screen": null,
+            "body": "- **É só leitura.** Abrir o Início não gera registro na auditoria nem envia e-mail.\n- **Os números são do momento em que a página abriu.** Recarregue para ver um pedido que acabou de ser pago ou um relato que acabou de chegar.\n- **Não há dado pessoal aqui**: só totais e números de relato ou de pedido. Nome, e-mail e endereço ficam dentro do relato ou do pedido, atrás do papel certo.\n- Para mudar a data de lançamento ou as metas, é preciso ser admin (área **Conteúdo**). A mudança vai para a auditoria como \"mudou configurações\"."
+        }
+    ]
+}

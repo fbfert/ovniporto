@@ -26,7 +26,7 @@ function activeArea(url: string): string {
  */
 export function PanelLayout({ children }: { children: ReactNode }) {
     const page = usePage<SharedProps>();
-    const { panelAreas } = page.props;
+    const { panelAreas, manualLink } = page.props;
     const current = activeArea(page.url);
     const navRef = useRef<HTMLElement>(null);
 
@@ -77,7 +77,25 @@ export function PanelLayout({ children }: { children: ReactNode }) {
                 </nav>
             </header>
             <main id="conteudo" className="min-h-[calc(100svh-8rem)] bg-moonlight text-night">
-                <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">{children}</div>
+                <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+                    {manualLink && (
+                        <div className="mb-2 flex justify-end">
+                            <Link
+                                href={manualLink}
+                                className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-semibold text-horizon ring-1 ring-horizon/30 hover:ring-horizon/60"
+                            >
+                                <span
+                                    aria-hidden
+                                    className="grid size-5 place-items-center rounded-full bg-horizon font-display text-[0.7rem] text-moonlight"
+                                >
+                                    ?
+                                </span>
+                                {t.panel.manual.howItWorks}
+                            </Link>
+                        </div>
+                    )}
+                    {children}
+                </div>
             </main>
         </ToastProvider>
     );

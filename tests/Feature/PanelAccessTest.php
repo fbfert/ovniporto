@@ -34,7 +34,7 @@ it('shares only the areas the role may open', function () {
         ->get('/painel')
         ->assertInertia(fn (Assert $page) => $page
             ->component('Panel/Home')
-            ->where('panelAreas', ['inicio', 'relatos', 'membros'])
+            ->where('panelAreas', ['inicio', 'relatos', 'membros', 'manual'])
         );
 });
 

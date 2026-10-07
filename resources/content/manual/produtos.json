@@ -1,0 +1,144 @@
+{
+    "slug": "produtos",
+    "area": "produtos",
+    "group": "store",
+    "order": 20,
+    "title": "Produtos da loja",
+    "summary": "Cadastrar, publicar e manter os produtos: ficha, medidas, variantes, estoque e fotos.",
+    "reviewedAt": "2026-10-07",
+    "routes": [
+        "panel.products",
+        "panel.products.create",
+        "panel.products.store",
+        "panel.products.edit",
+        "panel.products.update",
+        "panel.products.variants.store",
+        "panel.products.variants.update",
+        "panel.products.variants.stock",
+        "panel.products.images.store",
+        "panel.products.images.update",
+        "panel.products.images.destroy",
+        "panel.products.images.move"
+    ],
+    "map": {
+        "label": "Produtos",
+        "children": [
+            { "label": "Lista", "kind": "screen", "section": "lista", "children": [] },
+            {
+                "label": "Novo produto",
+                "kind": "screen",
+                "section": "novo",
+                "children": [
+                    { "label": "Salvar", "kind": "action", "section": "novo" },
+                    { "label": "Salvar e voltar", "kind": "action", "section": "novo" },
+                    { "label": "Nasce inativo (caixa desmarcada)", "kind": "state", "section": "novo" }
+                ]
+            },
+            {
+                "label": "Ficha",
+                "kind": "screen",
+                "section": "ficha",
+                "children": [
+                    { "label": "Preço e preço anterior", "kind": "action", "section": "ficha" },
+                    { "label": "Pronta entrega ou sob pedido", "kind": "state", "section": "ficha" },
+                    { "label": "Peso e medidas", "kind": "action", "section": "medidas" },
+                    { "label": "Ativo e destaque", "kind": "state", "section": "publicar" }
+                ]
+            },
+            {
+                "label": "Variantes",
+                "kind": "screen",
+                "section": "variantes",
+                "children": [
+                    { "label": "SKU único", "kind": "care", "section": "variantes" },
+                    { "label": "Ajuste no preço", "kind": "action", "section": "variantes" },
+                    { "label": "Ativa ou não", "kind": "state", "section": "variantes" }
+                ]
+            },
+            {
+                "label": "Estoque",
+                "kind": "screen",
+                "section": "estoque",
+                "children": [
+                    { "label": "Ajustar com motivo", "kind": "action", "section": "estoque" },
+                    { "label": "Histórico", "kind": "state", "section": "estoque" }
+                ]
+            },
+            {
+                "label": "Fotos",
+                "kind": "screen",
+                "section": "fotos",
+                "children": [
+                    { "label": "Texto alternativo", "kind": "care", "section": "fotos" },
+                    { "label": "Corte quadrado, sem EXIF", "kind": "care", "section": "fotos" },
+                    { "label": "Ordem e remoção", "kind": "action", "section": "fotos" }
+                ]
+            },
+            {
+                "label": "Cuidados",
+                "kind": "care",
+                "section": "cuidados",
+                "children": [
+                    { "label": "Tudo vai para a auditoria", "kind": "care", "section": "cuidados" },
+                    { "label": "Preço vem do servidor", "kind": "care", "section": "cuidados" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "lista",
+            "title": "A lista de produtos",
+            "screen": "panel.products",
+            "body": "Em **/painel/produtos** ficam todos os produtos, ativos ou não. Cada linha mostra o nome, se está **ativo** ou **inativo** e quanto há em estoque (ou \"sob pedido\", quando o produto é feito depois da compra).\n\nQuem abre: **admin** e **loja**. Moderação não vê esta área.\n\nO botão **Novo produto** abre o cadastro; clicar num produto abre a ficha dele."
+        },
+        {
+            "id": "novo",
+            "title": "Cadastrar um produto novo",
+            "screen": "panel.products.create",
+            "body": "Em **/painel/produtos/novo** você preenche a ficha (veja a seção seguinte) e escolhe como salvar:\n\n- **Salvar**: cria o produto e abre a ficha dele, onde aparecem as partes que só existem depois de criado: **variantes**, **estoque** e **fotos**. Use quando vai completar o produto agora.\n- **Salvar e voltar**: cria o produto e volta para a lista. Use quando está cadastrando vários de uma vez e vai completar depois.\n\nA caixa **Ativo** vem desmarcada: deixe assim no cadastro, para o produto **nascer inativo** e só ir para a loja depois de ter foto e conferência. Se você marcar Ativo já no cadastro, ele entra na loja na hora, ainda sem fotos (o aviso \"Produto criado (inativo até você ativar)\" aparece de qualquer forma; confira a caixa). Para publicar depois, veja \"Publicar e destacar\"."
+        },
+        {
+            "id": "ficha",
+            "title": "A ficha do produto",
+            "screen": "panel.products.edit",
+            "body": "Campos da ficha:\n\n- **Nome** (obrigatório, até 120 caracteres) e **frase curta** (até 255): aparecem no cartão da loja.\n- **Descrição** (até 5.000 caracteres): o texto da página do produto.\n- **Preço (R$)** (obrigatório) e **preço anterior (R$)**: o preço anterior aparece riscado ao lado do preço, para mostrar uma redução. Deixe vazio se não houver.\n- **Tipo**: *Pronta entrega* usa o estoque contado; *Sob pedido* não controla estoque e pede os **dias de produção** (até 120), que entram no prazo mostrado ao cliente.\n- **Etiqueta do cartão** (até 30 caracteres): um selo curto no cartão, como \"novo\".\n\nNa ficha de um produto que já existe, **Salvar** grava e mantém você na mesma página, com o aviso \"Produto salvo.\""
+        },
+        {
+            "id": "medidas",
+            "title": "Peso e medidas da embalagem",
+            "screen": "panel.products.edit",
+            "body": "- **Peso para envio (g)** é obrigatório (de 1 g a 30 kg): é a base do cálculo de frete.\n- **Comprimento, largura e altura** são em **centímetros**, com até **duas casas decimais**: 0,01 cm é **um décimo de milímetro**. Ex.: um adesivo de 210,5 mm vira `21,05`.\n- As três medidas vão juntas: se faltar uma, o produto fica sem medidas.\n- Cada medida vai de 0,01 cm a 100 cm. Com mais de duas casas aparece \"Use no máximo duas casas: 0,01 cm é um décimo de milímetro.\"\n\nNa página do produto, a loja mostra \"Embalagem: 21,05 × 14,8 × 0,02 cm\". **A cotação de frete hoje usa o peso do pedido e uma embalagem padrão configurada no servidor**, não as medidas de cada produto; elas servem para informar o cliente e para quando a embalagem padrão for revista."
+        },
+        {
+            "id": "publicar",
+            "title": "Publicar e destacar",
+            "screen": "panel.products.edit",
+            "body": "- **Ativo (aparece na loja)**: só produtos ativos têm página pública e podem ir ao carrinho. Um produto inativo devolve \"página não encontrada\" na loja.\n- **Destaque na página inicial**: o produto entra na vitrine da home.\n\nAntes de ativar, confira: ao menos uma foto com texto alternativo, preço, peso e, se for de pronta entrega, estoque maior que zero.\n\nPara tirar um produto do ar sem apagar o histórico de pedidos, desmarque **Ativo** e salve. Produtos não são apagados pelo painel."
+        },
+        {
+            "id": "variantes",
+            "title": "Variantes",
+            "screen": "panel.products.edit",
+            "body": "Variantes são as versões de um produto (tamanho, cor). Cada uma tem:\n\n- **Nome** (até 60 caracteres, ex.: \"M\", \"Azul\").\n- **SKU**: código único de 3 a 40 letras, números ou hífen. Se o SKU já existir em outra variante, o painel recusa com \"Esse SKU já existe.\"\n- **Ajuste no preço (R$)**: soma (ou, se negativo, subtrai) do preço do produto. Deixe 0 quando a variante custa o mesmo.\n- **Ativa**: uma variante inativa some da escolha na loja, mas continua nos pedidos antigos.\n\nUse **Adicionar variante** para criar e **Salvar** em cada linha para alterar."
+        },
+        {
+            "id": "estoque",
+            "title": "Estoque",
+            "screen": "panel.products.edit",
+            "body": "O estoque é **por variante** e só vale para produtos de pronta entrega.\n\nPara ajustar, informe a **quantidade contada** (o total que existe agora, não a diferença) e o **motivo** (obrigatório, até 160 caracteres: \"contagem de outubro\", \"chegou lote novo\", \"avaria\"). O painel grava a diferença e o motivo.\n\nO **histórico de estoque** mostra cada movimento: ajustes feitos aqui e baixas das vendas, com data e motivo. Use-o para entender uma divergência antes de ajustar de novo."
+        },
+        {
+            "id": "fotos",
+            "title": "Fotos",
+            "screen": "panel.products.edit",
+            "body": "- Envie uma imagem de até 8 MB. O servidor **corta no quadrado do centro** e **refaz o arquivo sem os dados da câmera** (EXIF: local, aparelho, data). Enquadre o produto no centro antes de enviar.\n- O **texto alternativo** é obrigatório: descreva o que a foto mostra para quem usa leitor de tela (ex.: \"Adesivo redondo do OVNIPORTO colado num capacete amarelo\"). Sem ele, o envio é recusado.\n- A primeira foto é a capa do cartão. Use as setas para mudar a ordem e o botão de remover (com confirmação) para apagar.\n- Produto sem foto aparece na loja com o selo no lugar."
+        },
+        {
+            "id": "cuidados",
+            "title": "Cuidados",
+            "screen": null,
+            "body": "- **Tudo vai para a auditoria**: criar, salvar, variantes, estoque e fotos geram um registro com quem fez, o quê e quando. O admin vê em /painel/auditoria. As ações de produto não guardam os valores de antes e depois: para saber o que mudou num preço, compare com o histórico de pedidos ou anote no motivo do estoque.\n- **O preço sempre vem do servidor**: mudar o preço aqui muda o que o próximo cliente paga, mas não altera pedidos já feitos.\n- Fotos de terceiros só com licença aberta e crédito; nunca publique foto de pessoa sem autorização.\n- Na dúvida sobre um produto que já tem pedidos, desative em vez de mudar nome e preço de uma vez."
+        }
+    ]
+}

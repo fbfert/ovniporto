@@ -1,0 +1,206 @@
+{
+    "slug": "primeiros-passos",
+    "area": null,
+    "group": "start",
+    "order": 10,
+    "title": "Primeiros passos",
+    "summary": "Entrar com o Google, completar o perfil, chegar ao painel e ler este manual.",
+    "reviewedAt": "2026-10-07",
+    "routes": [
+        "panel.manual",
+        "panel.manual.show"
+    ],
+    "map": {
+        "label": "Primeiros passos",
+        "children": [
+            {
+                "label": "Entrar",
+                "kind": "screen",
+                "section": "entrar",
+                "children": [
+                    {
+                        "label": "Entrar com Google",
+                        "kind": "action",
+                        "section": "entrar"
+                    },
+                    {
+                        "label": "Só Google, sem senha",
+                        "kind": "care",
+                        "section": "entrar"
+                    },
+                    {
+                        "label": "Sair",
+                        "kind": "action",
+                        "section": "entrar"
+                    }
+                ]
+            },
+            {
+                "label": "Perfil",
+                "kind": "screen",
+                "section": "perfil",
+                "children": [
+                    {
+                        "label": "Apelido público",
+                        "kind": "action",
+                        "section": "perfil"
+                    },
+                    {
+                        "label": "Aceitar os termos",
+                        "kind": "action",
+                        "section": "perfil"
+                    },
+                    {
+                        "label": "Termos novos pedem novo aceite",
+                        "kind": "state",
+                        "section": "perfil"
+                    }
+                ]
+            },
+            {
+                "label": "Primeiro admin",
+                "kind": "action",
+                "section": "primeiro-admin",
+                "children": [
+                    {
+                        "label": "Entrar antes de promover",
+                        "kind": "care",
+                        "section": "primeiro-admin"
+                    },
+                    {
+                        "label": "Comando no servidor",
+                        "kind": "action",
+                        "section": "primeiro-admin"
+                    },
+                    {
+                        "label": "Os demais pelo painel",
+                        "kind": "state",
+                        "section": "primeiro-admin"
+                    }
+                ]
+            },
+            {
+                "label": "Chegar ao painel",
+                "kind": "screen",
+                "section": "chegar",
+                "children": [
+                    {
+                        "label": "Painel no menu da conta",
+                        "kind": "action",
+                        "section": "chegar"
+                    },
+                    {
+                        "label": "Membro comum recebe 403",
+                        "kind": "state",
+                        "section": "chegar"
+                    }
+                ]
+            },
+            {
+                "label": "Menu do painel",
+                "kind": "screen",
+                "section": "menu",
+                "children": [
+                    {
+                        "label": "Só as áreas do seu papel",
+                        "kind": "state",
+                        "section": "menu"
+                    },
+                    {
+                        "label": "Ver o site",
+                        "kind": "action",
+                        "section": "menu"
+                    },
+                    {
+                        "label": "No celular",
+                        "kind": "screen",
+                        "section": "celular"
+                    }
+                ]
+            },
+            {
+                "label": "Este manual",
+                "kind": "screen",
+                "section": "manual",
+                "children": [
+                    {
+                        "label": "Índice",
+                        "kind": "screen",
+                        "section": "manual"
+                    },
+                    {
+                        "label": "Mapa mental",
+                        "kind": "screen",
+                        "section": "mapa"
+                    },
+                    {
+                        "label": "Revisado em",
+                        "kind": "state",
+                        "section": "manual"
+                    },
+                    {
+                        "label": "Como funciona",
+                        "kind": "action",
+                        "section": "como-funciona"
+                    }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "entrar",
+            "title": "Entrar com o Google",
+            "screen": null,
+            "body": "O OVNIPORTO não tem senha própria: **a única forma de entrar é com uma conta Google**. Isso vale para quem opera o painel também.\n\n1. No site, toque em **Entrar na comunidade** (abre uma janela de entrada ali mesmo) ou abra **/entrar**.\n2. Toque em **Entrar com Google** e escolha a conta.\n3. Na primeira vez, o site cria a sua conta e leva você para completar o perfil (próxima seção). Nas vezes seguintes, você volta para a página que tentou abrir (por exemplo, **/painel**) ou, se não havia nenhuma, para **Minha conta**.\n\nO site guarda do Google só nome, e-mail e foto, e atualiza esses dados a cada entrada. A conta é reconhecida pela identidade do Google, não pelo e-mail digitado.\n\nSe o Google falhar no meio do caminho, você volta para a página inicial com o aviso \"Não deu para entrar com o Google. Tente de novo.\" O botão aceita até 20 tentativas por minuto.\n\nPara **sair**, abra o menu da conta (a sua foto no topo do site) e toque em **Sair**. A sessão é encerrada e aparece \"Até a próxima vigília.\""
+        },
+        {
+            "id": "perfil",
+            "title": "Completar o perfil",
+            "screen": null,
+            "body": "Toda conta nova passa por **/boas-vindas** antes de qualquer outra coisa, inclusive o painel:\n\n- **Apelido público** (obrigatório): de 3 a 20 letras minúsculas, números, \"_\" ou \".\". O site confere na hora se está livre (\"conferindo…\", \"livre\"). Se já existir, aparece \"Esse apelido já tem dono. Tente outro.\"; alguns apelidos são reservados (\"Esse apelido é reservado para a torre.\").\n- **Cidade (opcional)**: até 80 caracteres.\n- **Li e aceito os termos de uso e a política de privacidade.**: obrigatório. Sem ele aparece \"Para entrar na comunidade, aceite os termos.\"\n\nToque em **Entrar na vigília** para concluir (aviso \"Bem-vindo à vigília.\").\n\nEm público aparece só o apelido, mesmo para quem opera o painel: nome e e-mail ficam guardados e só aparecem dentro do painel.\n\n**Quando os termos mudam**, toda pessoa (inclusive admin) é levada a **Os termos mudaram** antes de seguir. **Aceitar e continuar** devolve você à página que estava abrindo; **Agora não, sair** encerra a sessão. Sem esse aceite o painel não abre."
+        },
+        {
+            "id": "primeiro-admin",
+            "title": "Como nasce o primeiro admin",
+            "screen": null,
+            "body": "Toda conta nasce como **membro**, sem acesso ao painel. O primeiro admin é promovido uma única vez, direto no banco de dados, por quem cuida do servidor (passo 6 do `DEPLOY.md`):\n\n1. A pessoa que será admin **entra com o Google pelo site e completa o perfil**. Sem isso a conta ainda não existe e não há o que promover.\n2. Quem tem acesso à VPS roda, trocando o e-mail pelo da conta Google dessa pessoa:\n\n```sh\ndocker compose -f docker-compose.prod.yml exec mysql sh -c \\\n  'mysql -u root -p\"$MYSQL_ROOT_PASSWORD\" \"$MYSQL_DATABASE\" -e \"UPDATE members SET role = '\\''admin'\\'' WHERE email = '\\''voce@exemplo.com'\\''\"'\n```\n\n3. A pessoa recarrega o site: o item **Painel** aparece no menu da conta.\n\nDepois disso, **ninguém mais precisa de comando**: os próximos papéis (admin, moderação, loja) são dados pelo próprio painel, em **/painel/membros**, e só um admin pode fazer isso. Veja o capítulo [Papéis e acessos](/painel/manual/papeis).\n\nCuidado: o comando grava direto no banco e **não passa pela auditoria do painel**. Use-o só para o primeiro admin (ou para recuperar o acesso se nenhum admin restar)."
+        },
+        {
+            "id": "chegar",
+            "title": "Chegar ao painel",
+            "screen": "panel",
+            "body": "Com um papel do painel (admin, moderação ou loja), o menu da sua conta no site ganha o item **Painel**, que leva a **/painel**. Você também pode digitar o endereço direto.\n\n- Sem estar logado, **/painel** leva para **/entrar** e, depois do Google, volta ao painel.\n- Com o perfil incompleto ou termos novos para aceitar, você passa antes por essas telas.\n- Uma conta de **membro** comum que tenta abrir o painel recebe a página **\"Área restrita da torre.\"** (erro 403). Isso não é defeito: falta o papel.\n\nO painel se chama **Torre de controle** (com \"Painel de operação\" em cursiva acima). O selo no canto sempre leva de volta ao **Início**."
+        },
+        {
+            "id": "menu",
+            "title": "O menu do painel",
+            "screen": "panel",
+            "body": "A faixa escura no topo mostra, em pílulas, **só as áreas que o seu papel abre**, nesta ordem: **Início**, **Relatos**, **Membros**, **Pedidos**, **Produtos**, **Conteúdo**, **Auditoria** e **Manual**. A área em que você está fica destacada em verde.\n\n- O menu só esconde o que você não pode usar; **o servidor confere o papel de novo em cada página e em cada ação**. Um link copiado de outra pessoa para uma área fechada ao seu papel responde 403.\n- As telas de **Configurações e textos**, **O lugar**, **Diário da obra**, **Região**, **Campanha**, **Avise-me** e **Colaboradores** ficam dentro de **Conteúdo** (a pílula Conteúdo continua acesa nelas).\n- **Filas** (`/painel/filas`) e **Saúde** (`/painel/saude`) não estão no menu: abrem só para admin, digitando o endereço.\n- **Ver o site** abre a página inicial pública, com a sua sessão ainda aberta.\n\nO painel não tem animação decorativa de propósito: é uma ferramenta para usar o dia todo."
+        },
+        {
+            "id": "celular",
+            "title": "Usar no celular",
+            "screen": "panel",
+            "body": "O painel funciona no celular (desenhado a partir de 390 px de largura):\n\n- O menu de áreas vira uma **faixa que rola para o lado**. Ao abrir uma área, a faixa se posiciona sozinha para mostrar a pílula atual.\n- O topo escuro fica preso ao rolar a página, então o menu está sempre à mão.\n- Botões e links têm pelo menos 44 px de altura, para o dedo.\n- No **Início**, as contagens se arrumam em duas colunas e o gráfico e as metas ficam um embaixo do outro.\n\nTarefas que pedem conferência com calma (reembolso, exclusão de conta, textos longos) ficam melhores no computador, mas nada no painel exige um."
+        },
+        {
+            "id": "manual",
+            "title": "Como ler este manual",
+            "screen": "panel.manual",
+            "body": "O manual fica em **/painel/manual** (pílula **Manual** no menu) e abre para admin, moderação e loja.\n\n- **Cada pessoa vê só os capítulos que servem para ela**: os capítulos gerais (como este) e os das áreas que o seu papel abre. Quem é da loja não vê, por exemplo, o capítulo de relatos. Abrir pelo endereço um capítulo de área fechada responde \"página não encontrada\".\n- O índice traz um **mapa geral** no topo: o selo no centro, um ramo por grupo e, em cada ramo, os capítulos que você pode ler. Toque num capítulo do mapa para abri-lo. Embaixo vem a lista numerada dos capítulos, cada um com resumo e a data **revisado em**.\n- Os capítulos vêm em grupos, nesta ordem: **Comece aqui**, **Relatos e membros**, **Loja**, **Site e obra**, **Bastidores** e **Consulta**.\n- Dentro de um capítulo, a lista **Neste capítulo** (ao lado do texto no computador, antes dele no celular) leva a cada seção, e no fim há links para o capítulo anterior e o próximo, sempre entre os que você pode ler.\n\n**Revisado em** é a data em que o texto foi conferido contra o funcionamento do painel. O manual muda junto com o sistema: se uma tela parecer diferente do que está escrito e a data for antiga, avise quem cuida do site."
+        },
+        {
+            "id": "mapa",
+            "title": "O mapa mental de cada capítulo",
+            "screen": "panel.manual.show",
+            "body": "Cada capítulo abre com um **mapa mental**: o tema no centro e ramos em volta. A cor e a forma do marcador de cada nó dizem o que ele é (a legenda fica embaixo do mapa):\n\n- **Tela** (lilás, quadrado): uma página do painel.\n- **Ação** (verde, círculo): um botão ou algo que você faz.\n- **Estado** (azul-noite, losango): uma situação em que algo pode estar.\n- **Cuidado** (amarelo, triângulo): o que pede atenção, como privacidade ou algo que não se desfaz.\n\nToque (ou clique) num nó para ir direto à seção que explica aquele ponto. Pelo teclado: **Tab** entra no mapa, as **setas** para cima e para baixo andam entre os nós, a **seta para a direita** desce para os filhos, a **seta para a esquerda** volta ao ramo e **Enter** abre a seção.\n\nNo computador o mapa é desenhado com o tema no centro e os ramos para os dois lados; no celular ele vira uma árvore vertical, com os mesmos nós, que cabe na tela sem rolar para o lado. Abaixo do mapa vêm as seções em texto, na ordem do capítulo."
+        },
+        {
+            "id": "como-funciona",
+            "title": "O atalho \"Como funciona\"",
+            "screen": null,
+            "body": "Toda tela do painel tem o link **Como funciona** no canto superior direito, logo abaixo do menu. Ele abre o capítulo da área daquela tela já na seção que explica a tela em que você está. Use-o quando bater a dúvida no meio do trabalho, sem precisar procurar no índice.\n\nSe o link levar a uma seção que não descreve mais o que você vê, o manual ficou para trás: avise quem cuida do site."
+        }
+    ]
+}

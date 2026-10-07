@@ -1,0 +1,146 @@
+{
+    "slug": "glossario",
+    "area": null,
+    "group": "reference",
+    "order": 30,
+    "title": "Glossário",
+    "summary": "As palavras do painel e do site, cada uma com uma definição curta, agrupadas por tema.",
+    "reviewedAt": "2026-10-07",
+    "routes": [],
+    "map": {
+        "label": "Glossário",
+        "children": [
+            {
+                "label": "Comunidade",
+                "kind": "state",
+                "section": "comunidade",
+                "children": [
+                    { "label": "Relato", "kind": "state", "section": "comunidade" },
+                    { "label": "Avistamento", "kind": "state", "section": "comunidade" },
+                    { "label": "Livro de avistamentos", "kind": "screen", "section": "comunidade" },
+                    { "label": "Apelido", "kind": "state", "section": "comunidade" },
+                    { "label": "Membro", "kind": "state", "section": "comunidade" }
+                ]
+            },
+            {
+                "label": "Moderação",
+                "kind": "state",
+                "section": "moderacao",
+                "children": [
+                    { "label": "Torre de controle", "kind": "screen", "section": "moderacao" },
+                    { "label": "Fila", "kind": "screen", "section": "moderacao" },
+                    { "label": "Ajuste pedido", "kind": "state", "section": "moderacao" },
+                    { "label": "Despublicar", "kind": "action", "section": "moderacao" },
+                    { "label": "Bloqueio", "kind": "action", "section": "moderacao" }
+                ]
+            },
+            {
+                "label": "Loja",
+                "kind": "state",
+                "section": "loja",
+                "children": [
+                    { "label": "SKU", "kind": "state", "section": "loja" },
+                    { "label": "Variante", "kind": "state", "section": "loja" },
+                    { "label": "Pronta entrega e sob pedido", "kind": "state", "section": "loja" },
+                    { "label": "Etiqueta", "kind": "state", "section": "loja" },
+                    { "label": "Rastreio", "kind": "state", "section": "loja" },
+                    { "label": "Captura e reembolso", "kind": "state", "section": "loja" }
+                ]
+            },
+            {
+                "label": "Campanha e região",
+                "kind": "state",
+                "section": "campanha",
+                "children": [
+                    { "label": "Avise-me", "kind": "state", "section": "campanha" },
+                    { "label": "Apoiador", "kind": "state", "section": "campanha" },
+                    { "label": "Patrocinador", "kind": "state", "section": "campanha" },
+                    { "label": "Parceiro", "kind": "state", "section": "campanha" },
+                    { "label": "Colaborador", "kind": "state", "section": "campanha" },
+                    { "label": "Em planejamento", "kind": "state", "section": "campanha" }
+                ]
+            },
+            {
+                "label": "Origem e imagens",
+                "kind": "state",
+                "section": "origem",
+                "children": [
+                    { "label": "Conceito", "kind": "care", "section": "origem" },
+                    { "label": "Ilustração", "kind": "care", "section": "origem" },
+                    { "label": "Cachi", "kind": "state", "section": "origem" },
+                    { "label": "Atlas", "kind": "state", "section": "origem" },
+                    { "label": "Grau de confiança", "kind": "state", "section": "origem" },
+                    { "label": "O relato do carro amarelo", "kind": "state", "section": "origem" }
+                ]
+            },
+            {
+                "label": "Painel",
+                "kind": "state",
+                "section": "painel",
+                "children": [
+                    { "label": "Papel", "kind": "state", "section": "painel" },
+                    { "label": "Auditoria", "kind": "screen", "section": "painel" },
+                    { "label": "Filas e Saúde", "kind": "screen", "section": "painel" },
+                    { "label": "Deploy", "kind": "state", "section": "painel" }
+                ]
+            },
+            {
+                "label": "Privacidade",
+                "kind": "care",
+                "section": "privacidade",
+                "children": [
+                    { "label": "LGPD", "kind": "care", "section": "privacidade" },
+                    { "label": "EXIF", "kind": "care", "section": "privacidade" },
+                    { "label": "URL assinada", "kind": "care", "section": "privacidade" },
+                    { "label": "Consentimento", "kind": "care", "section": "privacidade" },
+                    { "label": "Titular excluído", "kind": "state", "section": "privacidade" },
+                    { "label": "Encarregado de dados", "kind": "care", "section": "privacidade" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "comunidade",
+            "title": "Comunidade",
+            "screen": null,
+            "body": "- **Avistamento**: algo que alguém viu no céu (luz, objeto, rastro ou outro).\n- **Relato**: o registro de um avistamento enviado por um membro em /relatar: o que viu, quando, o ponto no mapa e, se quiser, fotos.\n- **Livro de avistamentos**: o mapa público (/mapa) com os relatos aprovados e os casos históricos.\n- **Apelido**: o nome público do membro. É a única identificação que aparece no site.\n- **Membro**: quem entrou no site com o Google e completou o perfil. Pode relatar, comprar e acompanhar tudo em Minha conta.\n- **Minha conta**: a área do membro, com relatos, pedidos, dados e privacidade (baixar dados e excluir conta)."
+        },
+        {
+            "id": "moderacao",
+            "title": "Moderação",
+            "screen": null,
+            "body": "- **Torre de controle**: o nome do painel de operação (/painel) e da equipe que modera.\n- **Moderação**: a revisão de cada relato antes de ele ir ao Livro. Também é o nome do papel de quem faz isso.\n- **Fila**: no painel, a **fila de relatos** (/painel/relatos), com as abas Pendentes, Ajuste pedido, Aprovados e Rejeitados. Não confundir com a fila de tarefas do servidor (Filas, só admin).\n- **Pendente** (para o autor, \"em análise\"): relato esperando a decisão da torre.\n- **Ajuste pedido**: a torre devolveu o relato com um recado; o autor ajusta e reenvia.\n- **Rejeitado**: o relato não vai ao Livro.\n- **Despublicar**: tirar do Livro um relato que já estava aprovado.\n- **Bloqueio**: suspende o membro de enviar relatos e pedidos. Exige motivo, que fica na auditoria."
+        },
+        {
+            "id": "loja",
+            "title": "Loja",
+            "screen": null,
+            "body": "- **Variante**: uma versão do produto, como tamanho ou cor. O estoque é por variante.\n- **SKU**: o código único de cada variante, de 3 a 40 letras, números ou hífen.\n- **Pronta entrega**: produto com estoque contado.\n- **Sob pedido**: produto feito depois da compra; não controla estoque e informa os dias de produção.\n- **Etiqueta**: duas coisas diferentes. A **etiqueta do cartão** é o selo curto no cartão do produto (como \"novo\"); a **etiqueta de envio** é a que o painel compra no Melhor Envio para despachar o pedido.\n- **Rastreio**: o código que acompanha o envio; o cliente recebe quando o pedido é marcado como enviado.\n- **Retirada**: o cliente busca o pedido em Lages; não tem etiqueta nem rastreio.\n- **Ordem no provedor** e **Captura**: os números do pedido e do pagamento no PayPal, usados para conferir e reembolsar.\n- **Reembolso**: devolve o valor total ao cliente pelo PayPal. Não dá para desfazer.\n- **Ordem de produção**: o PDF do pedido para quem produz."
+        },
+        {
+            "id": "campanha",
+            "title": "Campanha e região",
+            "screen": null,
+            "body": "- **Avise-me**: a lista de e-mails de quem quer ser avisado de novidades, como a abertura da campanha; o painel mostra de onde veio cada inscrição. A inscrição só vale depois de confirmada pelo link do e-mail.\n- **Campanha**: a futura arrecadação para construir a pista. Estados: em planejamento, aberta, encerrada.\n- **Em planejamento**: o estado atual da campanha e do orçamento da obra. Nenhum dinheiro é arrecadado para a obra antes de existir orçamento.\n- **Apoiador**: quem apoiou a campanha. O nome só aparece no muro se a pessoa autorizou.\n- **Patrocinador**: empresa com uma cota de patrocínio, mostrada com nome, logo e site.\n- **Parceiro**: negócio ou lugar da região da serra listado em /regiao. Só vai ao ar com consentimento registrado.\n- **Colaborador**: quem se ofereceu para ajudar na pesquisa da origem e do Atlas.\n- **Obra**: o diário da construção (/obra), contado pedra por pedra."
+        },
+        {
+            "id": "origem",
+            "title": "Origem e imagens",
+            "screen": null,
+            "body": "- **Conceito**: selo de toda imagem que mostra **como o OVNIPORTO vai ficar**. O lugar ainda não existe; a meta é 2028, na Localidade Pedras Brancas.\n- **Ilustração**: selo de toda imagem que **reconstitui** um relato, a origem ou um lugar do Atlas.\n- **Cachi**: o Ovnipuerto de Cachi, na Argentina, a pista para discos voadores desenhada com pedras que inspirou o OVNIPORTO.\n- **Atlas**: o Atlas dos Ovnipuertos (/origem/atlas), com doze lugares pelo mundo e o grau de confiança de cada informação.\n- **Grau de confiança (A–F)**: a nota que diz o quanto cada informação da origem e do Atlas está documentada.\n- **O relato do carro amarelo**: a história do Niva amarelo do Julean, em /origem/relato. É contada como relato (\"segundo contam\"), nunca como documento."
+        },
+        {
+            "id": "painel",
+            "title": "Painel",
+            "screen": null,
+            "body": "- **Papel**: o que a pessoa pode fazer no painel: **Membro** (nenhuma área), **Moderação** (relatos e membros), **Loja** (pedidos e produtos) e **Admin** (tudo). Só o admin muda papéis.\n- **Auditoria**: o registro de toda alteração feita pelo painel, com quem fez, quando e o antes e depois. Só o admin vê.\n- **Filas** (/painel/filas): o painel do Horizon, que mostra as tarefas de fundo (e-mails, fotos, exportações). Só admin.\n- **Saúde** (/painel/saude): o painel do Pulse, com erros, lentidão e uso do servidor. Só admin.\n- **Worker**: o processo que atende a fila de tarefas. Parado, e-mails não saem.\n- **Deploy**: a publicação de uma versão nova do site na VPS, feita pelo admin."
+        },
+        {
+            "id": "privacidade",
+            "title": "Privacidade",
+            "screen": null,
+            "body": "- **LGPD**: a Lei Geral de Proteção de Dados, que orienta como o site trata dados pessoais.\n- **Encarregado de dados**: a pessoa responsável pela privacidade do OVNIPORTO perante os titulares; escreve os textos de privacidade e termos.\n- **EXIF**: os dados que a câmera grava dentro da foto (local, data, aparelho). O site remove todos antes de guardar.\n- **URL assinada**: um link temporário com assinatura, que só funciona por pouco tempo (10 minutos nas fotos de relatos em análise) e só é dado a quem pode ver.\n- **Consentimento**: o \"sim\" registrado com tipo, versão, data, IP e navegador: termos, publicação de cada relato, Avise-me, parceiros.\n- **Titular excluído**: como aparece o cliente de um pedido pago depois que ele exclui a conta; o pedido fica guardado sem dados pessoais pelo prazo fiscal.\n- **Umami**: a métrica de visitas do site, no nosso servidor e sem cookie."
+        }
+    ]
+}

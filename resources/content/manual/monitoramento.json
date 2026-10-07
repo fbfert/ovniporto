@@ -1,0 +1,152 @@
+{
+    "slug": "monitoramento",
+    "area": "auditoria",
+    "group": "backstage",
+    "order": 20,
+    "title": "Monitoramento e backup",
+    "summary": "Filas, saúde do servidor, alertas por e-mail, métrica sem cookie, /up e backup: o que olhar e quando agir.",
+    "reviewedAt": "2026-10-07",
+    "routes": [],
+    "map": {
+        "label": "Monitoramento",
+        "children": [
+            {
+                "label": "Filas (Horizon)",
+                "kind": "screen",
+                "section": "filas",
+                "children": [
+                    { "label": "/painel/filas, só admin", "kind": "care", "section": "filas" },
+                    { "label": "Tarefas pendentes", "kind": "state", "section": "filas" },
+                    { "label": "Tarefas que falharam", "kind": "state", "section": "filas" },
+                    { "label": "Tentar de novo", "kind": "action", "section": "filas" }
+                ]
+            },
+            {
+                "label": "Saúde (Pulse)",
+                "kind": "screen",
+                "section": "saude",
+                "children": [
+                    { "label": "/painel/saude, só admin", "kind": "care", "section": "saude" },
+                    { "label": "Exceções", "kind": "state", "section": "saude" },
+                    { "label": "Lentidão (acima de 1 s)", "kind": "state", "section": "saude" },
+                    { "label": "Servidor e disco", "kind": "state", "section": "saude" }
+                ]
+            },
+            {
+                "label": "Alertas por e-mail",
+                "kind": "care",
+                "section": "alertas",
+                "children": [
+                    { "label": "Tarefa falhou 3 vezes", "kind": "state", "section": "alertas" },
+                    { "label": "Fila esperando mais de 60 s", "kind": "state", "section": "alertas" },
+                    { "label": "ALERTS_EMAIL", "kind": "care", "section": "alertas" }
+                ]
+            },
+            {
+                "label": "Métrica (Umami)",
+                "kind": "screen",
+                "section": "metrica",
+                "children": [
+                    { "label": "Sem cookie", "kind": "care", "section": "metrica" },
+                    { "label": "Eventos contados", "kind": "state", "section": "metrica" },
+                    { "label": "Trocar a senha padrão", "kind": "action", "section": "metrica" }
+                ]
+            },
+            {
+                "label": "No ar e logs",
+                "kind": "screen",
+                "section": "no-ar",
+                "children": [
+                    { "label": "/up", "kind": "state", "section": "no-ar" },
+                    { "label": "Monitor externo a cada 5 min", "kind": "care", "section": "no-ar" },
+                    { "label": "Logs do app e do worker", "kind": "action", "section": "no-ar" }
+                ]
+            },
+            {
+                "label": "Backup",
+                "kind": "screen",
+                "section": "backup",
+                "children": [
+                    { "label": "Todo dia às 3h10", "kind": "state", "section": "backup" },
+                    { "label": "Criptografado, no Google Drive", "kind": "care", "section": "backup" },
+                    { "label": "30 dias de cópias", "kind": "state", "section": "backup" },
+                    { "label": "Restaurar", "kind": "action", "section": "restaurar" },
+                    { "label": "Chave fora da VPS", "kind": "care", "section": "restaurar" }
+                ]
+            },
+            {
+                "label": "Rotinas agendadas",
+                "kind": "state",
+                "section": "rotinas",
+                "children": [
+                    { "label": "Pedidos sem pagamento: 2 h", "kind": "state", "section": "rotinas" },
+                    { "label": "Fotos temporárias: 24 h", "kind": "state", "section": "rotinas" },
+                    { "label": "Rastreio uma vez por dia", "kind": "state", "section": "rotinas" },
+                    { "label": "Horários em UTC", "kind": "care", "section": "rotinas" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "visao",
+            "title": "O que acompanhar e quem vê",
+            "screen": null,
+            "body": "O site tem uma parte que roda escondida: e-mails, fotos de relato, localização da cidade aproximada e exportação de dados passam por uma **fila** (Redis), atendida pelos **workers** do Horizon. Se a fila para, o site continua abrindo, mas e-mails não saem e fotos ficam \"em processamento\".\n\nPara acompanhar isso existem:\n\n- **Filas** (Horizon) em **/painel/filas**;\n- **Saúde** (Pulse) em **/painel/saude**;\n- **alertas por e-mail** quando algo falha de vez;\n- a **métrica** de visitas (Umami), sem cookie;\n- o endereço **/up**, que diz se o site está de pé;\n- o **backup** diário.\n\nFilas e Saúde abrem **só para o admin**, em qualquer ambiente; moderação e loja recebem \"Área restrita da torre.\" (erro 403). Elas não aparecem no menu do painel: digite o endereço direto. Os comandos de servidor ficam no `DEPLOY.md`, na raiz do projeto; este capítulo resume o que cada peça faz."
+        },
+        {
+            "id": "filas",
+            "title": "Filas (Horizon)",
+            "screen": null,
+            "body": "Em **/painel/filas** fica o Horizon, que mostra a fila em tempo real. A tela é em inglês.\n\n- **Pending** (pendentes): tarefas esperando um worker. Um número que só cresce indica worker parado.\n- **Completed** (concluídas): ficam visíveis por **1 hora**.\n- **Failed** (falharam): ficam guardadas por **7 dias**, com a mensagem de erro. Cada tarefa tem até **3 tentativas** e **60 segundos** por tentativa antes de ser dada como falha.\n- Em produção o Horizon usa **até 3 processos** e equilibra sozinho conforme a carga.\n\nNuma tarefa que falhou, o Horizon oferece **Retry** (tentar de novo). Use depois de corrigir a causa (SMTP fora, token vencido); antes disso, ela só falha de novo.\n\nO que passa pela fila: todos os e-mails para membros e clientes (relato recebido, aprovado, pedido, Avise-me, despedida), o tratamento das fotos de relato (remove metadados e gera os tamanhos), a busca da cidade aproximada do relato e o arquivo de \"Baixar meus dados\"."
+        },
+        {
+            "id": "saude",
+            "title": "Saúde (Pulse)",
+            "screen": null,
+            "body": "Em **/painel/saude** fica o Pulse, um retrato do servidor. Os cartões são:\n\n- **Servers**: CPU, memória e disco da VPS (alimentado pelo serviço `pulse`).\n- **Application Usage**: quem mais faz requisições e tarefas.\n- **Queues**: volume das filas ao longo do tempo.\n- **Cache**: acertos e falhas do cache.\n- **Exceptions**: erros registrados pelo site, com o arquivo onde aconteceram. Uma falha na API do Melhor Envio aparece aqui.\n- **Slow Requests**, **Slow Jobs**, **Slow Queries** e **Slow Outgoing Requests**: o que levou mais de **1 segundo** (páginas, tarefas, consultas ao banco e chamadas para PayPal, Melhor Envio, mapa).\n\nOs dados ficam **7 dias**. Olhe o Pulse quando alguém reclamar de lentidão ou quando um alerta chegar: a exceção costuma estar lá com a hora certa."
+        },
+        {
+            "id": "alertas",
+            "title": "Alertas por e-mail",
+            "screen": null,
+            "body": "Dois avisos chegam sozinhos:\n\n- **Tarefa que falhou de vez**: quando uma tarefa falha depois da **terceira tentativa**, sai um e-mail com o assunto **\"Torre: tarefa <nome> falhou <n> vezes\"** e o começo da mensagem de erro. Esse e-mail é enviado **na hora, sem passar pela fila**, porque a fila pode ser justamente o que quebrou (mas depende do SMTP estar funcionando).\n- **Fila esperando demais**: quando a fila principal passa de **60 segundos** de espera, o Horizon manda um aviso.\n\nPara onde vão:\n\n- se a variável **ALERTS_EMAIL** estiver preenchida no `.env` de produção, os dois avisos vão para esse endereço;\n- se estiver vazia, o aviso de tarefa que falhou vai para **todos os admins**, e o aviso de fila esperando **não é enviado** (o Horizon só manda para um endereço configurado).\n\nPor isso, em produção, preencha ALERTS_EMAIL com uma caixa que alguém lê todo dia. Quem configura é o admin com acesso à VPS.\n\nAo receber um alerta: abra /painel/filas, veja a mensagem completa em Failed, procure a exceção no Pulse e só então use Retry."
+        },
+        {
+            "id": "metrica",
+            "title": "Métrica de visitas (Umami)",
+            "screen": null,
+            "body": "A contagem de visitas usa o **Umami**, instalado no nosso próprio servidor, no endereço da métrica (`metrica.ovniporto.tars.art.br`, conforme o DEPLOY.md). Ele tem **login próprio**, separado do painel.\n\n- **Sem cookie** e sem empresa de fora: respeita o \"Não rastrear\" do navegador.\n- Só roda em **produção**, e só quando o endereço do script e o id do site estão configurados.\n- Além das páginas vistas, conta estes eventos: `entrar_comunidade`, `relatar_iniciado`, `relatar_enviado`, `adicionar_carrinho`, `compra_concluida` e `avise_me`.\n\nNo primeiro acesso, **troque a senha padrão do Umami** e cadastre o site (o id vai para o `.env`). Não instale outra ferramenta de métrica, pixel ou anúncio: o site promete não ter cookies de terceiros."
+        },
+        {
+            "id": "no-ar",
+            "title": "Site no ar e logs",
+            "screen": null,
+            "body": "- **/up** responde quando o site está de pé. O script de deploy confere esse endereço no fim de cada deploy; se não responder, volta sozinho para a versão anterior.\n- **Monitor externo**: o DEPLOY.md pede cadastrar `https://ovniporto.tars.art.br/up` num serviço de uptime (UptimeRobot, Better Stack ou Healthchecks), conferindo **a cada 5 minutos**, com alerta por e-mail. Confirme com o admin se já está ativo (item 12 do checklist de go-live).\n- **Logs**: os registros do app e do worker são lidos na VPS com `docker compose ... logs` (comando no DEPLOY.md). Os logs de acesso do nginx ficam no volume `nginx-logs` e são apagados depois de **6 meses**, porque contêm IP."
+        },
+        {
+            "id": "backup",
+            "title": "Backup",
+            "screen": null,
+            "body": "O backup gera **um único arquivo** com:\n\n- o banco do site (MySQL);\n- o banco da métrica (Umami);\n- os arquivos do volume `storage`: as fotos e as imagens geradas pelo site.\n\nRedis (filas e cache) não entra: o que está nele se refaz sozinho.\n\n- O arquivo é **criptografado** com `age` antes de sair da VPS e enviado ao **Google Drive** (pasta `ovniporto-backups`).\n- Roda **todo dia às 3h10**, no horário da VPS, pelo cron do root, depois de configurado (passo a passo no DEPLOY.md, seção Backup).\n- Cópias com mais de **30 dias** são apagadas no Drive.\n\nPara conferir se está rodando: o admin olha a lista de arquivos no Drive (deve haver um por dia) ou o log `/var/log/ovniporto-backup.log` na VPS."
+        },
+        {
+            "id": "restaurar",
+            "title": "Restaurar um backup",
+            "screen": null,
+            "body": "Restaurar é tarefa do admin com acesso à VPS. Em resumo (comandos exatos no DEPLOY.md, seção \"Restaurar um backup\"):\n\n1. Num ambiente limpo, fazer o primeiro deploy com um `.env` equivalente.\n2. Copiar a **chave privada** do backup para a VPS só durante a restauração.\n3. Rodar o script de restauração com o arquivo escolhido (os nomes têm data e hora).\n4. **Apagar a chave** da VPS logo depois.\n5. Conferir: `/up`, o mapa com os relatos, a foto de um relato aprovado, um pedido no painel e a métrica.\n6. Registrar a restauração (data, arquivo, o que foi conferido) em `openspec/changes/add-production-deploy/evidence/restore.md`.\n\nA chave privada (`ovniporto-backup.key`) **nunca fica na VPS**: fica no gerenciador de senhas e numa cópia offline. **Sem ela nenhum backup abre.**"
+        },
+        {
+            "id": "rotinas",
+            "title": "Rotinas agendadas",
+            "screen": null,
+            "body": "O serviço `scheduler` roda sozinho estas tarefas:\n\n- **A cada 10 minutos**: cancela pedidos que estão **há mais de 2 horas** esperando pagamento (o estoque nunca foi tirado).\n- **De hora em hora**: apaga fotos de relato enviadas há mais de **24 horas** que nenhum relato usou; e refaz o `sitemap.xml`.\n- **Uma vez por dia, 07:00 UTC** (04:00 em Brasília): pergunta ao Melhor Envio quais pedidos enviados já foram entregues.\n- **Uma vez por dia, 03:30 UTC** (00:30 em Brasília): apaga de vez os pedidos anonimizados de contas excluídas cujo prazo de guarda fiscal venceu.\n\nO relógio do site está em **UTC**; o backup segue o relógio da VPS. Se o serviço `scheduler` parar, nada disso acontece: pedidos abandonados ficam \"aguardando pagamento\" e as entregas não são marcadas."
+        },
+        {
+            "id": "cuidados",
+            "title": "Cuidados",
+            "screen": null,
+            "body": "- Filas e Saúde mostram nomes de tarefas e mensagens de erro que podem conter dados de clientes: não tire print para grupos nem encaminhe para fora da equipe.\n- Nunca escreva senhas, tokens ou o conteúdo do `.env` em e-mail, chat ou neste manual. Os segredos ficam só no `.env` da VPS.\n- **Retry** em massa só depois de entender a causa: reenviar 50 e-mails com o SMTP fora gera 50 falhas novas.\n- Um backup que nunca foi restaurado não é garantia: a restauração completa entra no checklist de go-live."
+        }
+    ]
+}

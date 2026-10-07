@@ -6,6 +6,10 @@ context: |
   Keep OpenSpec structural headings and SHALL/MUST keywords in English.
 
 # Per-artifact rules (optional)
+rules:
+  tasks:
+    - Se a change toca o painel (rotas, telas, ações, e-mails, papéis), inclua a tarefa "Atualizar o manual do painel (resources/content/manual/<capítulo>.json, texto, mapa, rotas e reviewedAt)", verificada por php artisan test --filter=PanelManual.
+
 # Add custom rules for specific artifacts.
 # Example:
 #   rules:

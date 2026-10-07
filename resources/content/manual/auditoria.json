@@ -1,0 +1,94 @@
+{
+    "slug": "auditoria",
+    "area": "auditoria",
+    "group": "backstage",
+    "order": 10,
+    "title": "Auditoria",
+    "summary": "O registro de tudo o que se faz pelo painel: quem, quando, qual ação, em qual objeto e o que mudou.",
+    "reviewedAt": "2026-10-07",
+    "routes": ["panel.audit"],
+    "map": {
+        "label": "Auditoria",
+        "children": [
+            {
+                "label": "A lista",
+                "kind": "screen",
+                "section": "lista",
+                "children": [
+                    { "label": "Mais nova primeiro", "kind": "state", "section": "lista" },
+                    { "label": "50 por página", "kind": "action", "section": "lista" },
+                    { "label": "Só o admin abre", "kind": "care", "section": "lista" }
+                ]
+            },
+            {
+                "label": "Ler um registro",
+                "kind": "screen",
+                "section": "ler",
+                "children": [
+                    { "label": "Quando", "kind": "state", "section": "ler" },
+                    { "label": "Quem (ou sistema)", "kind": "state", "section": "ler" },
+                    { "label": "Ação", "kind": "state", "section": "ler" },
+                    { "label": "Objeto", "kind": "state", "section": "objeto" },
+                    { "label": "Antes → depois", "kind": "state", "section": "antes-depois" }
+                ]
+            },
+            {
+                "label": "O que é registrado",
+                "kind": "state",
+                "section": "o-que-entra",
+                "children": [
+                    { "label": "Relatos e membros", "kind": "state", "section": "o-que-entra" },
+                    { "label": "Pedidos e CPF", "kind": "state", "section": "o-que-entra" },
+                    { "label": "Loja e conteúdo", "kind": "state", "section": "o-que-entra" }
+                ]
+            },
+            {
+                "label": "Cuidados",
+                "kind": "care",
+                "section": "cuidados",
+                "children": [
+                    { "label": "Não se apaga nem se edita", "kind": "care", "section": "cuidados" },
+                    { "label": "Tem dados pessoais", "kind": "care", "section": "cuidados" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "lista",
+            "title": "Para que serve e quem abre",
+            "screen": "panel.audit",
+            "body": "Em **/painel/auditoria** fica o livro de bordo da torre: \"Toda alteração feita pelo painel, com quem fez, quando e o antes e depois.\" Serve para responder perguntas como \"quem despublicou esse relato?\", \"quando o estoque mudou?\" ou \"quem viu o CPF deste pedido?\".\n\nQuem abre: **só o admin**. Moderação e loja não veem esta área (a moderação vê o histórico de cada relato e de cada membro nas próprias telas).\n\nOs registros vêm do **mais recente para o mais antigo**, 50 por página. Use **Mais antigas** para recuar no tempo e **Mais recentes** para voltar. Não há busca nem filtro: para achar algo antigo, vá recuando as páginas pela data.\n\nSem nenhuma ação ainda, aparece \"Nenhuma ação registrada ainda.\""
+        },
+        {
+            "id": "ler",
+            "title": "Como ler um registro",
+            "screen": "panel.audit",
+            "body": "Cada registro é uma linha com:\n\n- **Quando**: data e hora, no horário de Brasília (ex.: 07/10/26 14:32).\n- **Quem**: o apelido de quem fez (ou o nome, se a pessoa não tem apelido). Aparece **sistema** quando não há mais uma pessoa ligada ao registro, por exemplo porque a conta dela foi excluída depois.\n- **Ação**: uma frase curta, como \"aprovou\", \"bloqueou\", \"ajustou o estoque\", \"viu o CPF do pedido\".\n- **Objeto**: em que a ação foi feita (veja a seção seguinte).\n\nLida de uma vez, a linha forma uma frase: **@ana aprovou relato #42**.\n\nAbaixo da frase, em letra miúda, vêm os detalhes técnicos: o que mudou (antes → depois) e o que a ação carregou (um motivo, uma nota, um número de pedido)."
+        },
+        {
+            "id": "objeto",
+            "title": "O objeto",
+            "screen": "panel.audit",
+            "body": "- Para relatos, o objeto aparece como o link **relato #42**, que abre a tela de revisão.\n- Para o resto, aparece o tipo técnico e o número, sem link: `member #12` (membro), `order #7` (pedido), `product #3` (produto), `partner #2` (parceiro da região), `diary #5` (post da obra), `place #1` (lugar), `campaign #1` (campanha), `content #0` (textos do site), `waitlist #9` (inscrito do Avise-me), `collaborator #4` (colaborador da origem).\n- **#0** aparece quando a ação criou algo novo (um produto, um parceiro, um post da obra) ou mexe em textos do site, que não têm número próprio. O nome do que foi criado vem nos detalhes, em `name` ou `title`.\n- No pedido, o número mostrado no objeto é o número interno; o número que o cliente conhece vem nos detalhes, em `number`."
+        },
+        {
+            "id": "antes-depois",
+            "title": "Antes → depois e detalhes",
+            "screen": "panel.audit",
+            "body": "As linhas miúdas usam os nomes técnicos dos campos, como o servidor grava:\n\n- **campo: antes → depois** aparece só para o que mudou. Um traço (—) quer dizer vazio. Ex.: `status: pending → approved` (em análise → aprovado), `role: member → moderator` (Membro → Moderação), `blockedAt: — → ` seguido da data e hora (o membro foi bloqueado nesse momento).\n- **campo: valor** são os detalhes da ação. Os mais comuns:\n  - `noteToAuthor`: o recado enviado ao autor de um relato (ajuste ou rejeição);\n  - `reason`: o motivo (de um bloqueio, de um ajuste de estoque ou, na rejeição de relato, o código do motivo: `identifiable_person`, `license_plate`, `offensive`, `not_a_sighting`, `other`);\n  - `note`: a nota interna de uma despublicação;\n  - `role`: o papel novo de um membro;\n  - `number`: o número do pedido.\n\nNomes de situação que aparecem em relatos: `pending` (em análise), `approved` (aprovado), `changes_requested` (ajuste pedido), `rejected` (rejeitado).\n\nNem toda ação guarda o antes e depois. Guardam: relatos, membros, mudanças de situação dos pedidos, configurações da campanha, edição e remoção de posts da obra, parceiros da região (exceto o cadastro), configurações e textos do site. Guardam só os detalhes: produtos, espaços e fotos do lugar, mapa 3D, perguntas do FAQ, regras, apoiadores e patrocinadores, ver o CPF, criação de post ou de parceiro e remoções do Avise-me e de colaboradores: por exemplo, \"editou um produto\" diz quem e quando, mas não quais campos mudaram."
+        },
+        {
+            "id": "o-que-entra",
+            "title": "O que é registrado",
+            "screen": null,
+            "body": "Entra na auditoria toda alteração feita pelo painel, gravada junto com a própria mudança (se uma falha, a outra também não fica):\n\n- **Relatos**: aprovou, pediu ajuste, rejeitou, despublicou. Também entra quando o **autor** reenvia um relato depois de ajuste (\"reenviou após ajuste\", com o apelido dele em Quem).\n- **Membros**: mudou o papel, bloqueou, retirou o bloqueio, excluiu a conta.\n- **Pedidos**: viu o CPF, pôs em produção, gerou a etiqueta, marcou como enviado ou entregue, cancelou, reembolsou.\n- **Produtos**: criou, editou, variantes, estoque e fotos.\n- **Conteúdo**: configurações, textos do site, FAQ e regras, lugar e fotos do terreno, mapa 3D, posts da obra, parceiros da região, campanha, apoiadores e patrocinadores, remoção de inscritos do Avise-me e de colaboradores.\n\nNão entram: o que o público faz no site (enviar relato, comprar, se inscrever), as mudanças automáticas de pedidos (pagamento confirmado, rastreio atualizado; essas ficam na linha do tempo do próprio pedido) nem simples visitas às telas do painel, exceto **ver o CPF**, que é registrado de propósito.\n\nUma ação nova que ainda não tem frase em português aparece com o nome técnico (ex.: `collaborator.removed`, que é a remoção de um colaborador da origem)."
+        },
+        {
+            "id": "cuidados",
+            "title": "Cuidados",
+            "screen": null,
+            "body": "- **Não se apaga nem se edita**: o painel não tem botão para mexer na auditoria. É assim que ela vale como prova do que foi feito.\n- **Tem dados pessoais**: motivos de bloqueio, recados a autores e notas internas ficam aqui mesmo depois que a conta ou o relato foi apagado. Não copie nada daqui para fora do painel.\n- Os registros de um relato e de um membro também aparecem no **Histórico** da tela de revisão e da ficha do membro, para quem modera sem acesso a esta área.\n- Se algo saiu do ar e ninguém sabe por quê, comece aqui: procure a data, veja quem fez e leia a nota ou o motivo."
+        }
+    ]
+}

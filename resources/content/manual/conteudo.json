@@ -1,0 +1,153 @@
+{
+    "slug": "conteudo",
+    "area": "conteudo",
+    "group": "site",
+    "order": 10,
+    "title": "Conteúdo e textos do site",
+    "summary": "A central de conteúdo, os links e metas, os textos editáveis do site, o FAQ, as regras e a prévia em markdown.",
+    "reviewedAt": "2026-10-07",
+    "routes": [
+        "panel.content",
+        "panel.preview",
+        "panel.settings",
+        "panel.settings.links",
+        "panel.settings.goals",
+        "panel.settings.block",
+        "panel.settings.items.store",
+        "panel.settings.items.update",
+        "panel.settings.items.destroy",
+        "panel.settings.items.move"
+    ],
+    "map": {
+        "label": "Conteúdo",
+        "children": [
+            {
+                "label": "Central de conteúdo",
+                "kind": "screen",
+                "section": "central",
+                "children": [
+                    { "label": "Sete telas numeradas", "kind": "screen", "section": "central" },
+                    { "label": "Só admin", "kind": "care", "section": "central" }
+                ]
+            },
+            {
+                "label": "Links e contato",
+                "kind": "screen",
+                "section": "links",
+                "children": [
+                    { "label": "WhatsApp e Instagram (https)", "kind": "action", "section": "links" },
+                    { "label": "E-mail obrigatório", "kind": "care", "section": "links" },
+                    { "label": "Vazio vira \"em breve\"", "kind": "state", "section": "links" }
+                ]
+            },
+            {
+                "label": "Lançamento e metas",
+                "kind": "screen",
+                "section": "metas",
+                "children": [
+                    { "label": "Data de lançamento", "kind": "action", "section": "metas" },
+                    { "label": "Metas de 6 meses", "kind": "action", "section": "metas" },
+                    { "label": "Aparece no início do painel", "kind": "state", "section": "metas" }
+                ]
+            },
+            {
+                "label": "Textos do site",
+                "kind": "screen",
+                "section": "textos",
+                "children": [
+                    { "label": "Página inicial", "kind": "action", "section": "textos" },
+                    { "label": "O relato do carro amarelo", "kind": "action", "section": "relato" },
+                    { "label": "Relato vazio: aviso e Avise-me", "kind": "state", "section": "relato" },
+                    { "label": "Privacidade e termos", "kind": "action", "section": "legais" },
+                    { "label": "Aviso de rascunho", "kind": "state", "section": "legais" }
+                ]
+            },
+            {
+                "label": "Editar e Prévia",
+                "kind": "action",
+                "section": "markdown",
+                "children": [
+                    { "label": "Mesma renderização do site", "kind": "state", "section": "markdown" },
+                    { "label": "Prévia não salva", "kind": "care", "section": "markdown" },
+                    { "label": "Onde o markdown não vale", "kind": "care", "section": "markdown" }
+                ]
+            },
+            {
+                "label": "FAQ e regras",
+                "kind": "screen",
+                "section": "listas",
+                "children": [
+                    { "label": "Adicionar", "kind": "action", "section": "listas" },
+                    { "label": "Editar e cancelar", "kind": "action", "section": "listas" },
+                    { "label": "Subir e descer", "kind": "action", "section": "listas" },
+                    { "label": "Remover de vez", "kind": "care", "section": "listas" }
+                ]
+            },
+            {
+                "label": "Cuidados",
+                "kind": "care",
+                "section": "cuidados",
+                "children": [
+                    { "label": "Tudo vai para a auditoria", "kind": "care", "section": "cuidados" },
+                    { "label": "Nunca inventar conteúdo", "kind": "care", "section": "cuidados" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "central",
+            "title": "A central de conteúdo",
+            "screen": "panel.content",
+            "body": "Em **/painel/conteudo** fica a porta de entrada de tudo o que o público lê e que não é relato nem pedido. A tela mostra uma lista numerada (01, 02, 03...) com sete entradas:\n\n1. **Configurações e textos**: links, metas, textos da página inicial e das páginas legais, FAQ e regras (este capítulo).\n2. **O lugar**: espaços planejados, ilustrações de conceito, fotos do terreno e mapa 3D (capítulo \"O lugar e a obra\").\n3. **Diário da obra**: posts com prévia e agendamento (mesmo capítulo).\n4. **Região**, 5. **Campanha**, 6. **Avise-me** e 7. **Colaboradores**: cada uma tem capítulo próprio.\n\nQuem abre: **só o admin**. Moderação e loja não veem esta área nem nada dentro dela; o servidor confere o papel em cada pedido.\n\nEm todas as telas de conteúdo, o link **Voltar ao conteúdo** no topo traz você de volta para cá."
+        },
+        {
+            "id": "links",
+            "title": "Links e contato",
+            "screen": "panel.settings",
+            "body": "Em **/painel/configuracoes**, o bloco **Links e contato** tem três campos:\n\n- **Link do grupo de WhatsApp** e **Link do Instagram**: opcionais, até 255 caracteres, e precisam ser endereços completos começando com `https://`. Um link sem https é recusado.\n- **E-mail de contato**: obrigatório (até 120 caracteres), precisa ser um e-mail válido.\n\nClique em **Salvar**; aparece o aviso \"Links salvos.\"\n\nOnde aparece: esses canais são enviados a todas as páginas públicas, como a **/comunidade**, que mostra os links do grupo e do Instagram. Como diz a dica da tela, **link vazio aparece no site como \"em breve\"**, nunca como um link quebrado. Se o e-mail nunca tiver sido preenchido, o site usa `contato@ovniporto.tars.art.br`."
+        },
+        {
+            "id": "metas",
+            "title": "Lançamento e metas de 6 meses",
+            "screen": "panel.settings",
+            "body": "O bloco **Lançamento e metas de 6 meses** tem:\n\n- **Data de lançamento**.\n- **Meta de membros**, **Meta de relatos** e **Meta de pedidos**: números inteiros de 0 a 1.000.000, todos opcionais.\n\nClique em **Salvar**; aparece \"Metas salvas.\"\n\nEssas metas **não aparecem no site público**: elas alimentam o quadro de metas no **início do painel** (/painel), que mede o andamento de membros, relatos e pedidos desde a data de lançamento até seis meses depois.\n\n- Sem **Data de lançamento**, o quadro de metas não aparece.\n- Uma meta vazia ou igual a 0 fica de fora do quadro."
+        },
+        {
+            "id": "textos",
+            "title": "Textos do site",
+            "screen": "panel.settings",
+            "body": "O bloco **Textos do site** lista os textos editáveis. Clique no nome de um texto para abrir o editor; clique de novo para fechar. Ao lado do nome aparece o estado: vazio, ou a data da última atualização (só nos textos legais).\n\n| Texto no painel | Onde aparece no site |\n|---|---|\n| **Página inicial: apresentação** | seção de boas-vindas da home |\n| **Página inicial: o lugar** | frase de abertura da seção do lugar na home |\n| **Página inicial: loja** | frase da seção da loja na home |\n| **Página inicial: a origem** | chamada da seção da origem na home |\n| **Origem: o relato do carro amarelo** | /origem/relato inteiro; abertura na home e em /origem (veja a próxima seção) |\n| **Política de privacidade** | /privacidade |\n| **Termos de uso** | /termos |\n\nEdite, confira na **Prévia** e clique em **Salvar**; aparece \"Texto salvo.\" Cada texto aceita até 60.000 caracteres.\n\n**Atenção com os quatro textos da página inicial**: a home mostra esses textos **como estão escritos**, sem converter markdown. Escreva uma frase ou parágrafo corrido, sem `**`, `##` ou listas, senão os símbolos aparecem para o visitante. Se um deles ficar vazio, o trecho simplesmente some da seção."
+        },
+        {
+            "id": "relato",
+            "title": "O relato do carro amarelo",
+            "screen": "panel.settings",
+            "body": "O texto **Origem: o relato do carro amarelo** (nome técnico `legend_body`) guarda o relato do Lada Niva amarelo do Julean, do jeito que ele contou. Ele é contado como relato (\"segundo contam...\"), nunca como documento.\n\nUm mesmo texto alimenta três lugares:\n\n- **/origem/relato**: o relato inteiro, com o markdown convertido em texto de leitura. Parágrafos bem curtos (até 12 caracteres, como \"Silêncio.\") aparecem maiores, como uma batida da história; a **Prévia** do painel não mostra esse destaque.\n- **Página inicial** e **/origem**: só os **três primeiros parágrafos**, com o botão **Ler o relato inteiro** levando para /origem/relato. Escreva a abertura pensando nisso.\n\n**Quando o texto fica vazio**, nada é inventado: a home mostra \"Ainda estamos capturando o relato do Julean que foi abduzido.\" com o botão **Ver a origem**, e /origem/relato mostra o mesmo aviso com o formulário do Avise-me.\n\nApagar todo o texto e salvar volta o site para esse estado de espera."
+        },
+        {
+            "id": "legais",
+            "title": "Privacidade e termos",
+            "screen": "panel.settings",
+            "body": "**Política de privacidade** e **Termos de uso** têm um editor maior e uma caixa a mais: **Texto revisado pelo responsável (tira o aviso de rascunho)**.\n\n- **Toda vez que você salva** um desses textos, a data de atualização vira **a data de hoje**. No painel aparece \"Atualizado em ...\"; no site, a mesma data aparece na página.\n- Com a caixa **desmarcada**, a página pública mostra o aviso \"RASCUNHO — texto final será redigido pelo encarregado (Felipe)\". Só marque a caixa quando o texto tiver sido revisado pelo responsável. Salvar com a caixa desmarcada devolve o aviso.\n- Cada título de nível 2 (`## Título`) vira um item do índice no topo da página. Use `##` para cada tópico.\n- Em /privacidade, o site acrescenta antes do índice o bloco \"O que fazemos na prática\", que vem do próprio código e não é editado aqui.\n\nNão escreva texto jurídico por conta própria para \"preencher\": enquanto não houver versão final, a página fica marcada como rascunho."
+        },
+        {
+            "id": "markdown",
+            "title": "Editar e Prévia (markdown)",
+            "screen": "panel.settings",
+            "body": "Os textos do site, as respostas do FAQ, as regras e os posts do diário usam o mesmo editor, com dois botões no canto: **Editar** e **Prévia**.\n\n- O texto é escrito em markdown. A dica embaixo do campo resume o básico: `## para título, **negrito**, - para listas.`\n- **Prévia** pede ao servidor a versão pronta, com **a mesma conversão usada nas páginas públicas**: o que aparece ali é o que o site mostra. Sem texto, aparece \"Nada para mostrar ainda.\"\n- **Editar** volta para o campo de texto.\n- **A prévia não salva nada.** Só o botão **Salvar** (ou **Adicionar pergunta** / **Adicionar regra**) grava.\n- Código HTML colado no texto é descartado; links inseguros também.\n\nOnde o markdown **não** vale, mesmo com o editor oferecendo prévia: nos quatro textos da **Página inicial** e no texto das **Regras da comunidade**. Nesses lugares o site mostra o texto puro, então escreva sem marcação."
+        },
+        {
+            "id": "listas",
+            "title": "Perguntas frequentes e regras da comunidade",
+            "screen": "panel.settings",
+            "body": "No fim de /painel/configuracoes ficam duas listas: **Perguntas frequentes** (vão para **/faq**) e **Regras da comunidade** (vão para **/comunidade**). As duas funcionam igual.\n\n**Adicionar**: preencha o formulário no fim da lista (**Pergunta** e **Resposta (markdown)** no FAQ; **Regra** e **Texto** nas regras) e clique em **Adicionar pergunta** ou **Adicionar regra**. Os dois campos são obrigatórios: sem eles aparecem \"Escreva o título.\" e \"Escreva o texto.\" O título vai até 255 caracteres; o texto, até 5.000. O item novo entra no fim da lista.\n\n**Editar**: o botão **Editar** abre o item no lugar; **Salvar** grava, **Cancelar** fecha sem gravar.\n\n**Ordem**: as setas **Subir** e **Descer** trocam o item de lugar com o vizinho. A ordem do painel é a ordem do site. A seta fica desligada no primeiro (subir) e no último (descer) item.\n\n**Remover**: o botão **Remover** pede confirmação (\"Remover de vez?\"). Não há lixeira: o item some do site na hora.\n\nNo /faq, a resposta é convertida de markdown e aparece num acordeão, uma aberta por vez. Nas regras de /comunidade, o texto aparece puro (veja \"Editar e Prévia\"). Lista vazia mostra \"Nada aqui ainda.\" no painel."
+        },
+        {
+            "id": "cuidados",
+            "title": "Cuidados",
+            "screen": null,
+            "body": "- **Tudo vai para a auditoria**: links, metas, textos, itens do FAQ e das regras (criar, salvar, mover, remover) geram um registro com quem fez e quando. O admin vê em /painel/auditoria.\n- **Salvar publica na hora**: não há rascunho nos textos do site. Use a **Prévia** antes.\n- **Nunca invente conteúdo que ainda não existe**: o relato do Julean, o texto jurídico final, o orçamento da obra. Deixe o texto vazio e o site mostra o estado de espera honesto.\n- Não use a palavra que o site evita para o relato: a página é \"A origem\" e a história do carro é \"o relato\".\n- Nenhum texto deve falar do lugar em Pedras Brancas como se já funcionasse: ele é um projeto com meta 2028.\n- O aviso do painel ao lado de um texto vazio diz que o site mostra \"aguardando conteúdo\"; na prática, cada página trata o vazio do seu jeito (veja as seções acima)."
+        }
+    ]
+}

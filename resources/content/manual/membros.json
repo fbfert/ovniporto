@@ -1,0 +1,128 @@
+{
+    "slug": "membros",
+    "area": "membros",
+    "group": "community",
+    "order": 20,
+    "title": "Membros",
+    "summary": "Encontrar uma pessoa, ver a ficha dela, mudar o papel no painel, bloquear e excluir a conta.",
+    "reviewedAt": "2026-10-07",
+    "routes": [
+        "panel.members",
+        "panel.members.show",
+        "panel.members.role",
+        "panel.members.block",
+        "panel.members.unblock",
+        "panel.members.destroy"
+    ],
+    "map": {
+        "label": "Membros",
+        "children": [
+            {
+                "label": "Busca",
+                "kind": "screen",
+                "section": "lista",
+                "children": [
+                    { "label": "Apelido, nome ou e-mail", "kind": "action", "section": "lista" },
+                    { "label": "Papel e situação", "kind": "action", "section": "lista" },
+                    { "label": "Filtros no endereço", "kind": "state", "section": "lista" }
+                ]
+            },
+            {
+                "label": "Ficha do membro",
+                "kind": "screen",
+                "section": "ficha",
+                "children": [
+                    { "label": "Perfil e termos", "kind": "state", "section": "ficha" },
+                    { "label": "Relatos da pessoa", "kind": "state", "section": "ficha" },
+                    { "label": "Histórico", "kind": "state", "section": "ficha" },
+                    { "label": "Sua própria conta", "kind": "care", "section": "ficha" }
+                ]
+            },
+            {
+                "label": "Papel no painel",
+                "kind": "action",
+                "section": "papel",
+                "children": [
+                    { "label": "Só o admin muda", "kind": "care", "section": "papel" },
+                    { "label": "O que cada papel abre", "kind": "state", "section": "papel" },
+                    { "label": "E-mails de relato novo", "kind": "state", "section": "papel" }
+                ]
+            },
+            {
+                "label": "Bloqueio",
+                "kind": "action",
+                "section": "bloquear",
+                "children": [
+                    { "label": "Motivo obrigatório", "kind": "care", "section": "bloquear" },
+                    { "label": "Sem relatos novos", "kind": "state", "section": "bloquear" },
+                    { "label": "Sem pedidos na loja", "kind": "state", "section": "bloquear" },
+                    { "label": "Retirar bloqueio", "kind": "action", "section": "desbloquear" }
+                ]
+            },
+            {
+                "label": "Excluir conta",
+                "kind": "action",
+                "section": "excluir",
+                "children": [
+                    { "label": "Só o admin", "kind": "care", "section": "excluir" },
+                    { "label": "Relatos e fotos apagados", "kind": "state", "section": "excluir" },
+                    { "label": "Pedidos anonimizados", "kind": "state", "section": "excluir" },
+                    { "label": "E-mail de despedida", "kind": "action", "section": "excluir" }
+                ]
+            },
+            {
+                "label": "LGPD",
+                "kind": "care",
+                "section": "lgpd",
+                "children": [
+                    { "label": "Baixar meus dados", "kind": "care", "section": "lgpd" },
+                    { "label": "Nada se desfaz", "kind": "care", "section": "lgpd" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "lista",
+            "title": "Encontrar um membro",
+            "screen": "panel.members",
+            "body": "Em **/painel/membros** ficam todas as contas da comunidade, com o total no canto (\"128 membros\").\n\nQuem abre: **admin** e **moderação**. A loja não vê esta área.\n\nComo filtrar:\n\n- **Buscar por apelido, nome ou e-mail**: digite e espere um instante, a lista se atualiza sozinha. Vale qualquer pedaço do texto (até 80 caracteres).\n- **Ordem**: **Mais recentes** (quem entrou por último primeiro) ou **Apelido A–Z** (contas ainda sem apelido vão para o fim).\n- **Papel**: **Todos**, **Membro**, **Moderação**, **Loja** ou **Admin**.\n- **Situação**: **Todos** ou **Bloqueados**.\n\nOs filtros ficam no endereço da página: dá para copiar o link de uma busca e mandar para outra pessoa da torre.\n\nCada linha mostra a foto do Google (ou a inicial), o **@apelido** (ou \"sem apelido ainda\", para quem entrou e não terminou o cadastro), o papel quando não é Membro, a etiqueta **bloqueado**, o nome real e o e-mail, quantos relatos a pessoa enviou e quando entrou. São 25 por página; use **Anteriores** e **Próximos**. Sem resultados, aparece \"Ninguém com esses filtros.\""
+        },
+        {
+            "id": "ficha",
+            "title": "A ficha do membro",
+            "screen": "panel.members.show",
+            "body": "Ao clicar num membro abre a ficha dele:\n\n- No topo: apelido, nome real, e-mail, papel e, se for o caso, **bloqueado**.\n- **Perfil**: **Entrou em**, **Cidade** e **Termos aceitos em** (data e hora em que aceitou os termos de uso), mais quantos relatos dele estão publicados.\n- **Relatos**: os últimos 50 relatos da pessoa, com número, tipo, data observada e situação. Clicar num deles abre a tela de revisão da moderação.\n- À direita, os cartões **Papel no painel**, **Bloqueio** e (só para o admin) **Excluir conta**.\n- **Histórico**: tudo o que a torre fez com essa conta (papel mudado, bloqueio com o motivo, bloqueio retirado), com quem fez e quando.\n\n**Na sua própria conta** os cartões não aparecem: \"Esta é a sua conta: papel, bloqueio e exclusão não se mexem por aqui.\" Para mexer na sua conta, use Minha conta no site; para mudar o seu papel, peça a outro admin.\n\nNome real e e-mail existem aqui para a torre operar. Eles nunca aparecem no site: em público, a pessoa é só o @apelido."
+        },
+        {
+            "id": "papel",
+            "title": "Mudar o papel no painel",
+            "screen": "panel.members.show",
+            "body": "**Só o admin muda papéis.** Para a moderação, o cartão mostra apenas \"Só o admin muda papéis.\"\n\nNo cartão **Papel no painel**, escolha o papel e clique **Salvar papel** (o botão só acende quando o papel escolhido é diferente do atual). Aviso: \"Papel atualizado.\" A mudança vale na próxima página que a pessoa abrir.\n\nO que cada papel abre no painel:\n\n| Papel | Áreas |\n|---|---|\n| Membro | nenhuma (só o site) |\n| Moderação | Início, Relatos, Membros, Manual |\n| Loja | Início, Pedidos, Produtos, Manual |\n| Admin | todas, incluindo Conteúdo e Auditoria |\n\nAlém das áreas, quem tem papel **Moderação** ou **Admin** passa a receber por e-mail o aviso \"Novo relato #N na fila da torre\" a cada relato enviado ou reenviado. Ao tirar o papel, os avisos param.\n\nA troca vai para o histórico da ficha e para a auditoria, com o papel antes e depois. Admin pode dar ou tirar o papel de outro admin; ninguém muda o próprio papel."
+        },
+        {
+            "id": "bloquear",
+            "title": "Bloquear um membro",
+            "screen": "panel.members.show",
+            "body": "Admin e moderação podem bloquear.\n\nSó se bloqueia quem tem papel **Membro**. Se a pessoa tem papel no painel, o cartão mostra \"Tire o papel no painel antes de bloquear.\" (o admin muda o papel para Membro primeiro).\n\nNo cartão **Bloqueio**, escreva o **Motivo do bloqueio** (de 10 a 500 caracteres; ele fica registrado) e clique **Bloquear**. Aviso: \"Membro bloqueado.\"\n\nO que o bloqueio faz:\n\n- a pessoa **não envia relatos novos**: ao abrir a página de relatar, ela volta para Minha conta com a mensagem \"Sua conta está bloqueada pela torre. Escreva para o contato do site se achar que é engano.\";\n- ela também **não reenvia** um relato com ajuste pedido nem envia fotos;\n- **não fecha pedidos na loja** com essa conta: o checkout recusa com a mesma mensagem.\n\nO que o bloqueio **não** faz:\n\n- não tira a pessoa do login nem apaga nada: ela continua entrando, vendo Minha conta, baixando os dados e podendo excluir a própria conta;\n- não mexe nos relatos já enviados: os aprovados continuam no Livro e os pendentes continuam na fila esperando decisão;\n- **não envia e-mail** avisando a pessoa.\n\nDepois do bloqueio, o cartão mostra **Bloqueado desde** com data e hora e o motivo registrado."
+        },
+        {
+            "id": "desbloquear",
+            "title": "Retirar o bloqueio",
+            "screen": "panel.members.show",
+            "body": "No cartão **Bloqueio** de um membro bloqueado, clique **Retirar bloqueio**. Não há confirmação: o bloqueio sai na hora, com o aviso \"Bloqueio retirado.\"\n\nA pessoa volta a poder relatar e comprar. O motivo some da ficha, mas continua guardado no histórico e na auditoria, junto com quem bloqueou e quem retirou. Nenhum e-mail é enviado."
+        },
+        {
+            "id": "excluir",
+            "title": "Excluir uma conta",
+            "screen": "panel.members.show",
+            "body": "**Só o admin** vê o cartão **Excluir conta**. Use quando a própria pessoa pediu a exclusão e não conseguiu fazer sozinha, ou por decisão da torre.\n\nClique **Excluir conta**; a janela pergunta \"Excluir a conta de @apelido?\". Confirme em **Excluir para sempre**. Aviso: \"Conta excluída, com relatos e fotos.\" e você volta para a lista.\n\nO que acontece, tudo de uma vez:\n\n- **relatos e fotos** da pessoa são apagados (saem do Livro e do mapa), inclusive fotos enviadas que ela não chegou a usar;\n- **pedidos** ficam só com o que a lei fiscal exige, **sem nome nem contato**, e são apagados de vez depois do prazo de guarda (5 anos, salvo outro valor configurado no servidor) por uma rotina diária;\n- **consentimentos** perdem tudo o que aponta para a pessoa e guardam só tipo, versão e data;\n- a inscrição no **Avise-me** e as ofertas de colaboração com a origem enviadas com o mesmo e-mail são apagadas;\n- o perfil é apagado;\n- a pessoa recebe o e-mail \"Sua conta no OVNIPORTO foi excluída\". Se voltar a entrar com o Google, começa do zero.\n\n**Não dá para desfazer.** A auditoria guarda que a conta foi excluída, por quem e quando, com o papel e o bloqueio que ela tinha. Ações que essa pessoa fez no painel, se tinha papel, passam a aparecer na auditoria como feitas por \"sistema\"."
+        },
+        {
+            "id": "lgpd",
+            "title": "LGPD: pedidos das pessoas sobre os próprios dados",
+            "screen": null,
+            "body": "- **Ver ou levar os dados**: o painel não exporta dados de um membro. A própria pessoa faz isso em **Minha conta**, no bloco **Baixar meus dados**, botão **Pedir meus dados**: um arquivo JSON chega no e-mail dela em alguns minutos. Se alguém pedir por e-mail, oriente esse caminho.\n- **Apagar a conta**: a pessoa pode fazer sozinha em **Minha conta** → **Excluir minha conta**, confirmando com o apelido. Só use a exclusão pelo painel quando ela não conseguir; o efeito é o mesmo.\n- **Apagar um relato só**: a própria pessoa exclui pela Minha conta. A torre não apaga relatos soltos; para tirar do ar, use **Despublicar** ou **Rejeitar** na moderação.\n- **Nunca** copie nome, e-mail ou motivo de bloqueio para fora do painel. O motivo do bloqueio é um registro interno: escreva o fato, sem adjetivos.\n- Tudo o que se faz nesta área (papel, bloqueio, retirada, exclusão) fica na auditoria, com quem fez e quando."
+        }
+    ]
+}

@@ -1,0 +1,144 @@
+{
+    "slug": "problemas",
+    "area": null,
+    "group": "reference",
+    "order": 20,
+    "title": "Quando algo dá errado",
+    "summary": "Pagamento sem confirmação, etiqueta que não sai, e-mail que não chega, relato parado, 403 e conteúdo antigo: o que conferir e quem chamar.",
+    "reviewedAt": "2026-10-07",
+    "routes": [],
+    "map": {
+        "label": "Problemas",
+        "children": [
+            {
+                "label": "Pagamento não confirmou",
+                "kind": "state",
+                "section": "pagamento",
+                "children": [
+                    { "label": "Em análise no PayPal", "kind": "state", "section": "pagamento" },
+                    { "label": "Webhook do PayPal", "kind": "care", "section": "pagamento" },
+                    { "label": "Cancelado após 2 h", "kind": "state", "section": "pagamento" },
+                    { "label": "Pix depois do cancelamento", "kind": "action", "section": "pagamento-tarde" },
+                    { "label": "Valor diferente", "kind": "care", "section": "pagamento-tarde" }
+                ]
+            },
+            {
+                "label": "Etiqueta não saiu",
+                "kind": "state",
+                "section": "etiqueta",
+                "children": [
+                    { "label": "Saldo do Melhor Envio", "kind": "care", "section": "etiqueta" },
+                    { "label": "Token vencido", "kind": "care", "section": "etiqueta" },
+                    { "label": "Conferir antes de repetir", "kind": "care", "section": "etiqueta" },
+                    { "label": "Rastreio à mão", "kind": "action", "section": "etiqueta" }
+                ]
+            },
+            {
+                "label": "E-mail não chegou",
+                "kind": "state",
+                "section": "email",
+                "children": [
+                    { "label": "Fila parada", "kind": "state", "section": "email" },
+                    { "label": "SMTP", "kind": "care", "section": "email" },
+                    { "label": "Caixa de spam", "kind": "action", "section": "email" }
+                ]
+            },
+            {
+                "label": "Relato parado",
+                "kind": "state",
+                "section": "relato",
+                "children": [
+                    { "label": "Esperando a torre", "kind": "state", "section": "relato" },
+                    { "label": "Foto em processamento", "kind": "state", "section": "relato" },
+                    { "label": "Cidade a localizar", "kind": "state", "section": "relato" },
+                    { "label": "Aprovado e fora do mapa", "kind": "state", "section": "relato" }
+                ]
+            },
+            {
+                "label": "Erro 403",
+                "kind": "state",
+                "section": "erro-403",
+                "children": [
+                    { "label": "Área do outro papel", "kind": "state", "section": "erro-403" },
+                    { "label": "Filas e Saúde: só admin", "kind": "care", "section": "erro-403" },
+                    { "label": "Conta bloqueada", "kind": "state", "section": "erro-403" }
+                ]
+            },
+            {
+                "label": "Conteúdo antigo",
+                "kind": "state",
+                "section": "cache",
+                "children": [
+                    { "label": "Recarregar a página", "kind": "action", "section": "cache" },
+                    { "label": "Mapa: até 1 min", "kind": "state", "section": "cache" },
+                    { "label": "Arquivos da origem", "kind": "care", "section": "cache" }
+                ]
+            },
+            {
+                "label": "Quem chamar",
+                "kind": "care",
+                "section": "quem-chamar",
+                "children": [
+                    { "label": "Antes de chamar", "kind": "action", "section": "antes" },
+                    { "label": "Loja, moderação ou admin", "kind": "care", "section": "quem-chamar" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "antes",
+            "title": "Antes de tudo",
+            "screen": null,
+            "body": "Quase todo problema cai num destes lugares:\n\n- **A fila** (Horizon, /painel/filas): e-mails, fotos e exportações passam por ela.\n- **Um serviço de fora**: PayPal, Melhor Envio, SMTP, mapa.\n- **Permissão**: o papel da pessoa não abre aquela área.\n- **Cache**: a página mostra um retrato de alguns segundos atrás.\n\nAnote antes de chamar alguém: **o que** aconteceu, **quando** (hora certa), **onde** (endereço da página, número do pedido ou do relato) e a **mensagem exata** que apareceu. Isso economiza metade da investigação. Filas e Saúde são só do admin; os outros papéis passam essas informações para ele."
+        },
+        {
+            "id": "pagamento",
+            "title": "Pagamento não confirmou",
+            "screen": null,
+            "body": "O pedido vira **pago** por dois caminhos, o que chegar primeiro: a volta do cliente pela janela do PayPal (o servidor captura o pagamento na hora) ou o **aviso do PayPal** (webhook) em `/webhooks/paypal`. O segundo a chegar encontra o pedido pago e não faz nada.\n\nSe o pedido está em **aguardando pagamento**:\n\n- **Pagamento em análise no PayPal**: o cliente aprovou, mas o PayPal ainda não concluiu. O pedido fica esperando e é o webhook que conclui. Confira na conta do PayPal pela **Ordem no provedor** mostrada na ficha do pedido.\n- **Webhook não chega ou é recusado**: todo aviso tem a assinatura conferida com o PayPal usando o `PAYPAL_WEBHOOK_ID` do `.env`. Se esse id estiver vazio ou errado, **todo** aviso é recusado e o pedido não muda. Se vários pedidos ficam presos ao mesmo tempo, chame o admin para conferir o webhook no PayPal (`https://ovniporto.tars.art.br/webhooks/paypal`) e o id no `.env` (item 7 do checklist de go-live).\n- **Pagamento recusado**: o cliente vê \"O pagamento não foi aprovado. Tente outro cartão ou o Pix.\" e pode tentar de novo enquanto o pedido estiver esperando.\n- **Mais de 2 horas**: a cada 10 minutos, uma rotina cancela os pedidos que estão há mais de 2 horas sem pagamento. O estoque nunca foi tirado, então não há o que devolver.\n\nSe o cliente vê \"O pagamento ainda está sendo configurado\", as credenciais do PayPal não estão no `.env` de produção: chame o admin."
+        },
+        {
+            "id": "pagamento-tarde",
+            "title": "Pagamento que chegou atrasado ou com outro valor",
+            "screen": null,
+            "body": "Dois casos não se resolvem sozinhos. Em ambos, a loja e o admin recebem o e-mail **\"Atenção no pedido <número>\"** e a explicação fica na **linha do tempo** do pedido:\n\n- **\"Pagamento ... chegou após o cancelamento: reembolsar.\"**: um Pix pago depois das 2 horas. O pedido continua **cancelado** e o dinheiro está no PayPal. Como pedido cancelado não oferece ações no painel, o **reembolso é feito direto na conta do PayPal**, pelo número da captura que aparece na nota. Avise o cliente.\n- **\"Valor capturado (...) diferente do total: conferir.\"**: o valor recebido não bate com o total do pedido. O pedido fica em aguardando pagamento até alguém conferir no PayPal o que aconteceu. Não marque em produção antes disso."
+        },
+        {
+            "id": "etiqueta",
+            "title": "A etiqueta não saiu",
+            "screen": null,
+            "body": "**Gerar etiqueta** só aparece em pedido **em produção**, com entrega (retirada em Lages não tem etiqueta) e ainda sem rastreio. Ao clicar, o painel faz três passos no Melhor Envio: põe o envio no carrinho, **paga com o saldo da conta** e gera a etiqueta.\n\nSe algo falha, o painel mostra a mensagem genérica \"O cálculo de frete está fora do ar agora...\", mesmo quando o problema não é o cálculo. A resposta real do Melhor Envio vai para o registro de erros (cartão **Exceptions** em /painel/saude, só admin). Causas comuns:\n\n- **Saldo insuficiente** na conta do Melhor Envio: a etiqueta é paga com o saldo.\n- **Token vencido ou revogado**: o `MELHOR_ENVIO_TOKEN` do `.env` precisa ser renovado pelo admin.\n- **Dados do remetente** incompletos no `.env` (nome, documento, endereço).\n- **Melhor Envio fora do ar** ou lento (o painel desiste depois de 15 segundos).\n\n**Antes de tentar de novo, abra o painel do Melhor Envio** e confira se o envio daquele pedido já foi pago: se o pagamento passou e só a geração falhou, um novo clique compra **outra** etiqueta.\n\nSe a etiqueta foi comprada direto no Melhor Envio, use **Marcar como enviado** e preencha \"Código de rastreio (se a etiqueta não saiu pelo painel)\".\n\nSe aparece \"O frete real ainda não está conectado (Melhor Envio).\", o token não está configurado e o site está usando a simulação: chame o admin."
+        },
+        {
+            "id": "email",
+            "title": "O e-mail não chegou",
+            "screen": null,
+            "body": "Todos os e-mails para membros e clientes (relato recebido e decidido, pedido, Avise-me, despedida, arquivo de \"Baixar meus dados\") **passam pela fila**. Quando um e-mail não chega:\n\n1. **Peça para olhar o spam** e conferir o endereço. No Avise-me, a inscrição só vale depois de clicar no link de confirmação.\n2. **Fila parada**: se nenhum e-mail sai, o worker pode estar parado. Em /painel/filas (admin), muitas tarefas em **Pending** confirmam isso. Se a fila passar de 60 segundos de espera, o aviso vai para o ALERTS_EMAIL.\n3. **SMTP com problema**: a tarefa tenta 3 vezes e falha; o admin recebe o alerta \"Torre: tarefa ... falhou 3 vezes\" e vê o erro em **Failed**. Depois de corrigir o SMTP no `.env`, use **Retry** nas tarefas que falharam.\n4. **Chega no spam sempre**: o domínio de envio precisa de SPF, DKIM e DMARC (item 9 do checklist de go-live).\n\nNão reenvie dados pessoais por outro canal para \"compensar\" um e-mail que não chegou; resolva a causa e reenvie pela fila."
+        },
+        {
+            "id": "relato",
+            "title": "Relato parado",
+            "screen": null,
+            "body": "\"Parado\" pode ser quatro coisas diferentes:\n\n- **Esperando a torre**: o relato está na **fila de relatos** (/painel/relatos), aba Pendentes. A moderação e o admin recebem um e-mail a cada relato novo, e o Início do painel avisa \"Relato #... esperando há mais de 48 h\". Quem resolve é a moderação, aprovando, pedindo ajuste ou rejeitando.\n- **\"foto em processamento\"**: a limpeza da foto (tirar metadados e gerar os tamanhos) ainda não rodou. Leva segundos com a fila funcionando; se demora, a fila está parada (veja \"O e-mail não chegou\", passo 2). Um arquivo que não pôde ser lido é apagado e some do relato.\n- **\"cidade a localizar\"**: a cidade aproximada vem do OpenStreetMap, com limite de consultas e até 5 tentativas. Serve só para a torre e nunca é mostrada em público.\n- **Aprovado, mas não aparece no mapa**: o mapa público guarda os dados por até **1 minuto**. Espere e recarregue.\n\nSe o autor diz que enviou e o relato não existe: fotos enviadas sem concluir o relato são apagadas depois de 24 horas, e uma conta **bloqueada** não envia relatos."
+        },
+        {
+            "id": "erro-403",
+            "title": "\"Área restrita da torre\" (erro 403)",
+            "screen": null,
+            "body": "O painel confere o **papel** da pessoa a cada página. Cada papel abre:\n\n- **Moderação**: Início, Relatos, Membros e Manual.\n- **Loja**: Início, Pedidos, Produtos e Manual.\n- **Admin**: tudo, inclusive Conteúdo, Auditoria, **Filas** (/painel/filas) e **Saúde** (/painel/saude).\n- **Membro** sem papel: nenhuma área do painel.\n\nO menu esconde as áreas que o papel não abre; o 403 aparece quando alguém abre o endereço direto ou segue um link de outra pessoa.\n\nO que fazer:\n\n- Se a pessoa **deveria** ter acesso, só o **admin** muda o papel, em /painel/membros. Vale a partir da próxima página aberta.\n- Ninguém muda o próprio papel pelo painel.\n- Uma conta **bloqueada** não envia relatos nem pedidos e é levada para Minha conta com o aviso do bloqueio.\n- Quem ainda não completou o perfil vai para a página de boas-vindas, e quem tem termos novos para aceitar precisa aceitar antes de continuar: isso não é 403."
+        },
+        {
+            "id": "cache",
+            "title": "A página mostra conteúdo antigo",
+            "screen": null,
+            "body": "- **Páginas**: o navegador pergunta ao servidor a cada visita se algo mudou. Recarregar a página (F5) basta na maioria dos casos.\n- **Página inicial**: os dados ficam guardados por até 10 minutos, mas qualquer alteração em membros, relatos, fotos, produtos, variantes, espaços do lugar, parceiros ou textos do painel invalida na hora.\n- **Mapa e lista de relatos**: até **1 minuto** de atraso, também no navegador.\n- **A origem, Cachi, Atlas, casos históricos e este manual** vêm de arquivos do projeto. Mudam só com um **deploy** e aparecem assim que o arquivo novo chega ao servidor.\n- **sitemap.xml**: refeito de hora em hora.\n\nSe depois de recarregar o conteúdo continua antigo por mais de 10 minutos, anote o endereço e o que deveria aparecer e chame o admin. Depois de um deploy, uma aba aberta há muito tempo pode precisar de um recarregamento completo."
+        },
+        {
+            "id": "quem-chamar",
+            "title": "Quem chamar",
+            "screen": null,
+            "body": "- **Pedido, pagamento ou etiqueta** com o painel funcionando: a **loja** confere primeiro (linha do tempo do pedido, conta do PayPal, painel do Melhor Envio).\n- **Relato, membro ou bloqueio**: a **moderação**.\n- **Fila parada, alertas, SMTP, tokens, credenciais, `.env`, site fora do ar, backup**: o **admin** com acesso à VPS. Só ele mexe no servidor, e os comandos estão no `DEPLOY.md`.\n- **Pedido de dados pessoais ou dúvida de privacidade**: o **encarregado de dados**, via admin (veja o capítulo Privacidade no dia a dia).\n\nNunca mande senha, token ou o conteúdo do `.env` por e-mail ou chat ao pedir ajuda."
+        }
+    ]
+}

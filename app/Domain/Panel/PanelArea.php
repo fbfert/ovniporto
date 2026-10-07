@@ -18,13 +18,14 @@ enum PanelArea: string
     case Products = 'produtos';
     case Content = 'conteudo';
     case Audit = 'auditoria';
+    case Manual = 'manual';
 
     public function allows(MemberRole $role): bool
     {
         return match ($role) {
             MemberRole::Admin => true,
-            MemberRole::Moderator => in_array($this, [self::Home, self::Sightings, self::Members], true),
-            MemberRole::Store => in_array($this, [self::Home, self::Orders, self::Products], true),
+            MemberRole::Moderator => in_array($this, [self::Home, self::Sightings, self::Members, self::Manual], true),
+            MemberRole::Store => in_array($this, [self::Home, self::Orders, self::Products, self::Manual], true),
             MemberRole::Member => false,
         };
     }

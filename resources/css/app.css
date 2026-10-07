@@ -253,3 +253,29 @@
 .night-map .leaflet-popup-tip {
     background: var(--color-moonlight);
 }
+
+/* Manual mind map (Components/Panel/MindMap): the one entrance of the panel. Branches draw out from the
+   centre, nodes settle in after their branch; desktop only, and nothing with reduced motion. */
+@keyframes map-draw {
+    from {
+        stroke-dashoffset: 1;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+@keyframes map-node-in {
+    from {
+        opacity: 0;
+        scale: 0.95;
+    }
+}
+@media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+    .map-edge {
+        stroke-dasharray: 1;
+        animation: map-draw 260ms var(--ease-snap) var(--delay) both;
+    }
+    .map-node {
+        animation: map-node-in 200ms var(--ease-snap) var(--delay) both;
+    }
+}

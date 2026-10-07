@@ -31,6 +31,7 @@ use App\Domain\Orders\Contracts\OrderRepository;
 use App\Domain\Orders\Contracts\ProductionDocument;
 use App\Domain\Origin\Contracts\CollaboratorNotifier;
 use App\Domain\Origin\Contracts\CollaboratorRepository;
+use App\Domain\Manual\Contracts\ManualLibrary;
 use App\Domain\Origin\Contracts\OriginLibrary;
 use App\Domain\Panel\Contracts\DashboardRepository;
 use App\Domain\Payments\Contracts\PaymentGateway;
@@ -79,6 +80,7 @@ use App\Infrastructure\Members\SightingsContentEraser;
 use App\Infrastructure\Members\SightingsDataSource;
 use App\Infrastructure\Members\WaitlistContentEraser;
 use App\Infrastructure\Members\WaitlistDataSource;
+use App\Infrastructure\Manual\JsonManualLibrary;
 use App\Infrastructure\Origin\JsonOriginLibrary;
 use App\Infrastructure\Payments\PayPalGateway;
 use App\Infrastructure\Payments\SimulatedPaymentGateway;
@@ -194,6 +196,7 @@ class DomainServiceProvider extends ServiceProvider
 
         $this->app->singleton(ShippingProvider::class, fn () => $this->shippingProvider());
         $this->app->singleton(OriginLibrary::class, fn () => new JsonOriginLibrary(resource_path('content/origin')));
+        $this->app->singleton(ManualLibrary::class, fn () => new JsonManualLibrary(resource_path('content/manual'), $this->app->make(MarkdownRenderer::class)));
         $this->app->singleton(HistoricalCaseLibrary::class, fn () => new JsonHistoricalCaseLibrary(resource_path('content/sightings/historical-cases.json')));
         $this->app->singleton(PaymentGateway::class, fn () => $this->paymentGateway());
 

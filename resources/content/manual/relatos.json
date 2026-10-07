@@ -1,0 +1,161 @@
+{
+    "slug": "relatos",
+    "area": "relatos",
+    "group": "community",
+    "order": 10,
+    "title": "Moderação de relatos",
+    "summary": "A fila da torre: revisar, aprovar, pedir ajuste, rejeitar e despublicar relatos do Livro de avistamentos.",
+    "reviewedAt": "2026-10-07",
+    "routes": [
+        "panel.sightings",
+        "panel.sightings.show",
+        "panel.sightings.approve",
+        "panel.sightings.changes",
+        "panel.sightings.reject",
+        "panel.sightings.unpublish"
+    ],
+    "map": {
+        "label": "Relatos",
+        "children": [
+            {
+                "label": "Fila",
+                "kind": "screen",
+                "section": "fila",
+                "children": [
+                    { "label": "Quatro abas", "kind": "state", "section": "fila" },
+                    { "label": "Mais de 48 h em amarelo", "kind": "state", "section": "alerta-48h" },
+                    { "label": "J, K e Enter", "kind": "action", "section": "fila" }
+                ]
+            },
+            {
+                "label": "Revisão",
+                "kind": "screen",
+                "section": "revisao",
+                "children": [
+                    { "label": "Fotos com link de 10 min", "kind": "care", "section": "fotos" },
+                    { "label": "Ponto e cidade", "kind": "state", "section": "revisao" },
+                    { "label": "Autor: só a torre vê", "kind": "care", "section": "cuidados" },
+                    { "label": "Histórico", "kind": "state", "section": "historico" }
+                ]
+            },
+            {
+                "label": "Aprovar",
+                "kind": "action",
+                "section": "aprovar",
+                "children": [
+                    { "label": "Checklist de três itens", "kind": "care", "section": "aprovar" },
+                    { "label": "Entra no Livro e no mapa", "kind": "state", "section": "aprovar" },
+                    { "label": "E-mail ao autor", "kind": "action", "section": "emails" }
+                ]
+            },
+            {
+                "label": "Pedir ajuste",
+                "kind": "action",
+                "section": "ajuste",
+                "children": [
+                    { "label": "Recado ao autor", "kind": "action", "section": "ajuste" },
+                    { "label": "Sai do público", "kind": "state", "section": "ajuste" },
+                    { "label": "Reenvio volta à fila", "kind": "state", "section": "ajuste" }
+                ]
+            },
+            {
+                "label": "Rejeitar",
+                "kind": "action",
+                "section": "rejeitar",
+                "children": [
+                    { "label": "Motivo obrigatório", "kind": "care", "section": "rejeitar" },
+                    { "label": "Aprovado: despublique antes", "kind": "state", "section": "rejeitar" }
+                ]
+            },
+            {
+                "label": "Despublicar",
+                "kind": "action",
+                "section": "despublicar",
+                "children": [
+                    { "label": "Nota interna", "kind": "action", "section": "despublicar" },
+                    { "label": "Volta para Pendentes", "kind": "state", "section": "despublicar" },
+                    { "label": "Autor não é avisado", "kind": "care", "section": "despublicar" }
+                ]
+            },
+            {
+                "label": "Cuidados",
+                "kind": "care",
+                "section": "cuidados",
+                "children": [
+                    { "label": "Fotos sem EXIF", "kind": "care", "section": "fotos" },
+                    { "label": "Só o apelido é público", "kind": "care", "section": "cuidados" },
+                    { "label": "Outra pessoa decidiu antes", "kind": "state", "section": "cuidados" },
+                    { "label": "Tudo vai para a auditoria", "kind": "care", "section": "historico" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "fila",
+            "title": "A fila de relatos",
+            "screen": "panel.sightings",
+            "body": "Em **/painel/relatos** fica a **Fila de relatos**: todo relato enviado pela comunidade passa por aqui antes de aparecer no Livro de avistamentos. Nada é publicado sem uma decisão da torre.\n\nQuem abre: **admin** e **moderação**. A loja não vê esta área.\n\nA fila tem quatro abas, cada uma com a contagem ao lado:\n\n- **Pendentes** (a aba que abre primeiro): relatos novos, reenviados depois de ajuste ou despublicados. Vêm do **mais antigo para o mais recente**, para ninguém ficar esquecido no fim da fila.\n- **Ajuste pedido**: relatos parados esperando o autor corrigir e reenviar.\n- **Aprovados**: o que está publicado no Livro e no mapa.\n- **Rejeitados**: o que não entrou.\n\nNas três últimas abas a ordem é a da decisão mais recente primeiro.\n\nCada linha mostra a miniatura da primeira foto (ou \"sem foto\"), o tipo, o **@apelido**, a data observada (\"visto em\"), a cidade aproximada (ou \"cidade a localizar\", enquanto o servidor ainda não descobriu a cidade pelo ponto), quantas fotos há e há quanto tempo o relato foi enviado (\"há 5 h\", \"há 3 dias\").\n\nSão 20 relatos por página; use **Anteriores** e **Próximos** no pé da lista. Clique numa linha para abrir a revisão.\n\n**Atalhos** (no computador): **J** desce e **K** sobe pela lista, **Enter** abre o relato destacado em verde."
+        },
+        {
+            "id": "alerta-48h",
+            "title": "O alerta de 48 horas",
+            "screen": "panel.sightings",
+            "body": "Um relato que espera mais de **48 horas** desde o envio ganha destaque:\n\n- Na fila, o tempo de espera aparece numa **pílula amarela** em vez de texto cinza.\n- No **Início** do painel, o cartão de relatos mostra \"passou de 48 h\" quando o pendente mais antigo passou desse prazo, e a lista **Precisa de você** traz \"Relato #N esperando há mais de 48 h\" para até 10 relatos pendentes, do mais antigo para o mais novo.\n\nO alerta é só visual: **nenhum e-mail de lembrete é enviado** quando o prazo passa. Quem modera precisa abrir o painel.\n\nAtenção: na fila, a pílula amarela conta o tempo **desde o envio** em todas as abas. Nas abas **Aprovados** e **Rejeitados** ela também aparece em relatos antigos, mesmo já decididos; ali ela não significa atraso. O alerta que importa é o da aba **Pendentes** e o do Início."
+        },
+        {
+            "id": "revisao",
+            "title": "A tela de revisão",
+            "screen": "panel.sightings.show",
+            "body": "Em **/painel/relatos/{número}** você vê o relato inteiro antes de decidir:\n\n- No topo: o tipo, a situação (**em análise**, **aprovado**, **ajuste pedido** ou **rejeitado**), o número e há quanto tempo foi **Enviado**.\n- À esquerda: as fotos (veja a seção seguinte), o mapa com o ponto marcado pela pessoa e o **Ponto marcado** em coordenadas.\n- À direita: o texto do relato e os dados: **Apelido público**, **Visto em** (data e horário ou faixa de horário), **Olhando para** (a direção, quando informada), **Cidade aproximada** (calculada com dados do OpenStreetMap) e **Consentimento dado em** (data e hora em que a pessoa autorizou a publicação deste relato).\n- O cartão **Autor (só a torre vê)**: nome real, e-mail, desde quando é membro e quantos relatos já enviou. Se não houver mais conta ligada ao relato, aparece **Conta excluída**.\n- **Recado ao autor**: aparece quando há um pedido de ajuste ou um motivo de rejeição gravado.\n\nAbaixo ficam os botões de decisão, que mudam conforme a situação:\n\n| Situação | Botões |\n|---|---|\n| em análise | **Aprovar**, **Pedir ajuste**, **Rejeitar** |\n| aprovado | **Pedir ajuste**, **Despublicar** |\n| ajuste pedido | **Rejeitar** (o resto espera o autor reenviar) |\n| rejeitado | nenhum |\n\nPara navegar sem voltar à lista, use **Relato anterior** e **Próximo relato** (ou **J** e **K**), dentro da mesma aba. **Voltar à fila** leva de volta à aba de origem.\n\nDepois de qualquer decisão, o painel já abre o **próximo relato da mesma aba** (ou volta à fila, se era o último) e mostra um aviso confirmando o que foi feito."
+        },
+        {
+            "id": "fotos",
+            "title": "As fotos do relato",
+            "screen": "panel.sightings.show",
+            "body": "- A primeira foto aparece grande; as outras em miniatura. Clique numa foto para abri-la em tamanho maior numa aba nova.\n- Enquanto a foto não está pronta, o lugar mostra \"foto em processamento\". Se não houver fotos, aparece \"Relato sem fotos.\" (fotos são opcionais).\n- **Link assinado de 10 minutos**: as fotos de um relato que não está publicado nunca têm endereço público. O painel gera links que valem por 10 minutos e só abrem para quem está logado como autor do relato ou com acesso à moderação. Se a página ficou aberta muito tempo e as fotos não carregam mais, recarregue a página.\n- Depois de aprovado, as fotos do relato passam a ter endereço público, porque o relato está no Livro.\n- **Sem EXIF**: o servidor refaz cada foto a partir dos pixels e apaga o arquivo original enviado; local, aparelho e data gravados pela câmera não sobrevivem. Mesmo assim, olhe a imagem em si: um rosto, uma placa ou a fachada de uma casa continuam visíveis na foto."
+        },
+        {
+            "id": "aprovar",
+            "title": "Aprovar",
+            "screen": "panel.sightings.show",
+            "body": "Só relatos **em análise** (aba Pendentes) podem ser aprovados.\n\nAntes do botão há o checklist **Antes de aprovar**:\n\n- **Sem rostos identificáveis**\n- **Sem placas de carro**\n- **Ponto não parece uma residência**\n\nO botão **Aprovar** (ou a tecla **A**) só funciona com os três itens marcados; sem isso aparece \"Confira os três itens antes de aprovar.\" O checklist é um lembrete na tela: ele não fica gravado e começa vazio a cada relato.\n\nAo aprovar:\n\n- o relato passa a **aprovado**, ganha data de publicação e entra **na hora** no Livro de avistamentos, no mapa, na página do relato e na página inicial;\n- o público vê o texto, o tipo, a data, as fotos, o ponto no mapa e **só o @apelido**;\n- o autor recebe por e-mail \"Aprovado pela torre: seu relato está no Livro\", com o botão **Ver no Livro**;\n- a decisão vai para o histórico e para a auditoria.\n\nAviso na tela: \"Relato aprovado e publicado no Livro.\"\n\nO ponto aparece no mapa público com a mesma precisão que você vê aqui. Se ele cair em cima de uma casa, não aprove: peça ajuste."
+        },
+        {
+            "id": "ajuste",
+            "title": "Pedir ajuste",
+            "screen": "panel.sightings.show",
+            "body": "Use quando o relato é bom mas tem algo a corrigir: uma foto com rosto, um ponto em cima de uma casa, um texto com dado pessoal.\n\nVale para relatos **em análise** e também para **aprovados** (neste caso o relato sai do ar).\n\nEm **Pedir ajuste** abre a janela **Pedir ajuste ao autor**. Escreva em **O que o autor precisa ajustar** (de 10 a 1.000 caracteres) e clique **Enviar pedido**.\n\nO que acontece:\n\n- o relato vai para **Ajuste pedido** e **sai de toda exibição pública** (Livro, mapa, página do relato);\n- o autor recebe \"A torre pediu um ajuste no seu relato\", com o seu texto e o botão **Ajustar e reenviar**, que abre o formulário com os dados já carregados;\n- o texto fica como **Recado ao autor** na revisão e no histórico.\n\nAviso na tela: \"Pedido de ajuste enviado ao autor.\"\n\nQuando o autor reenvia, o relato volta para **Pendentes** como um envio novo: o consentimento de publicação é registrado de novo, as fotos que ele tirou são apagadas, as novas passam pelo mesmo tratamento, e a torre recebe outra vez o e-mail de relato novo. No histórico aparece \"reenviou após ajuste\" com o apelido do autor.\n\nEnquanto espera o autor, o único botão disponível é **Rejeitar**."
+        },
+        {
+            "id": "rejeitar",
+            "title": "Rejeitar",
+            "screen": "panel.sightings.show",
+            "body": "Vale para relatos **em análise** e **ajuste pedido**. Um relato **aprovado** não pode ser rejeitado direto: primeiro **Despublicar** (ele volta para Pendentes), depois **Rejeitar**. Se tentar, aparece \"Despublique o relato antes de rejeitar.\"\n\nEm **Rejeitar** (ou a tecla **R**) abre a janela **Rejeitar relato**. Escolha o **Motivo** (obrigatório; sem ele aparece \"Escolha o motivo da rejeição.\"):\n\n| Botão | O autor lê no e-mail |\n|---|---|\n| Foto com pessoa identificável | Foto com pessoa identificável |\n| Placa de carro | Foto com placa de carro |\n| Conteúdo ofensivo | Conteúdo ofensivo |\n| Não é um relato | Não é um relato de avistamento |\n| Outro | o texto que você escrever |\n\nCom **Outro**, aparece o campo **Conte o motivo ao autor** (de 10 a 500 caracteres): esse texto vai, do jeito que estiver, para o e-mail.\n\nClique **Rejeitar e avisar o autor**. O relato vai para **Rejeitados**, não aparece em lugar público e o autor recebe \"Seu relato não entrou no Livro\", com o motivo. Aviso na tela: \"Relato rejeitado. O autor foi avisado.\"\n\nA rejeição é final pelo painel: um relato rejeitado não tem mais botões. Prefira **Pedir ajuste** quando o problema tem conserto."
+        },
+        {
+            "id": "despublicar",
+            "title": "Despublicar",
+            "screen": "panel.sightings.show",
+            "body": "Só para relatos **aprovados**. Use quando um relato publicado precisa sair do ar enquanto a torre decide o que fazer (uma denúncia, um detalhe que passou na revisão).\n\nEm **Despublicar** abre a janela **Despublicar relato**: \"O relato sai do Livro e do mapa e volta para a fila como pendente.\" Escreva a **Nota interna (fica no histórico)** (de 10 a 500 caracteres) e confirme em **Despublicar**.\n\nO que acontece:\n\n- o relato sai do Livro, do mapa e da página pública, e volta para **Pendentes**;\n- a nota fica **só no histórico e na auditoria**;\n- **o autor não recebe e-mail**.\n\nAviso na tela: \"Relato despublicado: voltou para a fila.\" Depois decida de novo: aprovar, pedir ajuste (aí o autor é avisado) ou rejeitar."
+        },
+        {
+            "id": "historico",
+            "title": "Histórico e auditoria",
+            "screen": "panel.sightings.show",
+            "body": "No fim da revisão, o **Histórico** lista cada decisão sobre o relato, da mais antiga para a mais nova: quem decidiu (pelo apelido), o que fez (aprovou, pediu ajuste, rejeitou, despublicou, reenviou após ajuste) e quando. Logo abaixo aparecem a nota interna da despublicação ou, entre aspas, o recado enviado ao autor. Sem decisões ainda, aparece \"Nenhuma decisão ainda.\"\n\nCada decisão também gera um registro na **Auditoria** (só o admin vê), com a situação antes e depois, o recado ao autor e, na rejeição, o código do motivo. Veja o capítulo Auditoria."
+        },
+        {
+            "id": "emails",
+            "title": "Os e-mails que o relato dispara",
+            "screen": null,
+            "body": "| Momento | Quem recebe | Assunto |\n|---|---|---|\n| Relato enviado ou reenviado | o autor | Relato na torre de controle |\n| Relato enviado ou reenviado | todo membro com papel **moderação** ou **admin** | Novo relato #N na fila da torre |\n| Aprovar | o autor | Aprovado pela torre: seu relato está no Livro |\n| Pedir ajuste | o autor | A torre pediu um ajuste no seu relato |\n| Rejeitar | o autor | Seu relato não entrou no Livro |\n| Despublicar | ninguém | — |\n\nO e-mail para a torre traz só o número do relato: \"Os detalhes ficam no painel, atrás do login.\"\n\nTodos os e-mails saem pela fila de envio do servidor, alguns segundos depois da decisão. Se nada chegar, a fila de trabalho ou o SMTP de produção podem estar parados: avise quem cuida do servidor. Se a conta do autor já não existir, nenhum e-mail sai."
+        },
+        {
+            "id": "cuidados",
+            "title": "Cuidados",
+            "screen": null,
+            "body": "- **Só o apelido é público.** Nome real e e-mail do autor aparecem apenas no cartão **Autor (só a torre vê)**. Nunca copie esses dados para fora do painel nem os cite numa resposta pública.\n- **Consentimento por relato.** Cada relato tem a sua data de consentimento; um reenvio depois de ajuste registra um consentimento novo.\n- **O ponto foi escolhido pela pessoa** e vai para o mapa público como está. Na dúvida se é uma casa, peça ajuste em vez de aprovar.\n- **Fotos pendentes nunca ficam em endereço público.** Não salve nem compartilhe fotos de relatos não publicados.\n- **Outra pessoa decidiu antes.** Se duas pessoas moderam ao mesmo tempo e o relato mudou de situação, o painel recusa a sua decisão com uma mensagem como \"Só relatos em análise podem ser aprovados.\" Recarregue e veja o histórico.\n- **Membro bloqueado** não consegue enviar nem reenviar relatos; os que ele já enviou continuam na fila e pedem decisão normal. Veja o capítulo Membros."
+        }
+    ]
+}

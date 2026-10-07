@@ -1,0 +1,189 @@
+{
+    "slug": "pedidos",
+    "area": "pedidos",
+    "group": "store",
+    "order": 10,
+    "title": "Pedidos da loja",
+    "summary": "Acompanhar cada pedido do pagamento à entrega: produção, etiqueta, envio, cancelamento, reembolso e exportação.",
+    "reviewedAt": "2026-10-07",
+    "routes": [
+        "panel.orders",
+        "panel.orders.export",
+        "panel.orders.show",
+        "panel.orders.cancel",
+        "panel.orders.cpf",
+        "panel.orders.deliver",
+        "panel.orders.ship",
+        "panel.orders.label",
+        "panel.orders.pdf",
+        "panel.orders.production",
+        "panel.orders.refund"
+    ],
+    "map": {
+        "label": "Pedidos",
+        "children": [
+            {
+                "label": "Lista",
+                "kind": "screen",
+                "section": "lista",
+                "children": [
+                    { "label": "Filtro por status", "kind": "action", "section": "lista" },
+                    { "label": "Busca por número, nome ou e-mail", "kind": "action", "section": "lista" },
+                    { "label": "Baixar CSV", "kind": "action", "section": "exportar" }
+                ]
+            },
+            {
+                "label": "Ficha do pedido",
+                "kind": "screen",
+                "section": "ficha",
+                "children": [
+                    { "label": "Mostrar CPF", "kind": "care", "section": "cpf" },
+                    { "label": "Resumo para o fornecedor", "kind": "action", "section": "producao" },
+                    { "label": "Ordem de produção (PDF)", "kind": "action", "section": "producao" },
+                    { "label": "Linha do tempo", "kind": "state", "section": "ficha" }
+                ]
+            },
+            {
+                "label": "Status",
+                "kind": "state",
+                "section": "status",
+                "children": [
+                    { "label": "Esperando pagamento", "kind": "state", "section": "status" },
+                    { "label": "Pago", "kind": "state", "section": "status" },
+                    { "label": "Em produção", "kind": "state", "section": "status" },
+                    { "label": "Enviado", "kind": "state", "section": "status" },
+                    { "label": "Entregue", "kind": "state", "section": "status" },
+                    { "label": "Cancelado", "kind": "state", "section": "status" },
+                    { "label": "Reembolsado", "kind": "state", "section": "status" }
+                ]
+            },
+            {
+                "label": "Do pago à entrega",
+                "kind": "action",
+                "section": "producao",
+                "children": [
+                    { "label": "Marcar em produção", "kind": "action", "section": "producao" },
+                    { "label": "Gerar etiqueta", "kind": "action", "section": "etiqueta" },
+                    { "label": "Marcar como enviado", "kind": "action", "section": "envio" },
+                    { "label": "Marcar como entregue", "kind": "action", "section": "entrega" }
+                ]
+            },
+            {
+                "label": "Saídas",
+                "kind": "action",
+                "section": "cancelar",
+                "children": [
+                    { "label": "Cancelar (só antes do pagamento)", "kind": "action", "section": "cancelar" },
+                    { "label": "Reembolsar (valor total)", "kind": "action", "section": "reembolso" },
+                    { "label": "Pix que chegou depois do cancelamento", "kind": "care", "section": "reembolso" }
+                ]
+            },
+            {
+                "label": "Automático",
+                "kind": "state",
+                "section": "automatico",
+                "children": [
+                    { "label": "Cancela sem pagamento após 2 h", "kind": "state", "section": "automatico" },
+                    { "label": "Rastreio diário às 7h", "kind": "state", "section": "automatico" },
+                    { "label": "E-mails ao cliente", "kind": "state", "section": "emails" }
+                ]
+            },
+            {
+                "label": "Cuidados",
+                "kind": "care",
+                "section": "cuidados",
+                "children": [
+                    { "label": "Tudo vai para a auditoria", "kind": "care", "section": "cuidados" },
+                    { "label": "Cartão nunca passa pelo site", "kind": "care", "section": "cuidados" },
+                    { "label": "Depende da configuração de produção", "kind": "care", "section": "cuidados" }
+                ]
+            }
+        ]
+    },
+    "sections": [
+        {
+            "id": "lista",
+            "title": "A lista de pedidos",
+            "screen": "panel.orders",
+            "body": "Em **/painel/pedidos** ficam todos os pedidos da loja. Quem abre: **admin** e **loja**. Moderação não vê esta área.\n\nCada linha mostra o número do pedido (no formato `OVP-2026-000123`), o status, a etiqueta **retirada** quando o cliente vai buscar em Lages, o nome do cliente, quantos itens, o meio de pagamento (**PayPal**, ou **Simulado** em ambiente de teste), o total e há quanto tempo o pedido foi feito (\"há 3 h\", \"há 2 dias\"). Clicar na linha abre a ficha.\n\n**Filtro por status**: as pílulas no topo (**Todos**, **Pago**, **Em produção**, **Enviado**, **Esperando pagamento**, **Entregue**, **Cancelado**, **Reembolsado**) trazem o número de pedidos de cada status. Com o filtro **Pago**, a lista vem do **pago há mais tempo para o mais recente**: é a fila de trabalho, atenda de cima para baixo. Nos outros filtros, os mais novos vêm primeiro.\n\n**Buscar por número, nome ou e-mail**: digite e a lista se atualiza sozinha. A busca vale junto com o filtro de status, e as contagens das pílulas passam a contar só o que bate com a busca.\n\nSão 25 pedidos por página; use os links no pé da lista para ver mais. O filtro, a busca e a página ficam no endereço (`?status=paid&busca=maria`), então dá para guardar ou mandar o link."
+        },
+        {
+            "id": "exportar",
+            "title": "Exportar CSV",
+            "screen": "panel.orders",
+            "body": "No pé da lista, o quadro **Exportar CSV** pede o período (**De** e **Até**; vem preenchido do primeiro dia do mês até hoje). **Baixar CSV** baixa o arquivo `pedidos-AAAA-MM-DD-a-AAAA-MM-DD.csv`.\n\n- Entram **todos os pedidos feitos no período**, de qualquer status (inclusive cancelados), pela data em que foram feitos, um pedido por linha.\n- Colunas: `numero`, `data`, `status` (o código interno, como `paid` ou `shipped`), `cliente`, `email`, `itens` (ex.: `2x Adesivo (Redondo)`), `subtotal`, `frete`, `total`, `entrega` (cidade/UF ou \"Retirada em Lages\") e `rastreio`.\n- **CPF, telefone e endereço completo não vão para o CSV.**\n- O arquivo usa ponto e vírgula e acentos em UTF-8, para abrir direto no Excel em português. Os valores saem com **ponto** como separador decimal (`45.90`); confira a coluna antes de somar.\n\nTrate o arquivo como dado pessoal: nome e e-mail de clientes. Não mande por grupo de mensagem e apague a cópia quando terminar."
+        },
+        {
+            "id": "ficha",
+            "title": "A ficha do pedido",
+            "screen": "panel.orders.show",
+            "body": "Em **/painel/pedidos/OVP-...** você vê o pedido inteiro:\n\n- No topo, o número, o status e **os botões das ações que o status atual permite** (veja \"Os status e o que dá para fazer\"). Se uma ação for recusada, a mensagem aparece numa faixa amarela logo abaixo.\n- **Itens**: quantidade, produto, opção (variante), SKU, preço unitário e total de cada linha; subtotal, frete e total.\n- **Resumo para o fornecedor** e **Ordem de produção (PDF)**: veja \"Produção\".\n- **Linha do tempo**: cada mudança de status com quem fez (**sistema**, **cliente**, **pagamento** ou **operador**), data, hora e a observação, quando há (o motivo de um cancelamento, um aviso do pagamento).\n- **Cliente**: nome, e-mail, telefone (WhatsApp) e CPF mascarado.\n- **Entrega**: endereço, transportadora e serviço escolhidos no checkout, ou \"Retirada em Lages, combinada pelo WhatsApp.\"; o código de rastreio aparece quando existir.\n- **Pagamento**: o meio, a **Ordem no provedor** (o número do pedido no PayPal) e a **Captura** (o número da cobrança no PayPal). Use esses números para achar a transação no painel do PayPal.\n\n**Voltar aos pedidos** leva de volta à lista."
+        },
+        {
+            "id": "status",
+            "title": "Os status e o que dá para fazer",
+            "screen": "panel.orders.show",
+            "body": "O pedido anda numa só direção: **Esperando pagamento → Pago → Em produção → Enviado → Entregue**. As saídas são **Cancelado** (antes do pagamento) e **Reembolsado** (depois). Não dá para pular etapa nem voltar: o servidor recusa e mostra a mensagem \"Um pedido ... não pode passar para ...\".\n\n| Status | Botões na ficha |\n|---|---|\n| **Esperando pagamento** | **Cancelar** |\n| **Pago** | **Marcar em produção**, **Reembolsar** |\n| **Em produção** | **Gerar etiqueta** (só para envio e enquanto não houver rastreio), **Marcar como enviado**, **Reembolsar** |\n| **Enviado** | **Marcar como entregue**, **Reembolsar** |\n| **Entregue** | **Reembolsar** |\n| **Cancelado** / **Reembolsado** | nenhum: o pedido está encerrado |\n\nO pedido fica **Pago** sozinho, quando o PayPal confirma a cobrança: ninguém marca \"pago\" à mão. O estoque dos produtos de pronta entrega só é baixado nesse momento; um pedido esperando pagamento não segura estoque.\n\nSe o valor cobrado não bater com o total do pedido, ele **continua em Esperando pagamento**, a linha do tempo ganha a nota \"Valor capturado (...) diferente do total: conferir.\" e todos os membros **loja** e **admin** recebem o e-mail \"Atenção no pedido ...\". Confira no PayPal antes de qualquer coisa."
+        },
+        {
+            "id": "producao",
+            "title": "Produção",
+            "screen": "panel.orders.show",
+            "body": "Com o pedido **Pago**:\n\n1. Abra a **Ordem de produção (PDF)**: uma folha A4 com o selo, o número, a data do pagamento, se é envio ou retirada e uma tabela com quantidade, item, opção, SKU e prazo (\"pronta entrega\" ou os dias de produção). Imprima e use para separar e conferir.\n2. Se uma parte é feita por fornecedor, use **Copiar** no **Resumo para o fornecedor**: ele copia o número do pedido e uma linha por item (`- 2x Adesivo · Redondo (SKU ...)`), sem nenhum dado do cliente. Cole na conversa com o fornecedor.\n3. Clique em **Marcar em produção**. O aviso é \"Pedido em produção. O cliente foi avisado.\" e o cliente recebe o e-mail \"Em produção\".\n\nO link do PDF aparece junto dos botões enquanto o pedido tem alguma ação; em pedidos cancelados ou reembolsados ele some da ficha."
+        },
+        {
+            "id": "etiqueta",
+            "title": "Gerar a etiqueta (Melhor Envio)",
+            "screen": "panel.orders.show",
+            "body": "Com o pedido **Em produção** e entrega pelos Correios ou transportadora, **Gerar etiqueta** compra o frete no Melhor Envio em um passo só: cria o envio com o serviço que o cliente escolheu no checkout, **paga com o saldo da conta Melhor Envio da loja** e gera a etiqueta. O aviso é \"Etiqueta gerada.\".\n\n- O envio leva nome, e-mail, telefone, **CPF** e endereço de quem recebe, os itens com valor declarado (o seguro é o valor dos produtos) e o peso somado dos itens numa embalagem padrão configurada no servidor. O número do pedido vai como etiqueta no Melhor Envio, para achar o envio lá.\n- A etiqueta em si (o PDF para imprimir e colar no pacote) fica **no painel do Melhor Envio**: o nosso painel não mostra nem imprime a etiqueta.\n- O código de rastreio é pedido ao Melhor Envio logo depois; quando vem, aparece na ficha em **Entrega** e o botão **Gerar etiqueta** some.\n- Pedido de retirada em Lages não tem etiqueta: o botão não aparece.\n\nSe der erro, a faixa amarela explica. \"O frete real ainda não está conectado (Melhor Envio).\" quer dizer que o servidor está no modo simulado. Uma mensagem de \"fora do ar\" pode ser o Melhor Envio sem resposta, **saldo insuficiente** ou dado recusado por eles: confira o saldo e o painel do Melhor Envio antes de tentar de novo. Tudo isso depende do token e do CEP de origem configurados em produção."
+        },
+        {
+            "id": "envio",
+            "title": "Marcar como enviado",
+            "screen": "panel.orders.show",
+            "body": "Depois de postar o pacote (ou entregar o pedido de retirada), clique em **Marcar como enviado**. Abre uma janela com um campo só: **Código de rastreio (se a etiqueta não saiu pelo painel)**.\n\n- Se a etiqueta foi gerada pelo painel, deixe o campo vazio: o rastreio já está no pedido.\n- Se você comprou o frete por fora, digite o código (até 40 caracteres; ele é gravado em maiúsculas). Se já havia um código, o novo substitui.\n- Em pedido de retirada, deixe vazio.\n\n**Confirmar** muda o status para **Enviado**, mostra \"Pedido enviado. O cliente recebeu o rastreio.\" e manda ao cliente o e-mail \"A caminho\" com o código de rastreio, quando existe.\n\nAtenção: o e-mail diz \"Seu pedido saiu de Lages.\" também nos pedidos de retirada."
+        },
+        {
+            "id": "entrega",
+            "title": "Marcar como entregue",
+            "screen": "panel.orders.show",
+            "body": "**Marcar como entregue** muda o status para **Entregue** (aviso \"Pedido entregue.\") e manda ao cliente o e-mail \"Pousou\".\n\nNa maioria dos envios você não precisa clicar: a consulta diária de rastreio faz isso sozinha (veja \"O que o sistema faz sozinho\"). Use o botão para:\n\n- pedidos de **retirada em Lages**, quando a pessoa buscou;\n- pedidos com rastreio **digitado à mão** (frete comprado fora do painel), que a consulta automática não acompanha;\n- quando o cliente confirmar que recebeu antes da consulta do dia."
+        },
+        {
+            "id": "cancelar",
+            "title": "Cancelar",
+            "screen": "panel.orders.show",
+            "body": "**Cancelar** só aparece em pedido **Esperando pagamento**. Depois que o pagamento entrou, cancelar é **reembolsar**.\n\nA janela **Cancelar pedido** pede o **Motivo** (obrigatório, de 5 a 255 caracteres; com menos aparece \"Registre o motivo.\"). **Confirmar** muda o status para **Cancelado**, mostra \"Pedido cancelado.\" e grava o motivo na linha do tempo.\n\n- **O cliente não recebe e-mail de cancelamento.** Se for preciso avisar, fale com ele pelo WhatsApp ou e-mail.\n- Não há estoque a devolver: o estoque só é baixado no pagamento.\n- Na maioria das vezes você não precisa cancelar à mão: pedidos sem pagamento são cancelados sozinhos depois de 2 horas."
+        },
+        {
+            "id": "reembolso",
+            "title": "Reembolsar",
+            "screen": "panel.orders.show",
+            "body": "**Reembolsar** aparece em pedido **Pago**, **Em produção**, **Enviado** ou **Entregue**. A janela **Reembolsar pedido** diz quanto volta (\"Devolve R$ ... ao cliente pelo PayPal. Não dá para desfazer.\") e pede:\n\n- **Motivo** (obrigatório, de 5 a 255 caracteres);\n- a caixa **Confirmo o reembolso total** marcada (sem ela aparece \"Confirme o reembolso.\").\n\n**Confirmar** devolve pelo PayPal **o total do pedido, frete incluído**. O painel **não faz reembolso parcial**: para devolver só uma parte, faça no painel do PayPal e registre o combinado com o cliente fora daqui.\n\nDepois do reembolso:\n\n- o status vira **Reembolsado**, com \"Reembolso: motivo\" na linha do tempo e o aviso \"Reembolso feito.\";\n- o cliente recebe o e-mail \"Reembolso feito\" (o valor volta ao mesmo meio de pagamento em alguns dias úteis);\n- se o pedido ainda estava **Pago** ou **Em produção**, os itens de pronta entrega **voltam ao estoque**, com o motivo \"Reembolso antes do envio\" no histórico de estoque. Pedido já enviado não devolve estoque: se o produto voltar, ajuste o estoque na ficha do produto.\n\nSe aparecer \"Esse pedido não tem pagamento capturado.\" ou \"O pagamento está fora do ar agora...\", nada foi devolvido; confira no PayPal e tente de novo. Em ambiente sem PayPal configurado aparece \"O pagamento ainda está sendo configurado.\"\n\n**Pix que chegou depois do cancelamento**: se um pagamento entra num pedido já cancelado, o pedido **continua Cancelado**, a linha do tempo ganha a nota \"Pagamento ... chegou após o cancelamento: reembolsar.\" e loja e admin recebem o e-mail \"Atenção no pedido ...\". Como pedido cancelado não tem botão **Reembolsar**, faça a devolução **direto no painel do PayPal**, usando o número da nota, e avise o cliente."
+        },
+        {
+            "id": "cpf",
+            "title": "O CPF",
+            "screen": "panel.orders.show",
+            "body": "O checkout exige o CPF porque **os Correios e a transportadora pedem o CPF de quem recebe**: ele vai junto na compra da etiqueta no Melhor Envio. O CPF é guardado **criptografado** no banco.\n\nNa ficha ele aparece mascarado (`***.456.789-**`). **Mostrar CPF** revela o número completo só na sua tela, e **fica registrado na auditoria** quem viu, quando e de qual pedido. Ao recarregar a página, ele volta mascarado.\n\nCuidados:\n\n- Revele só quando precisar (por exemplo, para comprar um frete por fora do painel). Para gerar a etiqueta pelo painel você **não precisa** revelar: o sistema envia sozinho.\n- Não copie o CPF para conversas, planilhas ou o resumo do fornecedor.\n- Há um limite de 30 revelações por minuto por pessoa; passando disso, o pedido é recusado por um minuto."
+        },
+        {
+            "id": "emails",
+            "title": "Os e-mails que o cliente recebe",
+            "screen": null,
+            "body": "Todos saem do e-mail informado no checkout, pela fila, com um botão para a página do pedido (link assinado, que não pede login):\n\n| Quando | Assunto | O que diz |\n|---|---|---|\n| Pedido feito | Pedido ... recebido | o total e que ele fica reservado por 2 horas esperando o pagamento |\n| Pagamento confirmado | Pagamento confirmado · ... | que entra na fila de produção e envio; na retirada, que avisamos (também pelo WhatsApp) quando estiver pronto para retirar |\n| **Marcar em produção** | Em produção · ... | que está sendo feito à mão em Lages e o rastreio vem quando sair |\n| **Marcar como enviado** | Enviado · ... | \"Seu pedido saiu de Lages.\" e o código de rastreio, se houver |\n| Entregue (botão ou consulta automática) | Entregue · ... | que o pedido pousou |\n| **Reembolsar** | Reembolso · ... | que o valor volta pelo PayPal em alguns dias úteis |\n\n**Não há e-mail** para cancelamento (manual ou automático) nem para a geração da etiqueta.\n\nO texto \"Em produção\" fala em \"feito à mão\" mesmo quando o pedido só tem produtos de pronta entrega. Os e-mails dependem do SMTP e da fila (Horizon) funcionando em produção; se um cliente diz que não recebeu, veja as filas em **/painel/filas** (admin)."
+        },
+        {
+            "id": "automatico",
+            "title": "O que o sistema faz sozinho",
+            "screen": null,
+            "body": "Duas tarefas agendadas cuidam dos pedidos sem ninguém clicar. Elas só rodam se o container de tarefas agendadas (scheduler) estiver de pé em produção.\n\n**Cancelamento de pedidos abandonados** (a cada 10 minutos): todo pedido **Esperando pagamento** feito há mais de 2 horas vira **Cancelado**, com autor **sistema** e a nota \"Pagamento não concluído em 2 horas.\". Por rodar de 10 em 10 minutos, o cancelamento acontece entre 2 h e 2 h 10 depois do pedido. Nenhum e-mail é enviado e não há estoque a devolver.\n\n**Rastreio** (todo dia às 7h): para cada pedido **Enviado** que teve a etiqueta gerada pelo painel, o sistema pergunta ao Melhor Envio se foi entregue. Se foi, o pedido vira **Entregue** com autor **sistema** e o cliente recebe o e-mail \"Pousou\". Pedidos de retirada e pedidos com rastreio digitado à mão ficam de fora: marque esses como entregues pela ficha.\n\nO pagamento também chega sozinho: o pedido vira **Pago** quando o cliente volta do PayPal ou quando o PayPal avisa o site (webhook), o que vier primeiro, e só uma vez. O aviso pelo webhook depende de ele estar configurado no PayPal de produção; sem ele, um pagamento que fica em análise no PayPal (e só é aprovado depois que o cliente sai da janela) não chega ao pedido."
+        },
+        {
+            "id": "cuidados",
+            "title": "Cuidados",
+            "screen": null,
+            "body": "- **Tudo vai para a auditoria**: pôr em produção, gerar etiqueta, marcar enviado e entregue, cancelar, reembolsar e revelar o CPF geram um registro com quem fez, quando e o status antes e depois. O admin vê em **/painel/auditoria**. A linha do tempo do pedido também guarda o autor de cada mudança.\n- **Dados de cartão nunca passam pelo site**: o cliente paga (cartão ou Pix) na janela do PayPal; o painel só guarda os números da ordem e da captura. Nunca peça dados de cartão por mensagem.\n- **O valor cobrado vem do servidor**: o total do pedido é calculado no site e o pagamento só é aceito se bater com ele.\n- **Ações não se desfazem**: não há botão para voltar um status. Confira antes de clicar, principalmente em **Reembolsar** e **Gerar etiqueta** (que gasta saldo do Melhor Envio).\n- **Depende da configuração de produção**: pagamento e reembolso precisam das credenciais e do webhook do PayPal; etiqueta e rastreio precisam do token, do CEP de origem e de saldo no Melhor Envio. Sem isso, o painel mostra as mensagens de \"fora do ar\" ou \"ainda está sendo configurado\".\n- **Privacidade**: quando um cliente exclui a conta, os pedidos dele ficam anonimizados e guardados pelo prazo da lei fiscal; depois são apagados sozinhos."
+        }
+    ]
+}
