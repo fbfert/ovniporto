@@ -32,7 +32,7 @@ A declaração vira o tipo `idade_minima` no ledger, com versão `2026-10-16`. A
 `AcceptCurrentTerms` vira o caso de uso das pendências de aceite: `pending()` devolve quais itens faltam (`terms`, `age`) e `execute()` recebe as respostas e registra só o que estava pendente. A tela `/termos/aceitar` mostra só as caixas pendentes; o título muda conforme o caso (só idade: "Uma confirmação antes de seguir"). `EnsureProfileCompleted` continua com um único redirecionamento. `CompleteProfile` exige as duas caixas no primeiro acesso.
 - *Alternativa:* middleware e tela separados para idade. Rejeitada: o membro antigo veria duas telas seguidas no mesmo deploy em que os termos finais forem publicados.
 
-### D3. Declaração de compra no checkout (decisão a validar com o encarregado)
+### D3. Declaração de compra no checkout (aprovada pelo encarregado em 2026-10-16)
 Caixa obrigatória na etapa de identificação: "Tenho 18 anos ou mais, ou a autorização do meu responsável legal para esta compra". A resposta fica na sessão do checkout e o consentimento `compra_autorizada` é registrado em `place`, com `email` do cliente e `subject = "pedido:{number}"`.
 - *Alternativa:* deixar só nos termos. Rejeitada por ora: visitantes compram sem conta e nunca passam pela declaração de idade; a caixa é a única evidência de que a regra foi informada. Se o encarregado preferir só os termos, a tarefa 3 sai inteira sem afetar as outras.
 
@@ -52,7 +52,7 @@ A página mostra `a***@dominio.com` para a pessoa reconhecer o cadastro sem expo
 
 ## Risks / Trade-offs
 
-- [A caixa de idade é só uma declaração] → É o que o encarregado aprovou; o ponto da ECA Digital fica em aberto abaixo.
+- [A caixa de idade é só uma declaração] → É o que o encarregado aprovou; o encarregado confirmou que atende, inclusive diante da ECA Digital.
 - [Link permanente encaminhado a terceiros permite cancelar a inscrição de outra pessoa] → O pior efeito é a pessoa deixar de receber o aviso; ela pode se inscrever de novo.
 - [Membros antigos são interrompidos no próximo acesso] → Uma única tela, com volta automática para a página que abriram (`setIntendedUrl`, como já acontece com os termos).
 - [Checkout com mais uma caixa] → Fica junto do CPF, na mesma etapa, sem tela nova.
@@ -65,5 +65,4 @@ A página mostra `a***@dominio.com` para a pessoa reconhecer o cadastro sem expo
 
 ## Open Questions
 
-- **ECA Digital (Lei 15.211/2025):** o encarregado precisa confirmar se a lei se aplica ao OVNIPORTO e se uma declaração por caixa basta. Se exigir mais, entra numa change própria; esta não depende disso.
-- **Declaração de compra (D3):** confirmar com o encarregado se fica no checkout ou só nos termos.
+Nenhuma. Resolvido com o encarregado em 2026-10-16 (por telefone): a caixa de 16 anos no perfil e a de 18 anos ou autorização no checkout atendem, inclusive diante da ECA Digital (Lei 15.211/2025).

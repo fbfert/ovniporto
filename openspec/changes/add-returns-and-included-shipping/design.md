@@ -40,7 +40,7 @@ Veja proposal.md (Why). Estado atual relevante:
 **7. Regra do carrinho misto: proporção do peso sobre uma única cotação.** O comprador paga `ceil(preço_cotado × peso_sem_frete_incluso / peso_total)`. Se o peso total for zero, paga o preço inteiro quando houver algum item sem frete incluso, e zero quando todos tiverem. Fica num objeto de domínio `ChargedShipping` (ao lado de `OrderTotals`), usado por `CheckoutController::delivery` (mostrar) e `PlaceOrder` (cobrar). Alternativas consideradas:
 - *Cotar só os itens pagantes*: mais "justo" pela tabela da transportadora, mas exige duas cotações por CEP, e as opções (ids) podem não coincidir entre elas, criando opções sem preço.
 - *Qualquer item com frete incluso zera o frete*: simples, mas convida a juntar um adesivo de frete incluso a um pedido grande.
-A proporção do peso é uma cotação só, sempre tem preço para cada opção e é fácil de explicar ("você paga a parte do frete dos seus itens"). **Decisão a validar com o usuário.**
+A proporção do peso é uma cotação só, sempre tem preço para cada opção e é fácil de explicar ("você paga a parte do frete dos seus itens"). **Aprovada pelo usuário em 2026-10-16.**
 
 **8. Snapshot no pedido.** `order_items.shipping_included` (cópia do produto na hora da compra) e `orders.shipping_cost_cents` (preço cotado da opção para o carrinho inteiro); `orders.shipping_cents` continua sendo o frete cobrado, que é o que vai ao PayPal. Pedidos antigos ficam com `shipping_cost_cents = shipping_cents` na migração.
 
@@ -65,4 +65,4 @@ A proporção do peso é uma cotação só, sempre tem preço para cada opção 
 
 ## Open Questions
 
-- Prazo de resposta prometido no e-mail de confirmação (sugestão: "em até 5 dias úteis"); pode ser ajustado no texto sem mudar o fluxo.
+Nenhuma. Aprovado pelo usuário em 2026-10-16: a regra proporcional do carrinho misto e o prazo "em até 5 dias úteis" no e-mail de confirmação.

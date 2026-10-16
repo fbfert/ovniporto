@@ -31,7 +31,7 @@
 2. **Caso de uso `AnonymizeInactiveMembers`** (Application/Members), chamado por `members:anonymize-inactive` às 03:15:
    - **aviso**: membros não anonimizados, com ou sem papel, com `last_seen_at <= agora − 5 anos + 30 dias` e `inactivity_notice_sent_at` nulo recebem `InactivityNoticeMail` (fila) com a data prevista, e `inactivity_notice_sent_at` é gravado;
    - **anonimização**: membros sem papel com `last_seen_at <= agora − 5 anos` e `inactivity_notice_sent_at <= agora − 30 dias`. Exigir o aviso garante que ninguém é anonimizado sem 30 dias de aviso, mesmo depois de a rotina ficar parada;
-   - **papéis no painel**: membros com papel que atingem o prazo não são anonimizados; geram um `InactiveStaffAlertMail` para o destino de alertas, uma vez por ciclo, marcado em `members.inactivity_alerted_at`, que o login também zera;
+   - **papéis no painel**: membros com papel que atingem o prazo não são anonimizados; geram um `InactiveStaffAlertMail` só para os admins (não para `alerts_email`, decisão do encarregado), uma vez por ciclo, marcado em `members.inactivity_alerted_at`, que o login também zera;
    - o login zera `inactivity_notice_sent_at` (e `inactivity_alerted_at`).
 
 3. **Contrato `MemberContentAnonymizer`** ao lado de `MemberContentEraser`, com implementações por módulo. Consents, Waitlist e Collaborator reaproveitam os erasers atuais: a mesma classe implementa as duas interfaces. Sightings ganha `deleteUnpublishedOf($memberId)`, que apaga relatos pendentes, com ajuste pedido ou recusados, mais as fotos, as variantes e os uploads soltos, e mantém os aprovados. Orders não entra: os pedidos da conta seguem a regra geral (decisão 5), sem prazo antecipado.
@@ -63,4 +63,4 @@
 
 ## Open Questions
 
-- Quem tem papel recebe o mesmo aviso de inatividade 30 dias antes, e os admins recebem o alerta no prazo. Se o encarregado preferir que contas com papel também sejam anonimizadas (perdendo o papel), basta remover o filtro de papel da anonimização.
+Nenhuma. Resolvido com o encarregado em 2026-10-16: contas com papel no painel ficam fora da anonimização automática e só os admins recebem o alerta.
