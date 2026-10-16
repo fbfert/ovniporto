@@ -2,7 +2,7 @@
 
 O OVNIPORTO é uma comunidade de Lages, SC, que reúne relatos de quem viu algo no céu, vende lembranças e trabalha para construir uma pista de pouso na Localidade Pedras Brancas, com meta em 2028. **O lugar ainda não existe**: hoje é um projeto, e o site nunca deve ser lido como convite para visitar o terreno.
 
-Ler o site é livre. Para publicar relatos é preciso ter conta, criada com o login do Google. **[A preencher: idade mínima para criar conta e regra para menores de idade.]** Ao criar a conta você aceita estes termos e a política de privacidade.
+Ler o site é livre. Para publicar relatos é preciso ter conta, criada com o login do Google, e **ter 16 anos ou mais**, o que você confirma no cadastro. Entre 16 e 18 anos você usa o site com a sua própria conta Google, nas mesmas condições que o Google exige para ela, e precisa da autorização do seu responsável legal para comprar na loja. Ao criar a conta você aceita estes termos e a política de privacidade.
 
 Você é responsável pelo uso da sua conta. Não use o site para enviar spam, se passar por outra pessoa, tentar acessar o que não é seu ou atrapalhar o funcionamento do serviço.
 
@@ -17,10 +17,10 @@ Você é responsável pelo uso da sua conta. Não use o site para enviar spam, s
 
 ## Loja e pedidos
 
-- **Preços** em reais, com o frete calculado no checkout pelo Melhor Envio. Em Lages dá para escolher retirar o pedido sem frete, combinando dia e lugar pelo WhatsApp.
+- **Preços** em reais. Alguns produtos têm **frete incluso**, pago pelo OVNIPORTO, e isso aparece na página do produto. Nos demais, o frete é calculado no checkout pelo Melhor Envio e pago por quem compra. Em Lages dá para escolher retirar o pedido sem frete, combinando dia e lugar pelo WhatsApp.
 - **Pagamento** por cartão ou Pix, processado pelo PayPal. O pedido é confirmado quando o pagamento é aprovado. Pedidos sem pagamento em até 2 horas são cancelados.
 - **Produtos sob encomenda** mostram o prazo de produção antes da compra. Ele é somado ao prazo de entrega.
-- **Arrependimento.** Nas compras pelo site você pode desistir em até 7 dias depois de receber o produto (Código de Defesa do Consumidor, art. 49), com devolução integral do valor pago. **[A preencher: como pedir a devolução e quem paga o frete de volta.]**
+- **Arrependimento.** Nas compras pelo site você pode desistir em até 7 dias depois de receber o produto (Código de Defesa do Consumidor, art. 49), com devolução integral do valor pago. Para desistir, preencha o formulário de devolução do site com o número do pedido. O frete de volta é por conta do OVNIPORTO, e o reembolso sai pelo mesmo meio de pagamento.
 - **Defeitos** têm a garantia legal do Código de Defesa do Consumidor.
 - **A loja não é doação.** Hoje o OVNIPORTO não recebe doações nem vende cotas da obra. O orçamento da obra está em planejamento e, quando houver campanha, as regras dela serão publicadas antes.
 
@@ -42,4 +42,6 @@ Quando estes termos mudarem, publicamos a nova versão nesta página com a data 
 
 Dúvidas, pedidos e reclamações: contato@ovniporto.tars.art.br. Assuntos de dados pessoais vão ao encarregado, pelo contato da política de privacidade.
 
-**[A preencher: nome e CPF ou CNPJ do responsável pelo OVNIPORTO e foro, se houver.]**
+O site é mantido pelo OVNIPORTO, CNPJ 62.881.282/0001-30, e-mail ovniporto@tars.art.br.
+
+Fica eleito o foro da comarca de Lages, SC, sem prejuízo do seu direito, como consumidor, de propor ação no foro do seu domicílio (Código de Defesa do Consumidor, art. 101, I).

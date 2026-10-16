@@ -2,15 +2,17 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * Model texts of the privacy policy and the terms, for the encarregado to review on the site.
- * Production never runs the seeders, so this writes them while a block is still empty or the
- * topic skeleton; a text already written in the panel stays. The draft notice stays on.
+ * Production never runs the seeders, so this writes them while a block is still empty or
+ * unwritten; a text already written in the panel stays. The draft notice stays on.
  */
 return new class extends Migration
 {
-    private const SKELETON_MARK = '_Tópico a ser redigido pelo encarregado._';
+    /** Texts nobody wrote yet: the topic skeleton or a model text with blanks to fill. */
+    private const UNWRITTEN_MARKS = ['_Tópico a ser redigido pelo encarregado._', '**[A preencher'];
 
     private const TEXTS = [
         'privacy' => 'data/politica-privacidade-modelo.md',
@@ -30,7 +32,7 @@ return new class extends Migration
     private function fill(string $kind, string $text): void
     {
         $existing = DB::table('content_blocks')->where('key', "{$kind}_body")->first();
-        if ($existing !== null && ! blank($existing->value) && ! str_contains($existing->value, self::SKELETON_MARK)) {
+        if ($existing !== null && ! blank($existing->value) && ! Str::contains($existing->value, self::UNWRITTEN_MARKS)) {
             return;
         }
 

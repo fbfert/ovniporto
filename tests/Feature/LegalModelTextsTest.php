@@ -25,6 +25,15 @@ it('replaces the topic skeleton with the model texts and keeps the draft notice'
     );
 });
 
+it('refreshes a model text that still has blanks to fill', function () {
+    ContentBlock::query()->where('key', 'privacy_body')->update(['value' => "## Contato do encarregado\n**[A preencher: nome do encarregado]**"]);
+    (require database_path('migrations/2026_10_16_000200_refresh_legal_model_texts.php'))->up();
+
+    expect(ContentBlock::query()->where('key', 'privacy_body')->value('value'))
+        ->toContain('Felipe Boeck Fert')
+        ->not->toContain('A preencher');
+});
+
 it('keeps a legal text already written in the panel', function () {
     ContentBlock::query()->where('key', 'terms_body')->update(['value' => '## Uso do site'.PHP_EOL.'Escrito pelo encarregado.']);
     runLegalModelMigration();
