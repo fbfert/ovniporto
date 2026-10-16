@@ -5,6 +5,8 @@ namespace App\Application\Campaign\UseCases;
 use App\Domain\Audit\Contracts\Auditor;
 use App\Domain\Audit\Data\AuditEntry;
 use App\Domain\Campaign\Contracts\WaitlistRepository;
+use App\Domain\Privacy\Contracts\ConsentLedger;
+use App\Domain\Privacy\MailingList;
 
 /** /painel/avise-me: who asked to be told when the campaign opens. */
 final readonly class ManageWaitlist
@@ -14,6 +16,7 @@ final readonly class ManageWaitlist
     public function __construct(
         private WaitlistRepository $subscribers,
         private Auditor $auditor,
+        private ConsentLedger $consents,
     ) {}
 
     /** @return array{subscribers: list<array<string, mixed>>, confirmed: int} */
@@ -36,13 +39,17 @@ final readonly class ManageWaitlist
         ];
     }
 
+    /** At the person's request: the sign-up goes and its consent is marked as withdrawn. */
     public function remove(int $actorId, int $id): void
     {
         // The e-mail itself does not go into the audit log: removing it is the point.
         $this->auditor->audited(
             new AuditEntry($actorId, 'waitlist.removed', 'waitlist', $id),
             fn () => null,
-            fn () => $this->subscribers->remove($id),
+            function () use ($id) {
+                $this->subscribers->remove($id);
+                $this->consents->withdraw(MailingList::Waitlist->consentType(), MailingList::Waitlist->consentSubject($id));
+            },
         );
     }
 }

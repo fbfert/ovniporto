@@ -1,8 +1,9 @@
-import { Link, useForm } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import { useEffect, useId, useState, type FormEvent, type ReactNode } from 'react';
 import { SeoHead } from '@/Components/Layout/SeoHead';
+import { AgreementChecks } from '@/Components/Members/AgreementChecks';
 import { Button } from '@/Components/Ui/Button';
-import { CheckboxField, TextField } from '@/Components/Ui/Fields';
+import { TextField } from '@/Components/Ui/Fields';
 import { NightSkyArt, Polaroid } from '@/Components/Ui/Polaroid';
 import { Section } from '@/Components/Ui/Section';
 import { Display, Eyebrow } from '@/Components/Ui/Typography';
@@ -56,7 +57,7 @@ function useNicknameAvailability(nickname: string): Availability {
 }
 
 export default function Welcome({ firstName, suggestion }: { firstName: string; suggestion: string }) {
-    const form = useForm({ nickname: suggestion, city: '', terms: false as boolean });
+    const form = useForm({ nickname: suggestion, city: '', terms: false as boolean, age: false as boolean });
     const availability = useNicknameAvailability(form.data.nickname);
     const nicknameId = useId();
     const statusId = `${nicknameId}-status`;
@@ -136,23 +137,11 @@ export default function Welcome({ firstName, suggestion }: { firstName: string; 
                         />
 
                         <div className="mt-6">
-                            <CheckboxField
-                                tone="dark"
-                                checked={form.data.terms}
-                                onChange={(event) => form.setData('terms', event.target.checked)}
-                                error={form.errors.terms}
-                                label={
-                                    <>
-                                        {copy.termsLabel}{' '}
-                                        <Link href="/termos" className="underline underline-offset-4">
-                                            {copy.terms}
-                                        </Link>
-                                        {' · '}
-                                        <Link href="/privacidade" className="underline underline-offset-4">
-                                            {copy.privacy}
-                                        </Link>
-                                    </>
-                                }
+                            <AgreementChecks
+                                ask={['terms', 'age']}
+                                values={form.data}
+                                errors={form.errors}
+                                onChange={(agreement, checked) => form.setData(agreement, checked)}
                             />
                         </div>
 

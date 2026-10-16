@@ -4,6 +4,7 @@ namespace App\Infrastructure\Mail;
 
 use App\Domain\Members\MemberRole;
 use App\Domain\Origin\Contracts\CollaboratorNotifier;
+use App\Domain\Privacy\MailingList;
 use App\Mail\CollaboratorApplicationMail;
 use App\Mail\CollaboratorThanksMail;
 use App\Models\Member;
@@ -14,7 +15,7 @@ final class MailCollaboratorNotifier implements CollaboratorNotifier
 {
     public function applied(int $collaboratorId, string $name, string $email): void
     {
-        Mail::to($email)->queue(new CollaboratorThanksMail($name));
+        Mail::to($email)->queue(new CollaboratorThanksMail($name, UnsubscribeLinks::to(MailingList::Collaboration, $collaboratorId)));
 
         Member::query()
             ->where('role', MemberRole::Admin->value)

@@ -38,6 +38,7 @@ use App\Http\Controllers\Panel\SightingModerationController;
 use App\Http\Controllers\Place\ConstructionDiaryController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Place\SupportController;
+use App\Http\Controllers\Privacy\UnsubscribeController;
 use App\Http\Controllers\Region\RegionController;
 use App\Http\Controllers\Sightings\HistoricalCaseController;
 use App\Http\Controllers\Sightings\LogbookController;
@@ -301,6 +302,12 @@ Route::get('/avise-me/confirmar/{subscriber}', [WaitlistController::class, 'conf
     ->whereNumber('subscriber')
     ->middleware('signed')
     ->name('waitlist.confirm');
+
+// Leaving the Avise-me or the collaboration from the e-mail: the GET shows, the POST cancels.
+Route::middleware(['signed', 'throttle:20,1'])->prefix('descadastrar/{list}/{id}')->whereIn('list', ['avise-me', 'colaboracao'])->whereNumber('id')->group(function () {
+    Route::get('/', [UnsubscribeController::class, 'show'])->name('unsubscribe.show');
+    Route::post('/', [UnsubscribeController::class, 'store'])->name('unsubscribe.store');
+});
 
 Route::post('/csp-report', CspReportController::class)->middleware('throttle:60,1')->name('csp.report');
 Route::get('/sitemap.xml', [CrawlerController::class, 'sitemap'])->name('sitemap');

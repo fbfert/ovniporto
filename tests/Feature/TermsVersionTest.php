@@ -26,6 +26,7 @@ it('asks for the new version of the terms before going on, then records it', fun
     $this->get('/termos/aceitar')->assertOk()->assertInertia(fn (Assert $page) => $page
         ->component('Members/AcceptTerms')
         ->where('version', '2026-11-15')
+        ->where('pending', ['terms'])
     );
 
     $this->post('/termos/aceitar', [])->assertSessionHasErrors('terms');
@@ -56,4 +57,32 @@ it('takes the newest date between the terms and the privacy policy', function ()
     $this->actingAs($member)->post('/termos/aceitar', ['terms' => '1']);
 
     expect(Consent::query()->where('member_id', $member->id)->latest('id')->value('version'))->toBe('2026-12-01');
+});
+
+it('asks a member from before the age declaration to confirm it, then returns to the page they opened', function () {
+    $member = Member::factory()->withoutAgeDeclaration()->create();
+
+    $this->actingAs($member)->get('/relatar')->assertRedirect('/termos/aceitar');
+    $this->get('/termos/aceitar')->assertInertia(fn (Assert $page) => $page->where('pending', ['age']));
+
+    $this->post('/termos/aceitar', ['terms' => '1'])->assertSessionHasErrors('age');
+    $this->post('/termos/aceitar', ['age' => '1'])->assertRedirect('/relatar');
+
+    $age = Consent::query()->where('member_id', $member->id)->where('type', 'idade_minima')->sole();
+    expect($age->version)->toBe('2026-10-16')
+        ->and(Consent::query()->where('member_id', $member->id)->where('type', 'termos')->count())->toBe(1);
+    $this->get('/relatar')->assertOk();
+});
+
+it('asks for the new terms and the age on one screen and records both', function () {
+    $member = Member::factory()->withoutAgeDeclaration()->create();
+    publishTerms('2026-11-15');
+
+    $this->actingAs($member)->get('/conta')->assertRedirect('/termos/aceitar');
+    $this->get('/termos/aceitar')->assertInertia(fn (Assert $page) => $page->where('pending', ['terms', 'age']));
+
+    $this->post('/termos/aceitar', ['terms' => '1', 'age' => '1'])->assertRedirect('/conta');
+
+    expect(Consent::query()->where('member_id', $member->id)->latest('id')->limit(2)->pluck('type')->all())
+        ->toEqualCanonicalizing(['termos', 'idade_minima']);
 });

@@ -30,6 +30,14 @@ final class SpyConsentLedger implements ConsentLedger
         return $versions === [] ? null : end($versions);
     }
 
+    /** @var list<array{type: ConsentType, subject: string}> */
+    public array $withdrawals = [];
+
+    public function withdraw(ConsentType $type, string $subject): void
+    {
+        $this->withdrawals[] = compact('type', 'subject');
+    }
+
     public function historyOf(int $memberId, string $email): array
     {
         return [];

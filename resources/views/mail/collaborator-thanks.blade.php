@@ -6,5 +6,7 @@
 @section('body')
     Oi, {{ $name }}. Recebemos sua oferta para ajudar na pesquisa da origem: o Atlas dos Ovnipuertos e o dossiê de Cachi.
     A equipe lê cada mensagem e responde neste e-mail quando houver uma tarefa que combine com o que você ofereceu.
-    Se mudar de ideia, responda pedindo a exclusão dos seus dados.
+    Se mudar de ideia, use o link no fim deste e-mail: sua oferta e seus dados são apagados.
 @endsection
+
+@section('unsubscribe', $unsubscribeUrl)

@@ -33,7 +33,7 @@ A declaração vira o tipo `idade_minima` no ledger, com versão `2026-10-16`. A
 - *Alternativa:* middleware e tela separados para idade. Rejeitada: o membro antigo veria duas telas seguidas no mesmo deploy em que os termos finais forem publicados.
 
 ### D3. Declaração de compra no checkout (aprovada pelo encarregado em 2026-10-16)
-Caixa obrigatória na etapa de identificação: "Tenho 18 anos ou mais, ou a autorização do meu responsável legal para esta compra". A resposta fica na sessão do checkout e o consentimento `compra_autorizada` é registrado em `place`, com `email` do cliente e `subject = "pedido:{number}"`.
+Caixa obrigatória na etapa de identificação: "Tenho 18 anos ou mais, ou a autorização do meu responsável legal para esta compra". A caixa vai junto com os dados do cliente, é validada na identificação e de novo em `place` (sem estado extra na sessão), e o consentimento `compra_autorizada` é registrado em `place`, com `email` do cliente e `subject = "pedido:{number}"`.
 - *Alternativa:* deixar só nos termos. Rejeitada por ora: visitantes compram sem conta e nunca passam pela declaração de idade; a caixa é a única evidência de que a regra foi informada. Se o encarregado preferir só os termos, a tarefa 3 sai inteira sem afetar as outras.
 
 ### D4. Link de descadastro assinado e permanente

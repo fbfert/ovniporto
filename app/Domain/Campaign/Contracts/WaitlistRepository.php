@@ -19,5 +19,8 @@ interface WaitlistRepository
      */
     public function subscribers(): array;
 
+    /** The e-mail of the subscription, or null when it does not exist. */
+    public function emailOf(int $id): ?string;
+
     public function remove(int $id): ?string;
 }

@@ -23,7 +23,10 @@ interface ConsentLedger
 
     public function latestVersion(int $memberId, ConsentType $type): ?string;
 
-    /** @return list<array{tipo: string, versao: string, assunto: ?string, dado_em: string}> */
+    /** Marks the consents of that type and subject as withdrawn, keeping the record. Already withdrawn ones keep their date. */
+    public function withdraw(ConsentType $type, string $subject): void;
+
+    /** @return list<array{tipo: string, versao: string, assunto: ?string, dado_em: string, retirado_em: ?string}> */
     public function historyOf(int $memberId, string $email): array;
 
     /** Keeps type, version and date; drops IP, browser, e-mail, subject and the link to the person. */

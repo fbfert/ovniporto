@@ -1,5 +1,7 @@
 <?php
 
+use App\Domain\Privacy\ConsentType;
+use App\Domain\Privacy\Contracts\ConsentLedger;
 use App\Models\Consent;
 use App\Models\Member;
 use App\Models\RegionPartner;
@@ -19,16 +21,16 @@ function lastConsent(): Consent
     return Consent::query()->latest('id')->firstOrFail();
 }
 
-it('records the terms with version, date, IP and browser when the profile is completed', function () {
+it('records the terms and the age declaration with version, date, IP and browser when the profile is completed', function () {
     $member = Member::factory()->incomplete()->create();
 
-    $this->actingAs($member)->post('/boas-vindas', ['nickname' => 'vigia_nova', 'terms' => '1'])->assertRedirect();
+    $this->actingAs($member)->post('/boas-vindas', ['nickname' => 'vigia_nova', 'terms' => '1', 'age' => '1'])->assertRedirect();
 
-    $consent = lastConsent();
-    expect($consent->only(['type', 'version', 'member_id', 'ip_address', 'user_agent']))->toBe([
-        'type' => 'termos', 'version' => 'inicial', 'member_id' => $member->id,
-        'ip_address' => '203.0.113.7', 'user_agent' => 'VigiaBrowser/1.0',
-    ])->and($consent->given_at->isToday())->toBeTrue();
+    $consents = Consent::query()->where('member_id', $member->id)->orderBy('id')->get();
+    expect($consents->map->only(['type', 'version', 'ip_address', 'user_agent'])->all())->toBe([
+        ['type' => 'termos', 'version' => 'inicial', 'ip_address' => '203.0.113.7', 'user_agent' => 'VigiaBrowser/1.0'],
+        ['type' => 'idade_minima', 'version' => '2026-10-16', 'ip_address' => '203.0.113.7', 'user_agent' => 'VigiaBrowser/1.0'],
+    ])->and($consents[0]->given_at->isToday())->toBeTrue();
 });
 
 it('records the publication consent of each report, again on resubmission', function () {
@@ -81,4 +83,20 @@ it('records the partner listing consent on the date the partner gave it', functi
         ->and($consents[0]->subject)->toBe("parceiro:{$partner->id}")
         ->and($consents[0]->version)->toBe('2026-10-02')
         ->and($consents[0]->given_at->toDateString())->toBe('2026-09-28');
+});
+
+it('withdraws a consent with a date and keeps the record', function () {
+    $this->post('/avise-me', ['email' => 'vigia@serra.com', 'consent' => '1']);
+    $consent = Consent::query()->where('type', 'newsletter')->sole();
+
+    $this->travelTo(now()->addDay());
+    app(ConsentLedger::class)->withdraw(ConsentType::Newsletter, $consent->subject);
+    $withdrawnAt = $consent->fresh()->withdrawn_at;
+
+    $this->travelTo(now()->addDay());
+    app(ConsentLedger::class)->withdraw(ConsentType::Newsletter, $consent->subject);
+
+    expect($withdrawnAt)->not->toBeNull()
+        ->and($consent->fresh()->withdrawn_at->equalTo($withdrawnAt))->toBeTrue()
+        ->and(Consent::query()->where('type', 'newsletter')->count())->toBe(1);
 });

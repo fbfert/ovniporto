@@ -5,6 +5,8 @@ namespace App\Application\Origin\UseCases;
 use App\Domain\Audit\Contracts\Auditor;
 use App\Domain\Audit\Data\AuditEntry;
 use App\Domain\Origin\Contracts\CollaboratorRepository;
+use App\Domain\Privacy\Contracts\ConsentLedger;
+use App\Domain\Privacy\MailingList;
 
 /** /painel/colaboradores: who offered to help the origin research. */
 final readonly class ManageCollaborators
@@ -14,6 +16,7 @@ final readonly class ManageCollaborators
     public function __construct(
         private CollaboratorRepository $collaborators,
         private Auditor $auditor,
+        private ConsentLedger $consents,
     ) {}
 
     /** @return array{collaborators: list<array<string, mixed>>} */
@@ -34,13 +37,17 @@ final readonly class ManageCollaborators
         ];
     }
 
+    /** At the person's request: the sign-up goes and its consent is marked as withdrawn. */
     public function remove(int $actorId, int $id): void
     {
         // Name and e-mail stay out of the audit log: removing them is the point.
         $this->auditor->audited(
             new AuditEntry($actorId, 'collaborator.removed', 'collaborator', $id),
             fn () => null,
-            fn () => $this->collaborators->remove($id),
+            function () use ($id) {
+                $this->collaborators->remove($id);
+                $this->consents->withdraw(MailingList::Collaboration->consentType(), MailingList::Collaboration->consentSubject($id));
+            },
         );
     }
 }

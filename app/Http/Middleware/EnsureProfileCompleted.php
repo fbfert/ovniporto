@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Members without a nickname or the accepted terms go to the welcome screen first;
- * when the terms change, they accept the new version before going on.
+ * when the terms change or the age was never declared, they confirm it before going on.
  */
 class EnsureProfileCompleted
 {
@@ -25,7 +25,7 @@ class EnsureProfileCompleted
         if (! $member->hasCompleteProfile()) {
             return redirect()->route('welcome');
         }
-        if ($this->terms->pending($member->id)) {
+        if ($this->terms->pending($member->id) !== []) {
             if ($request->isMethod('GET')) {
                 redirect()->setIntendedUrl($request->fullUrl());
             }

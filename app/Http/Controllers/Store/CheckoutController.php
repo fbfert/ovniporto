@@ -138,7 +138,12 @@ class CheckoutController extends Controller
         ]);
     }
 
-    /** @return array{name: string, email: string, phone: string, cpf: string} */
+    /**
+     * The buyer and the purchase authorization (18 or older, or authorized by a legal guardian),
+     * checked at the first step and again when the order is placed.
+     *
+     * @return array{name: string, email: string, phone: string, cpf: string}
+     */
     private function customer(Request $request): array
     {
         $data = $request->validate([
@@ -146,11 +151,13 @@ class CheckoutController extends Controller
             'email' => ['required', 'email', 'max:160'],
             'phone' => ['required', 'string', 'max:20'],
             'cpf' => ['required', 'string', 'max:14'],
+            'purchaseAuthorization' => ['accepted'],
         ], [
             'name.required' => 'Diga seu nome.',
             'email.required' => 'Diga seu e-mail.',
             'phone.required' => 'O telefone (WhatsApp) é obrigatório.',
             'cpf.required' => 'O CPF é obrigatório para o envio.',
+            'purchaseAuthorization.accepted' => 'Para comprar, confirme que tem 18 anos ou a autorização do seu responsável legal.',
         ]);
         $errors = [];
         if (! Cpf::isValid((string) preg_replace('/\D/', '', $data['cpf']))) {
@@ -165,7 +172,7 @@ class CheckoutController extends Controller
             throw ValidationException::withMessages($errors);
         }
 
-        return $data;
+        return ['name' => $data['name'], 'email' => $data['email'], 'phone' => $data['phone'], 'cpf' => $data['cpf']];
     }
 
     /**

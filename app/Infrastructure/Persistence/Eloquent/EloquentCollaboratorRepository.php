@@ -39,6 +39,11 @@ final class EloquentCollaboratorRepository implements CollaboratorRepository
             ->all();
     }
 
+    public function emailOf(int $id): ?string
+    {
+        return ResearchCollaborator::query()->whereKey($id)->value('email');
+    }
+
     public function remove(int $id): ?string
     {
         $collaborator = ResearchCollaborator::query()->find($id);

@@ -82,7 +82,7 @@ it('keeps the consents anonymized and drops the newsletter sign-up of the accoun
     deleteAccount($this->member);
 
     expect(NewsletterSubscriber::query()->where('email', 'coruja@serra.test')->exists())->toBeFalse()
-        ->and(Consent::query()->count())->toBe(2);
+        ->and(Consent::query()->pluck('type')->all())->toEqualCanonicalizing(['termos', 'idade_minima', 'newsletter']);
     Consent::query()->get()->each(fn (Consent $c) => expect($c->only(['member_id', 'email', 'subject', 'ip_address', 'user_agent']))
         ->toBe(['member_id' => null, 'email' => null, 'subject' => null, 'ip_address' => null, 'user_agent' => null])
         ->and($c->version)->not->toBeEmpty());

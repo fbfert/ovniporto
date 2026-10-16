@@ -89,3 +89,11 @@ it('lists, exports and removes offers in the admin panel only', function () {
     expect($csv)->toContain('fica@example.com')->not->toContain('sai@example.com');
     $this->get('/painel/colaboradores')->assertInertia(fn (Assert $page) => $page->has('collaborators', 1)->where('collaborators.0.id', $keep->id));
 });
+
+it('puts a permanent unsubscribe link in the thank-you e-mail', function () {
+    $this->post('/colaborar', collaboratorPayload());
+    $id = ResearchCollaborator::query()->sole()->id;
+
+    Mail::assertQueued(CollaboratorThanksMail::class, fn (CollaboratorThanksMail $mail) => str_contains($mail->unsubscribeUrl, "/descadastrar/colaboracao/{$id}?signature=")
+        && str_contains($mail->render(), e($mail->unsubscribeUrl)));
+});

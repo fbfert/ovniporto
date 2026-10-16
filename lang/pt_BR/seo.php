@@ -98,10 +98,11 @@ return [
         'report' => ['title' => 'Relatar avistamento', 'index' => false],
         'report.edit' => ['title' => 'Ajustar relato', 'index' => false],
         'report.sent' => ['title' => 'Relato na torre de controle', 'index' => false],
-        'terms.accept' => ['title' => 'Os termos mudaram', 'index' => false],
+        'terms.accept' => ['title' => 'Antes de continuar', 'index' => false],
         'checkout' => ['title' => 'Finalizar compra', 'index' => false],
         'order.pay' => ['title' => 'Pagamento', 'index' => false],
         'waitlist.confirm' => ['title' => 'Inscrição confirmada', 'index' => false],
+        'unsubscribe.show' => ['title' => 'Sair da lista', 'index' => false],
     ],
 
     'order_title' => 'Pedido :number',

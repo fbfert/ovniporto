@@ -32,6 +32,9 @@ class E2eSeeder extends Seeder
             Consent::query()->create([
                 'type' => ConsentType::Terms->value, 'version' => 'inicial', 'member_id' => $id, 'given_at' => now(),
             ]);
+            Consent::query()->create([
+                'type' => ConsentType::MinimumAge->value, 'version' => ConsentType::MinimumAge->textVersion(), 'member_id' => $id, 'given_at' => now(),
+            ]);
         }
     }
 }

@@ -4,6 +4,7 @@ use App\Domain\Payments\Contracts\PaymentGateway;
 use App\Domain\Shipping\Contracts\AddressLookup;
 use App\Domain\Shipping\Contracts\ShippingProvider;
 use App\Mail\OrderMail;
+use App\Models\Consent;
 use App\Models\Member;
 use App\Models\Order;
 use App\Models\Product;
@@ -35,6 +36,7 @@ function buyer(array $overrides = []): array
         'email' => 'ana@example.com',
         'phone' => '(49) 99999-0000',
         'cpf' => '529.982.247-25',
+        'purchaseAuthorization' => '1',
         ...$overrides,
     ];
 }
@@ -65,6 +67,24 @@ function placeOrder(object $test, array $data = []): Order
 it('refuses a CPF with a wrong check digit at the first step', function () {
     $this->post('/checkout/identificacao', buyer(['cpf' => '529.982.247-24']))->assertSessionHasErrors('cpf');
     $this->post('/checkout/identificacao', buyer())->assertSessionHasNoErrors();
+});
+
+it('does not go past the first step without the purchase authorization', function () {
+    $this->post('/checkout/identificacao', buyer(['purchaseAuthorization' => null]))->assertSessionHasErrors('purchaseAuthorization');
+    $this->post('/carrinho/itens', ['variantId' => $this->sticker->id]);
+    $this->post('/checkout', [...buyer(['purchaseAuthorization' => null]), 'pickup' => true])->assertSessionHasErrors('purchaseAuthorization');
+
+    expect(Order::query()->count())->toBe(0);
+});
+
+it('records the purchase authorization with the order', function () {
+    $this->withServerVariables(['REMOTE_ADDR' => '203.0.113.9']);
+    $order = placeOrder($this);
+
+    $consent = Consent::query()->where('type', 'compra_autorizada')->sole();
+    expect($consent->only(['version', 'email', 'subject', 'ip_address']))->toBe([
+        'version' => '2026-10-16', 'email' => 'ana@example.com', 'subject' => "pedido:{$order->number}", 'ip_address' => '203.0.113.9',
+    ]);
 });
 
 it('fills the address from the CEP and quotes freight on the server', function () {

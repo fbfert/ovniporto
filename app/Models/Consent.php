@@ -15,6 +15,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $ip_address
  * @property string|null $user_agent
  * @property Carbon $given_at
+ * @property Carbon|null $withdrawn_at
  */
 class Consent extends Model
 {
@@ -24,6 +25,6 @@ class Consent extends Model
 
     protected function casts(): array
     {
-        return ['given_at' => 'datetime'];
+        return ['given_at' => 'datetime', 'withdrawn_at' => 'datetime'];
     }
 }

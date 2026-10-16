@@ -26,6 +26,9 @@
                     </tr>
                 </table>
                 <p style="margin:20px 0 0;font-size:12px;color:#ADDBA1;opacity:.7;">OVNIPORTO · Lages, SC</p>
+                @hasSection('unsubscribe')
+                    <p style="margin:12px 0 0;font-size:12px;color:#ADDBA1;opacity:.7;">Não quer mais receber estes e-mails? <a href="@yield('unsubscribe')" style="color:#ADDBA1;">Saia da lista</a>.</p>
+                @endif
             </td>
         </tr>
     </table>

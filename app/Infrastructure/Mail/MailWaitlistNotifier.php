@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Mail;
 
 use App\Domain\Campaign\Contracts\WaitlistNotifier;
+use App\Domain\Privacy\MailingList;
 use App\Mail\ConfirmWaitlistMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
@@ -17,6 +18,6 @@ final class MailWaitlistNotifier implements WaitlistNotifier
             ['subscriber' => $subscriptionId],
         );
 
-        Mail::to($email)->queue(new ConfirmWaitlistMail($url));
+        Mail::to($email)->queue(new ConfirmWaitlistMail($url, UnsubscribeLinks::to(MailingList::Waitlist, $subscriptionId)));
     }
 }

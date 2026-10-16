@@ -13,12 +13,14 @@ it('shows "O que fazemos na prática" on /privacidade, with the numbers the code
         ->where('practices.items', function ($items) {
             $text = implode("\n", collect($items)->all());
 
-            return count($items) === 10
+            return count($items) === 12
                 && str_contains($text, SightingPhotoUrls::SIGNED_MINUTES.' minutos')
                 && str_contains($text, implode(', ', GoogleIdentityProvider::SCOPES))
                 && str_contains($text, 'por 5 anos após o pagamento')
                 && str_contains($text, 'no máximo 6 meses')
                 && str_contains($text, 'cookies de terceiros')
+                && str_contains($text, '16 anos ou mais')
+                && str_contains($text, 'link para sair')
                 && ! str_contains($text, ':');
         })
     );

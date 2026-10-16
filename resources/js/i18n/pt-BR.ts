@@ -575,6 +575,8 @@ export const t = {
         cityLabel: 'Cidade (opcional)',
         cityPlaceholder: 'Lages',
         termsLabel: 'Li e aceito os termos de uso e a política de privacidade.',
+        ageConfirm: 'Tenho 16 anos ou mais.',
+        ageHint: 'Entre 16 e 18 anos, compras na loja precisam da autorização do seu responsável legal.',
         termsUpdate: {
             eyebrow: 'Antes de continuar',
             title: 'Os termos mudaram',
@@ -582,6 +584,10 @@ export const t = {
                 `Atualizamos os termos de uso e a política de privacidade em ${date}. Leia o que mudou e aceite para seguir na vigília.`,
             leadInitial:
                 'Precisamos do seu aceite aos termos de uso e à política de privacidade para seguir na vigília.',
+            ageOnlyTitle: 'Uma confirmação antes de seguir',
+            ageOnlyLead:
+                'Para seguir na vigília, confirme que você tem 16 anos ou mais. Não pedimos data de nascimento.',
+            confirm: 'Confirmar e continuar',
             accept: 'Aceitar e continuar',
             notNow: 'Agora não, sair',
         },
@@ -838,6 +844,23 @@ export const t = {
         confirmedTitle: 'Pronto.',
         confirmedLead: 'Guardei um lugar pra você. Quando a campanha abrir, você fica sabendo antes.',
     },
+    unsubscribe: {
+        eyebrow: 'Torre de controle, câmbio',
+        lists: {
+            'avise-me': 'o Avise-me da campanha da pista',
+            colaboracao: 'a sua oferta de ajuda na pesquisa da origem',
+        } as Record<string, string>,
+        confirmTitle: 'Sair da lista?',
+        confirmLead: (list: string, email: string) =>
+            `Você vai cancelar ${list}, do e-mail ${email}. Seus dados dessa inscrição são apagados e paramos de escrever.`,
+        confirm: 'Cancelar inscrição',
+        keep: 'Continuar na lista',
+        doneTitle: 'Pronto, câmbio e desligo.',
+        doneLead: 'Inscrição cancelada e dados apagados. Se mudar de ideia, é só se inscrever de novo.',
+        nothingTitle: 'Nada a cancelar',
+        nothingLead: 'Não há mais inscrição ativa neste link. Talvez você já tenha saído antes.',
+        back: 'Voltar ao início',
+    },
     toast: {
         close: 'Fechar aviso',
     },
@@ -910,6 +933,7 @@ export const t = {
         phoneHint: 'Com DDD. É por onde avisamos se algo mudar no envio.',
         cpf: 'CPF',
         cpfWhy: 'Os Correios e a transportadora pedem o CPF de quem recebe. Ele fica guardado criptografado e só aparece mascarado.',
+        purchaseAuthorization: 'Tenho 18 anos ou mais, ou a autorização do meu responsável legal para esta compra.',
         signedInAs: 'Comprando com a sua conta',
         guestHint: 'Não precisa criar conta. Se tiver uma, entre antes para ver o pedido em "Minha conta".',
         signIn: 'Entrar com Google',

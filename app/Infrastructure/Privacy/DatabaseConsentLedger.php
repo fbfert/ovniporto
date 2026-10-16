@@ -48,6 +48,15 @@ final readonly class DatabaseConsentLedger implements ConsentLedger
             ->value('version');
     }
 
+    public function withdraw(ConsentType $type, string $subject): void
+    {
+        Consent::query()
+            ->where('type', $type->value)
+            ->where('subject', $subject)
+            ->whereNull('withdrawn_at')
+            ->update(['withdrawn_at' => now()]);
+    }
+
     public function historyOf(int $memberId, string $email): array
     {
         return $this->ownedBy($memberId, $email)
@@ -59,6 +68,7 @@ final readonly class DatabaseConsentLedger implements ConsentLedger
                 'versao' => $c->version,
                 'assunto' => $c->subject,
                 'dado_em' => $c->given_at->toIso8601String(),
+                'retirado_em' => $c->withdrawn_at?->toIso8601String(),
             ])
             ->all();
     }

@@ -46,6 +46,11 @@ final class EloquentWaitlistRepository implements WaitlistRepository
             ->all();
     }
 
+    public function emailOf(int $id): ?string
+    {
+        return NewsletterSubscriber::query()->whereKey($id)->value('email');
+    }
+
     public function remove(int $id): ?string
     {
         $subscriber = NewsletterSubscriber::query()->find($id);

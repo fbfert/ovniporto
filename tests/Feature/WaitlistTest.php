@@ -75,3 +75,17 @@ it('rate limits the form per IP', function () {
 
     $this->post('/avise-me', ['email' => 'v6@serra.com', 'consent' => '1'])->assertStatus(429);
 });
+
+it('puts a permanent unsubscribe link in the body and in the List-Unsubscribe header', function () {
+    $this->from('/')->post('/avise-me', ['email' => 'vigia@serra.com', 'consent' => '1']);
+    $id = NewsletterSubscriber::query()->sole()->id;
+
+    Mail::assertQueued(ConfirmWaitlistMail::class, function (ConfirmWaitlistMail $mail) use ($id) {
+        $url = $mail->unsubscribeUrl;
+
+        return str_contains($url, "/descadastrar/avise-me/{$id}?signature=")
+            && ! str_contains($url, 'expires=')
+            && $mail->headers()->text['List-Unsubscribe'] === "<{$url}>"
+            && str_contains($mail->render(), e($url));
+    });
+});

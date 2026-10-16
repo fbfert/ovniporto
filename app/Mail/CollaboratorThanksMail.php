@@ -13,7 +13,7 @@ class CollaboratorThanksMail extends Mailable implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public string $name) {}
+    public function __construct(public string $name, public string $unsubscribeUrl) {}
 
     public function envelope(): Envelope
     {

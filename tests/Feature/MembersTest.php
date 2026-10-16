@@ -11,6 +11,7 @@ use App\Models\Member;
 use App\Models\Sighting;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
 
@@ -81,7 +82,7 @@ it('suggests a nickname and refuses one already taken', function () {
     $this->actingAs($member)->get('/boas-vindas')
         ->assertInertia(fn (Assert $page) => $page->component('Members/Welcome')->where('suggestion', 'ana'));
     $this->getJson('/apelido-disponivel?apelido=Coruja')->assertJson(['available' => false]);
-    $this->post('/boas-vindas', ['nickname' => 'coruja', 'terms' => '1'])->assertSessionHasErrors('nickname');
+    $this->post('/boas-vindas', ['nickname' => 'coruja', 'terms' => '1', 'age' => '1'])->assertSessionHasErrors('nickname');
 
     expect($member->fresh()->nickname)->toBeNull();
 });
@@ -89,15 +90,24 @@ it('suggests a nickname and refuses one already taken', function () {
 it('does not activate the account without the terms', function () {
     $member = Member::factory()->incomplete()->create();
 
-    $this->actingAs($member)->post('/boas-vindas', ['nickname' => 'vigia_nova'])->assertSessionHasErrors('terms');
+    $this->actingAs($member)->post('/boas-vindas', ['nickname' => 'vigia_nova', 'age' => '1'])->assertSessionHasErrors('terms');
 
     expect($member->fresh()->hasCompleteProfile())->toBeFalse();
+});
+
+it('does not activate the account without the age declaration, and asks for no birth date', function () {
+    $member = Member::factory()->incomplete()->create();
+
+    $this->actingAs($member)->post('/boas-vindas', ['nickname' => 'vigia_nova', 'terms' => '1'])->assertSessionHasErrors('age');
+
+    expect($member->fresh()->hasCompleteProfile())->toBeFalse()
+        ->and(Schema::hasColumn('members', 'birth_date'))->toBeFalse();
 });
 
 it('activates the account with a free nickname and accepted terms', function () {
     $member = Member::factory()->incomplete()->create();
 
-    $this->actingAs($member)->post('/boas-vindas', ['nickname' => 'Vigia_Nova', 'city' => 'Lages', 'terms' => '1'])
+    $this->actingAs($member)->post('/boas-vindas', ['nickname' => 'Vigia_Nova', 'city' => 'Lages', 'terms' => '1', 'age' => '1'])
         ->assertRedirect('/conta');
 
     expect($member->fresh()->only(['nickname', 'city']))->toBe(['nickname' => 'vigia_nova', 'city' => 'Lages'])

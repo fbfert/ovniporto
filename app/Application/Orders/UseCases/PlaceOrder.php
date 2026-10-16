@@ -12,6 +12,8 @@ use App\Domain\Orders\Data\CartOwner;
 use App\Domain\Orders\Data\NewOrder;
 use App\Domain\Orders\OrderTotals;
 use App\Domain\Orders\Phone;
+use App\Domain\Privacy\ConsentType;
+use App\Domain\Privacy\Contracts\ConsentLedger;
 use App\Domain\Shipping\Cep;
 use App\Domain\Shipping\Contracts\ShippingProvider;
 use App\Domain\Shipping\Data\ShippingOption;
@@ -22,6 +24,8 @@ use InvalidArgumentException;
  * "Revisar e pagar": turns the cart into an order. Nothing the browser says
  * about money is used: items are priced from the catalog and the freight is
  * quoted again here. Stock is not touched until the payment is confirmed.
+ * The buyer declared being 18 or older, or authorized by a legal guardian: that
+ * declaration is recorded with the order (the form refuses to go on without it).
  */
 final readonly class PlaceOrder
 {
@@ -31,6 +35,7 @@ final readonly class PlaceOrder
         private OrderRepository $orders,
         private OrderNotifier $notifier,
         private MemberRepository $members,
+        private ConsentLedger $consents,
     ) {}
 
     /**
@@ -76,6 +81,13 @@ final readonly class PlaceOrder
             ], $cart['items']),
             totals: $totals,
         ));
+        $this->consents->record(
+            ConsentType::PurchaseAuthorization,
+            ConsentType::PurchaseAuthorization->textVersion(),
+            $owner->memberId,
+            mb_strtolower(trim($customer['email'])),
+            "pedido:{$order['number']}",
+        );
         $this->notifier->received($order['number']);
 
         return $order;

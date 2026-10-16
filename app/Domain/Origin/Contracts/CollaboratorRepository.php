@@ -21,6 +21,9 @@ interface CollaboratorRepository
      */
     public function collaborators(): array;
 
+    /** The e-mail of the application, or null when it does not exist. */
+    public function emailOf(int $id): ?string;
+
     /** Deletes the application. Returns its e-mail, or null when it did not exist. */
     public function remove(int $id): ?string;
 }

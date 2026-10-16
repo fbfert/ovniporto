@@ -3,7 +3,7 @@ import { useState, type FormEvent, type ReactNode } from 'react';
 import { SeoHead } from '@/Components/Layout/SeoHead';
 import { ProductArt } from '@/Components/Store/ProductArt';
 import { Button } from '@/Components/Ui/Button';
-import { TextField } from '@/Components/Ui/Fields';
+import { CheckboxField, TextField } from '@/Components/Ui/Fields';
 import { Section } from '@/Components/Ui/Section';
 import { Display } from '@/Components/Ui/Typography';
 import { money, t } from '@/i18n/pt-BR';
@@ -34,6 +34,7 @@ interface CheckoutForm {
     email: string;
     phone: string;
     cpf: string;
+    purchaseAuthorization: boolean;
     pickup: boolean;
     address: {
         cep: string;
@@ -47,7 +48,14 @@ interface CheckoutForm {
     shippingOptionId: string;
 }
 
-const STEP_OF: Record<string, Step> = { name: 1, email: 1, phone: 1, cpf: 1, shippingOptionId: 2 };
+const STEP_OF: Record<string, Step> = {
+    name: 1,
+    email: 1,
+    phone: 1,
+    cpf: 1,
+    purchaseAuthorization: 1,
+    shippingOptionId: 2,
+};
 const stepOf = (field: string): Step => STEP_OF[field] ?? (field.startsWith('address') ? 2 : 3);
 
 const maskCpf = (value: string) =>
@@ -91,6 +99,7 @@ export default function Checkout({ customer, signedIn, shippingAvailable }: Prop
         email: customer.email,
         phone: '',
         cpf: '',
+        purchaseAuthorization: false,
         pickup: !shippingAvailable,
         address: { cep: '', street: '', number: '', complement: '', district: '', city: '', state: '' },
         shippingOptionId: '',
@@ -240,6 +249,14 @@ export default function Checkout({ customer, signedIn, shippingAvailable }: Prop
                                 />
                                 <p className="mt-1.5 text-sm text-moonlight/60">{copy.cpfWhy}</p>
                             </div>
+                            <CheckboxField
+                                tone="dark"
+                                name="purchaseAuthorization"
+                                checked={data.purchaseAuthorization}
+                                onChange={(e) => form.setData('purchaseAuthorization', e.target.checked)}
+                                error={form.errors.purchaseAuthorization}
+                                label={copy.purchaseAuthorization}
+                            />
                             <Button type="submit" size="lg" loading={form.processing}>
                                 {copy.next}
                             </Button>

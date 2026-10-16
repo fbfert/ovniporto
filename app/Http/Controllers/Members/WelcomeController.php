@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Members;
 
 use App\Application\Members\UseCases\CheckNickname;
 use App\Application\Members\UseCases\CompleteProfile;
+use App\Domain\Members\AgeNotDeclared;
 use App\Domain\Members\NicknameUnavailable;
 use App\Domain\Members\TermsNotAccepted;
 use App\Http\Controllers\Controller;
@@ -40,11 +41,14 @@ class WelcomeController extends Controller
                 $request->string('nickname')->toString(),
                 $request->input('city'),
                 $request->boolean('terms'),
+                $request->boolean('age'),
             );
         } catch (NicknameUnavailable $e) {
             throw ValidationException::withMessages(['nickname' => CompleteProfileRequest::nicknameMessage($e->reason)]);
         } catch (TermsNotAccepted) {
             throw ValidationException::withMessages(['terms' => CompleteProfileRequest::TERMS_MESSAGE]);
+        } catch (AgeNotDeclared) {
+            throw ValidationException::withMessages(['age' => CompleteProfileRequest::AGE_MESSAGE]);
         }
 
         return redirect()->intended(route('account'))->with('toast', 'Bem-vindo à vigília.');

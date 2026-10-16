@@ -9,6 +9,8 @@ class CompleteProfileRequest extends FormRequest
 {
     public const TERMS_MESSAGE = 'Para entrar na comunidade, aceite os termos.';
 
+    public const AGE_MESSAGE = 'A comunidade é para quem tem 16 anos ou mais. Marque para confirmar.';
+
     /** @return array<string, mixed> */
     public function rules(): array
     {
@@ -16,6 +18,7 @@ class CompleteProfileRequest extends FormRequest
             'nickname' => ['required', 'string', 'min:'.Nickname::MIN, 'max:'.Nickname::MAX],
             'city' => ['nullable', 'string', 'max:80'],
             'terms' => ['accepted'],
+            'age' => ['accepted'],
         ];
     }
 
@@ -27,6 +30,7 @@ class CompleteProfileRequest extends FormRequest
             'nickname.min' => self::nicknameMessage('format'),
             'nickname.max' => self::nicknameMessage('format'),
             'terms.accepted' => self::TERMS_MESSAGE,
+            'age.accepted' => self::AGE_MESSAGE,
         ];
     }
 

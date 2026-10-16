@@ -4,6 +4,8 @@ use App\Application\Origin\UseCases\ManageCollaborators;
 use App\Domain\Audit\Contracts\Auditor;
 use App\Domain\Audit\Data\AuditEntry;
 use App\Domain\Origin\Contracts\CollaboratorRepository;
+use App\Domain\Privacy\ConsentType;
+use Tests\Support\SpyConsentLedger;
 
 function collaboratorList(): CollaboratorRepository
 {
@@ -23,6 +25,11 @@ function collaboratorList(): CollaboratorRepository
                 'id' => 7, 'name' => 'Ana', 'email' => 'ana@serra.com', 'location' => 'Lages, Brasil',
                 'areas' => ['pesquisa', 'fotos'], 'message' => 'Tenho fotos.', 'consentedAt' => '2026-10-05T10:00:00+00:00',
             ]];
+        }
+
+        public function emailOf(int $id): ?string
+        {
+            return 'ana@serra.com';
         }
 
         public function remove(int $id): ?string
@@ -61,19 +68,22 @@ function collaboratorAuditor(): Auditor
 }
 
 it('exports a header and one row per offer, areas joined', function () {
-    $rows = (new ManageCollaborators(collaboratorList(), collaboratorAuditor()))->export();
+    $rows = (new ManageCollaborators(collaboratorList(), collaboratorAuditor(), new SpyConsentLedger))->export();
 
     expect($rows[0])->toBe(ManageCollaborators::CSV_HEADER)
         ->and($rows[1])->toBe(['Ana', 'ana@serra.com', 'Lages, Brasil', 'pesquisa, fotos', 'Tenho fotos.', '2026-10-05T10:00:00+00:00']);
 });
 
-it('removes an offer through the audit log, without the e-mail in it', function () {
+it('removes an offer through the audit log, without the e-mail in it, and withdraws its consent', function () {
     $repository = collaboratorList();
     $auditor = collaboratorAuditor();
 
-    (new ManageCollaborators($repository, $auditor))->remove(3, 7);
+    $ledger = new SpyConsentLedger;
+
+    (new ManageCollaborators($repository, $auditor, $ledger))->remove(3, 7);
 
     expect($repository->removed)->toBe([7])
+        ->and($ledger->withdrawals)->toBe([['type' => ConsentType::Collaboration, 'subject' => 'colaborador:7']])
         ->and($auditor->entries[0]->action)->toBe('collaborator.removed')
         ->and(json_encode($auditor->entries[0]))->not->toContain('ana@serra.com');
 });

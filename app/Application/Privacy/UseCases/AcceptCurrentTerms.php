@@ -2,29 +2,63 @@
 
 namespace App\Application\Privacy\UseCases;
 
+use App\Domain\Members\AgeNotDeclared;
 use App\Domain\Members\Contracts\MemberRepository;
+use App\Domain\Members\TermsNotAccepted;
 use App\Domain\Privacy\ConsentType;
 use App\Domain\Privacy\Contracts\ConsentLedger;
 use DateTimeImmutable;
 
-/** When the terms change, members agree again before going on. */
+/**
+ * What a member still has to agree to before going on: the current terms (they changed
+ * since the last yes) and the minimum age declaration (accounts from before it existed).
+ * Both fit on one screen; only what is pending is asked and recorded.
+ */
 final readonly class AcceptCurrentTerms
 {
+    public const TERMS = 'terms';
+
+    public const AGE = 'age';
+
     public function __construct(
         private ConsentLedger $ledger,
         private CurrentTermsVersion $currentVersion,
         private MemberRepository $members,
     ) {}
 
-    public function pending(int $memberId): bool
+    /** @return list<self::TERMS|self::AGE> */
+    public function pending(int $memberId): array
     {
-        return $this->ledger->latestVersion($memberId, ConsentType::Terms) !== $this->currentVersion->execute();
+        $pending = [];
+        if ($this->ledger->latestVersion($memberId, ConsentType::Terms) !== $this->currentVersion->execute()) {
+            $pending[] = self::TERMS;
+        }
+        if ($this->ledger->latestVersion($memberId, ConsentType::MinimumAge) !== ConsentType::MinimumAge->textVersion()) {
+            $pending[] = self::AGE;
+        }
+
+        return $pending;
     }
 
-    public function execute(int $memberId): void
+    public function execute(int $memberId, bool $termsAccepted, bool $ageDeclared): void
     {
+        $pending = $this->pending($memberId);
+        $acceptsTerms = in_array(self::TERMS, $pending, true);
+        $declaresAge = in_array(self::AGE, $pending, true);
+        if ($acceptsTerms && ! $termsAccepted) {
+            throw new TermsNotAccepted;
+        }
+        if ($declaresAge && ! $ageDeclared) {
+            throw new AgeNotDeclared;
+        }
+
         $now = new DateTimeImmutable;
-        $this->members->acceptTerms($memberId, $now);
-        $this->ledger->record(ConsentType::Terms, $this->currentVersion->execute(), $memberId, givenAt: $now);
+        if ($acceptsTerms) {
+            $this->members->acceptTerms($memberId, $now);
+            $this->ledger->record(ConsentType::Terms, $this->currentVersion->execute(), $memberId, givenAt: $now);
+        }
+        if ($declaresAge) {
+            $this->ledger->record(ConsentType::MinimumAge, ConsentType::MinimumAge->textVersion(), $memberId, givenAt: $now);
+        }
     }
 }

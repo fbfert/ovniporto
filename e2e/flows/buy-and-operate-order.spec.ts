@@ -50,6 +50,7 @@ test('a guest buys the sticker for pickup in Lages, pays and the admin takes the
         await page.getByLabel(checkout.email, { exact: true }).fill(BUYER.email);
         await page.getByLabel(checkout.phone, { exact: true }).fill(BUYER.phone);
         await page.getByLabel(checkout.cpf, { exact: true }).fill(BUYER.cpf);
+        await page.getByLabel(checkout.purchaseAuthorization).check();
         await page.getByRole('button', { name: checkout.next, exact: true }).click();
 
         const pickup = page.getByRole('radio', { name: new RegExp(checkout.pickup) });

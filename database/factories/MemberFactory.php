@@ -27,19 +27,37 @@ class MemberFactory extends Factory
         ];
     }
 
-    /** A member who accepted the terms has that acceptance in the consent ledger, with the current version. */
+    /**
+     * A member who accepted the terms has that acceptance and the minimum age declaration
+     * in the consent ledger, with the current versions.
+     */
     public function configure(): static
     {
         return $this->afterCreating(function (Member $member) {
             if ($member->terms_accepted_at !== null) {
-                Consent::query()->create([
-                    'type' => ConsentType::Terms->value,
-                    'version' => app(CurrentTermsVersion::class)->execute(),
-                    'member_id' => $member->id,
-                    'given_at' => $member->terms_accepted_at,
-                ]);
+                $this->recordConsent($member, ConsentType::Terms, app(CurrentTermsVersion::class)->execute());
+                $this->recordConsent($member, ConsentType::MinimumAge, ConsentType::MinimumAge->textVersion());
             }
         });
+    }
+
+    /** Signed up before the minimum age declaration existed: the terms are there, the age is not. */
+    public function withoutAgeDeclaration(): static
+    {
+        return $this->afterCreating(fn (Member $member) => Consent::query()
+            ->where('member_id', $member->id)
+            ->where('type', ConsentType::MinimumAge->value)
+            ->delete());
+    }
+
+    private function recordConsent(Member $member, ConsentType $type, string $version): void
+    {
+        Consent::query()->create([
+            'type' => $type->value,
+            'version' => $version,
+            'member_id' => $member->id,
+            'given_at' => $member->terms_accepted_at,
+        ]);
     }
 
     /** Just signed in with Google: no nickname, no terms yet. */

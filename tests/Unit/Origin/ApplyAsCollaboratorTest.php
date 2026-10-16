@@ -26,6 +26,11 @@ function fakeCollaborators(): CollaboratorRepository
             return [];
         }
 
+        public function emailOf(int $id): ?string
+        {
+            return null;
+        }
+
         public function remove(int $id): ?string
         {
             return null;

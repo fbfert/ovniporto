@@ -1,7 +1,10 @@
 <?php
 
 use App\Application\Members\UseCases\BuildMemberExport;
+use App\Domain\Privacy\ConsentType;
+use App\Domain\Privacy\Contracts\ConsentLedger;
 use App\Mail\MemberDataExportMail;
+use App\Models\Consent;
 use App\Models\Member;
 use App\Models\Sighting;
 use Illuminate\Support\Facades\Mail;
@@ -44,7 +47,7 @@ it('exports profile, reports, orders, sign-ups and consents of the member and of
         ->and($data['pedidos'][0]['itens'][0]['produto'])->toBe('Adesivo OVNIPORTO')
         ->and($data['pedidos'][0]['cpf'])->toBe('***.***.***-25')
         ->and(array_column($data['avise_me'], 'email'))->toBe(['coruja@serra.test'])
-        ->and(array_column($data['consentimentos'], 'tipo'))->toEqualCanonicalizing(['termos', 'publicacao_relato', 'newsletter'])
+        ->and(array_column($data['consentimentos'], 'tipo'))->toEqualCanonicalizing(['termos', 'idade_minima', 'publicacao_relato', 'newsletter'])
         ->and(json_encode($data))->not->toContain('outra@serra.test')->not->toContain($other->name);
 });
 
@@ -70,4 +73,18 @@ it('still e-mails the JSON as an attachment', function () {
 
     Mail::assertSent(MemberDataExportMail::class, fn ($mail) => $mail->hasTo($member->email)
         && array_key_exists('consentimentos', json_decode($mail->json, true)));
+});
+
+it('shows when a consent was given and when it was withdrawn', function () {
+    $member = Member::factory()->create(['email' => 'coruja@serra.test']);
+    $this->post('/avise-me', ['email' => 'coruja@serra.test', 'consent' => '1']);
+    $subject = Consent::query()->where('type', 'newsletter')->value('subject');
+    app(ConsentLedger::class)->withdraw(ConsentType::Newsletter, $subject);
+
+    $newsletter = collect(exportOf($member)['consentimentos'])->firstWhere('tipo', 'newsletter');
+    $terms = collect(exportOf($member)['consentimentos'])->firstWhere('tipo', 'termos');
+
+    expect($newsletter['dado_em'])->not->toBeNull()
+        ->and($newsletter['retirado_em'])->not->toBeNull()
+        ->and($terms['retirado_em'])->toBeNull();
 });
