@@ -5,7 +5,7 @@
     "order": 20,
     "title": "Membros",
     "summary": "Encontrar uma pessoa, ver a ficha dela, mudar o papel no painel, bloquear e excluir a conta.",
-    "reviewedAt": "2026-10-07",
+    "reviewedAt": "2026-10-16",
     "routes": [
         "panel.members",
         "panel.members.show",
@@ -35,7 +35,8 @@
                     { "label": "Perfil e termos", "kind": "state", "section": "ficha" },
                     { "label": "Relatos da pessoa", "kind": "state", "section": "ficha" },
                     { "label": "Histórico", "kind": "state", "section": "ficha" },
-                    { "label": "Sua própria conta", "kind": "care", "section": "ficha" }
+                    { "label": "Sua própria conta", "kind": "care", "section": "ficha" },
+                    { "label": "Conta anonimizada", "kind": "state", "section": "anonimizada" }
                 ]
             },
             {
@@ -71,6 +72,16 @@
                 ]
             },
             {
+                "label": "Inatividade",
+                "kind": "state",
+                "section": "anonimizada",
+                "children": [
+                    { "label": "Aviso 30 dias antes", "kind": "state", "section": "anonimizada" },
+                    { "label": "Anonimizada, não excluída", "kind": "state", "section": "anonimizada" },
+                    { "label": "Papel: alerta aos admins", "kind": "care", "section": "anonimizada" }
+                ]
+            },
+            {
                 "label": "LGPD",
                 "kind": "care",
                 "section": "lgpd",
@@ -86,13 +97,13 @@
             "id": "lista",
             "title": "Encontrar um membro",
             "screen": "panel.members",
-            "body": "Em **/painel/membros** ficam todas as contas da comunidade, com o total no canto (\"128 membros\").\n\nQuem abre: **admin** e **moderação**. A loja não vê esta área.\n\nComo filtrar:\n\n- **Buscar por apelido, nome ou e-mail**: digite e espere um instante, a lista se atualiza sozinha. Vale qualquer pedaço do texto (até 80 caracteres).\n- **Ordem**: **Mais recentes** (quem entrou por último primeiro) ou **Apelido A–Z** (contas ainda sem apelido vão para o fim).\n- **Papel**: **Todos**, **Membro**, **Moderação**, **Loja** ou **Admin**.\n- **Situação**: **Todos** ou **Bloqueados**.\n\nOs filtros ficam no endereço da página: dá para copiar o link de uma busca e mandar para outra pessoa da torre.\n\nCada linha mostra a foto do Google (ou a inicial), o **@apelido** (ou \"sem apelido ainda\", para quem entrou e não terminou o cadastro), o papel quando não é Membro, a etiqueta **bloqueado**, o nome real e o e-mail, quantos relatos a pessoa enviou e quando entrou. São 25 por página; use **Anteriores** e **Próximos**. Sem resultados, aparece \"Ninguém com esses filtros.\""
+            "body": "Em **/painel/membros** ficam todas as contas da comunidade, com o total no canto (\"128 membros\").\n\nQuem abre: **admin** e **moderação**. A loja não vê esta área.\n\nComo filtrar:\n\n- **Buscar por apelido, nome ou e-mail**: digite e espere um instante, a lista se atualiza sozinha. Vale qualquer pedaço do texto (até 80 caracteres).\n- **Ordem**: **Mais recentes** (quem entrou por último primeiro) ou **Apelido A–Z** (contas ainda sem apelido vão para o fim).\n- **Papel**: **Todos**, **Membro**, **Moderação**, **Loja** ou **Admin**.\n- **Situação**: **Todos** ou **Bloqueados**.\n\nOs filtros ficam no endereço da página: dá para copiar o link de uma busca e mandar para outra pessoa da torre.\n\nCada linha mostra a foto do Google (ou a inicial), o **@apelido** (ou \"sem apelido ainda\", para quem entrou e não terminou o cadastro), o papel quando não é Membro, a etiqueta **bloqueado** ou **Conta anonimizada**, o nome real e o e-mail (numa conta anonimizada, no lugar deles vem \"anonimizada em\" e a data), quantos relatos a pessoa enviou e quando entrou. São 25 por página; use **Anteriores** e **Próximos**. Sem resultados, aparece \"Ninguém com esses filtros.\""
         },
         {
             "id": "ficha",
             "title": "A ficha do membro",
             "screen": "panel.members.show",
-            "body": "Ao clicar num membro abre a ficha dele:\n\n- No topo: apelido, nome real, e-mail, papel e, se for o caso, **bloqueado**.\n- **Perfil**: **Entrou em**, **Cidade** e **Termos aceitos em** (data e hora em que aceitou os termos de uso), mais quantos relatos dele estão publicados.\n- **Relatos**: os últimos 50 relatos da pessoa, com número, tipo, data observada e situação. Clicar num deles abre a tela de revisão da moderação.\n- À direita, os cartões **Papel no painel**, **Bloqueio** e (só para o admin) **Excluir conta**.\n- **Histórico**: tudo o que a torre fez com essa conta (papel mudado, bloqueio com o motivo, bloqueio retirado), com quem fez e quando.\n\n**Na sua própria conta** os cartões não aparecem: \"Esta é a sua conta: papel, bloqueio e exclusão não se mexem por aqui.\" Para mexer na sua conta, use Minha conta no site; para mudar o seu papel, peça a outro admin.\n\nNome real e e-mail existem aqui para a torre operar. Eles nunca aparecem no site: em público, a pessoa é só o @apelido."
+            "body": "Ao clicar num membro abre a ficha dele:\n\n- No topo: apelido, nome real, e-mail, papel e, se for o caso, **bloqueado**.\n- **Perfil**: **Entrou em**, **Cidade** e **Termos aceitos em** (data e hora em que aceitou os termos de uso), mais quantos relatos dele estão publicados.\n- **Relatos**: os últimos 50 relatos da pessoa, com número, tipo, data observada e situação. Clicar num deles abre a tela de revisão da moderação.\n- À direita, os cartões **Papel no painel**, **Bloqueio** e (só para o admin) **Excluir conta**.\n- **Histórico**: tudo o que a torre fez com essa conta (papel mudado, bloqueio com o motivo, bloqueio retirado), com quem fez e quando.\n\n**Na sua própria conta** os cartões não aparecem: \"Esta é a sua conta: papel, bloqueio e exclusão não se mexem por aqui.\" Para mexer na sua conta, use Minha conta no site; para mudar o seu papel, peça a outro admin.\n\n**Numa conta anonimizada** o topo mostra só o apelido, a etiqueta **Conta anonimizada** e a data, e os cartões da direita dão lugar a um cartão que explica o que aconteceu (veja \"Contas anonimizadas por inatividade\").\n\nNome real e e-mail existem aqui para a torre operar. Eles nunca aparecem no site: em público, a pessoa é só o @apelido."
         },
         {
             "id": "papel",
@@ -116,7 +127,13 @@
             "id": "excluir",
             "title": "Excluir uma conta",
             "screen": "panel.members.show",
-            "body": "**Só o admin** vê o cartão **Excluir conta**. Use quando a própria pessoa pediu a exclusão e não conseguiu fazer sozinha, ou por decisão da torre.\n\nClique **Excluir conta**; a janela pergunta \"Excluir a conta de @apelido?\". Confirme em **Excluir para sempre**. Aviso: \"Conta excluída, com relatos e fotos.\" e você volta para a lista.\n\nO que acontece, tudo de uma vez:\n\n- **relatos e fotos** da pessoa são apagados (saem do Livro e do mapa), inclusive fotos enviadas que ela não chegou a usar;\n- **pedidos** ficam só com o que a lei fiscal exige, **sem nome nem contato**, e são apagados de vez depois do prazo de guarda (5 anos, salvo outro valor configurado no servidor) por uma rotina diária;\n- **consentimentos** perdem tudo o que aponta para a pessoa e guardam só tipo, versão e data;\n- a inscrição no **Avise-me** e as ofertas de colaboração com a origem enviadas com o mesmo e-mail são apagadas;\n- o perfil é apagado;\n- a pessoa recebe o e-mail \"Sua conta no OVNIPORTO foi excluída\". Se voltar a entrar com o Google, começa do zero.\n\n**Não dá para desfazer.** A auditoria guarda que a conta foi excluída, por quem e quando, com o papel e o bloqueio que ela tinha. Ações que essa pessoa fez no painel, se tinha papel, passam a aparecer na auditoria como feitas por \"sistema\"."
+            "body": "**Só o admin** vê o cartão **Excluir conta**. Use quando a própria pessoa pediu a exclusão e não conseguiu fazer sozinha, ou por decisão da torre.\n\nClique **Excluir conta**; a janela pergunta \"Excluir a conta de @apelido?\". Confirme em **Excluir para sempre**. Aviso: \"Conta excluída, com relatos e fotos.\" e você volta para a lista.\n\nO que acontece, tudo de uma vez:\n\n- **relatos e fotos** da pessoa são apagados (saem do Livro e do mapa), inclusive fotos enviadas que ela não chegou a usar;\n- **pedidos** ficam só com o que a lei fiscal exige, **sem nome nem contato**, e são apagados de vez depois do prazo de guarda (5 anos, salvo outro valor configurado no servidor) por uma rotina diária;\n- **consentimentos** perdem tudo o que aponta para a pessoa e guardam só tipo, versão e data;\n- a inscrição no **Avise-me** e as ofertas de colaboração com a origem enviadas com o mesmo e-mail são apagadas;\n- o perfil é apagado;\n- a pessoa recebe o e-mail \"Sua conta no OVNIPORTO foi excluída\". Se voltar a entrar com o Google, começa do zero.\n\n**Não dá para desfazer.** A auditoria guarda que a conta foi excluída, por quem e quando, com o papel e o bloqueio que ela tinha. Ações que essa pessoa fez no painel, se tinha papel, passam a aparecer na auditoria como feitas por \"sistema\".\n\nUma conta **anonimizada** não tem o cartão **Excluir conta**: não sobrou nada que aponte para a pessoa."
+        },
+        {
+            "id": "anonimizada",
+            "title": "Contas anonimizadas por inatividade",
+            "screen": "panel.members.show",
+            "body": "Toda madrugada uma rotina confere há quanto tempo cada conta não entra. O último acesso é gravado no login com o Google e, com a sessão aberta, uma vez por dia.\n\n- **30 dias antes de completar 5 anos sem acesso**, a pessoa recebe o e-mail \"Sua conta no OVNIPORTO vai ser anonimizada\", com a data e o botão **Entrar e manter a conta**. O aviso sai uma vez só.\n- **Se ela entrar**, a contagem recomeça do zero.\n- **Se não entrar**, no prazo a conta é **anonimizada, não excluída**: nome, e-mail, foto, cidade e o vínculo com o Google são apagados e o apelido fica. Os relatos **publicados** continuam no Livro e no mapa com o apelido; os em análise, com ajuste pedido ou recusados são apagados com as fotos. Consentimentos, Avise-me e ofertas de colaboração com o mesmo e-mail seguem a mesma regra da exclusão. Ninguém é anonimizado sem ter recebido o aviso pelo menos 30 dias antes.\n\nNa lista e na ficha a conta aparece como **Conta anonimizada**. Não dá para mudar papel, bloquear nem excluir, e **não dá para desfazer**: se a pessoa voltar com o mesmo Google, o site cria uma conta nova, sem ligação com a antiga.\n\n**Contas com papel no painel** (moderação, loja ou admin) **nunca** são anonimizadas sozinhas. Elas recebem o mesmo aviso e, no prazo, **só os admins** recebem o e-mail \"Torre: @apelido está sem acesso há anos\", com o botão **Abrir a ficha**. Se a pessoa não faz mais parte da equipe, mude o papel dela para **Membro**: a partir daí a rotina trata a conta como qualquer outra. O alerta sai uma vez por ciclo; um novo login zera o ciclo.\n\nOs prazos (5 anos e 30 dias) vêm da configuração do servidor e são os mesmos mostrados em \"O que fazemos na prática\", na página de privacidade."
         },
         {
             "id": "lgpd",

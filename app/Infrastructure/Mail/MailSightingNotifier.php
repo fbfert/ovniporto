@@ -56,7 +56,8 @@ final class MailSightingNotifier implements SightingNotifier
     private function toAuthor(int $sightingId, callable $mail): ?Sighting
     {
         $sighting = Sighting::query()->with('member')->find($sightingId);
-        if ($sighting?->member !== null) {
+        // An anonymized author has no e-mail left: the decision stands, nobody is told.
+        if ($sighting?->member?->email !== null) {
             Mail::to($sighting->member->email)->queue($mail($sighting));
         }
 

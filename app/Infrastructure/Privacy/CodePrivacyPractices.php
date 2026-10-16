@@ -22,6 +22,8 @@ final class CodePrivacyPractices implements PrivacyPractices
             ':minutes' => (string) SightingPhotoUrls::SIGNED_MINUTES,
             ':scopes' => implode(', ', GoogleIdentityProvider::SCOPES),
             ':years' => (string) config('privacy.fiscal_retention_years'),
+            ':inactiveYears' => (string) config('privacy.inactive_account_years'),
+            ':noticeDays' => (string) config('privacy.inactivity_notice_days'),
             ':months' => (string) config('privacy.access_log_months'),
         ];
 

@@ -17,11 +17,11 @@ it('deletes an anonymized order and its tax data once the retention date passes'
     $this->actingAs($member)->delete('/conta', ['confirmation' => 'coruja']);
 
     $this->travelTo(Carbon::parse('2031-09-20 14:59:00'));
-    $this->artisan('privacy:purge-orders')->expectsOutputToContain('0 pedido(s)')->assertSuccessful();
+    $this->artisan('privacy:purge-orders')->expectsOutputToContain('0 pedido(s) anonimizado(s) e 0 apagado(s)')->assertSuccessful();
     expect(Order::query()->find($order->id))->not->toBeNull();
 
     $this->travelTo(Carbon::parse('2031-09-20 15:00:00'));
-    $this->artisan('privacy:purge-orders')->expectsOutputToContain('1 pedido(s)')->assertSuccessful();
+    $this->artisan('privacy:purge-orders')->expectsOutputToContain('1 pedido(s) anonimizado(s) e 1 apagado(s)')->assertSuccessful();
 
     expect(Order::query()->find($order->id))->toBeNull()
         ->and(OrderItem::query()->where('order_id', $order->id)->exists())->toBeFalse()

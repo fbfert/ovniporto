@@ -15,6 +15,9 @@ interface MemberAdminRepository
     /** @return array<string, mixed>|null profile, role, block and report counts */
     public function detail(int $memberId): ?array;
 
+    /** Anonymized after years without access: nothing left to change from the panel. */
+    public function isAnonymized(int $memberId): bool;
+
     public function roleOf(int $memberId): ?MemberRole;
 
     /** @return array{role: string, blockedAt: ?string, blockedReason: ?string}|null */

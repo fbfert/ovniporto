@@ -87,6 +87,8 @@ final class EloquentModerationRepository implements ModerationRepository
             'author' => $author === null ? null : [
                 'name' => $author->name,
                 'email' => $author->email,
+                // After years without access: no name nor e-mail left, only the nickname on the report.
+                'anonymized' => $author->anonymized_at !== null,
                 'memberSince' => $author->created_at->toDateString(),
                 'reports' => Sighting::query()->where('member_id', $author->id)->count(),
             ],

@@ -7,6 +7,7 @@ use App\Http\Middleware\EnsureProfileCompleted;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\RevalidateWithETag;
 use App\Http\Middleware\SecurityHeaders;
+use App\Http\Middleware\TouchLastSeen;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -25,6 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
             ApplyOperationalSettings::class,
             HandleInertiaRequests::class,
             SecurityHeaders::class,
+            // Signed-in members: last access at most once a day (the inactivity cycle counts from it).
+            TouchLastSeen::class,
         ]);
         // HTTPS ends at the reverse proxy (Caddy or the VPS's own) on the Docker/private network:
         // trust its X-Forwarded-* so URLs, secure cookies and HSTS see the real scheme.

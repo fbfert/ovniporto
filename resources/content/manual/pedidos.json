@@ -5,7 +5,7 @@
     "order": 10,
     "title": "Pedidos da loja",
     "summary": "Acompanhar cada pedido do pagamento à entrega: produção, etiqueta, envio, cancelamento, reembolso e exportação.",
-    "reviewedAt": "2026-10-07",
+    "reviewedAt": "2026-10-16",
     "routes": [
         "panel.orders",
         "panel.orders.export",
@@ -165,7 +165,7 @@
             "id": "cpf",
             "title": "O CPF",
             "screen": "panel.orders.show",
-            "body": "O checkout exige o CPF porque **os Correios e a transportadora pedem o CPF de quem recebe**: ele vai junto na compra da etiqueta no Melhor Envio. O CPF é guardado **criptografado** no banco.\n\nNa ficha ele aparece mascarado (`***.456.789-**`). **Mostrar CPF** revela o número completo só na sua tela, e **fica registrado na auditoria** quem viu, quando e de qual pedido. Ao recarregar a página, ele volta mascarado.\n\nCuidados:\n\n- Revele só quando precisar (por exemplo, para comprar um frete por fora do painel). Para gerar a etiqueta pelo painel você **não precisa** revelar: o sistema envia sozinho.\n- Não copie o CPF para conversas, planilhas ou o resumo do fornecedor.\n- Há um limite de 30 revelações por minuto por pessoa; passando disso, o pedido é recusado por um minuto."
+            "body": "O checkout exige o CPF porque **os Correios e a transportadora pedem o CPF de quem recebe**: ele vai junto na compra da etiqueta no Melhor Envio. O CPF é guardado **criptografado** no banco.\n\nNa ficha ele aparece mascarado (`***.456.789-**`). **Mostrar CPF** revela o número completo só na sua tela, e **fica registrado na auditoria** quem viu, quando e de qual pedido. Ao recarregar a página, ele volta mascarado.\n\nCuidados:\n\n- Revele só quando precisar (por exemplo, para comprar um frete por fora do painel). Para gerar a etiqueta pelo painel você **não precisa** revelar: o sistema envia sozinho.\n- Não copie o CPF para conversas, planilhas ou o resumo do fornecedor.\n- Há um limite de 30 revelações por minuto por pessoa; passando disso, o pedido é recusado por um minuto.\n\nNum pedido **Titular anonimizado** (pago há mais de 5 anos) o CPF já foi apagado: a ficha mostra \"—\" e não há o que revelar."
         },
         {
             "id": "emails",
@@ -177,7 +177,7 @@
             "id": "automatico",
             "title": "O que o sistema faz sozinho",
             "screen": null,
-            "body": "Duas tarefas agendadas cuidam dos pedidos sem ninguém clicar. Elas só rodam se o container de tarefas agendadas (scheduler) estiver de pé em produção.\n\n**Cancelamento de pedidos abandonados** (a cada 10 minutos): todo pedido **Esperando pagamento** feito há mais de 2 horas vira **Cancelado**, com autor **sistema** e a nota \"Pagamento não concluído em 2 horas.\". Por rodar de 10 em 10 minutos, o cancelamento acontece entre 2 h e 2 h 10 depois do pedido. Nenhum e-mail é enviado e não há estoque a devolver.\n\n**Rastreio** (todo dia às 7h): para cada pedido **Enviado** que teve a etiqueta gerada pelo painel, o sistema pergunta ao Melhor Envio se foi entregue. Se foi, o pedido vira **Entregue** com autor **sistema** e o cliente recebe o e-mail \"Pousou\". Pedidos de retirada e pedidos com rastreio digitado à mão ficam de fora: marque esses como entregues pela ficha.\n\nO pagamento também chega sozinho: o pedido vira **Pago** quando o cliente volta do PayPal ou quando o PayPal avisa o site (webhook), o que vier primeiro, e só uma vez. O aviso pelo webhook depende de ele estar configurado no PayPal de produção; sem ele, um pagamento que fica em análise no PayPal (e só é aprovado depois que o cliente sai da janela) não chega ao pedido."
+            "body": "Três tarefas agendadas cuidam dos pedidos sem ninguém clicar. Elas só rodam se o container de tarefas agendadas (scheduler) estiver de pé em produção.\n\n**Cancelamento de pedidos abandonados** (a cada 10 minutos): todo pedido **Esperando pagamento** feito há mais de 2 horas vira **Cancelado**, com autor **sistema** e a nota \"Pagamento não concluído em 2 horas.\". Por rodar de 10 em 10 minutos, o cancelamento acontece entre 2 h e 2 h 10 depois do pedido. Nenhum e-mail é enviado e não há estoque a devolver.\n\n**Rastreio** (todo dia às 7h): para cada pedido **Enviado** que teve a etiqueta gerada pelo painel, o sistema pergunta ao Melhor Envio se foi entregue. Se foi, o pedido vira **Entregue** com autor **sistema** e o cliente recebe o e-mail \"Pousou\". Pedidos de retirada e pedidos com rastreio digitado à mão ficam de fora: marque esses como entregues pela ficha.\n\n**Fim da guarda fiscal** (toda madrugada): todo pedido pago há mais de **5 anos** vira **Titular anonimizado**, sem nome, e-mail, telefone, CPF e endereço; número, itens, valores, datas, cidade e UF ficam, e o pedido continua na lista. Pedidos de contas excluídas (**Titular excluído**) são apagados de vez quando o prazo vence.\n\nO pagamento também chega sozinho: o pedido vira **Pago** quando o cliente volta do PayPal ou quando o PayPal avisa o site (webhook), o que vier primeiro, e só uma vez. O aviso pelo webhook depende de ele estar configurado no PayPal de produção; sem ele, um pagamento que fica em análise no PayPal (e só é aprovado depois que o cliente sai da janela) não chega ao pedido."
         },
         {
             "id": "cuidados",

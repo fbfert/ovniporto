@@ -67,8 +67,13 @@ final readonly class AdministerMembers
 
     private function target(int $memberId): MemberRole
     {
-        return $this->members->roleOf($memberId)
+        $role = $this->members->roleOf($memberId)
             ?? throw new MemberAdministrationRefused('member', 'Membro não encontrado.');
+        if ($this->members->isAnonymized($memberId)) {
+            throw new MemberAdministrationRefused('member', 'Conta anonimizada: não há papel, bloqueio nem exclusão para mexer.');
+        }
+
+        return $role;
     }
 
     /** @param array<string, mixed> $context */

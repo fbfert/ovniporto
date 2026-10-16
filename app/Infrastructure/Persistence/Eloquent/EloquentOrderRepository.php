@@ -19,6 +19,9 @@ final class EloquentOrderRepository implements OrderRepository
     /** Shown in the panel where the customer's name was, after the account is deleted. */
     private const DELETED_HOLDER = 'Titular excluído';
 
+    /** Shown in the panel where the customer's name was, after the tax retention ended. */
+    private const ANONYMIZED_HOLDER = 'Titular anonimizado';
+
     public function create(NewOrder $order): array
     {
         return DB::transaction(function () use ($order) {
@@ -262,17 +265,52 @@ final class EloquentOrderRepository implements OrderRepository
         Order::query()
             ->where(fn ($q) => $q->where('member_id', $memberId)->orWhere('customer_email', mb_strtolower($email)))
             ->get()
-            ->each(function (Order $order) use ($retentionYears) {
-                $address = $order->address;
-                $order->update([
-                    'member_id' => null,
-                    'customer_name' => self::DELETED_HOLDER,
-                    'customer_email' => null,
-                    'customer_phone' => null,
-                    'address' => $address === null ? null : ['city' => $address['city'], 'state' => $address['state']],
-                    'retention_until' => $order->paid_at?->copy()->addYears($retentionYears) ?? now(),
-                ]);
+            ->each(fn (Order $order) => $order->update([
+                ...self::withoutHolder($order, self::DELETED_HOLDER),
+                'retention_until' => $order->paid_at?->copy()->addYears($retentionYears) ?? now(),
+            ]));
+    }
+
+    public function anonymizePaidBefore(DateTimeInterface $cutoff): int
+    {
+        $count = 0;
+        Order::query()
+            ->whereNotNull('paid_at')
+            ->where('paid_at', '<=', $cutoff)
+            ->whereNull('anonymized_at')
+            ->whereNull('retention_until')
+            ->chunkById(200, function ($orders) use (&$count) {
+                foreach ($orders as $order) {
+                    $order->update([
+                        ...self::withoutHolder($order, self::ANONYMIZED_HOLDER),
+                        // The tax term is over: nothing obliges keeping the CPF any longer.
+                        'customer_cpf' => null,
+                        'anonymized_at' => now(),
+                    ]);
+                    $count++;
+                }
             });
+
+        return $count;
+    }
+
+    /**
+     * The customer's identity replaced by $holder: no account, contact or street; only the city
+     * and state of the address stay.
+     *
+     * @return array<string, mixed>
+     */
+    private static function withoutHolder(Order $order, string $holder): array
+    {
+        $address = $order->address;
+
+        return [
+            'member_id' => null,
+            'customer_name' => $holder,
+            'customer_email' => null,
+            'customer_phone' => null,
+            'address' => $address === null ? null : ['city' => $address['city'], 'state' => $address['state']],
+        ];
     }
 
     public function purgeRetainedUntil(DateTimeInterface $now): int

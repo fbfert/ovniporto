@@ -45,6 +45,7 @@ final class EloquentMemberAdminRepository implements MemberAdminRepository
                     'blocked' => $m->isBlocked(),
                     'reports' => (int) $m->getAttribute('sightings_count'),
                     'joinedAt' => $m->created_at->toDateString(),
+                    'anonymizedAt' => $m->anonymized_at?->toDateString(),
                 ])
                 ->values()
                 ->all(),
@@ -71,6 +72,7 @@ final class EloquentMemberAdminRepository implements MemberAdminRepository
             'termsAcceptedAt' => $member->terms_accepted_at?->toIso8601String(),
             'blockedAt' => $member->blocked_at?->toIso8601String(),
             'blockedReason' => $member->blocked_reason,
+            'anonymizedAt' => $member->anonymized_at?->toDateString(),
             'approved' => Sighting::query()->where('member_id', $member->id)->where('status', SightingStatus::Approved)->count(),
             'sightings' => Sighting::query()
                 ->where('member_id', $member->id)
@@ -86,6 +88,11 @@ final class EloquentMemberAdminRepository implements MemberAdminRepository
                 ->values()
                 ->all(),
         ];
+    }
+
+    public function isAnonymized(int $memberId): bool
+    {
+        return Member::query()->whereKey($memberId)->whereNotNull('anonymized_at')->exists();
     }
 
     public function roleOf(int $memberId): ?MemberRole

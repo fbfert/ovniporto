@@ -33,7 +33,13 @@ interface Sighting {
     publishedAt: string | null;
     consentAt: string;
     photos: { thumb: string | null; full: string | null; processing: boolean }[];
-    author: { name: string; email: string; memberSince: string; reports: number } | null;
+    author: {
+        name: string | null;
+        email: string | null;
+        anonymized: boolean;
+        memberSince: string;
+        reports: number;
+    } | null;
 }
 
 interface HistoryEntry {
@@ -231,8 +237,14 @@ function ReviewScreen({ sighting, history, neighbours, tab }: Props) {
                         </p>
                         {sighting.author ? (
                             <>
-                                <p className="mt-2 text-lg font-semibold">{sighting.author.name}</p>
-                                <p className="break-all text-moonlight/80">{sighting.author.email}</p>
+                                {sighting.author.anonymized ? (
+                                    <p className="mt-2 text-lg font-semibold">{t.panel.members.anonymized}</p>
+                                ) : (
+                                    <>
+                                        <p className="mt-2 text-lg font-semibold">{sighting.author.name}</p>
+                                        <p className="break-all text-moonlight/80">{sighting.author.email}</p>
+                                    </>
+                                )}
                                 <p className="mt-2 text-sm text-moonlight/65">
                                     {copy.memberSince} {longDate(sighting.author.memberSince)} ·{' '}
                                     {copy.reports(sighting.author.reports)}

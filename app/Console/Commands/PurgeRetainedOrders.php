@@ -8,13 +8,15 @@ use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
 #[Signature('privacy:purge-orders')]
-#[Description('Delete the anonymized orders of deleted accounts whose tax retention has ended')]
+#[Description('Anonymize the paid orders whose tax retention ended and delete those of deleted accounts')]
 class PurgeRetainedOrders extends Command
 {
     public function handle(OrderRepository $orders): int
     {
-        $count = $orders->purgeRetainedUntil(now());
-        $this->info("{$count} pedido(s) apagado(s) após o fim da retenção fiscal.");
+        $cutoff = now()->subYears((int) config('privacy.fiscal_retention_years'));
+        $anonymized = $orders->anonymizePaidBefore($cutoff);
+        $purged = $orders->purgeRetainedUntil(now());
+        $this->info("{$anonymized} pedido(s) anonimizado(s) e {$purged} apagado(s) após o fim da retenção fiscal.");
 
         return self::SUCCESS;
     }

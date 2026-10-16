@@ -51,7 +51,8 @@
                 "children": [
                     { "label": "Baixar meus dados", "kind": "action", "section": "minha-conta" },
                     { "label": "Excluir minha conta", "kind": "action", "section": "minha-conta" },
-                    { "label": "Pedidos ficam sem nome", "kind": "state", "section": "minha-conta" }
+                    { "label": "Pedidos ficam sem nome", "kind": "state", "section": "minha-conta" },
+                    { "label": "Prazos: 5 anos e aviso", "kind": "state", "section": "prazos" }
                 ]
             },
             {
@@ -93,7 +94,7 @@
             "id": "regras",
             "title": "As regras que não mudam",
             "screen": null,
-            "body": "O OVNIPORTO guarda o mínimo e mostra menos ainda. Estas regras valem para todo mundo que opera o painel, em qualquer papel:\n\n- Fotos de relato são **opcionais** e são gravadas **sem metadados**.\n- Fotos de relato **pendente** não têm endereço público.\n- Em público aparece **só o apelido**.\n- Cada relato tem **consentimento explícito** para ser publicado.\n- Cada membro pode **baixar os próprios dados** e **excluir a conta** sozinho, em Minha conta.\n- **Sem cookies de terceiros**, sem anúncio, sem pixel.\n- Os dados ficam numa VPS **no Brasil**.\n\nDo login com o Google o site guarda só nome, e-mail, foto de perfil e o identificador da conta. Os dados de cartão vão do navegador direto para o PayPal: nunca passam pelo nosso servidor.\n\nA página pública **/privacidade** traz a lista \"O que fazemos na prática\" com estas garantias em linguagem simples. Os números dela (10 minutos, 5 anos, 6 meses) saem do próprio código."
+            "body": "O OVNIPORTO guarda o mínimo e mostra menos ainda. Estas regras valem para todo mundo que opera o painel, em qualquer papel:\n\n- Fotos de relato são **opcionais** e são gravadas **sem metadados**.\n- Fotos de relato **pendente** não têm endereço público.\n- Em público aparece **só o apelido**.\n- Cada relato tem **consentimento explícito** para ser publicado.\n- Cada membro pode **baixar os próprios dados** e **excluir a conta** sozinho, em Minha conta.\n- **Sem cookies de terceiros**, sem anúncio, sem pixel.\n- Os dados ficam numa VPS **no Brasil**.\n\nDo login com o Google o site guarda só nome, e-mail, foto de perfil e o identificador da conta. Os dados de cartão vão do navegador direto para o PayPal: nunca passam pelo nosso servidor.\n\nA página pública **/privacidade** traz a lista \"O que fazemos na prática\" com estas garantias em linguagem simples. Os números dela (10 minutos, 5 anos, 30 dias, 6 meses) saem do próprio código."
         },
         {
             "id": "fotos",
@@ -136,6 +137,12 @@
             "title": "Sem rastreamento",
             "screen": null,
             "body": "- O site cria só o cookie de **sessão** e o de **proteção de formulários**.\n- A contagem de visitas usa o **Umami** no nosso servidor, **sem cookie** e respeitando o \"Não rastrear\" do navegador.\n- As fontes do site são servidas pelo nosso servidor: abrir uma página não envia o IP do visitante a nenhuma empresa de fora.\n- Os registros de acesso do servidor, que contêm IP, são apagados depois de **no máximo 6 meses**.\n\nServiços externos que recebem dados, cada um só com o que precisa: Google (login), PayPal (pagamento), Melhor Envio (frete e etiqueta: nome, contato, CPF e endereço de quem compra), ViaCEP (endereço pelo CEP), OpenStreetMap/Nominatim (mapa e endereços) e o provedor de e-mail."
+        },
+        {
+            "id": "prazos",
+            "title": "Prazos de guarda",
+            "screen": null,
+            "body": "Duas rotinas diárias cumprem os prazos que o encarregado confirmou, sem ninguém clicar:\n\n- **Pedidos pagos**: ficam **5 anos após o pagamento** por obrigação fiscal. Passado o prazo, todo pedido pago (de conta ativa, de conta anonimizada ou de compra sem conta) é **anonimizado**: vira **\"Titular anonimizado\"**, sem nome, e-mail, telefone, CPF e endereço, e guarda só número, itens, valores, datas, cidade e UF. Os pedidos de contas **excluídas** continuam sendo apagados de vez no fim do prazo.\n- **Contas paradas**: quem fica **5 anos sem entrar** recebe um aviso por e-mail **30 dias antes** e, se não voltar, tem a conta **anonimizada**, não excluída. Os relatos publicados continuam com o apelido; o resto que aponta para a pessoa é apagado, como na exclusão.\n- **Contas com papel no painel** nunca são anonimizadas sozinhas: **só os admins** recebem um alerta para decidir (veja o capítulo Membros).\n\nOs números (5 anos, 30 dias) vêm da configuração do servidor e aparecem do mesmo jeito em \"O que fazemos na prática\", na página de privacidade."
         },
         {
             "id": "nunca",

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Members;
 use App\Application\Members\UseCases\SignInWithIdentity;
 use App\Domain\Members\Contracts\IdentityProvider;
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\TouchLastSeen;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +40,8 @@ class GoogleAuthController extends Controller
         $result = $signIn->execute($identity);
         Auth::loginUsingId($result['memberId']);
         $request->session()->regenerate();
+        // The sign-in already wrote today's last access.
+        $request->session()->put(TouchLastSeen::SESSION_KEY, now()->toDateString());
 
         return $result['isNew']
             ? redirect()->route('welcome')

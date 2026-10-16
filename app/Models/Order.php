@@ -30,6 +30,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $payment_capture_id
  * @property Carbon|null $paid_at
  * @property Carbon|null $retention_until set when the customer's account is deleted; purged after it
+ * @property Carbon|null $anonymized_at set when the tax retention ended: no customer, no CPF
  * @property string|null $shipment_id
  * @property string|null $tracking_code
  * @property string|null $tracking_url
@@ -48,6 +49,7 @@ class Order extends Model
             'pickup' => 'boolean',
             'paid_at' => 'datetime',
             'retention_until' => 'datetime',
+            'anonymized_at' => 'datetime',
         ];
     }
 

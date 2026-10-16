@@ -18,6 +18,8 @@ return [
         'Cada e-mail do Avise-me e da colaboração traz um link para sair, sem login. Ao sair, os dados da inscrição são apagados e o consentimento fica marcado como retirado.',
         'Em Minha conta você baixa todos os seus dados (perfil, relatos, pedidos, inscrições e consentimentos) e pode excluir a conta quando quiser.',
         'Ao excluir a conta, relatos e fotos são apagados na hora. Pedidos pagos ficam guardados por :years anos após o pagamento, sem seu nome nem contato, porque a lei fiscal exige; depois são apagados.',
+        'Pedidos pagos de quem não excluiu a conta, ou de quem comprou sem conta, também ficam :years anos após o pagamento; depois disso perdem nome, contato, CPF e endereço, e sobram só número, itens, valores, cidade e UF.',
+        'Conta que fica :inactiveYears anos sem entrar é anonimizada, não excluída. Avisamos por e-mail :noticeDays dias antes, e basta entrar para manter a conta. Os relatos publicados continuam no Livro com o seu apelido.',
         'Não usamos cookies de terceiros nem anúncios. O site só cria o cookie da sessão e o de proteção de formulários; a contagem de visitas é feita sem cookie, em servidor próprio.',
         'Os registros de acesso do servidor são guardados por no máximo :months meses.',
     ],

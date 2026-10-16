@@ -1699,6 +1699,10 @@ export const t = {
             deleteConfirmCta: 'Excluir para sempre',
             cancel: 'Cancelar',
             self: 'Esta é a sua conta: papel, bloqueio e exclusão não se mexem por aqui.',
+            anonymized: 'Conta anonimizada',
+            anonymizedOn: (date: string) => `anonimizada em ${date}`,
+            anonymizedLead:
+                'A pessoa ficou sem entrar pelo prazo de inatividade e não voltou depois do aviso. A rotina diária apagou nome, e-mail, foto e o vínculo com o Google; os relatos publicados continuam no Livro com o apelido. Não há papel, bloqueio nem exclusão para mexer.',
             history: 'Histórico',
         },
         since: (hours: number) => {

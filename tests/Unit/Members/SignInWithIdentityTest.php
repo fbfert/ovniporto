@@ -1,73 +1,11 @@
 <?php
 
 use App\Application\Members\UseCases\SignInWithIdentity;
-use App\Domain\Members\Contracts\MemberRepository;
 use App\Domain\Members\Data\Identity;
-
-/** In-memory members, enough for the sign-in use case. */
-function memoryMembers(): MemberRepository
-{
-    return new class implements MemberRepository
-    {
-        /** @var array<int, array{providerId: string, name: string, email: string}> */
-        public array $rows = [];
-
-        public function countActive(): int
-        {
-            return 0;
-        }
-
-        public function findIdByProviderId(string $providerId): ?int
-        {
-            foreach ($this->rows as $id => $row) {
-                if ($row['providerId'] === $providerId) {
-                    return $id;
-                }
-            }
-
-            return null;
-        }
-
-        public function createFromIdentity(Identity $identity): int
-        {
-            $id = count($this->rows) + 1;
-            $this->rows[$id] = ['providerId' => $identity->providerId, 'name' => $identity->name, 'email' => $identity->email];
-
-            return $id;
-        }
-
-        public function refreshIdentity(int $memberId, Identity $identity): void
-        {
-            $this->rows[$memberId]['name'] = $identity->name;
-        }
-
-        public function nicknameTaken(string $nickname, ?int $exceptMemberId = null): bool
-        {
-            return false;
-        }
-
-        public function completeProfile(int $memberId, string $nickname, ?string $city, DateTimeInterface $termsAcceptedAt): void {}
-
-        public function updateProfile(int $memberId, string $nickname, ?string $city): void {}
-
-        public function acceptTerms(int $memberId, DateTimeInterface $acceptedAt): void {}
-
-        public function find(int $memberId): ?array
-        {
-            return null;
-        }
-
-        public function delete(int $memberId): void {}
-
-        public function isBlocked(int $memberId): bool
-        {
-            return false;
-        }
-    };
-}
+use Tests\Support\InMemoryMembers;
 
 it('creates the member on the first sign-in only', function () {
-    $members = memoryMembers();
+    $members = new InMemoryMembers;
     $signIn = new SignInWithIdentity($members);
     $identity = new Identity('google-1', 'Ana Souza', 'ana@example.test', null);
 
@@ -78,4 +16,24 @@ it('creates the member on the first sign-in only', function () {
         ->and($second)->toBe(['memberId' => 1, 'isNew' => false])
         ->and($members->rows)->toHaveCount(1)
         ->and($members->rows[1]['name'])->toBe('Ana S.');
+});
+
+it('records every sign-in as the last access and restarts the inactivity cycle', function () {
+    $members = new InMemoryMembers;
+    $id = $members->add('ana@example.test', new DateTimeImmutable('-5 years'), noticeAt: new DateTimeImmutable('-10 days'));
+    $members->markInactivityAlerted($id, new DateTimeImmutable('-1 day'));
+
+    (new SignInWithIdentity($members))->execute(new Identity("google-{$id}", 'Ana', 'ana@example.test', null));
+
+    expect($members->rows[$id]['lastSeenAt'])->toBeGreaterThan(new DateTimeImmutable('-1 minute'))
+        ->and($members->rows[$id]['noticeAt'])->toBeNull()
+        ->and($members->rows[$id]['alertedAt'])->toBeNull();
+});
+
+it('gives the first sign-in a last access too', function () {
+    $members = new InMemoryMembers;
+
+    $result = (new SignInWithIdentity($members))->execute(new Identity('google-9', 'Bia', 'bia@example.test', null));
+
+    expect($members->rows[$result['memberId']]['lastSeenAt'])->not->toBeNull();
 });

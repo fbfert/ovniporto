@@ -14,9 +14,9 @@ use Illuminate\Support\Carbon;
  * column and none is ever set.
  *
  * @property int $id
- * @property string $google_id
- * @property string $name
- * @property string $email
+ * @property string|null $google_id null once anonymized
+ * @property string|null $name null once anonymized
+ * @property string|null $email null once anonymized
  * @property string|null $avatar_url
  * @property string|null $nickname
  * @property string|null $city
@@ -24,6 +24,10 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $terms_accepted_at
  * @property Carbon|null $blocked_at
  * @property string|null $blocked_reason
+ * @property Carbon|null $last_seen_at
+ * @property Carbon|null $inactivity_notice_sent_at
+ * @property Carbon|null $inactivity_alerted_at
+ * @property Carbon|null $anonymized_at kept with the nickname after 5 years without access
  * @property Carbon $created_at
  */
 class Member extends Authenticatable
@@ -37,7 +41,15 @@ class Member extends Authenticatable
 
     protected function casts(): array
     {
-        return ['terms_accepted_at' => 'datetime', 'blocked_at' => 'datetime', 'role' => MemberRole::class];
+        return [
+            'terms_accepted_at' => 'datetime',
+            'blocked_at' => 'datetime',
+            'last_seen_at' => 'datetime',
+            'inactivity_notice_sent_at' => 'datetime',
+            'inactivity_alerted_at' => 'datetime',
+            'anonymized_at' => 'datetime',
+            'role' => MemberRole::class,
+        ];
     }
 
     /** No password: Google is the only way in. */

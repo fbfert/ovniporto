@@ -34,11 +34,11 @@ final readonly class DeleteAccount
         return $this->erase($memberId);
     }
 
-    /** Erases the account without the nickname confirmation: the admin, from the panel. */
+    /** Erases the account without the nickname confirmation: the admin, from the panel. An anonymized account has nothing left to erase. */
     public function erase(int $memberId): bool
     {
         $profile = $this->members->find($memberId);
-        if ($profile === null) {
+        if ($profile === null || $profile['email'] === null) {
             return false;
         }
 
@@ -46,7 +46,7 @@ final readonly class DeleteAccount
             $eraser->eraseFor($memberId, $profile['email']);
         }
         $this->members->delete($memberId);
-        Mail::to($profile['email'])->queue(new AccountDeletedMail($profile['nickname'] ?? $profile['name']));
+        Mail::to($profile['email'])->queue(new AccountDeletedMail($profile['nickname'] ?? $profile['name'] ?? ''));
 
         return true;
     }

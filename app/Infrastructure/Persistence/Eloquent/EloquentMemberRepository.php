@@ -10,6 +10,7 @@ use App\Domain\Members\Nickname;
 use App\Infrastructure\Cache\FragmentCache;
 use App\Models\Member;
 use DateTimeInterface;
+use Illuminate\Database\Eloquent\Builder;
 
 final class EloquentMemberRepository implements MemberRepository
 {
@@ -102,5 +103,75 @@ final class EloquentMemberRepository implements MemberRepository
     public function isBlocked(int $memberId): bool
     {
         return Member::query()->whereKey($memberId)->whereNotNull('blocked_at')->exists();
+    }
+
+    public function touchLastSeen(int $memberId, DateTimeInterface $at): void
+    {
+        Member::query()->whereKey($memberId)->update(['last_seen_at' => $at, 'inactivity_notice_sent_at' => null, 'inactivity_alerted_at' => null]);
+    }
+
+    public function dueForInactivityNotice(DateTimeInterface $lastSeenBefore, int $limit): array
+    {
+        return $this->inactiveSince($lastSeenBefore)
+            ->whereNull('inactivity_notice_sent_at')
+            ->whereNotNull('email')
+            ->limit($limit)
+            ->get()
+            ->map(fn (Member $m) => ['id' => $m->id, 'email' => (string) $m->email, 'nickname' => $m->nickname, 'lastSeenAt' => $m->last_seen_at?->toIso8601String() ?? ''])
+            ->values()
+            ->all();
+    }
+
+    public function markInactivityNoticeSent(int $memberId, DateTimeInterface $at): void
+    {
+        Member::query()->whereKey($memberId)->update(['inactivity_notice_sent_at' => $at]);
+    }
+
+    public function dueForAnonymization(DateTimeInterface $lastSeenBefore, DateTimeInterface $noticedBefore, int $limit): array
+    {
+        return $this->inactiveSince($lastSeenBefore)
+            ->where('role', MemberRole::Member->value)
+            ->whereNotNull('inactivity_notice_sent_at')
+            ->where('inactivity_notice_sent_at', '<=', $noticedBefore)
+            ->limit($limit)
+            ->get()
+            ->map(fn (Member $m) => ['id' => $m->id, 'email' => (string) $m->email])
+            ->values()
+            ->all();
+    }
+
+    public function inactiveStaffToAlert(DateTimeInterface $lastSeenBefore, int $limit): array
+    {
+        return $this->inactiveSince($lastSeenBefore)
+            ->where('role', '!=', MemberRole::Member->value)
+            ->whereNull('inactivity_alerted_at')
+            ->limit($limit)
+            ->get()
+            ->map(fn (Member $m) => ['id' => $m->id, 'nickname' => $m->nickname, 'role' => $m->role->value, 'lastSeenAt' => $m->last_seen_at?->toIso8601String() ?? ''])
+            ->values()
+            ->all();
+    }
+
+    public function markInactivityAlerted(int $memberId, DateTimeInterface $at): void
+    {
+        Member::query()->whereKey($memberId)->update(['inactivity_alerted_at' => $at]);
+    }
+
+    public function anonymize(int $memberId, DateTimeInterface $at): void
+    {
+        Member::query()->whereKey($memberId)->whereNull('anonymized_at')->update([
+            'google_id' => null,
+            'name' => null,
+            'email' => null,
+            'avatar_url' => null,
+            'city' => null,
+            'anonymized_at' => $at,
+        ]);
+    }
+
+    /** @return Builder<Member> members still identified whose last access is at or before $cutoff */
+    private function inactiveSince(DateTimeInterface $cutoff): Builder
+    {
+        return Member::query()->whereNull('anonymized_at')->whereNotNull('last_seen_at')->where('last_seen_at', '<=', $cutoff)->orderBy('id');
     }
 }

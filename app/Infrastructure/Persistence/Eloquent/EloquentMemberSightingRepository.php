@@ -4,9 +4,11 @@ namespace App\Infrastructure\Persistence\Eloquent;
 
 use App\Domain\Sightings\Contracts\MemberSightingRepository;
 use App\Domain\Sightings\SightingPhotoFiles;
+use App\Domain\Sightings\SightingStatus;
 use App\Infrastructure\Sightings\SightingPhotoUrls;
 use App\Models\Sighting;
 use App\Models\SightingPhoto;
+use App\Models\SightingUpload;
 use Illuminate\Support\Facades\Storage;
 
 final class EloquentMemberSightingRepository implements MemberSightingRepository
@@ -48,6 +50,18 @@ final class EloquentMemberSightingRepository implements MemberSightingRepository
     {
         Sighting::query()->where('member_id', $memberId)->get()->each(fn (Sighting $s) => $this->erase($s));
         // Photos uploaded but never attached to a report (their rows go with the member).
+        Storage::disk('local')->deleteDirectory("uploads/{$memberId}");
+    }
+
+    public function deleteUnpublishedOf(int $memberId): void
+    {
+        Sighting::query()
+            ->where('member_id', $memberId)
+            ->where('status', '!=', SightingStatus::Approved->value)
+            ->get()
+            ->each(fn (Sighting $s) => $this->erase($s));
+        // The member stays, so its unclaimed upload rows have to go explicitly.
+        SightingUpload::query()->where('member_id', $memberId)->delete();
         Storage::disk('local')->deleteDirectory("uploads/{$memberId}");
     }
 

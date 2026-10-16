@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Application\Members\UseCases\AnonymizeInactiveMembers;
 use App\Application\Members\UseCases\BuildMemberExport;
 use App\Application\Members\UseCases\DeleteAccount;
 use App\Application\Place\UseCases\ManagePlace;
@@ -23,6 +24,7 @@ use App\Domain\Content\Contracts\PublishedContentIndex;
 use App\Domain\Manual\Contracts\ManualLibrary;
 use App\Domain\Map\Contracts\Geocoder;
 use App\Domain\Members\Contracts\IdentityProvider;
+use App\Domain\Members\Contracts\InactivityNotifier;
 use App\Domain\Members\Contracts\MemberAdminRepository;
 use App\Domain\Members\Contracts\MemberRepository;
 use App\Domain\Orders\Contracts\CartRepository;
@@ -71,6 +73,7 @@ use App\Infrastructure\Images\GdImageProcessor;
 use App\Infrastructure\Images\PrivatePhotoStorage;
 use App\Infrastructure\Images\PublicImageLibrary;
 use App\Infrastructure\Mail\MailCollaboratorNotifier;
+use App\Infrastructure\Mail\MailInactivityNotifier;
 use App\Infrastructure\Mail\MailOrderNotifier;
 use App\Infrastructure\Mail\MailSightingNotifier;
 use App\Infrastructure\Mail\MailWaitlistNotifier;
@@ -81,6 +84,7 @@ use App\Infrastructure\Members\ConsentsContentEraser;
 use App\Infrastructure\Members\ConsentsDataSource;
 use App\Infrastructure\Members\OrdersContentEraser;
 use App\Infrastructure\Members\OrdersDataSource;
+use App\Infrastructure\Members\SightingsContentAnonymizer;
 use App\Infrastructure\Members\SightingsContentEraser;
 use App\Infrastructure\Members\SightingsDataSource;
 use App\Infrastructure\Members\WaitlistContentEraser;
@@ -143,6 +147,12 @@ class DomainServiceProvider extends ServiceProvider
      */
     private const MEMBER_ERASERS = [SightingsContentEraser::class, OrdersContentEraser::class, WaitlistContentEraser::class, CollaboratorContentEraser::class, ConsentsContentEraser::class];
 
+    /**
+     * Modules that clear their part when an account is anonymized after years without access.
+     * Published reports stay; orders follow the tax retention rule, so they are not here.
+     */
+    private const MEMBER_ANONYMIZERS = [SightingsContentAnonymizer::class, WaitlistContentEraser::class, CollaboratorContentEraser::class, ConsentsContentEraser::class];
+
     /** Modules that contribute a section to "Baixar meus dados". */
     private const MEMBER_DATA_SOURCES = [SightingsDataSource::class, OrdersDataSource::class, WaitlistDataSource::class, CollaboratorDataSource::class, ConsentsDataSource::class];
 
@@ -194,6 +204,7 @@ class DomainServiceProvider extends ServiceProvider
         OperationalSettingsRepository::class => EloquentOperationalSettingsRepository::class,
         MailTester::class => SmtpMailTester::class,
         CollaboratorNotifier::class => MailCollaboratorNotifier::class,
+        InactivityNotifier::class => MailInactivityNotifier::class,
     ];
 
     public function register(): void
@@ -202,6 +213,8 @@ class DomainServiceProvider extends ServiceProvider
         $this->app->tag(self::MEMBER_DATA_SOURCES, 'member.data-sources');
 
         $this->app->when(DeleteAccount::class)->needs('$erasers')->giveTagged('member.erasers');
+        $this->app->tag(self::MEMBER_ANONYMIZERS, 'member.anonymizers');
+        $this->app->when(AnonymizeInactiveMembers::class)->needs('$anonymizers')->giveTagged('member.anonymizers');
         $this->app->when(BuildMemberExport::class)->needs('$sources')->giveTagged('member.data-sources');
 
         $this->app->singleton(ShippingProvider::class, fn () => $this->shippingProvider());

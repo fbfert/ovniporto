@@ -4,21 +4,27 @@ namespace App\Application\Members\UseCases;
 
 use App\Domain\Members\Contracts\MemberRepository;
 use App\Domain\Members\Data\Identity;
+use Carbon\CarbonImmutable;
 
 final readonly class SignInWithIdentity
 {
     public function __construct(private MemberRepository $members) {}
 
-    /** @return array{memberId: int, isNew: bool} the first sign-in creates the member; later ones only refresh its identity */
+    /**
+     * The first sign-in creates the member; later ones only refresh its identity. Every sign-in
+     * is the member's last access and restarts the inactivity cycle.
+     *
+     * @return array{memberId: int, isNew: bool}
+     */
     public function execute(Identity $identity): array
     {
         $existing = $this->members->findIdByProviderId($identity->providerId);
         if ($existing !== null) {
             $this->members->refreshIdentity($existing, $identity);
-
-            return ['memberId' => $existing, 'isNew' => false];
         }
+        $memberId = $existing ?? $this->members->createFromIdentity($identity);
+        $this->members->touchLastSeen($memberId, CarbonImmutable::now());
 
-        return ['memberId' => $this->members->createFromIdentity($identity), 'isNew' => true];
+        return ['memberId' => $memberId, 'isNew' => $existing === null];
     }
 }

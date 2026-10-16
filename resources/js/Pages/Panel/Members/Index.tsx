@@ -11,13 +11,14 @@ const ALL = 'todos';
 interface Row {
     id: number;
     nickname: string | null;
-    name: string;
-    email: string;
+    name: string | null;
+    email: string | null;
     avatarUrl: string | null;
     role: string;
     blocked: boolean;
     reports: number;
     joinedAt: string;
+    anonymizedAt: string | null;
 }
 
 interface Filters {
@@ -130,7 +131,7 @@ export default function Index({ items, total, page, hasMore, filters }: Props) {
                                             className="size-full object-cover"
                                         />
                                     ) : (
-                                        (member.nickname ?? member.name).slice(0, 1)
+                                        (member.nickname ?? member.name ?? '?').slice(0, 1)
                                     )}
                                 </span>
                                 <span className="min-w-0">
@@ -142,9 +143,12 @@ export default function Index({ items, total, page, hasMore, filters }: Props) {
                                             <Badge tone="horizon">{copy.roles[member.role]}</Badge>
                                         )}
                                         {member.blocked && <Badge tone="car">{copy.blocked}</Badge>}
+                                        {member.anonymizedAt && <Badge>{copy.anonymized}</Badge>}
                                     </span>
                                     <span className="mt-0.5 block truncate text-sm text-night/65">
-                                        {member.name} · {member.email}
+                                        {member.anonymizedAt
+                                            ? copy.anonymizedOn(shortDate(member.anonymizedAt))
+                                            : `${member.name ?? ''} · ${member.email ?? ''}`}
                                     </span>
                                 </span>
                                 <span className="col-start-2 text-sm text-night/60 sm:col-start-auto sm:text-right">

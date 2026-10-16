@@ -24,6 +24,7 @@ class MemberFactory extends Factory
             'city' => 'Lages',
             'role' => 'member',
             'terms_accepted_at' => now(),
+            'last_seen_at' => now(),
         ];
     }
 
@@ -69,5 +70,11 @@ class MemberFactory extends Factory
     public function role(string $role): static
     {
         return $this->state(['role' => $role]);
+    }
+
+    /** Last access at that moment: the inactivity cycle counts from it. */
+    public function lastSeen(\DateTimeInterface $at): static
+    {
+        return $this->state(['last_seen_at' => $at]);
     }
 }

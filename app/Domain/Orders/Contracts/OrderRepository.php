@@ -73,6 +73,14 @@ interface OrderRepository
      */
     public function anonymizeFor(int $memberId, string $email, int $retentionYears): void;
 
+    /**
+     * Tax retention over: every paid order paid at or before $cutoff, from any account or none,
+     * drops name, contact, CPF and street under "Titular anonimizado" and keeps number, items,
+     * totals, dates, city and state. Orders of deleted accounts (already due for purge) are left
+     * to the purge. Returns how many were anonymized; a second run changes nothing.
+     */
+    public function anonymizePaidBefore(\DateTimeInterface $cutoff): int;
+
     /** Deletes anonymized orders whose retention ended; returns how many. */
     public function purgeRetainedUntil(\DateTimeInterface $now): int;
 }

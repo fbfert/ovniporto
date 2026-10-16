@@ -12,8 +12,8 @@ const copy = t.panel.members;
 interface MemberDetail {
     id: number;
     nickname: string | null;
-    name: string;
-    email: string;
+    name: string | null;
+    email: string | null;
     avatarUrl: string | null;
     city: string | null;
     role: string;
@@ -21,6 +21,7 @@ interface MemberDetail {
     termsAcceptedAt: string | null;
     blockedAt: string | null;
     blockedReason: string | null;
+    anonymizedAt: string | null;
     approved: number;
     sightings: { id: number; type: string; status: string; observedDate: string }[];
 }
@@ -129,7 +130,7 @@ function BlockForm({ member }: { member: MemberDetail }) {
 function DeleteAccount({ member }: { member: MemberDetail }) {
     const [open, setOpen] = useState(false);
     const [busy, setBusy] = useState(false);
-    const label = member.nickname ? `@${member.nickname}` : member.name;
+    const label = member.nickname ? `@${member.nickname}` : (member.name ?? '');
     return (
         <>
             <p className="text-sm text-night/70">{copy.deleteLead}</p>
@@ -177,7 +178,7 @@ export default function Show({ member, history, canManage, isSelf }: Props) {
                             className="size-full object-cover"
                         />
                     ) : (
-                        (member.nickname ?? member.name).slice(0, 1)
+                        (member.nickname ?? member.name ?? '?').slice(0, 1)
                     )}
                 </span>
                 <div>
@@ -185,9 +186,18 @@ export default function Show({ member, history, canManage, isSelf }: Props) {
                         {label}
                     </Display>
                     <p className="mt-1 flex flex-wrap items-center gap-2 text-night/70">
-                        {member.name} · {member.email}
-                        <Badge tone="horizon">{copy.roles[member.role]}</Badge>
-                        {member.blockedAt && <Badge tone="car">{copy.blocked}</Badge>}
+                        {member.anonymizedAt ? (
+                            <>
+                                <Badge>{copy.anonymized}</Badge>
+                                {copy.anonymizedOn(longDate(member.anonymizedAt))}
+                            </>
+                        ) : (
+                            <>
+                                {member.name} · {member.email}
+                                <Badge tone="horizon">{copy.roles[member.role]}</Badge>
+                                {member.blockedAt && <Badge tone="car">{copy.blocked}</Badge>}
+                            </>
+                        )}
                     </p>
                 </div>
             </div>
@@ -233,7 +243,11 @@ export default function Show({ member, history, canManage, isSelf }: Props) {
                 </div>
 
                 <div className="space-y-8">
-                    {isSelf ? (
+                    {member.anonymizedAt ? (
+                        <Card title={copy.anonymized}>
+                            <p className="text-night/75">{copy.anonymizedLead}</p>
+                        </Card>
+                    ) : isSelf ? (
                         <p className="rounded-[22px] border-2 border-dashed border-night/20 p-6 font-script text-2xl text-horizon">
                             {copy.self}
                         </p>
