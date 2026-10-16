@@ -5,7 +5,7 @@
     "order": 10,
     "title": "Privacidade no dia a dia",
     "summary": "As regras fixas de privacidade aplicadas à operação: fotos, apelido, consentimento, pedidos de dados e o que nunca fazer.",
-    "reviewedAt": "2026-10-07",
+    "reviewedAt": "2026-10-16",
     "routes": [],
     "map": {
         "label": "Privacidade",
@@ -120,7 +120,7 @@
             "id": "minha-conta",
             "title": "Baixar meus dados e excluir a conta",
             "screen": null,
-            "body": "Os dois ficam em **Minha conta → Privacidade** e a pessoa faz sozinha.\n\n**Baixar meus dados** (botão \"Pedir meus dados\"): um arquivo JSON chega **no e-mail da conta** em alguns minutos, com perfil, relatos (com links das fotos), pedidos (CPF mascarado), inscrições e consentimentos. Só os dados dela. O arquivo é montado pela fila: se não chegar, veja o capítulo de problemas.\n\n**Excluir minha conta**: a pessoa confirma digitando o próprio apelido. Ao excluir:\n\n- perfil, relatos, fotos e todas as cópias das fotos são apagados na hora;\n- pedidos **pagos** ficam guardados sem nome, e-mail, telefone nem endereço (só cidade e UF), com o cliente marcado como **\"Titular excluído\"**, por causa da obrigação fiscal, e são apagados de vez quando o prazo de guarda vence (**5 anos após o pagamento**, a confirmar pelo encarregado);\n- pedidos não pagos são apagados na rotina diária seguinte;\n- consentimentos ficam só com tipo, versão e data, sem nada que aponte para a pessoa;\n- a inscrição no Avise-me e a oferta de colaboração com o mesmo e-mail também são apagadas;\n- a pessoa recebe um e-mail de despedida."
+            "body": "Os dois ficam em **Minha conta → Privacidade** e a pessoa faz sozinha.\n\n**Baixar meus dados** (botão \"Pedir meus dados\"): um arquivo JSON chega **no e-mail da conta** em alguns minutos, com perfil, relatos (com links das fotos), pedidos (CPF mascarado), inscrições e consentimentos. Só os dados dela. O arquivo é montado pela fila: se não chegar, veja o capítulo de problemas.\n\n**Excluir minha conta**: a pessoa confirma digitando o próprio apelido. Ao excluir:\n\n- perfil, relatos, fotos e todas as cópias das fotos são apagados na hora;\n- pedidos **pagos** ficam guardados sem nome, e-mail, telefone nem endereço (só cidade e UF), com o cliente marcado como **\"Titular excluído\"**, por causa da obrigação fiscal, e são apagados de vez quando o prazo de guarda vence (**5 anos após o pagamento**, prazo confirmado pelo encarregado);\n- pedidos não pagos são apagados na rotina diária seguinte;\n- consentimentos ficam só com tipo, versão e data, sem nada que aponte para a pessoa;\n- a inscrição no Avise-me e a oferta de colaboração com o mesmo e-mail também são apagadas;\n- a pessoa recebe um e-mail de despedida."
         },
         {
             "id": "pedidos-de-dados",
@@ -144,7 +144,7 @@
             "id": "encarregado",
             "title": "Encarregado de dados",
             "screen": null,
-            "body": "O encarregado de dados (LGPD) do OVNIPORTO é o **Felipe**. É ele quem:\n\n- escreve os textos finais de **/privacidade** e **/termos**, editados no painel em Conteúdo → Configurações;\n- confirma os prazos (guarda fiscal dos pedidos, retenção dos logs) e o tratamento dos consentimentos após a exclusão;\n- responde aos pedidos de dados que não se resolvem em Minha conta.\n\nO contato público dele entra no tópico **\"Contato do encarregado\"** da política de privacidade, quando o texto final for publicado. Enquanto as páginas estiverem com o aviso de rascunho, encaminhe os pedidos ao admin, que repassa ao encarregado."
+            "body": "O encarregado de dados (LGPD) do OVNIPORTO é o **Felipe**. É ele quem:\n\n- escreve os textos finais de **/privacidade** e **/termos**, editados no painel em Conteúdo → Configurações;\n- confirmou em outubro de 2026 os prazos (guarda fiscal dos pedidos: 5 anos após o pagamento; logs de acesso: 6 meses) e a anonimização dos consentimentos após a exclusão da conta;\n- responde aos pedidos de dados que não se resolvem em Minha conta.\n\nO contato público dele entra no tópico **\"Contato do encarregado\"** da política de privacidade, quando o texto final for publicado. Enquanto as páginas estiverem com o aviso de rascunho, encaminhe os pedidos ao admin, que repassa ao encarregado."
         }
     ]
 }
