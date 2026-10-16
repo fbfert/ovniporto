@@ -5,7 +5,7 @@
     "order": 20,
     "title": "Papéis e acessos",
     "summary": "Admin, moderação, loja e membro: o que cada papel abre, como dar ou tirar um papel e o que é recusado.",
-    "reviewedAt": "2026-10-07",
+    "reviewedAt": "2026-10-16",
     "routes": [],
     "map": {
         "label": "Papéis",
@@ -83,7 +83,7 @@
             "id": "admin",
             "title": "Admin",
             "screen": null,
-            "body": "Abre **todas as áreas** do painel, inclusive as que só ele vê: **Conteúdo** (todos os textos e páginas do site e do projeto do lugar), **Coordenadas** (e-mail do site, alertas e remetente do frete), **Auditoria** e os painéis técnicos **Filas** (`/painel/filas`) e **Saúde** (`/painel/saude`), que não aparecem no menu.\n\nSó o admin:\n\n- **muda o papel** de outras contas;\n- **exclui contas** pelo painel.\n\nE-mails que o admin recebe:\n\n- \"Novo relato #N na fila da torre\", a cada relato enviado (junto com a moderação);\n- \"Atenção no pedido ...\", quando um pagamento precisa de conferência manual (junto com a loja);\n- o alerta de tarefa que falhou 3 vezes, **quando o servidor não tem um e-mail de alertas configurado** (`ALERTS_EMAIL`). Se tiver, o alerta vai só para esse endereço.\n\nDê o papel de admin a poucas pessoas: ele vê dados pessoais de todos e pode apagar contas."
+            "body": "Abre **todas as áreas** do painel, inclusive as que só ele vê: **Conteúdo** (todos os textos e páginas do site e do projeto do lugar), **Coordenadas** (e-mail do site, alertas e remetente do frete), **Auditoria** e os painéis técnicos **Filas** (`/painel/filas`) e **Saúde** (`/painel/saude`), que não aparecem no menu.\n\nSó o admin:\n\n- **muda o papel** de outras contas;\n- **exclui contas** pelo painel.\n\nE-mails que o admin recebe:\n\n- \"Novo relato #N na fila da torre\", a cada relato enviado (junto com a moderação);\n- \"Atenção no pedido ...\", quando um pagamento precisa de conferência manual (junto com a loja);\n- o alerta de tarefa que falhou 3 vezes, **quando o servidor não tem um e-mail de alertas configurado** (`ALERTS_EMAIL`). Se tiver, o alerta vai só para esse endereço;\n- \"Torre: @apelido está sem acesso há anos\", quando uma conta com papel no painel chega ao prazo de inatividade (5 anos sem entrar). Contas com papel **nunca são anonimizadas automaticamente**: esse alerta vai **só para os admins**, uma vez por ciclo, e o próximo login da pessoa zera a contagem.\n\nDê o papel de admin a poucas pessoas: ele vê dados pessoais de todos e pode apagar contas."
         },
         {
             "id": "moderacao",
@@ -113,7 +113,7 @@
             "id": "tirar",
             "title": "Tirar o acesso de alguém",
             "screen": "panel.members.show",
-            "body": "Para tirar alguém do painel, mude o papel para **Membro** e salve. A conta continua existindo no site, com os relatos e pedidos dela, mas o painel fecha na próxima página que a pessoa abrir.\n\nPara **bloquear** alguém que tem papel no painel, primeiro tire o papel: o painel recusa o bloqueio com \"Tire o papel no painel antes de bloquear.\"\n\nSe o único admin perder o acesso (por exemplo, apagou a conta Google), não há como dar um papel pelo painel: quem cuida do servidor repete o comando do primeiro admin (veja [Primeiros passos](/painel/manual/primeiros-passos#primeiro-admin)). Por isso, vale ter **pelo menos dois admins**."
+            "body": "Para tirar alguém do painel, mude o papel para **Membro** e salve. A conta continua existindo no site, com os relatos e pedidos dela, mas o painel fecha na próxima página que a pessoa abrir.\n\nPara **bloquear** alguém que tem papel no painel, primeiro tire o papel: o painel recusa o bloqueio com \"Tire o papel no painel antes de bloquear.\"\n\nSe o único admin perder o acesso (por exemplo, apagou a conta Google), não há como dar um papel pelo painel: quem cuida do servidor repete o comando do primeiro admin (veja [Primeiros passos](/painel/manual/primeiros-passos#primeiro-admin)). Por isso, vale ter **pelo menos dois admins**.\n\nSe chegar o alerta de conta com papel sem acesso há anos, decida: se a pessoa não vai mais operar o painel, mude o papel para **Membro**. A partir daí a conta segue a regra de todo membro e pode ser anonimizada, sempre depois do aviso por e-mail 30 dias antes."
         },
         {
             "id": "recusas",
