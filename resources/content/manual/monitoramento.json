@@ -5,7 +5,7 @@
     "order": 20,
     "title": "Monitoramento e backup",
     "summary": "Filas, saúde do servidor, alertas por e-mail, métrica sem cookie, /up e backup: o que olhar e quando agir.",
-    "reviewedAt": "2026-10-07",
+    "reviewedAt": "2026-10-16",
     "routes": [],
     "map": {
         "label": "Monitoramento",
@@ -82,6 +82,7 @@
                     { "label": "Pedidos sem pagamento: 2 h", "kind": "state", "section": "rotinas" },
                     { "label": "Fotos temporárias: 24 h", "kind": "state", "section": "rotinas" },
                     { "label": "Rastreio uma vez por dia", "kind": "state", "section": "rotinas" },
+                    { "label": "Prazos de privacidade: 5 anos", "kind": "state", "section": "rotinas" },
                     { "label": "Horários em UTC", "kind": "care", "section": "rotinas" }
                 ]
             }
@@ -140,7 +141,7 @@
             "id": "rotinas",
             "title": "Rotinas agendadas",
             "screen": null,
-            "body": "O serviço `scheduler` roda sozinho estas tarefas:\n\n- **A cada 10 minutos**: cancela pedidos que estão **há mais de 2 horas** esperando pagamento (o estoque nunca foi tirado).\n- **De hora em hora**: apaga fotos de relato enviadas há mais de **24 horas** que nenhum relato usou; e refaz o `sitemap.xml`.\n- **Uma vez por dia, 07:00 UTC** (04:00 em Brasília): pergunta ao Melhor Envio quais pedidos enviados já foram entregues.\n- **Uma vez por dia, 03:30 UTC** (00:30 em Brasília): apaga de vez os pedidos anonimizados de contas excluídas cujo prazo de guarda fiscal venceu.\n\nO relógio do site está em **UTC**; o backup segue o relógio da VPS. Se o serviço `scheduler` parar, nada disso acontece: pedidos abandonados ficam \"aguardando pagamento\" e as entregas não são marcadas."
+            "body": "O serviço `scheduler` roda sozinho estas tarefas:\n\n- **A cada 10 minutos**: cancela pedidos que estão **há mais de 2 horas** esperando pagamento (o estoque nunca foi tirado).\n- **De hora em hora**: apaga fotos de relato enviadas há mais de **24 horas** que nenhum relato usou; e refaz o `sitemap.xml`.\n- **Uma vez por dia, 07:00 UTC** (04:00 em Brasília): pergunta ao Melhor Envio quais pedidos enviados já foram entregues.\n- **Uma vez por dia, 03:15 UTC** (00:15 em Brasília): avisa por e-mail quem está perto de 5 anos sem entrar, anonimiza as contas cujo aviso saiu há pelo menos 30 dias e alerta os admins sobre contas com papel no painel.\n- **Uma vez por dia, 03:30 UTC** (00:30 em Brasília): apaga de vez os pedidos anonimizados de contas excluídas cujo prazo de guarda fiscal venceu e anonimiza os demais pedidos pagos há mais de 5 anos.\n\nO relógio do site está em **UTC**; o backup segue o relógio da VPS. Se o serviço `scheduler` parar, nada disso acontece: pedidos abandonados ficam \"aguardando pagamento\" e as entregas não são marcadas."
         },
         {
             "id": "cuidados",
