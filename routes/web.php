@@ -80,6 +80,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/entrar', [GoogleAuthController::class, 'show'])->name('login');
     Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->middleware('throttle:20,1')->name('auth.google');
     Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->middleware('throttle:20,1')->name('auth.google.callback');
+    Route::post('/auth/google/token', [GoogleAuthController::class, 'token'])->middleware('throttle:20,1')->name('auth.google.token');
 });
 Route::middleware('auth')->group(function () {
     Route::post('/sair', [GoogleAuthController::class, 'logout'])->name('logout');

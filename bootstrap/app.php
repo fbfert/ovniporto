@@ -33,7 +33,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(prepend: [RevalidateWithETag::class]);
         $middleware->alias(['profile.complete' => EnsureProfileCompleted::class, 'panel' => EnsurePanelArea::class, 'not.blocked' => EnsureNotBlocked::class]);
         // The payment provider posts its notifications without our CSRF token (the signature is checked instead).
-        $middleware->validateCsrfTokens(except: ['webhooks/*', 'csp-report']);
+        // The Android app posts the Google ID token without a session yet (the token itself is verified).
+        $middleware->validateCsrfTokens(except: ['webhooks/*', 'csp-report', 'auth/google/token']);
         // Signed-in members who still visit /entrar go straight to their account.
         $middleware->redirectUsersTo(fn () => route('account'));
     })

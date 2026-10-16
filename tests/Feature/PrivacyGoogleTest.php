@@ -10,10 +10,11 @@ it('keeps from Google only the id, name, e-mail and avatar', function () {
 });
 
 it('has no place to store Google tokens or any other account data', function () {
+    // remember_token is Laravel's own "remember me" cookie token, not a Google credential.
     expect(Schema::getColumnListing('members'))->toEqualCanonicalizing([
         'id', 'google_id', 'name', 'email', 'avatar_url',
         'nickname', 'city', 'role', 'terms_accepted_at', 'blocked_at', 'blocked_reason',
-        'created_at', 'updated_at',
+        'remember_token', 'created_at', 'updated_at',
     ]);
 });
 
