@@ -12,6 +12,16 @@ function publishTerms(string $date): void
     }
 }
 
+it('flags both boxes at once when the terms and the age are pending and neither is checked', function () {
+    $member = Member::factory()->create();
+    Consent::query()->where('member_id', $member->id)->where('type', 'idade_minima')->delete();
+    publishTerms('2026-11-15');
+
+    $this->actingAs($member)->post('/termos/aceitar', [])->assertSessionHasErrors(['terms', 'age']);
+    $this->post('/termos/aceitar', ['terms' => '1'])->assertSessionHasErrors('age')->assertSessionDoesntHaveErrors('terms');
+    $this->post('/termos/aceitar', ['terms' => '1', 'age' => '1'])->assertRedirect('/conta');
+});
+
 it('lets members in while the terms are still a draft', function () {
     ContentBlock::query()->updateOrCreate(['key' => 'terms_updated_at'], ['value' => '2026-10-04']);
 

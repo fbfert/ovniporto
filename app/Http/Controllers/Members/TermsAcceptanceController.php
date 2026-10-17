@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Members;
 
 use App\Application\Privacy\UseCases\AcceptCurrentTerms;
 use App\Application\Privacy\UseCases\CurrentTermsVersion;
-use App\Domain\Members\AgeNotDeclared;
-use App\Domain\Members\TermsNotAccepted;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompleteProfileRequest;
 use Illuminate\Http\RedirectResponse;
@@ -27,15 +25,19 @@ class TermsAcceptanceController extends Controller
         return Inertia::render('Members/AcceptTerms', ['version' => $version->execute(), 'pending' => $pending]);
     }
 
+    private const MESSAGES = [
+        AcceptCurrentTerms::TERMS => 'Marque que leu e aceita para continuar.',
+        AcceptCurrentTerms::AGE => CompleteProfileRequest::AGE_MESSAGE,
+    ];
+
     public function store(Request $request, AcceptCurrentTerms $terms): RedirectResponse
     {
-        try {
-            $terms->execute((int) $request->user()?->getAuthIdentifier(), $request->boolean('terms'), $request->boolean('age'));
-        } catch (TermsNotAccepted) {
-            throw ValidationException::withMessages(['terms' => 'Marque que leu e aceita para continuar.']);
-        } catch (AgeNotDeclared) {
-            throw ValidationException::withMessages(['age' => CompleteProfileRequest::AGE_MESSAGE]);
+        $memberId = (int) $request->user()?->getAuthIdentifier();
+        $missing = $terms->missing($memberId, $request->boolean('terms'), $request->boolean('age'));
+        if ($missing !== []) {
+            throw ValidationException::withMessages(array_intersect_key(self::MESSAGES, array_flip($missing)));
         }
+        $terms->execute($memberId, $request->boolean('terms'), $request->boolean('age'));
 
         return redirect()->intended(route('account'));
     }

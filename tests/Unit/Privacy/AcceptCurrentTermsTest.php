@@ -95,7 +95,10 @@ it('asks for both on one screen and records both', function () {
     $terms = pendingAcceptances($ledger, $members);
     expect($terms->pending(7))->toBe(['terms', 'age']);
 
-    expect(fn () => $terms->execute(7, termsAccepted: false, ageDeclared: true))->toThrow(TermsNotAccepted::class);
+    expect(fn () => $terms->execute(7, termsAccepted: false, ageDeclared: true))->toThrow(TermsNotAccepted::class)
+        ->and($terms->missing(7, termsAccepted: false, ageDeclared: false))->toBe(['terms', 'age'])
+        ->and($terms->missing(7, termsAccepted: true, ageDeclared: false))->toBe(['age'])
+        ->and($terms->missing(7, termsAccepted: true, ageDeclared: true))->toBe([]);
     $terms->execute(7, termsAccepted: true, ageDeclared: true);
 
     expect($terms->pending(7))->toBe([])

@@ -40,6 +40,18 @@ final readonly class AcceptCurrentTerms
         return $pending;
     }
 
+    /**
+     * What is pending and was left unchecked, all at once, so the screen can flag every box.
+     *
+     * @return list<self::TERMS|self::AGE>
+     */
+    public function missing(int $memberId, bool $termsAccepted, bool $ageDeclared): array
+    {
+        $answers = [self::TERMS => $termsAccepted, self::AGE => $ageDeclared];
+
+        return array_values(array_filter($this->pending($memberId), fn (string $item) => ! $answers[$item]));
+    }
+
     public function execute(int $memberId, bool $termsAccepted, bool $ageDeclared): void
     {
         $pending = $this->pending($memberId);
