@@ -2,6 +2,7 @@
 
 use App\Models\Member;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Testing\TestResponse;
 
@@ -126,4 +127,16 @@ it('lets the origin videos play after a click, from the no-cookie player only', 
             ->not->toContain('https://www.youtube.com')
             ->not->toContain('https://*.youtube.com');
     }
+});
+
+it('counts each route on its own, so the shop never spends the waitlist attempts', function () {
+    Mail::fake();
+    foreach (range(1, 10) as $_) {
+        $this->post('/loja/frete', []);
+    }
+
+    foreach (range(1, 5) as $i) {
+        $this->post('/avise-me', ['email' => "v{$i}@serra.com", 'consent' => '1'])->assertRedirect();
+    }
+    $this->post('/avise-me', ['email' => 'v6@serra.com', 'consent' => '1'])->assertStatus(429);
 });
