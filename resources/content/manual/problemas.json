@@ -5,7 +5,7 @@
     "order": 20,
     "title": "Quando algo dá errado",
     "summary": "Pagamento sem confirmação, etiqueta que não sai, e-mail que não chega, relato parado, 403 e conteúdo antigo: o que conferir e quem chamar.",
-    "reviewedAt": "2026-10-07",
+    "reviewedAt": "2026-10-16",
     "routes": [],
     "map": {
         "label": "Problemas",
@@ -30,7 +30,8 @@
                     { "label": "Saldo do Melhor Envio", "kind": "care", "section": "etiqueta" },
                     { "label": "Token vencido", "kind": "care", "section": "etiqueta" },
                     { "label": "Conferir antes de repetir", "kind": "care", "section": "etiqueta" },
-                    { "label": "Rastreio à mão", "kind": "action", "section": "etiqueta" }
+                    { "label": "Rastreio à mão", "kind": "action", "section": "etiqueta" },
+                    { "label": "Frete incluso cobrado?", "kind": "state", "section": "frete-incluso" }
                 ]
             },
             {
@@ -109,6 +110,12 @@
             "title": "A etiqueta não saiu",
             "screen": null,
             "body": "**Gerar etiqueta** só aparece em pedido **em produção**, com entrega (retirada em Lages não tem etiqueta) e ainda sem rastreio. Ao clicar, o painel faz três passos no Melhor Envio: põe o envio no carrinho, **paga com o saldo da conta** e gera a etiqueta.\n\nSe algo falha, o painel mostra a mensagem genérica \"O cálculo de frete está fora do ar agora...\", mesmo quando o problema não é o cálculo. A resposta real do Melhor Envio vai para o registro de erros (cartão **Exceptions** em /painel/saude, só admin). Causas comuns:\n\n- **Saldo insuficiente** na conta do Melhor Envio: a etiqueta é paga com o saldo.\n- **Token vencido ou revogado**: o `MELHOR_ENVIO_TOKEN` do `.env` precisa ser renovado pelo admin.\n- **Dados do remetente** incompletos (nome, documento, endereço): o admin completa em **Coordenadas → Frete**.\n- **Melhor Envio fora do ar** ou lento (o painel desiste depois de 15 segundos).\n\n**Antes de tentar de novo, abra o painel do Melhor Envio** e confira se o envio daquele pedido já foi pago: se o pagamento passou e só a geração falhou, um novo clique compra **outra** etiqueta.\n\nSe a etiqueta foi comprada direto no Melhor Envio, use **Marcar como enviado** e preencha \"Código de rastreio (se a etiqueta não saiu pelo painel)\".\n\nSe aparece \"O frete real ainda não está conectado (Melhor Envio).\", o token não está configurado e o site está usando a simulação: chame o admin."
+        },
+        {
+            "id": "frete-incluso",
+            "title": "Cliente pagou frete num produto com frete incluso",
+            "screen": null,
+            "body": "Quase sempre é um **carrinho misto**: produtos com frete incluso junto com produtos sem. O site faz uma cotação só para o pacote inteiro e o comprador paga **a parte do frete proporcional ao peso dos itens sem frete incluso** (arredondada para cima). O resto o OVNIPORTO paga.\n\nExemplo: o frete do pacote deu R$ 30 e os itens sem frete incluso pesam metade do pacote: o comprador pagou R$ 15.\n\nNa ficha do pedido, confira **Frete cobrado** e **Frete incluso pago pelo OVNIPORTO**: os dois somados dão o valor cotado. Se o carrinho só tinha produtos com frete incluso, o frete cobrado é zero; se não for, chame o admin.\n\nSe o produto deveria ter frete incluso e não tem, marque a caixa **Frete incluso** no cadastro do produto (vale para as próximas compras; o pedido já pago não muda)."
         },
         {
             "id": "email",
