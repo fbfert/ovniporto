@@ -5,6 +5,7 @@ use App\Domain\Audit\Contracts\Auditor;
 use App\Domain\Audit\Data\AuditEntry;
 use App\Domain\Origin\Contracts\CollaboratorRepository;
 use App\Domain\Privacy\ConsentType;
+use Tests\Support\FakeUnsubscribeLinks;
 use Tests\Support\SpyConsentLedger;
 
 function collaboratorList(): CollaboratorRepository
@@ -68,10 +69,10 @@ function collaboratorAuditor(): Auditor
 }
 
 it('exports a header and one row per offer, areas joined', function () {
-    $rows = (new ManageCollaborators(collaboratorList(), collaboratorAuditor(), new SpyConsentLedger))->export();
+    $rows = (new ManageCollaborators(collaboratorList(), collaboratorAuditor(), new SpyConsentLedger, new FakeUnsubscribeLinks))->export();
 
     expect($rows[0])->toBe(ManageCollaborators::CSV_HEADER)
-        ->and($rows[1])->toBe(['Ana', 'ana@serra.com', 'Lages, Brasil', 'pesquisa, fotos', 'Tenho fotos.', '2026-10-05T10:00:00+00:00']);
+        ->and($rows[1])->toBe(['Ana', 'ana@serra.com', 'Lages, Brasil', 'pesquisa, fotos', 'Tenho fotos.', '2026-10-05T10:00:00+00:00', 'https://ovniporto.test/descadastrar/colaboracao/7']);
 });
 
 it('removes an offer through the audit log, without the e-mail in it, and withdraws its consent', function () {
@@ -80,7 +81,7 @@ it('removes an offer through the audit log, without the e-mail in it, and withdr
 
     $ledger = new SpyConsentLedger;
 
-    (new ManageCollaborators($repository, $auditor, $ledger))->remove(3, 7);
+    (new ManageCollaborators($repository, $auditor, $ledger, new FakeUnsubscribeLinks))->remove(3, 7);
 
     expect($repository->removed)->toBe([7])
         ->and($ledger->withdrawals)->toBe([['type' => ConsentType::Collaboration, 'subject' => 'colaborador:7']])

@@ -17,6 +17,10 @@ Todo e-mail enviado a um inscrito do Avise-me ou a quem ofereceu colaboração S
 - **WHEN** uma pessoa envia uma oferta de colaboração
 - **THEN** o e-mail de agradecimento traz o link de descadastro
 
+#### Scenario: Envio feito à mão pela equipe
+- **WHEN** a equipe exporta o CSV do Avise-me ou dos colaboradores para um envio fora do site
+- **THEN** cada linha traz em `link_descadastro` o link pessoal daquela inscrição, que abre a confirmação de descadastro sem login
+
 ### Requirement: Confirmação antes de remover
 O link de descadastro SHALL abrir uma página que mostra o que vai ser cancelado e pede confirmação. Só o envio da confirmação MUST remover a inscrição ou a oferta, para que a pré-visualização de links de um programa de e-mail não cancele nada.
 

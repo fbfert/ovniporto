@@ -6,17 +6,19 @@ use App\Domain\Audit\Contracts\Auditor;
 use App\Domain\Audit\Data\AuditEntry;
 use App\Domain\Origin\Contracts\CollaboratorRepository;
 use App\Domain\Privacy\Contracts\ConsentLedger;
+use App\Domain\Privacy\Contracts\UnsubscribeLinkGenerator;
 use App\Domain\Privacy\MailingList;
 
 /** /painel/colaboradores: who offered to help the origin research. */
 final readonly class ManageCollaborators
 {
-    public const CSV_HEADER = ['nome', 'email', 'cidade_pais', 'como_ajudar', 'mensagem', 'consentiu_em'];
+    public const CSV_HEADER = ['nome', 'email', 'cidade_pais', 'como_ajudar', 'mensagem', 'consentiu_em', 'link_descadastro'];
 
     public function __construct(
         private CollaboratorRepository $collaborators,
         private Auditor $auditor,
         private ConsentLedger $consents,
+        private UnsubscribeLinkGenerator $unsubscribeLinks,
     ) {}
 
     /** @return array{collaborators: list<array<string, mixed>>} */
@@ -25,13 +27,25 @@ final readonly class ManageCollaborators
         return ['collaborators' => $this->collaborators->collaborators()];
     }
 
-    /** @return list<list<string>> rows for the CSV, header first */
+    /**
+     * Replies to the offers go out by hand, so each row carries the person's own unsubscribe link.
+     *
+     * @return list<list<string>> rows for the CSV, header first
+     */
     public function export(): array
     {
         return [
             self::CSV_HEADER,
             ...array_map(
-                fn (array $c) => [$c['name'], $c['email'], $c['location'], implode(', ', $c['areas']), $c['message'], $c['consentedAt']],
+                fn (array $c) => [
+                    $c['name'],
+                    $c['email'],
+                    $c['location'],
+                    implode(', ', $c['areas']),
+                    $c['message'],
+                    $c['consentedAt'],
+                    $this->unsubscribeLinks->for(MailingList::Collaboration, $c['id']),
+                ],
                 $this->collaborators->collaborators(),
             ),
         ];

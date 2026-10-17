@@ -6,17 +6,19 @@ use App\Domain\Audit\Contracts\Auditor;
 use App\Domain\Audit\Data\AuditEntry;
 use App\Domain\Campaign\Contracts\WaitlistRepository;
 use App\Domain\Privacy\Contracts\ConsentLedger;
+use App\Domain\Privacy\Contracts\UnsubscribeLinkGenerator;
 use App\Domain\Privacy\MailingList;
 
 /** /painel/avise-me: who asked to be told when the campaign opens. */
 final readonly class ManageWaitlist
 {
-    public const CSV_HEADER = ['email', 'origem', 'consentiu_em', 'confirmou_em'];
+    public const CSV_HEADER = ['email', 'origem', 'consentiu_em', 'confirmou_em', 'link_descadastro'];
 
     public function __construct(
         private WaitlistRepository $subscribers,
         private Auditor $auditor,
         private ConsentLedger $consents,
+        private UnsubscribeLinkGenerator $unsubscribeLinks,
     ) {}
 
     /** @return array{subscribers: list<array<string, mixed>>, confirmed: int} */
@@ -30,12 +32,23 @@ final readonly class ManageWaitlist
         ];
     }
 
-    /** @return list<list<string>> rows for the CSV, header first */
+    /**
+     * The campaign notice goes out by hand from this file, so each row carries the person's own
+     * unsubscribe link for the team to paste into that e-mail.
+     *
+     * @return list<list<string>> rows for the CSV, header first
+     */
     public function export(): array
     {
         return [
             self::CSV_HEADER,
-            ...array_map(fn (array $s) => [$s['email'], $s['source'], $s['consentedAt'], $s['confirmedAt'] ?? ''], $this->subscribers->subscribers()),
+            ...array_map(fn (array $s) => [
+                $s['email'],
+                $s['source'],
+                $s['consentedAt'],
+                $s['confirmedAt'] ?? '',
+                $this->unsubscribeLinks->for(MailingList::Waitlist, $s['id']),
+            ], $this->subscribers->subscribers()),
         ];
     }
 

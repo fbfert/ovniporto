@@ -24,6 +24,7 @@
 - [x] 4.2 Rotas assinadas `GET` e `POST /descadastrar/{kind}/{id}` com `UnsubscribeController` e a página `Privacy/Unsubscribe.tsx` (e-mail mascarado, confirmação, estado "nada a cancelar"), verificado por teste de feature: GET não remove, POST remove, assinatura adulterada 403, segunda visita mostra "nada a cancelar"
 - [x] 4.3 Link de descadastro em `ConfirmWaitlistMail` (com cabeçalho `List-Unsubscribe`) e em `CollaboratorThanksMail`, montado em `MailWaitlistNotifier` e `MailCollaboratorNotifier`, verificado em `tests/Feature/WaitlistTest.php` e `tests/Feature/CollaboratorTest.php` com `Mail::fake()`
 - [x] 4.4 `ManageWaitlist::remove` e `ManageCollaborators::remove` também chamam `withdraw`, verificado nos testes de unidade de cada um
+- [x] 4.5 Coluna `link_descadastro` nos CSV do Avise-me e dos colaboradores (contrato `UnsubscribeLinkGenerator`), para os envios feitos à mão pela equipe (aviso de abertura da campanha, respostas às ofertas), verificado nos testes de unidade de `ManageWaitlist` e `ManageCollaborators` e em `tests/Feature/ContentAdminTest.php` (o link do arquivo abre a página de descadastro sem login)
 
 ## 5. Transparência e manual
 

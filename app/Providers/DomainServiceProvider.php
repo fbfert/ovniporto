@@ -46,6 +46,7 @@ use App\Domain\Place\Contracts\PlaceSpaceRepository;
 use App\Domain\Place\Contracts\SitePhotoRepository;
 use App\Domain\Privacy\Contracts\ConsentLedger;
 use App\Domain\Privacy\Contracts\PrivacyPractices;
+use App\Domain\Privacy\Contracts\UnsubscribeLinkGenerator;
 use App\Domain\Region\Contracts\ConsentProofStorage;
 use App\Domain\Region\Contracts\RegionAdminRepository;
 use App\Domain\Region\Contracts\RegionPartnerRepository;
@@ -80,6 +81,7 @@ use App\Infrastructure\Mail\MailOrderNotifier;
 use App\Infrastructure\Mail\MailReturnNotifier;
 use App\Infrastructure\Mail\MailSightingNotifier;
 use App\Infrastructure\Mail\MailWaitlistNotifier;
+use App\Infrastructure\Mail\UnsubscribeLinks;
 use App\Infrastructure\Manual\JsonManualLibrary;
 use App\Infrastructure\Members\CollaboratorContentEraser;
 use App\Infrastructure\Members\CollaboratorDataSource;
@@ -168,6 +170,7 @@ class DomainServiceProvider extends ServiceProvider
         MarkdownRenderer::class => CommonMarkRenderer::class,
         ConsentLedger::class => DatabaseConsentLedger::class,
         PrivacyPractices::class => CodePrivacyPractices::class,
+        UnsubscribeLinkGenerator::class => UnsubscribeLinks::class,
         OgCardRepository::class => EloquentOgCardRepository::class,
         OgImageRenderer::class => GdOgImageRenderer::class,
         PublishedContentIndex::class => EloquentPublishedContentIndex::class,

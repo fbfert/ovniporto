@@ -236,4 +236,10 @@ it('lists, exports and removes waitlist subscribers', function () {
     $csv = $this->get('/painel/avise-me/exportar')->assertOk()->streamedContent();
     expect($csv)->toContain('fica@example.com')->not->toContain('sai@example.com');
     $this->get('/painel/avise-me')->assertInertia(fn (Assert $page) => $page->has('subscribers', 1)->where('subscribers.0.id', $keep->id));
+
+    // The link in the file is the person's own, signed, and opens the confirmation page without sign-in.
+    preg_match('#https?://\S+/descadastrar/avise-me/'.$keep->id.'\?[^;\s"]+#', $csv, $link);
+    expect($link)->not->toBeEmpty();
+    auth()->logout();
+    $this->get($link[0])->assertOk();
 });
