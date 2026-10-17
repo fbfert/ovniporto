@@ -37,9 +37,12 @@ interface Order {
         quantity: number;
         unitPriceCents: number;
         lineCents: number;
+        shippingIncluded: boolean;
     }[];
     subtotalCents: number;
     shippingCents: number;
+    /** The quote for the whole cart; above shippingCents when some item has included shipping. */
+    shippingCostCents: number;
     totalCents: number;
     payment: { method: string | null; orderId: string | null; captureId: string | null };
     events: { from: string | null; to: string; actor: string; note: string | null; at: string }[];
@@ -210,6 +213,7 @@ export default function Show({
                                         </span>
                                         <span className="block text-sm text-night/60">
                                             {item.variant} · SKU {item.sku} · {money(item.unitPriceCents)}
+                                            {item.shippingIncluded && ` · ${copy.itemShippingIncluded}`}
                                         </span>
                                     </span>
                                     <span className="tabular-nums">{money(item.lineCents)}</span>
@@ -222,9 +226,17 @@ export default function Show({
                                 <dd className="tabular-nums">{money(order.subtotalCents)}</dd>
                             </div>
                             <div className="flex justify-between text-night/70">
-                                <dt>{t.order.shipping}</dt>
+                                <dt>{copy.shippingCharged}</dt>
                                 <dd className="tabular-nums">{money(order.shippingCents)}</dd>
                             </div>
+                            {order.shippingCostCents > order.shippingCents && (
+                                <div className="flex justify-between text-night/70">
+                                    <dt>{copy.shippingAbsorbed}</dt>
+                                    <dd className="tabular-nums">
+                                        {money(order.shippingCostCents - order.shippingCents)}
+                                    </dd>
+                                </div>
+                            )}
                             <div className="flex justify-between font-semibold">
                                 <dt>{t.order.total}</dt>
                                 <dd className="tabular-nums">{money(order.totalCents)}</dd>

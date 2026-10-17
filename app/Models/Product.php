@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $kind
  * @property int $production_days
  * @property int $weight_grams
+ * @property bool $shipping_included
  * @property array<string, int|float>|null $dimensions
  * @property bool $is_active
  * @property bool $is_featured
@@ -32,6 +33,7 @@ class Product extends Model
             'dimensions' => 'array',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
+            'shipping_included' => 'boolean',
         ];
     }
 

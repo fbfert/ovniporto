@@ -68,6 +68,7 @@ final class EloquentProductAdminRepository implements ProductAdminRepository
             'label' => $p->label,
             'active' => $p->is_active,
             'featured' => $p->is_featured,
+            'shippingIncluded' => $p->shipping_included,
             'variants' => $p->variants->sortBy('id')->map(fn (ProductVariant $v) => [
                 'id' => $v->id,
                 'name' => $v->name,
@@ -217,6 +218,7 @@ final class EloquentProductAdminRepository implements ProductAdminRepository
             'label' => $d->label,
             'is_active' => $d->active,
             'is_featured' => $d->featured,
+            'shipping_included' => $d->shippingIncluded,
         ];
     }
 }

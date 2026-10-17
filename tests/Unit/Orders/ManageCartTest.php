@@ -8,9 +8,9 @@ use App\Domain\Orders\CartRefused;
 use App\Domain\Orders\Contracts\CartRepository;
 use App\Domain\Orders\Data\CartOwner;
 
-function variant(int $id, int $cents, ?int $stock = 10, bool $madeToOrder = false, bool $available = true): PurchasableVariant
+function variant(int $id, int $cents, ?int $stock = 10, bool $madeToOrder = false, bool $available = true, bool $shippingIncluded = false): PurchasableVariant
 {
-    return new PurchasableVariant($id, "Produto {$id}", "p-{$id}", 'Único', Money::cents($cents), $madeToOrder, $madeToOrder ? 7 : 0, $stock, $available, 20, null, null);
+    return new PurchasableVariant($id, "Produto {$id}", "p-{$id}", 'Único', Money::cents($cents), $madeToOrder, $madeToOrder ? 7 : 0, $stock, $available, 20, $shippingIncluded, null, null);
 }
 
 function catalog(PurchasableVariant ...$variants): ProductReadRepository
@@ -141,4 +141,18 @@ it('drops lines whose product went off the shelf', function () {
 
     expect($cart->view(CartOwner::visitor('abc'))['items'])->toBe([])
         ->and($carts->quantities(CartOwner::visitor('abc')))->toBe([]);
+});
+
+it('leaves the items with included shipping out of the weight that pays freight', function () {
+    $cart = new ManageCart(memoryCarts(), catalog(variant(1, 800), variant(2, 3000, shippingIncluded: true)));
+    $owner = CartOwner::visitor('abc');
+    $cart->add($owner, 1, 2);
+    $cart->add($owner, 2, 3);
+
+    $view = $cart->view($owner);
+
+    expect($view['weightGrams'])->toBe(100)
+        ->and($view['payableWeightGrams'])->toBe(40)
+        ->and($view['hasPayableItems'])->toBeTrue()
+        ->and($view['items'][1]['shippingIncluded'])->toBeTrue();
 });

@@ -92,6 +92,7 @@ export default function Checkout({ customer, signedIn, shippingAvailable }: Prop
     const [step, setStep] = useState<Step>(1);
     const [options, setOptions] = useState<Option[]>([]);
     const [deliveryMessage, setDeliveryMessage] = useState<string | null>(shippingAvailable ? null : copy.shippingOff);
+    const [shippingIncluded, setShippingIncluded] = useState(false);
     const [looking, setLooking] = useState(false);
     const [cepError, setCepError] = useState<string | null>(null);
     const form = useForm<CheckoutForm>({
@@ -130,10 +131,12 @@ export default function Checkout({ customer, signedIn, shippingAvailable }: Prop
                 cep: string;
                 address: Omit<CheckoutForm['address'], 'cep' | 'number' | 'complement'> | null;
                 options: Option[];
+                shippingIncluded: boolean;
                 message: string | null;
             }>('/checkout/entrega', { cep: data.address.cep });
             setOptions(result.options);
             setDeliveryMessage(result.message);
+            setShippingIncluded(result.shippingIncluded);
             form.setData((current) => ({
                 ...current,
                 address: { ...current.address, cep: result.cep, ...(result.address ?? {}) },
@@ -314,6 +317,11 @@ export default function Checkout({ customer, signedIn, shippingAvailable }: Prop
                                     {copy.howToReceive}
                                 </legend>
                                 {looking && <p className="text-sm text-moonlight/60">{copy.quoting}</p>}
+                                {shippingIncluded && options.length > 0 && (
+                                    <p className="mb-3 rounded-xl bg-night-blue px-4 py-3 text-sm text-beam-glow">
+                                        {copy.shippingIncludedNote}
+                                    </p>
+                                )}
                                 {deliveryMessage && (
                                     <p className="mb-3 rounded-xl bg-night-blue px-4 py-3 text-sm text-moonlight/80">
                                         {deliveryMessage}
@@ -347,7 +355,9 @@ export default function Checkout({ customer, signedIn, shippingAvailable }: Prop
                                                 </span>
                                             </span>
                                             <span className="font-semibold text-car tabular-nums">
-                                                {money(option.priceCents)}
+                                                {option.priceCents === 0
+                                                    ? copy.shippingIncludedPrice
+                                                    : money(option.priceCents)}
                                             </span>
                                         </label>
                                     ))}
@@ -428,7 +438,11 @@ export default function Checkout({ customer, signedIn, shippingAvailable }: Prop
                                     <div className="flex justify-between">
                                         <dt className="text-moonlight/70">{copy.shipping}</dt>
                                         <dd className="tabular-nums">
-                                            {data.pickup ? copy.free : money(shippingCents)}
+                                            {data.pickup
+                                                ? copy.free
+                                                : shippingCents === 0
+                                                  ? copy.shippingIncludedPrice
+                                                  : money(shippingCents)}
                                         </dd>
                                     </div>
                                     <div className="flex items-baseline justify-between pt-2">

@@ -94,6 +94,7 @@ final class EloquentProductReadRepository implements ProductReadRepository
             stock: $variant->stock_qty,
             available: $product->is_active && $variant->is_active,
             weightGrams: $product->weight_grams,
+            shippingIncluded: $product->shipping_included,
             imageUrl: $image ? $this->url($image->path) : null,
             imageAlt: $image?->alt,
         );
@@ -127,6 +128,7 @@ final class EloquentProductReadRepository implements ProductReadRepository
             label: $product->label,
             madeToOrder: $product->kind === 'made_to_order',
             productionDays: $product->production_days,
+            shippingIncluded: $product->shipping_included,
             imageUrl: $image ? $this->url($image->path) : null,
             imageAlt: $image?->alt,
         );

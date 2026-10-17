@@ -33,6 +33,7 @@ use App\Http\Controllers\Panel\PanelHomeController;
 use App\Http\Controllers\Panel\PlaceAdminController;
 use App\Http\Controllers\Panel\ProductAdminController;
 use App\Http\Controllers\Panel\RegionAdminController;
+use App\Http\Controllers\Panel\ReturnAdminController;
 use App\Http\Controllers\Panel\SettingsController;
 use App\Http\Controllers\Panel\SightingModerationController;
 use App\Http\Controllers\Place\ConstructionDiaryController;
@@ -47,6 +48,7 @@ use App\Http\Controllers\Sightings\SightingPhotoController;
 use App\Http\Controllers\Store\CartController;
 use App\Http\Controllers\Store\CheckoutController;
 use App\Http\Controllers\Store\PaymentController;
+use App\Http\Controllers\Store\ReturnController;
 use App\Http\Controllers\Store\StoreController;
 use App\Http\Controllers\WaitlistController;
 use Illuminate\Support\Facades\Route;
@@ -234,6 +236,9 @@ Route::middleware(['auth', 'profile.complete', 'panel:inicio'])->prefix('painel'
     Route::middleware('panel:pedidos')->prefix('pedidos')->name('.orders')->group(function () {
         Route::get('/', [OrderAdminController::class, 'index']);
         Route::get('/exportar', [OrderAdminController::class, 'export'])->name('.export');
+        Route::get('/devolucoes', [ReturnAdminController::class, 'index'])->name('.returns');
+        Route::get('/devolucoes/{protocol}', [ReturnAdminController::class, 'show'])->where('protocol', 'DEV-\d{4}-\d{6}')->name('.returns.show');
+        Route::post('/devolucoes/{protocol}/status', [ReturnAdminController::class, 'status'])->where('protocol', 'DEV-\d{4}-\d{6}')->name('.returns.status');
         Route::get('/{number}', [OrderAdminController::class, 'show'])->where('number', 'OVP-\d{4}-\d{6}')->name('.show');
         Route::get('/{number}/ordem-de-producao.pdf', [OrderAdminController::class, 'productionPdf'])->where('number', 'OVP-\d{4}-\d{6}')->name('.pdf');
         Route::post('/{number}/cpf', [OrderAdminController::class, 'cpf'])->where('number', 'OVP-\d{4}-\d{6}')->middleware('throttle:30,1')->name('.cpf');
@@ -279,6 +284,10 @@ Route::post('/pedido/{number}/pagamento', [PaymentController::class, 'start'])->
 Route::post('/pedido/{number}/aprovar', [PaymentController::class, 'approve'])->where('number', 'OVP-\d{4}-\d{6}')->middleware('throttle:20,1')->name('order.payment.approve');
 Route::get('/pedido/{number}', [PaymentController::class, 'show'])->where('number', 'OVP-\d{4}-\d{6}')->name('order.show');
 Route::post('/webhooks/paypal', [PaymentController::class, 'webhook'])->middleware('throttle:120,1')->name('webhooks.paypal');
+
+// Returns and withdrawal (CDC art. 49): checked against the order's number and e-mail.
+Route::get('/devolucao', [ReturnController::class, 'show'])->name('returns.create');
+Route::post('/devolucao', [ReturnController::class, 'store'])->middleware('throttle:5,1')->name('returns.store');
 
 // Livro de avistamentos: only approved reports are public.
 Route::get('/mapa', [LogbookController::class, 'index'])->name('logbook');

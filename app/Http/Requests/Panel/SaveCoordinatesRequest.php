@@ -33,6 +33,7 @@ class SaveCoordinatesRequest extends FormRequest
             ],
             SettingsGroup::Alerts => [
                 'email' => ['nullable', 'email:rfc', 'max:255'],
+                'returnsEmail' => ['nullable', 'email:rfc', 'max:255'],
             ],
             SettingsGroup::Shipping => [
                 'name' => ['nullable', 'string', 'max:120'],

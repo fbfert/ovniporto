@@ -32,6 +32,8 @@ use App\Domain\Orders\Contracts\OrderAdminRepository;
 use App\Domain\Orders\Contracts\OrderNotifier;
 use App\Domain\Orders\Contracts\OrderRepository;
 use App\Domain\Orders\Contracts\ProductionDocument;
+use App\Domain\Orders\Contracts\ReturnNotifier;
+use App\Domain\Orders\Contracts\ReturnRequestRepository;
 use App\Domain\Origin\Contracts\CollaboratorNotifier;
 use App\Domain\Origin\Contracts\CollaboratorRepository;
 use App\Domain\Origin\Contracts\OriginLibrary;
@@ -75,6 +77,7 @@ use App\Infrastructure\Images\PublicImageLibrary;
 use App\Infrastructure\Mail\MailCollaboratorNotifier;
 use App\Infrastructure\Mail\MailInactivityNotifier;
 use App\Infrastructure\Mail\MailOrderNotifier;
+use App\Infrastructure\Mail\MailReturnNotifier;
 use App\Infrastructure\Mail\MailSightingNotifier;
 use App\Infrastructure\Mail\MailWaitlistNotifier;
 use App\Infrastructure\Manual\JsonManualLibrary;
@@ -84,6 +87,7 @@ use App\Infrastructure\Members\ConsentsContentEraser;
 use App\Infrastructure\Members\ConsentsDataSource;
 use App\Infrastructure\Members\OrdersContentEraser;
 use App\Infrastructure\Members\OrdersDataSource;
+use App\Infrastructure\Members\ReturnRequestsDataSource;
 use App\Infrastructure\Members\SightingsContentAnonymizer;
 use App\Infrastructure\Members\SightingsContentEraser;
 use App\Infrastructure\Members\SightingsDataSource;
@@ -117,6 +121,7 @@ use App\Infrastructure\Persistence\Eloquent\EloquentProductReadRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentPublishedContentIndex;
 use App\Infrastructure\Persistence\Eloquent\EloquentRegionAdminRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentRegionPartnerRepository;
+use App\Infrastructure\Persistence\Eloquent\EloquentReturnRequestRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentSightingReadRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentSightingWriteRepository;
 use App\Infrastructure\Persistence\Eloquent\EloquentSitePhotoRepository;
@@ -154,7 +159,7 @@ class DomainServiceProvider extends ServiceProvider
     private const MEMBER_ANONYMIZERS = [SightingsContentAnonymizer::class, WaitlistContentEraser::class, CollaboratorContentEraser::class, ConsentsContentEraser::class];
 
     /** Modules that contribute a section to "Baixar meus dados". */
-    private const MEMBER_DATA_SOURCES = [SightingsDataSource::class, OrdersDataSource::class, WaitlistDataSource::class, CollaboratorDataSource::class, ConsentsDataSource::class];
+    private const MEMBER_DATA_SOURCES = [SightingsDataSource::class, OrdersDataSource::class, ReturnRequestsDataSource::class, WaitlistDataSource::class, CollaboratorDataSource::class, ConsentsDataSource::class];
 
     /** @var array<class-string, class-string> */
     public array $bindings = [
@@ -185,6 +190,8 @@ class DomainServiceProvider extends ServiceProvider
         DashboardRepository::class => EloquentDashboardRepository::class,
         ProductionDocument::class => DompdfProductionDocument::class,
         OrderNotifier::class => MailOrderNotifier::class,
+        ReturnRequestRepository::class => EloquentReturnRequestRepository::class,
+        ReturnNotifier::class => MailReturnNotifier::class,
         ImageLibrary::class => PublicImageLibrary::class,
         ContentAdminRepository::class => EloquentContentAdminRepository::class,
         CampaignAdminRepository::class => EloquentCampaignAdminRepository::class,

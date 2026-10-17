@@ -20,10 +20,11 @@ final class MailOrderNotifier implements OrderNotifier
         $this->send($orderNumber, fn (Order $o) => new OrderMail(
             "Pedido {$o->number} recebido",
             'Pedido recebido',
-            [
+            array_values(array_filter([
                 "O pedido {$o->number} chegou, no total de R$ ".$this->reais($o->total_cents).'.',
+                ! $o->pickup && $o->shipping_cents === 0 ? 'Frete incluso: o envio deste pedido é por conta do OVNIPORTO.' : null,
                 'Ele fica reservado por 2 horas esperando o pagamento. Se precisar, o botão abaixo leva de volta a ele.',
-            ],
+            ])),
             $this->link($o),
         ));
     }
@@ -44,6 +45,7 @@ final class MailOrderNotifier implements OrderNotifier
             ]), $this->link($o), 'Acompanhar o pedido'),
             OrderStatus::Delivered => new OrderMail("Entregue · {$o->number}", 'Pousou', [
                 'O pedido '.$o->number.' foi entregue. Cola o adesivo, manda foto pra gente.',
+                'Se algo não saiu como esperado, você tem 7 dias para desistir da compra. Peça a devolução em '.route('returns.create', ['pedido' => $o->number]),
             ], $this->link($o)),
             OrderStatus::Refunded => new OrderMail("Reembolso · {$o->number}", 'Reembolso feito', [
                 'Devolvemos o valor do pedido '.$o->number.' pelo PayPal. Ele aparece no mesmo meio de pagamento em alguns dias úteis.',

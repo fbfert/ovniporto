@@ -94,7 +94,11 @@ export default function Pay({ order, payment }: Props) {
                             <div className="flex justify-between text-night/70">
                                 <dt>{t.checkout.shipping}</dt>
                                 <dd className="tabular-nums">
-                                    {order.pickup ? t.checkout.free : money(order.shippingCents)}
+                                    {order.pickup
+                                        ? t.checkout.free
+                                        : order.shippingCents === 0
+                                          ? t.checkout.shippingIncludedPrice
+                                          : money(order.shippingCents)}
                                 </dd>
                             </div>
                             <div className="flex items-baseline justify-between pt-2">

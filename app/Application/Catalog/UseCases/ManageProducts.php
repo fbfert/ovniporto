@@ -44,9 +44,14 @@ final readonly class ManageProducts
         );
     }
 
+    /** Turning included shipping on or off is named in the audit: it changes what buyers pay from then on. */
     public function update(int $actorId, int $id, ProductDraft $draft): void
     {
-        $this->record($actorId, 'product.updated', $id, [], fn () => $this->products->update($id, $draft));
+        $before = $this->products->find($id);
+        $context = $before !== null && ($before['shippingIncluded'] ?? false) !== $draft->shippingIncluded
+            ? ['shippingIncluded' => $draft->shippingIncluded]
+            : [];
+        $this->record($actorId, 'product.updated', $id, $context, fn () => $this->products->update($id, $draft));
     }
 
     public function addVariant(int $actorId, int $productId, string $name, string $sku, int $deltaCents, bool $active): void

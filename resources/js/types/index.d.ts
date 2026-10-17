@@ -22,6 +22,7 @@ export interface ProductCard {
     label: string | null;
     madeToOrder: boolean;
     productionDays: number;
+    shippingIncluded: boolean;
     image: string | null;
     imageAlt: string | null;
 }

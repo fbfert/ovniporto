@@ -19,7 +19,7 @@ it('maps every setting to one config key, one group and one form field', functio
 
 it('never reaches app, database or payment keys', function () {
     foreach (OperationalSetting::cases() as $setting) {
-        expect($setting->configKey())->toMatch('/^(mail\.|ovniporto\.(alerts_email|shipping\.)|services\.melhor_envio\.from_postal_code$)/');
+        expect($setting->configKey())->toMatch('/^(mail\.|ovniporto\.(alerts_email|returns_email|shipping\.)|services\.melhor_envio\.from_postal_code$)/');
     }
 });
 

@@ -4,7 +4,7 @@
     "group": "store",
     "order": 10,
     "title": "Pedidos da loja",
-    "summary": "Acompanhar cada pedido do pagamento à entrega: produção, etiqueta, envio, cancelamento, reembolso e exportação.",
+    "summary": "Acompanhar cada pedido do pagamento à entrega: produção, etiqueta, envio, cancelamento, reembolso, devoluções e exportação.",
     "reviewedAt": "2026-10-16",
     "routes": [
         "panel.orders",
@@ -17,7 +17,10 @@
         "panel.orders.label",
         "panel.orders.pdf",
         "panel.orders.production",
-        "panel.orders.refund"
+        "panel.orders.refund",
+        "panel.orders.returns",
+        "panel.orders.returns.show",
+        "panel.orders.returns.status"
     ],
     "map": {
         "label": "Pedidos",
@@ -40,7 +43,8 @@
                     { "label": "Mostrar CPF", "kind": "care", "section": "cpf" },
                     { "label": "Resumo para o fornecedor", "kind": "action", "section": "producao" },
                     { "label": "Ordem de produção (PDF)", "kind": "action", "section": "producao" },
-                    { "label": "Linha do tempo", "kind": "state", "section": "ficha" }
+                    { "label": "Linha do tempo", "kind": "state", "section": "ficha" },
+                    { "label": "Frete cobrado e frete incluso", "kind": "state", "section": "ficha" }
                 ]
             },
             {
@@ -75,7 +79,10 @@
                 "children": [
                     { "label": "Cancelar (só antes do pagamento)", "kind": "action", "section": "cancelar" },
                     { "label": "Reembolsar (valor total)", "kind": "action", "section": "reembolso" },
-                    { "label": "Pix que chegou depois do cancelamento", "kind": "care", "section": "reembolso" }
+                    { "label": "Pix que chegou depois do cancelamento", "kind": "care", "section": "reembolso" },
+                    { "label": "Pedidos de devolução", "kind": "screen", "section": "devolucoes" },
+                    { "label": "Status da devolução, sempre com nota", "kind": "action", "section": "devolucoes-status" },
+                    { "label": "Frete de volta por conta do OVNIPORTO", "kind": "care", "section": "devolucoes-status" }
                 ]
             },
             {
@@ -117,7 +124,7 @@
             "id": "ficha",
             "title": "A ficha do pedido",
             "screen": "panel.orders.show",
-            "body": "Em **/painel/pedidos/OVP-...** você vê o pedido inteiro:\n\n- No topo, o número, o status e **os botões das ações que o status atual permite** (veja \"Os status e o que dá para fazer\"). Se uma ação for recusada, a mensagem aparece numa faixa amarela logo abaixo.\n- **Itens**: quantidade, produto, opção (variante), SKU, preço unitário e total de cada linha; subtotal, frete e total.\n- **Resumo para o fornecedor** e **Ordem de produção (PDF)**: veja \"Produção\".\n- **Linha do tempo**: cada mudança de status com quem fez (**sistema**, **cliente**, **pagamento** ou **operador**), data, hora e a observação, quando há (o motivo de um cancelamento, um aviso do pagamento).\n- **Cliente**: nome, e-mail, telefone (WhatsApp) e CPF mascarado.\n- **Entrega**: endereço, transportadora e serviço escolhidos no checkout, ou \"Retirada em Lages, combinada pelo WhatsApp.\"; o código de rastreio aparece quando existir.\n- **Pagamento**: o meio, a **Ordem no provedor** (o número do pedido no PayPal) e a **Captura** (o número da cobrança no PayPal). Use esses números para achar a transação no painel do PayPal.\n\n**Voltar aos pedidos** leva de volta à lista."
+            "body": "Em **/painel/pedidos/OVP-...** você vê o pedido inteiro:\n\n- No topo, o número, o status e **os botões das ações que o status atual permite** (veja \"Os status e o que dá para fazer\"). Se uma ação for recusada, a mensagem aparece numa faixa amarela logo abaixo.\n- **Itens**: quantidade, produto, opção (variante), SKU, preço unitário e total de cada linha (os itens com frete incluso aparecem com \"frete incluso\"); subtotal, **Frete cobrado** (o que o cliente pagou de frete) e total. Quando o pedido tem itens com frete incluso, aparece também **Frete incluso pago pelo OVNIPORTO**: a diferença entre a cotação do pacote inteiro e o frete cobrado (veja \"Frete incluso\" no capítulo de produtos).\n- **Resumo para o fornecedor** e **Ordem de produção (PDF)**: veja \"Produção\".\n- **Linha do tempo**: cada mudança de status com quem fez (**sistema**, **cliente**, **pagamento** ou **operador**), data, hora e a observação, quando há (o motivo de um cancelamento, um aviso do pagamento).\n- **Cliente**: nome, e-mail, telefone (WhatsApp) e CPF mascarado.\n- **Entrega**: endereço, transportadora e serviço escolhidos no checkout, ou \"Retirada em Lages, combinada pelo WhatsApp.\"; o código de rastreio aparece quando existir.\n- **Pagamento**: o meio, a **Ordem no provedor** (o número do pedido no PayPal) e a **Captura** (o número da cobrança no PayPal). Use esses números para achar a transação no painel do PayPal.\n\n**Voltar aos pedidos** leva de volta à lista."
         },
         {
             "id": "status",
@@ -162,6 +169,18 @@
             "body": "**Reembolsar** aparece em pedido **Pago**, **Em produção**, **Enviado** ou **Entregue**. A janela **Reembolsar pedido** diz quanto volta (\"Devolve R$ ... ao cliente pelo PayPal. Não dá para desfazer.\") e pede:\n\n- **Motivo** (obrigatório, de 5 a 255 caracteres);\n- a caixa **Confirmo o reembolso total** marcada (sem ela aparece \"Confirme o reembolso.\").\n\n**Confirmar** devolve pelo PayPal **o total do pedido, frete incluído**. O painel **não faz reembolso parcial**: para devolver só uma parte, faça no painel do PayPal e registre o combinado com o cliente fora daqui.\n\nDepois do reembolso:\n\n- o status vira **Reembolsado**, com \"Reembolso: motivo\" na linha do tempo e o aviso \"Reembolso feito.\";\n- o cliente recebe o e-mail \"Reembolso feito\" (o valor volta ao mesmo meio de pagamento em alguns dias úteis);\n- se o pedido ainda estava **Pago** ou **Em produção**, os itens de pronta entrega **voltam ao estoque**, com o motivo \"Reembolso antes do envio\" no histórico de estoque. Pedido já enviado não devolve estoque: se o produto voltar, ajuste o estoque na ficha do produto.\n\nSe aparecer \"Esse pedido não tem pagamento capturado.\" ou \"O pagamento está fora do ar agora...\", nada foi devolvido; confira no PayPal e tente de novo. Em ambiente sem PayPal configurado aparece \"O pagamento ainda está sendo configurado.\"\n\n**Pix que chegou depois do cancelamento**: se um pagamento entra num pedido já cancelado, o pedido **continua Cancelado**, a linha do tempo ganha a nota \"Pagamento ... chegou após o cancelamento: reembolsar.\" e loja e admin recebem o e-mail \"Atenção no pedido ...\". Como pedido cancelado não tem botão **Reembolsar**, faça a devolução **direto no painel do PayPal**, usando o número da nota, e avise o cliente."
         },
         {
+            "id": "devolucoes",
+            "title": "Pedidos de devolução",
+            "screen": "panel.orders.returns",
+            "body": "O cliente pede devolução ou exerce o **direito de arrependimento** (7 dias depois de receber, Código de Defesa do Consumidor, art. 49) pelo formulário público **/devolucao**. O link está no rodapé do site, na página do pedido (já com o número preenchido) e no e-mail \"Entregue\".\n\nO formulário só aceita quando o **número e o e-mail da compra** são do mesmo pedido **pago**. Qualquer outra combinação recebe a mesma resposta (\"Não encontramos um pedido com esse número e esse e-mail.\"), para ninguém descobrir pedidos dos outros. Há limite de 5 tentativas por minuto.\n\nCada pedido aceito ganha um **protocolo** `DEV-AAAA-NNNNNN` e é marcado **dentro dos 7 dias** ou **fora dos 7 dias**, contando da data em que o pedido foi marcado como **Entregue**. Pedido ainda não entregue conta como dentro do prazo. Pedido fora do prazo é aceito do mesmo jeito: a equipe decide.\n\nAo chegar um pedido de devolução:\n\n- o cliente recebe \"Pedido de devolução DEV-... recebido\", com o protocolo, o motivo e a promessa de resposta **em até 5 dias úteis**;\n- o **e-mail das devoluções** (em Coordenadas → Alertas; por padrão contato@tars.art.br) recebe \"Novo pedido de devolução DEV-...\" só com o protocolo e o botão para o painel. Nome, e-mail e mensagem ficam atrás do login;\n- o item aparece em **Precisa de você**, no início do painel, até alguém mudar o status.\n\nEm **/painel/pedidos/devolucoes** (o link **Devoluções →** fica no topo da lista de pedidos) você vê os pedidos de devolução, mais novos primeiro, com protocolo, status, prazo, número do pedido e motivo. Os filtros por status e a busca (protocolo, pedido, nome ou e-mail) ficam no endereço, como na lista de pedidos.\n\nQuem abre: **admin** e **loja**, como a área Pedidos. Moderação não vê."
+        },
+        {
+            "id": "devolucoes-status",
+            "title": "Atender uma devolução",
+            "screen": "panel.orders.returns.show",
+            "body": "A ficha da devolução mostra o motivo, quem pediu (nome e e-mail), a mensagem, quando foi pedido, a data de entrega usada no prazo, o **pedido** (com o link **Abrir o pedido**) e o **histórico**.\n\nOs status são **Recebido** → **Em andamento** → **Concluído** ou **Recusado**. Do **Recebido** dá para ir direto a **Concluído** ou **Recusado**. Depois de **Concluído** ou **Recusado** não há volta: a ficha mostra \"Pedido de devolução encerrado.\"\n\nEm **Mudar status**, escolha o novo status e escreva a **nota** (obrigatória, até 500 caracteres): o que foi combinado ou feito. **Salvar status** grava a nota no histórico com o seu apelido e a data, mostra \"Status da devolução atualizado.\" e registra na auditoria.\n\nO que o painel **não** faz por você:\n\n- **Frete de volta**: é **por conta do OVNIPORTO**, mas o painel não gera etiqueta reversa. Combine o envio com o cliente (por e-mail ou WhatsApp), compre o frete por fora se precisar e anote na nota.\n- **Dinheiro**: o reembolso é feito na **ficha do pedido**, pelo botão **Reembolsar** (veja \"Reembolsar\"). Depois, conclua a devolução com uma nota como \"Etiqueta reversa enviada e valor reembolsado\".\n- **Aviso ao cliente**: mudar o status não manda e-mail. Responda o cliente pelo e-mail dele.\n\n**Privacidade**: quando o pedido é anonimizado (conta excluída ou 5 anos após o pagamento), a devolução perde nome, e-mail e mensagem e a ficha mostra \"Dados apagados com o pedido\"; ficam protocolo, motivo, status e datas. Quando o pedido é apagado de vez, a devolução vai junto."
+        },
+        {
             "id": "cpf",
             "title": "O CPF",
             "screen": "panel.orders.show",
@@ -171,7 +190,7 @@
             "id": "emails",
             "title": "Os e-mails que o cliente recebe",
             "screen": null,
-            "body": "Todos saem do e-mail informado no checkout, pela fila, com um botão para a página do pedido (link assinado, que não pede login):\n\n| Quando | Assunto | O que diz |\n|---|---|---|\n| Pedido feito | Pedido ... recebido | o total e que ele fica reservado por 2 horas esperando o pagamento |\n| Pagamento confirmado | Pagamento confirmado · ... | que entra na fila de produção e envio; na retirada, que avisamos (também pelo WhatsApp) quando estiver pronto para retirar |\n| **Marcar em produção** | Em produção · ... | que está sendo feito à mão em Lages e o rastreio vem quando sair |\n| **Marcar como enviado** | Enviado · ... | \"Seu pedido saiu de Lages.\" e o código de rastreio, se houver |\n| Entregue (botão ou consulta automática) | Entregue · ... | que o pedido pousou |\n| **Reembolsar** | Reembolso · ... | que o valor volta pelo PayPal em alguns dias úteis |\n\n**Não há e-mail** para cancelamento (manual ou automático) nem para a geração da etiqueta.\n\nO texto \"Em produção\" fala em \"feito à mão\" mesmo quando o pedido só tem produtos de pronta entrega. Os e-mails dependem do SMTP e da fila (Horizon) funcionando em produção; se um cliente diz que não recebeu, veja as filas em **/painel/filas** (admin)."
+            "body": "Todos saem do e-mail informado no checkout, pela fila, com um botão para a página do pedido (link assinado, que não pede login):\n\n| Quando | Assunto | O que diz |\n|---|---|---|\n| Pedido feito | Pedido ... recebido | o total e que ele fica reservado por 2 horas esperando o pagamento; quando o cliente não pagou frete numa entrega, \"Frete incluso: o envio deste pedido é por conta do OVNIPORTO.\" |\n| Pagamento confirmado | Pagamento confirmado · ... | que entra na fila de produção e envio; na retirada, que avisamos (também pelo WhatsApp) quando estiver pronto para retirar |\n| **Marcar em produção** | Em produção · ... | que está sendo feito à mão em Lages e o rastreio vem quando sair |\n| **Marcar como enviado** | Enviado · ... | \"Seu pedido saiu de Lages.\" e o código de rastreio, se houver |\n| Entregue (botão ou consulta automática) | Entregue · ... | que o pedido pousou, e que há 7 dias para desistir da compra, com o link de **/devolucao** já com o número do pedido |\n| **Reembolsar** | Reembolso · ... | que o valor volta pelo PayPal em alguns dias úteis |\n\n**Não há e-mail** para cancelamento (manual ou automático) nem para a geração da etiqueta.\n\nO texto \"Em produção\" fala em \"feito à mão\" mesmo quando o pedido só tem produtos de pronta entrega. Os e-mails dependem do SMTP e da fila (Horizon) funcionando em produção; se um cliente diz que não recebeu, veja as filas em **/painel/filas** (admin)."
         },
         {
             "id": "automatico",

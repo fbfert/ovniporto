@@ -30,8 +30,12 @@ interface Props {
     coordinates: { mailBroken: boolean; alertsMissing: boolean } | null;
 }
 
-const hrefFor = (item: Props['needsYou'][number]) =>
-    item.kind === 'sighting' ? `/painel/relatos/${item.ref}` : `/painel/pedidos/${item.ref}`;
+const HREFS: Record<string, string> = {
+    sighting: '/painel/relatos/',
+    return: '/painel/pedidos/devolucoes/',
+};
+
+const hrefFor = (item: Props['needsYou'][number]) => `${HREFS[item.kind] ?? '/painel/pedidos/'}${item.ref}`;
 
 export default function Home({ counts, goals, weekly, needsYou, sightings, coordinates }: Props) {
     const tiles = [

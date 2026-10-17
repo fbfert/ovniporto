@@ -125,6 +125,7 @@ class ProductAdminController extends Controller
             'label' => ['nullable', 'string', 'max:30'],
             'active' => ['boolean'],
             'featured' => ['boolean'],
+            'shippingIncluded' => ['boolean'],
         ], [
             'name.required' => 'Dê um nome ao produto.',
             'weightGrams.required' => 'O peso é usado no frete.',
@@ -149,6 +150,7 @@ class ProductAdminController extends Controller
             label: isset($d['label']) ? mb_strtoupper($d['label']) : null,
             active: (bool) ($d['active'] ?? false),
             featured: (bool) ($d['featured'] ?? false),
+            shippingIncluded: (bool) ($d['shippingIncluded'] ?? false),
         );
     }
 

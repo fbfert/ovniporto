@@ -18,6 +18,7 @@ final readonly class PurchasableVariant
         public ?int $stock,
         public bool $available,
         public int $weightGrams,
+        public bool $shippingIncluded,
         public ?string $imageUrl,
         public ?string $imageAlt,
     ) {}

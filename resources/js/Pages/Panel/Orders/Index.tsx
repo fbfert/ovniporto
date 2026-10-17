@@ -47,9 +47,17 @@ export default function Index({ items, total, counts, page, hasMore, filters, pe
     return (
         <>
             <Head title={`${copy.title} · ${t.panel.title}`} />
-            <Display as="h1" className="text-[clamp(1.8rem,1.2rem+2.4vw,2.8rem)]!">
-                {copy.title}
-            </Display>
+            <div className="flex flex-wrap items-end justify-between gap-3">
+                <Display as="h1" className="text-[clamp(1.8rem,1.2rem+2.4vw,2.8rem)]!">
+                    {copy.title}
+                </Display>
+                <Link
+                    href="/painel/pedidos/devolucoes"
+                    className="inline-flex min-h-11 items-center font-semibold underline underline-offset-4"
+                >
+                    {copy.returnsLink} →
+                </Link>
+            </div>
 
             <nav aria-label={t.order.timeline} className="-mx-4 mt-8 overflow-x-auto px-4">
                 <ul className="flex w-max gap-2">

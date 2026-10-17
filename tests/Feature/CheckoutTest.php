@@ -249,3 +249,57 @@ it('anonymizes the orders when the member deletes the account', function () {
         ->total_cents->toBe(2850)
         ->and($order->fresh()->address)->toBe(['city' => 'Lages', 'state' => 'SC']);
 });
+
+/** A 300 g mug whose freight the OVNIPORTO pays, next to the sticker (made 100 g here). */
+function mugWithIncludedShipping(): ProductVariant
+{
+    Product::query()->where('slug', 'adesivo-ovniporto')->update(['weight_grams' => 100]);
+    $mug = Product::query()->where('slug', 'caneca-ovniporto')->sole();
+    $mug->update(['is_active' => true, 'weight_grams' => 300, 'shipping_included' => true]);
+
+    return $mug->variants()->create(['sku' => 'OVP-CANECA', 'name' => 'Única', 'stock_qty' => null]);
+}
+
+it('charges only the weight share of the items without included shipping', function () {
+    $mug = mugWithIncludedShipping();
+    $this->post('/carrinho/itens', ['variantId' => $this->sticker->id]);
+    $this->post('/carrinho/itens', ['variantId' => $mug->id]);
+
+    $this->postJson('/checkout/entrega', ['cep' => '88501000'])
+        ->assertJsonPath('options.0.priceCents', 313)
+        ->assertJsonPath('shippingIncluded', true);
+    $this->post('/checkout', delivered())->assertSessionHasNoErrors();
+
+    $order = Order::query()->sole();
+    expect($order->shipping_cents)->toBe(313)
+        ->and($order->shipping_cost_cents)->toBe(1250)
+        ->and($order->total_cents)->toBe(800 + 4900 + 313)
+        ->and($order->items->pluck('shipping_included', 'sku')->all())->toBe(['OVP-ADESIVO' => false, 'OVP-CANECA' => true]);
+});
+
+it('charges no freight when every item has included shipping', function () {
+    $mug = mugWithIncludedShipping();
+    $this->post('/carrinho/itens', ['variantId' => $mug->id]);
+
+    $this->postJson('/checkout/entrega', ['cep' => '88501000'])->assertJsonPath('options.1.priceCents', 0);
+    $this->post('/checkout', delivered(['shippingOptionId' => '2']))->assertSessionHasNoErrors();
+
+    expect(Order::query()->sole())->shipping_cents->toBe(0)->shipping_cost_cents->toBe(3190)->total_cents->toBe(4900);
+});
+
+it('keeps pickup free whatever the items', function () {
+    $mug = mugWithIncludedShipping();
+    $this->post('/carrinho/itens', ['variantId' => $mug->id]);
+    $this->post('/carrinho/itens', ['variantId' => $this->sticker->id]);
+    $this->post('/checkout', [...buyer(), 'pickup' => true])->assertSessionHasNoErrors();
+
+    expect(Order::query()->sole())->shipping_cents->toBe(0)->shipping_cost_cents->toBe(0);
+});
+
+it('says the freight is included in the received e-mail when the buyer paid none', function () {
+    $mug = mugWithIncludedShipping();
+    $this->post('/carrinho/itens', ['variantId' => $mug->id]);
+    $this->post('/checkout', delivered())->assertSessionHasNoErrors();
+
+    Mail::assertQueued(OrderMail::class, fn (OrderMail $mail) => in_array('Frete incluso: o envio deste pedido é por conta do OVNIPORTO.', $mail->lines, true));
+});

@@ -5,7 +5,7 @@
     "order": 15,
     "title": "Coordenadas",
     "summary": "E-mail do site, destino dos alertas e remetente do frete, ajustados pelo painel sem mexer no servidor; e o estado das integrações que continuam no .env.",
-    "reviewedAt": "2026-10-07",
+    "reviewedAt": "2026-10-16",
     "routes": [
         "panel.coordinates",
         "panel.coordinates.update",
@@ -55,6 +55,7 @@
                 "section": "alertas",
                 "children": [
                     { "label": "E-mail dos alertas", "kind": "action", "section": "alertas" },
+                    { "label": "E-mail das devoluções", "kind": "action", "section": "alertas" },
                     { "label": "Vazio: fila longa não avisa", "kind": "care", "section": "alertas" },
                     { "label": "Alerta de teste", "kind": "action", "section": "alertas" }
                 ]
@@ -110,7 +111,7 @@
             "id": "alertas",
             "title": "Alertas",
             "screen": null,
-            "body": "**E-mail dos alertas** recebe os dois avisos automáticos: tarefa que falhou de vez e fila esperando mais de 60 segundos (capítulo Monitoramento).\n\nCom o campo vazio aqui **e** no `.env`, a tela mostra um aviso amarelo: tarefas que falham vão para todos os admins, e a fila esperando demais **não avisa ninguém**. O início do painel também mostra o cartão Coordenadas em amarelo.\n\n**Enviar alerta de teste** manda uma mensagem para o endereço em uso. Sem endereço, o teste pede para defini-lo antes.\n\nOs alertas saem pelo mesmo Correio: se o e-mail de teste falha, nenhum alerta chega."
+            "body": "**E-mail dos alertas** recebe os dois avisos automáticos: tarefa que falhou de vez e fila esperando mais de 60 segundos (capítulo Monitoramento).\n\nCom o campo vazio aqui **e** no `.env`, a tela mostra um aviso amarelo: tarefas que falham vão para todos os admins, e a fila esperando demais **não avisa ninguém**. O início do painel também mostra o cartão Coordenadas em amarelo.\n\n**Enviar alerta de teste** manda uma mensagem para o endereço em uso. Sem endereço, o teste pede para defini-lo antes.\n\n**E-mail das devoluções** recebe o aviso \"Novo pedido de devolução DEV-...\", só com o protocolo e o botão para o painel (capítulo Pedidos da loja). Vazio aqui, vale o `RETURNS_EMAIL` do `.env`, que por padrão é contato@tars.art.br.\n\nOs alertas e o aviso de devolução saem pelo mesmo Correio: se o e-mail de teste falha, nenhum deles chega."
         },
         {
             "id": "frete",

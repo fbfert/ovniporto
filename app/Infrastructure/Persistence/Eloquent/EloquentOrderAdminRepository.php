@@ -75,6 +75,7 @@ final readonly class EloquentOrderAdminRepository implements OrderAdminRepositor
                 'captureId' => $order->payment_capture_id,
             ],
             'shipmentId' => $order->shipment_id,
+            'shippingCostCents' => $order->shipping_cost_cents,
             'items' => $order->items->map(fn (OrderItem $i) => [
                 'name' => $i->product_name,
                 'variant' => $i->variant_name,
@@ -84,6 +85,7 @@ final readonly class EloquentOrderAdminRepository implements OrderAdminRepositor
                 'lineCents' => $i->line_cents,
                 'madeToOrder' => $i->made_to_order,
                 'productionDays' => $i->production_days,
+                'shippingIncluded' => $i->shipping_included,
             ])->values()->all(),
             'events' => array_map(fn (array $e) => [...$e, 'note' => $e['note'] ?? null], $this->allEvents($order)),
         ];

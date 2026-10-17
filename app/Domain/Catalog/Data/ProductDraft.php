@@ -19,5 +19,6 @@ final readonly class ProductDraft
         public ?string $label,
         public bool $active,
         public bool $featured,
+        public bool $shippingIncluded,
     ) {}
 }

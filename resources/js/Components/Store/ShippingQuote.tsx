@@ -17,6 +17,8 @@ interface Option {
 interface Quote {
     cep: string;
     simulated: boolean;
+    /** The OVNIPORTO pays this product's freight: only the deadlines matter to the buyer. */
+    included: boolean;
     options: Option[];
 }
 
@@ -110,10 +112,13 @@ export function ShippingQuote({ request }: { request: QuoteRequest }) {
                                         {option.carrier} · {copy.shippingDays(option.days)}
                                     </span>
                                 </span>
-                                <span className="font-semibold text-car tabular-nums">{money(option.priceCents)}</span>
+                                <span className="font-semibold text-car tabular-nums">
+                                    {quote.included ? copy.shippingIncludedPrice : money(option.priceCents)}
+                                </span>
                             </li>
                         ))}
                     </ul>
+                    {quote.included && <p className="mt-2 text-sm text-beam-glow">{copy.shippingIncludedNote}</p>}
                     {quote.simulated && <p className="mt-2 text-xs text-moonlight/60">{copy.shippingSimulated}</p>}
                 </div>
             )}

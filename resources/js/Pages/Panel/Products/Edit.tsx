@@ -37,6 +37,7 @@ interface Product {
     label: string | null;
     active: boolean;
     featured: boolean;
+    shippingIncluded: boolean;
     variants: Variant[];
     images: { id: number; url: string; alt: string }[];
     stockHistory: {
@@ -70,6 +71,7 @@ function ProductForm({ product }: { product: Product | null }) {
         label: product?.label ?? '',
         active: product?.active ?? false,
         featured: product?.featured ?? false,
+        shippingIncluded: product?.shippingIncluded ?? false,
     });
     const { data } = form;
     const submit = (event: FormEvent<HTMLFormElement>) => {
@@ -147,6 +149,16 @@ function ProductForm({ product }: { product: Product | null }) {
                         checked={data.featured}
                         onChange={(e) => form.setData('featured', e.target.checked)}
                     />
+                    <CheckboxField
+                        label={
+                            <>
+                                {copy.shippingIncludedLabel}
+                                <span className="block text-night/60">{copy.shippingIncludedHint}</span>
+                            </>
+                        }
+                        checked={data.shippingIncluded}
+                        onChange={(e) => form.setData('shippingIncluded', e.target.checked)}
+                    />
                 </div>
                 <div className="flex flex-wrap gap-3 sm:col-span-2">
                     <Button type="submit" loading={form.processing}>
@@ -169,6 +181,7 @@ function ProductForm({ product }: { product: Product | null }) {
                         price={money(toCents(data.price))}
                         comparePrice={data.comparePrice ? money(toCents(data.comparePrice)) : null}
                         meta={data.madeToOrder ? t.store.madeToOrder(Number(data.productionDays) || 0) : t.store.ready}
+                        badge={data.shippingIncluded ? t.store.shippingIncluded : null}
                         art={
                             <ProductArt
                                 image={product?.images[0]?.url ?? null}

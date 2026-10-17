@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Store;
 
 use App\Application\Orders\UseCases\ManageCart;
 use App\Application\Orders\UseCases\PlaceOrder;
+use App\Domain\Catalog\Money;
 use App\Domain\Members\Contracts\MemberRepository;
 use App\Domain\Members\MemberBlocked;
+use App\Domain\Orders\ChargedShipping;
 use App\Domain\Orders\Contracts\OrderRepository;
 use App\Domain\Orders\Cpf;
 use App\Domain\Orders\Phone;
@@ -58,7 +60,10 @@ class CheckoutController extends Controller
         return back();
     }
 
-    /** Address from the CEP and the freight options, both from the server. */
+    /**
+     * Address from the CEP and the freight options, both from the server. Each option carries the
+     * price the buyer pays: the share of the items without included shipping (ChargedShipping).
+     */
     public function delivery(Request $request, AddressLookup $addresses, ShippingProvider $shipping, ManageCart $cart): JsonResponse
     {
         $data = $request->validate(['cep' => ['required', 'string', 'max:12']]);
@@ -69,14 +74,20 @@ class CheckoutController extends Controller
         }
 
         $owner = CartOwners::forRead($request);
-        $view = $owner === null ? ['weightGrams' => 0, 'subtotalCents' => 0] : $cart->view($owner);
+        $view = $owner === null
+            ? ['weightGrams' => 0, 'subtotalCents' => 0, 'payableWeightGrams' => 0, 'hasPayableItems' => true]
+            : $cart->view($owner);
+        $charged = ChargedShipping::forWeights($view['weightGrams'], $view['payableWeightGrams'], $view['hasPayableItems']);
         $options = [];
         $message = null;
         if ($shipping->isSimulated()) {
             $message = 'O envio pelos Correios ainda não está ligado. Dá para retirar em Lages.';
         } else {
             try {
-                $options = array_map(fn (ShippingOption $o) => $o->toArray(), $shipping->quote($cep, $view['weightGrams'], $view['subtotalCents']));
+                $options = array_map(
+                    fn (ShippingOption $o) => [...$o->toArray(), 'priceCents' => $charged->of(Money::cents($o->priceCents))->cents],
+                    $shipping->quote($cep, $view['weightGrams'], $view['subtotalCents']),
+                );
             } catch (ShippingUnavailable $e) {
                 $message = $e->getMessage();
             }
@@ -86,6 +97,7 @@ class CheckoutController extends Controller
             'cep' => $cep->formatted(),
             'address' => $addresses->find($cep),
             'options' => $options,
+            'shippingIncluded' => $charged->includesAny(),
             'message' => $message,
         ]);
     }

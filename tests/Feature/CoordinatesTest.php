@@ -219,3 +219,16 @@ it('keeps the coordinates out of the config cache', function () {
     expect($fresh['config']->get('mail.mailers.smtp.host'))->not->toBe('smtp.ovniporto.test')
         ->and(json_encode($fresh['config']->all()))->not->toContain(SMTP_SECRET);
 });
+
+it('keeps the returns e-mail in the alerts block, with the environment value as fallback', function () {
+    config(['ovniporto.returns_email' => 'contato@tars.art.br']);
+    app(OperationalSettingsApplier::class)->refresh();
+    expect(config('ovniporto.returns_email'))->toBe('contato@tars.art.br');
+
+    $this->actingAs($this->admin)->put('/painel/coordenadas/alertas', ['returnsEmail' => 'devolucoes@ovniporto.test'])->assertSessionHasNoErrors();
+    $this->put('/painel/coordenadas/alertas', ['returnsEmail' => 'não é e-mail'])->assertSessionHasErrors(['returnsEmail' => 'Confira o e-mail.']);
+
+    app(OperationalSettingsApplier::class)->refresh();
+    expect(config('ovniporto.returns_email'))->toBe('devolucoes@ovniporto.test');
+    $this->get('/painel/coordenadas')->assertInertia(fn (Assert $page) => $page->where('groups.alertas.returnsEmail.value', 'devolucoes@ovniporto.test'));
+});

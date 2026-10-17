@@ -50,6 +50,9 @@ const TONE: Record<string, 'beam' | 'car' | 'horizon' | 'neutral'> = {
     delivered: 'beam',
 };
 
+/** Orders that were paid: the buyer may ask for a return (never-paid ones have nothing to send back). */
+const RETURNABLE = ['paid', 'in_production', 'shipped', 'delivered'];
+
 /** The order's own flight log: status timeline, what was bought and where it goes. */
 export default function Show({ order, payUrl }: { order: Order; payUrl: string | null }) {
     const timeline = order.events.filter((e) => e.from !== e.to);
@@ -126,7 +129,11 @@ export default function Show({ order, payUrl }: { order: Order; payUrl: string |
                                     <div className="flex justify-between text-moonlight/70">
                                         <dt>{copy.shipping}</dt>
                                         <dd className="tabular-nums">
-                                            {order.pickup ? t.checkout.free : money(order.shippingCents)}
+                                            {order.pickup
+                                                ? t.checkout.free
+                                                : order.shippingCents === 0
+                                                  ? t.checkout.shippingIncludedPrice
+                                                  : money(order.shippingCents)}
                                         </dd>
                                     </div>
                                     <div className="flex items-baseline justify-between pt-1">
@@ -182,6 +189,18 @@ export default function Show({ order, payUrl }: { order: Order; payUrl: string |
                                     </p>
                                 )}
                             </section>
+
+                            {RETURNABLE.includes(order.status) && (
+                                <p className="text-sm text-moonlight/70">
+                                    {copy.returnLead}{' '}
+                                    <a
+                                        href={`/devolucao?pedido=${order.number}`}
+                                        className="inline-flex min-h-11 items-center font-semibold text-beam-glow underline underline-offset-4"
+                                    >
+                                        {copy.returnLink}
+                                    </a>
+                                </p>
+                            )}
                         </div>
                     </div>
                 </div>

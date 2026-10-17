@@ -47,6 +47,7 @@ export default function Index({
                                 price={money(product.priceCents)}
                                 comparePrice={product.comparePriceCents ? money(product.comparePriceCents) : null}
                                 meta={product.madeToOrder ? t.store.madeToOrder(product.productionDays) : t.store.ready}
+                                badge={product.shippingIncluded ? t.store.shippingIncluded : null}
                                 art={
                                     <ProductArt
                                         image={product.image}

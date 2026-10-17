@@ -25,6 +25,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $shipping_days
  * @property int $subtotal_cents
  * @property int $shipping_cents
+ * @property int $shipping_cost_cents
  * @property int $total_cents
  * @property string|null $payment_order_id
  * @property string|null $payment_capture_id

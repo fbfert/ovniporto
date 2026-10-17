@@ -5,7 +5,7 @@
     "order": 40,
     "title": "Início do painel",
     "summary": "A primeira tela: contagens, faturado no mês, Avise-me, metas de 6 meses, 12 semanas e \"Precisa de você\".",
-    "reviewedAt": "2026-10-07",
+    "reviewedAt": "2026-10-16",
     "routes": ["panel"],
     "map": {
         "label": "Início",
@@ -30,6 +30,7 @@
                     { "label": "Relato há mais de 48 h", "kind": "state", "section": "precisa" },
                     { "label": "Pago sem produção, 2 dias", "kind": "state", "section": "precisa" },
                     { "label": "Sem rastreio, 7 dias", "kind": "state", "section": "precisa" },
+                    { "label": "Devolução esperando resposta", "kind": "state", "section": "precisa" },
                     { "label": "Céu limpo", "kind": "state", "section": "precisa" }
                 ]
             },
@@ -100,7 +101,7 @@
             "id": "precisa",
             "title": "Precisa de você",
             "screen": "panel",
-            "body": "A lista dos atrasos das suas áreas. Cada linha é um link:\n\n- **\"Relato #N esperando há mais de 48 h\"**: relato em análise enviado há mais de 48 horas. Abre o relato na moderação.\n- **\"OVP-... pago há mais de 2 dias, ainda sem produção\"**: pedido pago há mais de 2 dias que não foi marcado em produção. Abre o pedido.\n- **\"OVP-... sem rastreio há mais de 7 dias\"**: pedido pago ou em produção, para envio (retirada não conta), sem código de rastreio e pago há mais de 7 dias. Abre o pedido.\n\nAparecem até 10 itens de cada tipo, do mais antigo para o mais novo. Sem nada atrasado, aparece **\"Nada esperando. Céu limpo na torre.\"**\n\nUm relato **despublicado** volta para análise com a data do envio original, então costuma entrar nesta lista na mesma hora, já como \"há mais de 48 h\". Isso é esperado: decida-o de novo na fila.\n\nO item some quando a causa é resolvida (relato decidido, pedido em produção, rastreio registrado) e você recarrega a página. Veja também [Rotina da torre](/painel/manual/rotina)."
+            "body": "A lista dos atrasos das suas áreas. Cada linha é um link:\n\n- **\"Relato #N esperando há mais de 48 h\"**: relato em análise enviado há mais de 48 horas. Abre o relato na moderação.\n- **\"OVP-... pago há mais de 2 dias, ainda sem produção\"**: pedido pago há mais de 2 dias que não foi marcado em produção. Abre o pedido.\n- **\"OVP-... sem rastreio há mais de 7 dias\"**: pedido pago ou em produção, para envio (retirada não conta), sem código de rastreio e pago há mais de 7 dias. Abre o pedido.\n- **\"Pedido de devolução DEV-... esperando resposta\"**: pedido de devolução ainda em **Recebido**. Aparece na hora, sem espera. Abre a ficha da devolução.\n\nAparecem até 10 itens de cada tipo, do mais antigo para o mais novo. Sem nada atrasado, aparece **\"Nada esperando. Céu limpo na torre.\"**\n\nUm relato **despublicado** volta para análise com a data do envio original, então costuma entrar nesta lista na mesma hora, já como \"há mais de 48 h\". Isso é esperado: decida-o de novo na fila.\n\nO item some quando a causa é resolvida (relato decidido, pedido em produção, rastreio registrado, devolução com o status mudado) e você recarrega a página. Veja também [Rotina da torre](/painel/manual/rotina)."
         },
         {
             "id": "grafico",
@@ -130,7 +131,7 @@
             "id": "papeis",
             "title": "O que cada papel vê",
             "screen": "panel",
-            "body": "| Parte da tela | Admin | Moderação | Loja |\n|---|---|---|---|\n| membros, no Avise-me | sim | sim | sim |\n| relatos publicados | sim | sim | não |\n| pedidos vendidos, faturado no mês | sim | não | sim |\n| Precisa de você: relatos | sim | sim | não |\n| Precisa de você: pedidos | sim | não | sim |\n| Últimas 12 semanas | sim | sim | sim |\n| Metas | sim | sim | sim |\n| Cartão da fila | sim | sim | não |\n| Cartão Coordenadas | sim | não | não |\n\nUma conta de **membro** comum não abre o Início: recebe \"Área restrita da torre.\""
+            "body": "| Parte da tela | Admin | Moderação | Loja |\n|---|---|---|---|\n| membros, no Avise-me | sim | sim | sim |\n| relatos publicados | sim | sim | não |\n| pedidos vendidos, faturado no mês | sim | não | sim |\n| Precisa de você: relatos | sim | sim | não |\n| Precisa de você: pedidos e devoluções | sim | não | sim |\n| Últimas 12 semanas | sim | sim | sim |\n| Metas | sim | sim | sim |\n| Cartão da fila | sim | sim | não |\n| Cartão Coordenadas | sim | não | não |\n\nUma conta de **membro** comum não abre o Início: recebe \"Área restrita da torre.\""
         },
         {
             "id": "cuidados",

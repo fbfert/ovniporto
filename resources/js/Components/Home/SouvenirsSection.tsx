@@ -55,6 +55,7 @@ export function SouvenirsSection({ lead, products }: { lead: string; products: P
                             price={money(product.priceCents)}
                             comparePrice={product.comparePriceCents ? money(product.comparePriceCents) : null}
                             meta={product.madeToOrder ? t.store.madeToOrder(product.productionDays) : t.store.ready}
+                            badge={product.shippingIncluded ? t.store.shippingIncluded : null}
                             art={
                                 product.image ? (
                                     <ContentImage

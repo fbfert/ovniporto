@@ -5,7 +5,7 @@
     "order": 20,
     "title": "Produtos da loja",
     "summary": "Cadastrar, publicar e manter os produtos: ficha, medidas, variantes, estoque e fotos.",
-    "reviewedAt": "2026-10-07",
+    "reviewedAt": "2026-10-16",
     "routes": [
         "panel.products",
         "panel.products.create",
@@ -42,7 +42,8 @@
                     { "label": "Preço e preço anterior", "kind": "action", "section": "ficha" },
                     { "label": "Pronta entrega ou sob pedido", "kind": "state", "section": "ficha" },
                     { "label": "Peso e medidas", "kind": "action", "section": "medidas" },
-                    { "label": "Ativo e destaque", "kind": "state", "section": "publicar" }
+                    { "label": "Ativo e destaque", "kind": "state", "section": "publicar" },
+                    { "label": "Frete incluso", "kind": "state", "section": "frete-incluso" }
                 ]
             },
             {
@@ -117,6 +118,12 @@
             "body": "- **Ativo (aparece na loja)**: só produtos ativos têm página pública e podem ir ao carrinho. Um produto inativo devolve \"página não encontrada\" na loja.\n- **Destaque na página inicial**: o produto entra na vitrine da home.\n\nAntes de ativar, confira: ao menos uma foto com texto alternativo, preço, peso e, se for de pronta entrega, estoque maior que zero.\n\nPara tirar um produto do ar sem apagar o histórico de pedidos, desmarque **Ativo** e salve. Produtos não são apagados pelo painel."
         },
         {
+            "id": "frete-incluso",
+            "title": "Frete incluso",
+            "screen": "panel.products.edit",
+            "body": "A caixa **Frete incluso** diz que **o OVNIPORTO paga o envio** deste produto. Vem desmarcada.\n\nCom ela marcada:\n\n- o cartão da loja, a página do produto e a vitrine da home mostram o selo **\"Frete incluso\"**;\n- o simulador da página do produto mostra os prazos com o preço **\"Incluso\"**;\n- no checkout, quem compra **só este tipo de produto** não paga frete.\n\n**Carrinho misto** (itens com e sem frete incluso): o site faz **uma única cotação** para o pacote inteiro e o comprador paga só a parte do frete proporcional ao **peso** dos itens sem frete incluso, arredondada para cima. Ex.: pacote de 400 g cotado em R$ 20,00, com 100 g de itens sem frete incluso: o comprador paga R$ 5,00 e o OVNIPORTO paga R$ 15,00. A ficha do pedido mostra as duas partes.\n\nPor isso **o peso para envio precisa estar certo**: um produto de frete incluso com peso errado muda o que os outros itens do pedido pagam. A retirada em Lages continua sem frete.\n\nMarcar ou desmarcar vale **para os pedidos feitos depois**: pedidos já feitos guardam o frete que foi cobrado. A mudança vai para a auditoria com o valor novo."
+        },
+        {
             "id": "variantes",
             "title": "Variantes",
             "screen": "panel.products.edit",
@@ -138,7 +145,7 @@
             "id": "cuidados",
             "title": "Cuidados",
             "screen": null,
-            "body": "- **Tudo vai para a auditoria**: criar, salvar, variantes, estoque e fotos geram um registro com quem fez, o quê e quando. O admin vê em /painel/auditoria. As ações de produto não guardam os valores de antes e depois: para saber o que mudou num preço, compare com o histórico de pedidos ou anote no motivo do estoque.\n- **O preço sempre vem do servidor**: mudar o preço aqui muda o que o próximo cliente paga, mas não altera pedidos já feitos.\n- Fotos de terceiros só com licença aberta e crédito; nunca publique foto de pessoa sem autorização.\n- Na dúvida sobre um produto que já tem pedidos, desative em vez de mudar nome e preço de uma vez."
+            "body": "- **Tudo vai para a auditoria**: criar, salvar, variantes, estoque e fotos geram um registro com quem fez, o quê e quando. O admin vê em /painel/auditoria. As ações de produto não guardam os valores de antes e depois (a exceção é o **Frete incluso**, que fica registrado com o valor novo): para saber o que mudou num preço, compare com o histórico de pedidos ou anote no motivo do estoque.\n- **O preço sempre vem do servidor**: mudar o preço aqui muda o que o próximo cliente paga, mas não altera pedidos já feitos.\n- Fotos de terceiros só com licença aberta e crédito; nunca publique foto de pessoa sem autorização.\n- Na dúvida sobre um produto que já tem pedidos, desative em vez de mudar nome e preço de uma vez."
         }
     ]
 }

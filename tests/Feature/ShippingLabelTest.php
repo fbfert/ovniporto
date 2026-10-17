@@ -70,7 +70,8 @@ it('marks shipped orders delivered when the provider says so, by the system', fu
 
     expect($order->fresh()->status)->toBe(OrderStatus::Delivered)
         ->and($order->events()->sole())->actor->toBe('system');
-    Mail::assertQueued(OrderMail::class, fn ($mail) => str_contains($mail->subjectLine, 'Entregue'));
+    Mail::assertQueued(OrderMail::class, fn ($mail) => str_contains($mail->subjectLine, 'Entregue')
+        && str_contains($mail->lines[1], '/devolucao?pedido='.$order->number));
 });
 
 it('e-mails the buyer when production starts', function () {

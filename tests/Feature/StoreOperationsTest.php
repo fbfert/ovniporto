@@ -243,3 +243,35 @@ it('refuses a duplicated SKU', function () {
 it('keeps products away from moderators', function () {
     $this->actingAs(Member::factory()->role('moderator')->create())->get('/painel/produtos')->assertForbidden();
 });
+
+it('turns included shipping on in the product form, audited, and shows it in the store', function () {
+    $product = Product::query()->where('slug', 'adesivo-ovniporto')->sole();
+
+    $this->actingAs($this->store)->put("/painel/produtos/{$product->id}", [
+        'name' => $product->name, 'price' => '8.00', 'weightGrams' => 20, 'active' => true, 'shippingIncluded' => true,
+    ])->assertSessionHasNoErrors();
+
+    expect($product->fresh()->shipping_included)->toBeTrue()
+        ->and(AuditLog::query()->where('action', 'product.updated')->sole()->context)->toBe(['shippingIncluded' => true]);
+    $this->get("/painel/produtos/{$product->id}")->assertInertia(fn (Assert $page) => $page->where('product.shippingIncluded', true));
+    $this->get('/loja/adesivo-ovniporto')->assertInertia(fn (Assert $page) => $page->where('product.shippingIncluded', true));
+});
+
+it('keeps an existing order as it was when a product gets included shipping', function () {
+    $order = storeOrder(OrderStatus::Paid);
+    Product::query()->where('slug', 'adesivo-ovniporto')->update(['shipping_included' => true]);
+
+    expect($order->fresh())->shipping_cents->toBe(1250)
+        ->and($order->items()->sole()->shipping_included)->toBeFalse();
+});
+
+it('shows the freight charged and the part the OVNIPORTO paid on the sheet', function () {
+    $order = storeOrder(OrderStatus::Paid, ['shipping_cents' => 500, 'shipping_cost_cents' => 2000, 'total_cents' => 2100]);
+    $order->items()->update(['shipping_included' => true]);
+
+    $this->actingAs($this->store)->get("/painel/pedidos/{$order->number}")->assertInertia(fn (Assert $page) => $page
+        ->where('order.shippingCents', 500)
+        ->where('order.shippingCostCents', 2000)
+        ->where('order.items.0.shippingIncluded', true)
+    );
+});

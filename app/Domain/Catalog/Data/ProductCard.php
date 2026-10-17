@@ -13,6 +13,7 @@ final readonly class ProductCard
         public ?string $label,
         public bool $madeToOrder,
         public int $productionDays,
+        public bool $shippingIncluded,
         public ?string $imageUrl,
         public ?string $imageAlt,
     ) {}
@@ -29,6 +30,7 @@ final readonly class ProductCard
             'label' => $this->label,
             'madeToOrder' => $this->madeToOrder,
             'productionDays' => $this->productionDays,
+            'shippingIncluded' => $this->shippingIncluded,
             'image' => $this->imageUrl,
             'imageAlt' => $this->imageAlt,
         ];

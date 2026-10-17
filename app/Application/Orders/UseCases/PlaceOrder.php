@@ -5,6 +5,7 @@ namespace App\Application\Orders\UseCases;
 use App\Domain\Catalog\Money;
 use App\Domain\Members\Contracts\MemberRepository;
 use App\Domain\Members\MemberBlocked;
+use App\Domain\Orders\ChargedShipping;
 use App\Domain\Orders\Contracts\OrderNotifier;
 use App\Domain\Orders\Contracts\OrderRepository;
 use App\Domain\Orders\Cpf;
@@ -23,7 +24,8 @@ use InvalidArgumentException;
 /**
  * "Revisar e pagar": turns the cart into an order. Nothing the browser says
  * about money is used: items are priced from the catalog and the freight is
- * quoted again here. Stock is not touched until the payment is confirmed.
+ * quoted again here; the buyer pays only the freight share of the items without
+ * included shipping (ChargedShipping). Stock is not touched until the payment is confirmed.
  * The buyer declared being 18 or older, or authorized by a legal guardian: that
  * declaration is recorded with the order (the form refuses to go on without it).
  */
@@ -58,7 +60,8 @@ final readonly class PlaceOrder
         $shipping = $address === null ? null : $this->chosenOption($address, $shippingOptionId, $cart['weightGrams'], $cart['subtotalCents']);
 
         $lines = array_map(fn (array $item) => ['unitPrice' => Money::cents($item['unitPriceCents']), 'quantity' => $item['quantity']], $cart['items']);
-        $totals = OrderTotals::of($lines, Money::cents($shipping === null ? 0 : $shipping->priceCents));
+        $charged = ChargedShipping::forWeights($cart['weightGrams'], $cart['payableWeightGrams'], $cart['hasPayableItems']);
+        $totals = OrderTotals::of($lines, $shipping === null ? Money::zero() : $charged->of(Money::cents($shipping->priceCents)));
 
         $order = $this->orders->create(new NewOrder(
             memberId: $owner->memberId,
@@ -78,6 +81,7 @@ final readonly class PlaceOrder
                 'madeToOrder' => (bool) $item['madeToOrder'],
                 'productionDays' => (int) $item['productionDays'],
                 'weightGrams' => (int) $item['weightGrams'],
+                'shippingIncluded' => (bool) $item['shippingIncluded'],
             ], $cart['items']),
             totals: $totals,
         ));

@@ -24,7 +24,9 @@ final readonly class ManageCart
     /**
      * Lines whose product went inactive are left out (and dropped from the cart).
      *
-     * @return array{items: list<array<string, mixed>>, count: int, subtotalCents: int, weightGrams: int}
+     * The weight that pays freight leaves out the items whose shipping the OVNIPORTO pays.
+     *
+     * @return array{items: list<array<string, mixed>>, count: int, subtotalCents: int, weightGrams: int, payableWeightGrams: int, hasPayableItems: bool}
      */
     public function view(CartOwner $owner): array
     {
@@ -34,6 +36,8 @@ final readonly class ManageCart
         $subtotal = Money::zero();
         $count = 0;
         $weight = 0;
+        $payableWeight = 0;
+        $hasPayableItems = false;
 
         foreach ($quantities as $variantId => $quantity) {
             $variant = $variants[$variantId] ?? null;
@@ -48,6 +52,10 @@ final readonly class ManageCart
             $subtotal = $subtotal->plus($line);
             $count += $quantity;
             $weight += $variant->weightGrams * $quantity;
+            if (! $variant->shippingIncluded) {
+                $payableWeight += $variant->weightGrams * $quantity;
+                $hasPayableItems = true;
+            }
             $items[] = [
                 'variantId' => $variantId,
                 'productName' => $variant->productName,
@@ -60,12 +68,20 @@ final readonly class ManageCart
                 'madeToOrder' => $variant->madeToOrder,
                 'productionDays' => $variant->productionDays,
                 'weightGrams' => $variant->weightGrams,
+                'shippingIncluded' => $variant->shippingIncluded,
                 'image' => $variant->imageUrl,
                 'imageAlt' => $variant->imageAlt,
             ];
         }
 
-        return ['items' => $items, 'count' => $count, 'subtotalCents' => $subtotal->cents, 'weightGrams' => $weight];
+        return [
+            'items' => $items,
+            'count' => $count,
+            'subtotalCents' => $subtotal->cents,
+            'weightGrams' => $weight,
+            'payableWeightGrams' => $payableWeight,
+            'hasPayableItems' => $hasPayableItems,
+        ];
     }
 
     /** Adds to what is already there; CartRefused carries the most that fits. */

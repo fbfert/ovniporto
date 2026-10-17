@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $made_to_order
  * @property int $production_days
  * @property int $weight_grams
+ * @property bool $shipping_included
  */
 class OrderItem extends Model
 {
@@ -26,6 +27,6 @@ class OrderItem extends Model
 
     protected function casts(): array
     {
-        return ['made_to_order' => 'boolean'];
+        return ['made_to_order' => 'boolean', 'shipping_included' => 'boolean'];
     }
 }

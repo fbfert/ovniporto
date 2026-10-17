@@ -238,6 +238,14 @@ function AlertsForm({ group, missing, test }: { group: Group; missing: boolean; 
                     type="email"
                     className="min-w-0 flex-1 basis-72"
                 />
+                <SettingField
+                    name="returnsEmail"
+                    label={copy.alerts.returnsEmail}
+                    field={pick(group, 'returnsEmail')}
+                    form={form}
+                    type="email"
+                    className="min-w-0 flex-1 basis-72"
+                />
                 <Button type="submit" loading={form.processing} className="sm:mt-7">
                     {copy.save}
                 </Button>

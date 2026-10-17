@@ -172,3 +172,23 @@ it('keeps the visitor cart when they sign in with Google', function () {
     $this->assertDatabaseHas('carts', ['member_id' => $member->id]);
     $this->assertDatabaseCount('carts', 1);
 });
+
+it('shows the included shipping badge and the deadlines without a price', function () {
+    $spy = spyShipping();
+    Product::query()->where('slug', 'adesivo-ovniporto')->update(['shipping_included' => true]);
+
+    $this->get('/loja')->assertInertia(fn (Assert $page) => $page->where('products.0.shippingIncluded', true));
+    $this->get('/loja/adesivo-ovniporto')->assertInertia(fn (Assert $page) => $page->where('product.shippingIncluded', true));
+    $this->postJson('/loja/frete', ['cep' => '88501-000', 'variantId' => $this->sticker->id])
+        ->assertOk()
+        ->assertJsonPath('included', true)
+        ->assertJsonPath('options.0.days', 8);
+    expect($spy->calls)->toBe(1);
+});
+
+it('has no badge on a product without included shipping', function () {
+    spyShipping();
+
+    $this->get('/loja/adesivo-ovniporto')->assertInertia(fn (Assert $page) => $page->where('product.shippingIncluded', false));
+    $this->postJson('/loja/frete', ['cep' => '88501-000', 'variantId' => $this->sticker->id])->assertJsonPath('included', false);
+});

@@ -13,6 +13,7 @@ export function TicketCard({
     meta,
     price,
     comparePrice,
+    badge,
     className = '',
 }: {
     href?: string;
@@ -22,6 +23,8 @@ export function TicketCard({
     meta?: ReactNode;
     price: string;
     comparePrice?: string | null;
+    /** A short promise stamped next to the price, such as "Frete incluso". */
+    badge?: string | null;
     className?: string;
 }) {
     const card = (
@@ -44,6 +47,11 @@ export function TicketCard({
                 <p className="mt-auto flex items-baseline gap-2 pt-2">
                     <span className="font-display text-2xl font-extrabold text-car">{price}</span>
                     {comparePrice && <s className="text-sm text-moonlight/50">{comparePrice}</s>}
+                    {badge && (
+                        <span className="ml-auto self-center rounded-full border border-beam-glow/50 px-2.5 py-1 font-display text-[0.6rem] font-bold tracking-[0.12em] text-beam-glow uppercase">
+                            {badge}
+                        </span>
+                    )}
                 </p>
             </div>
         </article>

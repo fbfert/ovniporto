@@ -88,9 +88,12 @@ export default function ProductPage({ product, related }: Props) {
                     </figure>
 
                     <div>
-                        <Badge tone={product.madeToOrder ? 'horizon' : 'beam'}>
-                            {product.madeToOrder ? copy.production(product.productionDays) : copy.readyBadge}
-                        </Badge>
+                        <div className="flex flex-wrap gap-2">
+                            <Badge tone={product.madeToOrder ? 'horizon' : 'beam'}>
+                                {product.madeToOrder ? copy.production(product.productionDays) : copy.readyBadge}
+                            </Badge>
+                            {product.shippingIncluded && <Badge tone="beam">{copy.shippingIncludedBadge}</Badge>}
+                        </div>
                         <Display as="h1" className="mt-4 text-[clamp(2rem,1.2rem+3vw,3.4rem)]!">
                             {product.name}
                         </Display>
@@ -185,6 +188,7 @@ export default function ProductPage({ product, related }: Props) {
                                     title={item.name}
                                     price={money(item.priceCents)}
                                     meta={item.madeToOrder ? t.store.madeToOrder(item.productionDays) : t.store.ready}
+                                    badge={item.shippingIncluded ? t.store.shippingIncluded : null}
                                     art={
                                         <ProductArt image={item.image} alt={item.imageAlt ?? item.name} sizes="14rem" />
                                     }

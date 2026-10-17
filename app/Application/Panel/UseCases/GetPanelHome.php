@@ -4,6 +4,7 @@ namespace App\Application\Panel\UseCases;
 
 use App\Application\Settings\UseCases\ShowCoordinates;
 use App\Domain\Content\Contracts\ContentBlockRepository;
+use App\Domain\Orders\Contracts\ReturnRequestRepository;
 use App\Domain\Panel\Contracts\DashboardRepository;
 use App\Domain\Panel\PanelArea;
 use App\Domain\Sightings\Contracts\ModerationRepository;
@@ -28,11 +29,15 @@ final readonly class GetPanelHome
 
     public const WEEKS = 12;
 
+    /** Return requests not answered yet show up at once, oldest first, up to this many. */
+    public const RETURNS_SHOWN = 10;
+
     public function __construct(
         private ModerationRepository $sightings,
         private DashboardRepository $dashboard,
         private ContentBlockRepository $blocks,
         private ShowCoordinates $coordinates,
+        private ReturnRequestRepository $returns,
     ) {}
 
     /**
@@ -102,6 +107,9 @@ final readonly class GetPanelHome
             }
             foreach ($this->dashboard->ordersWithoutTracking($now->modify('-'.self::TRACKING_ALERT_DAYS.' days')) as $o) {
                 $items[] = ['kind' => 'tracking', 'ref' => $o['number'], 'since' => $o['since']];
+            }
+            foreach ($this->returns->waiting(self::RETURNS_SHOWN) as $r) {
+                $items[] = ['kind' => 'return', 'ref' => $r['protocol'], 'since' => $r['createdAt']];
             }
         }
 

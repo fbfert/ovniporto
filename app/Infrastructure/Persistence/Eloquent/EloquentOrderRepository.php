@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\OrderEvent;
 use App\Models\OrderItem;
 use App\Models\ProductVariant;
+use App\Models\ReturnRequest;
 use DateTimeInterface;
 use Illuminate\Support\Facades\DB;
 
@@ -43,6 +44,7 @@ final class EloquentOrderRepository implements OrderRepository
                 'shipping_days' => $order->shipping?->days,
                 'subtotal_cents' => $order->totals->subtotal->cents,
                 'shipping_cents' => $order->totals->shipping->cents,
+                'shipping_cost_cents' => $order->shipping->priceCents ?? 0,
                 'total_cents' => $order->totals->total->cents,
             ]);
 
@@ -58,6 +60,7 @@ final class EloquentOrderRepository implements OrderRepository
                     'made_to_order' => $item['madeToOrder'],
                     'production_days' => $item['productionDays'],
                     'weight_grams' => $item['weightGrams'],
+                    'shipping_included' => $item['shippingIncluded'],
                 ]);
             }
             $this->event($model->id, null, OrderStatus::PendingPayment, 'customer', $order->memberId, null);
@@ -265,10 +268,13 @@ final class EloquentOrderRepository implements OrderRepository
         Order::query()
             ->where(fn ($q) => $q->where('member_id', $memberId)->orWhere('customer_email', mb_strtolower($email)))
             ->get()
-            ->each(fn (Order $order) => $order->update([
-                ...self::withoutHolder($order, self::DELETED_HOLDER),
-                'retention_until' => $order->paid_at?->copy()->addYears($retentionYears) ?? now(),
-            ]));
+            ->each(function (Order $order) use ($retentionYears) {
+                $order->update([
+                    ...self::withoutHolder($order, self::DELETED_HOLDER),
+                    'retention_until' => $order->paid_at?->copy()->addYears($retentionYears) ?? now(),
+                ]);
+                self::forgetReturnRequesters($order);
+            });
     }
 
     public function anonymizePaidBefore(DateTimeInterface $cutoff): int
@@ -287,11 +293,21 @@ final class EloquentOrderRepository implements OrderRepository
                         'customer_cpf' => null,
                         'anonymized_at' => now(),
                     ]);
+                    self::forgetReturnRequesters($order);
                     $count++;
                 }
             });
 
         return $count;
+    }
+
+    /**
+     * Return requests follow their order: who asked and what they wrote go with the buyer's data;
+     * protocol, reason, status and dates stay. The purge deletes them with the order (cascade).
+     */
+    private static function forgetReturnRequesters(Order $order): void
+    {
+        ReturnRequest::query()->where('order_id', $order->id)->update(['name' => null, 'email' => null, 'message' => null]);
     }
 
     /**

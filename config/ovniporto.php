@@ -14,6 +14,9 @@ return [
     // Operations alerts (queue waiting too long, job failing for good). Empty: alerts go to every admin.
     'alerts_email' => env('ALERTS_EMAIL'),
 
+    // Who gets the "new return request" notice (only the protocol and the panel link). Overridden in /painel/coordenadas.
+    'returns_email' => env('RETURNS_EMAIL', 'contato@tars.art.br'),
+
     // Where Laravel looks for Vite's dev-server "hot" file. The e2e suite points it at a file that never
     // exists, so it always tests the built assets even while `npm run dev` runs on the same machine.
     'vite_hot_file' => env('VITE_HOT_FILE'),

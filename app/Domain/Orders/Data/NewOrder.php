@@ -9,8 +9,10 @@ use App\Domain\Shipping\Data\ShippingOption;
 final readonly class NewOrder
 {
     /**
+     * The shipping option keeps the price quoted for the whole cart; totals->shipping is what the buyer pays.
+     *
      * @param  array{cep: string, street: string, number: string, complement: ?string, district: string, city: string, state: string}|null  $address  null for pickup
-     * @param  list<array{variantId: int, productName: string, variantName: string, unitPriceCents: int, quantity: int, madeToOrder: bool, productionDays: int, weightGrams: int}>  $items
+     * @param  list<array{variantId: int, productName: string, variantName: string, unitPriceCents: int, quantity: int, madeToOrder: bool, productionDays: int, weightGrams: int, shippingIncluded: bool}>  $items
      */
     public function __construct(
         public ?int $memberId,

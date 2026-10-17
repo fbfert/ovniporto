@@ -103,6 +103,7 @@ return [
         'order.pay' => ['title' => 'Pagamento', 'index' => false],
         'waitlist.confirm' => ['title' => 'Inscrição confirmada', 'index' => false],
         'unsubscribe.show' => ['title' => 'Sair da lista', 'index' => false],
+        'returns.create' => ['title' => 'Pedir devolução', 'index' => false],
     ],
 
     'order_title' => 'Pedido :number',

@@ -99,6 +99,9 @@ export function Footer() {
                         <Link href="/termos" className="hover:text-beam-glow">
                             {t.footer.terms}
                         </Link>
+                        <Link href="/devolucao" className="hover:text-beam-glow">
+                            {t.footer.returns}
+                        </Link>
                         <span>
                             {t.footer.madeBy}{' '}
                             <a

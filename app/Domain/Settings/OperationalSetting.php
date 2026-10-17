@@ -19,6 +19,7 @@ enum OperationalSetting: string
     case MailFromName = 'mail.from_name';
 
     case AlertsEmail = 'alerts.email';
+    case ReturnsEmail = 'alerts.returns_email';
 
     case SenderName = 'shipping.sender.name';
     case SenderPhone = 'shipping.sender.phone';
@@ -51,6 +52,7 @@ enum OperationalSetting: string
             self::MailFromAddress => 'mail.from.address',
             self::MailFromName => 'mail.from.name',
             self::AlertsEmail => 'ovniporto.alerts_email',
+            self::ReturnsEmail => 'ovniporto.returns_email',
             self::SenderPostalCode => 'services.melhor_envio.from_postal_code',
             default => 'ovniporto.'.$this->value,
         };

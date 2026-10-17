@@ -23,7 +23,11 @@ final readonly class QuoteShipping
         private Cache $cache,
     ) {}
 
-    /** @return array{cep: string, simulated: bool, options: list<array{id: string, carrier: string, service: string, priceCents: int, days: int}>} */
+    /**
+     * "included" says the OVNIPORTO pays this product's freight: the page shows the deadlines, not the price.
+     *
+     * @return array{cep: string, simulated: bool, included: bool, options: list<array{id: string, carrier: string, service: string, priceCents: int, days: int}>}
+     */
     public function forVariant(string $cep, int $variantId, int $quantity): array
     {
         $to = Cep::from($cep);
@@ -41,6 +45,11 @@ final readonly class QuoteShipping
             fn () => array_map(fn ($o) => $o->toArray(), $this->provider->quote($to, $weight, $value)),
         );
 
-        return ['cep' => $to->formatted(), 'simulated' => $this->provider->isSimulated(), 'options' => $options];
+        return [
+            'cep' => $to->formatted(),
+            'simulated' => $this->provider->isSimulated(),
+            'included' => $variant->shippingIncluded,
+            'options' => $options,
+        ];
     }
 }
