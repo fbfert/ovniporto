@@ -1,6 +1,6 @@
 # Prompt para o Claude da VPS: deploy de privacidade, devoluções e frete incluso (17/10/2026)
 
-Cole o bloco abaixo no Claude Code rodando na VPS. O deploy publica o topo de `main` (`0cedd8c`):
+Cole o bloco abaixo no Claude Code rodando na VPS. O deploy publica o topo de `main`:
 
 - textos-modelo de **/privacidade** e **/termos** preenchidos com os dados do encarregado (continuam marcados como rascunho até a aprovação);
 - declaração de **idade mínima (16+)** no cadastro e no reaceite, e caixa **18+ ou autorização do responsável** no checkout;
@@ -26,8 +26,8 @@ espere meu "ok" antes da próxima.
   Ele busca origin/main, constrói as imagens, sobe, roda as migrações (sempre aditivas),
   aquece os caches, gera o sitemap, reinicia SSR e workers e confere /up. Se /up falhar,
   ele volta sozinho para a versão anterior.
-- O topo de origin/main deve ser 0cedd8c ("Merge the app sign-in into main and end
-  remembered sessions on anonymization"). Confira com git log.
+- No topo de origin/main ficam os commits deste prompt (docs/prompt-deploy-2026-10-17.md),
+  só documentação; logo abaixo deles, 0cedd8c (o merge do login do app). Confira com git log.
 - O que muda nesta versão:
   1. Privacidade e termos: duas migrations de dados preenchem os blocos privacy_body e
      terms_body com os textos-modelo SÓ quando o bloco está vazio ou ainda tem o esqueleto
@@ -80,7 +80,7 @@ espere meu "ok" antes da próxima.
 ## Fase 1: Conferência antes (somente leitura)
 
 - `cd /srv/ovniporto && git fetch origin && git log --oneline -5 origin/main`:
-  confirme 0cedd8c no topo.
+  confirme os commits do prompt de deploy no topo e 0cedd8c logo abaixo.
 - Versão em produção agora: `cat .deploy/current`. Diga qual é.
 - Estado dos containers, incluindo o scheduler:
   `docker compose -f docker-compose.prod.yml ps`.
@@ -101,7 +101,7 @@ espere meu "ok" antes da próxima.
 
 Rode e mostre o resultado de cada item:
 
-1. Versão: `cat .deploy/current` deve ser 0cedd8c.
+1. Versão: `cat .deploy/current` deve ser o commit do topo de origin/main.
 2. Saúde: `curl -fsS https://ovniporto.tars.art.br/up`.
 3. Migrations aplicadas: `docker compose -f docker-compose.prod.yml exec -T app php artisan migrate:status | grep -E "2026_10_1[56]"`
    deve mostrar as 7 como Ran.
