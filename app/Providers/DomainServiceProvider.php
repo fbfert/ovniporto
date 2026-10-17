@@ -24,6 +24,7 @@ use App\Domain\Content\Contracts\PublishedContentIndex;
 use App\Domain\Manual\Contracts\ManualLibrary;
 use App\Domain\Map\Contracts\Geocoder;
 use App\Domain\Members\Contracts\IdentityProvider;
+use App\Domain\Members\Contracts\IdTokenVerifier;
 use App\Domain\Members\Contracts\InactivityNotifier;
 use App\Domain\Members\Contracts\MemberAdminRepository;
 use App\Domain\Members\Contracts\MemberRepository;
@@ -72,6 +73,7 @@ use App\Infrastructure\Geo\CachedGeocoder;
 use App\Infrastructure\Geo\NominatimGeocoder;
 use App\Infrastructure\Geo\OfflineGeocoder;
 use App\Infrastructure\Identity\GoogleIdentityProvider;
+use App\Infrastructure\Identity\GoogleIdTokenVerifier;
 use App\Infrastructure\Images\GdImageProcessor;
 use App\Infrastructure\Images\PrivatePhotoStorage;
 use App\Infrastructure\Images\PublicImageLibrary;
@@ -177,6 +179,7 @@ class DomainServiceProvider extends ServiceProvider
         MemberRepository::class => EloquentMemberRepository::class,
         MemberAdminRepository::class => EloquentMemberAdminRepository::class,
         IdentityProvider::class => GoogleIdentityProvider::class,
+        IdTokenVerifier::class => GoogleIdTokenVerifier::class,
         SightingReadRepository::class => EloquentSightingReadRepository::class,
         MemberSightingRepository::class => EloquentMemberSightingRepository::class,
         SightingWriteRepository::class => EloquentSightingWriteRepository::class,

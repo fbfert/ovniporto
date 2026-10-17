@@ -125,7 +125,7 @@ it('deletes the unpublished reports with their files and keeps the published one
 
 it('finds members by inactivity and anonymizes one without touching the nickname', function () {
     $repository = app(MemberRepository::class);
-    $old = Member::factory()->lastSeen(Carbon::parse('2026-01-01'))->create(['nickname' => 'coruja', 'avatar_url' => 'https://lh3.test/a.jpg']);
+    $old = Member::factory()->lastSeen(Carbon::parse('2026-01-01'))->create(['nickname' => 'coruja', 'avatar_url' => 'https://lh3.test/a.jpg', 'remember_token' => 'lembrar-sessao']);
     $recent = Member::factory()->lastSeen(Carbon::parse('2030-01-01'))->create();
     $staff = Member::factory()->role('moderator')->lastSeen(Carbon::parse('2026-01-01'))->create();
     $cutoff = Carbon::parse('2027-01-01');
@@ -140,8 +140,8 @@ it('finds members by inactivity and anonymizes one without touching the nickname
     $repository->anonymize($old->id, Carbon::parse('2027-01-01'));
     $old->refresh();
 
-    expect($old->only(['google_id', 'name', 'email', 'avatar_url', 'city', 'nickname']))->toBe([
-        'google_id' => null, 'name' => null, 'email' => null, 'avatar_url' => null, 'city' => null, 'nickname' => 'coruja',
+    expect($old->only(['google_id', 'name', 'email', 'avatar_url', 'city', 'remember_token', 'nickname']))->toBe([
+        'google_id' => null, 'name' => null, 'email' => null, 'avatar_url' => null, 'city' => null, 'remember_token' => null, 'nickname' => 'coruja',
     ])->and($old->anonymized_at->toDateString())->toBe('2027-01-01')
         ->and(collect($repository->dueForInactivityNotice($cutoff, 10))->pluck('id')->all())->toBe([$staff->id])
         ->and($recent->fresh()->anonymized_at)->toBeNull();

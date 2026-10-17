@@ -37,7 +37,7 @@ class Member extends Authenticatable
 
     protected $fillable = ['google_id', 'name', 'email', 'avatar_url', 'nickname', 'city', 'role', 'terms_accepted_at'];
 
-    protected $hidden = ['google_id'];
+    protected $hidden = ['google_id', 'remember_token'];
 
     protected function casts(): array
     {

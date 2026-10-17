@@ -2,6 +2,7 @@
 
 use App\Application\Members\UseCases\BuildMemberExport;
 use App\Domain\Members\Contracts\IdentityProvider;
+use App\Domain\Members\Contracts\IdTokenVerifier;
 use App\Domain\Members\Data\Identity;
 use App\Infrastructure\Identity\GoogleIdentityProvider;
 use App\Jobs\ExportMemberData;
@@ -30,6 +31,20 @@ function fakeGoogle(Identity $identity): void
         public function identity(): Identity
         {
             return $this->identity;
+        }
+    });
+}
+
+/** Pretends Google validated the app's ID token as this identity (or rejected it, when null). */
+function fakeGoogleToken(?Identity $identity): void
+{
+    app()->instance(IdTokenVerifier::class, new class($identity) implements IdTokenVerifier
+    {
+        public function __construct(private ?Identity $identity) {}
+
+        public function verify(string $idToken): Identity
+        {
+            return $this->identity ?? throw new RuntimeException('Invalid ID token.');
         }
     });
 }
@@ -64,6 +79,25 @@ it('signs an existing member in without creating a duplicate', function () {
     $this->get('/auth/google/callback')->assertRedirect('/conta');
 
     expect(Member::query()->count())->toBe(1);
+});
+
+it('signs the app in with a Google ID token and keeps the member remembered', function () {
+    fakeGoogleToken(new Identity('g-3', 'Beto Lima', 'beto@example.test', null));
+
+    $this->post('/auth/google/token', ['id_token' => 'valid-token'])->assertRedirect('/boas-vindas');
+
+    $member = Member::query()->sole();
+    expect($member->google_id)->toBe('g-3')->and($member->remember_token)->not->toBeNull();
+    $this->assertAuthenticatedAs($member);
+});
+
+it('refuses an invalid Google ID token from the app', function () {
+    fakeGoogleToken(null);
+
+    $this->post('/auth/google/token', ['id_token' => 'forged-token'])->assertRedirect('/');
+
+    $this->assertGuest();
+    expect(Member::query()->count())->toBe(0);
 });
 
 it('sends members without a complete profile to the welcome screen', function () {

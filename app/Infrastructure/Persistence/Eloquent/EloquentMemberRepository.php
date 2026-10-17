@@ -165,6 +165,8 @@ final class EloquentMemberRepository implements MemberRepository
             'email' => null,
             'avatar_url' => null,
             'city' => null,
+            // Ends any remembered session left on the site or the app.
+            'remember_token' => null,
             'anonymized_at' => $at,
         ]);
     }
